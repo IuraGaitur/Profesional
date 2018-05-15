@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "sdkVersion": "22.0.0",
+    "name": "System Pro",
+    "icon": "./img/ic_launcher.png",
+    "version": "1.0.0",
+    "slug": "system_pro_app",
+    "ios": {
+      "bundleIdentifier": "com.assist.pro"
+    },
+    "android": {
+      "package": "com.assist.pro"
+    }
+  },
+  "ios": {
+    "bundleIdentifier": "com.assist.pro"
+  },
+  "android": {
+    "package": "com.assist.pro"
+  }
+}

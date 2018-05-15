@@ -1,0 +1,14 @@
+export const States = {
+    LOADING: 'LOADING',
+    ERROR: 'ERROR',
+    REQUEST: 'REQUEST',
+    SUCCESS: 'SUCCESS'
+};
+export const Errors = {
+    EMAIL_ERROR: 'EMAIL_ERROR',
+    PASS_ERROR: 'PASS_ERROR',
+    NETWORK_ERROR: 'NETWORK ERROR',
+    SUCCESS: 'SUCCESS',
+    UNAUTHORIZED: 'UNAUTHORIZED',
+    SERVER_ERROR: 'SERVER ERROR'
+};
