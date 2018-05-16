@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { init, registerRequest } from './registerAction';
 import RegisterView  from './registerView';
+import {INFO} from "../../../App";
 
 class RegisterScreen extends Component {
 
@@ -26,17 +27,11 @@ class RegisterScreen extends Component {
         this.setState({...this.state, ...nextProps});
     }
 
-    registerUser = (user) => {
+    registerUser = (user) => { this.props.register(user);};
 
-    };
+    goBack = () => { this.props.navigation.goBack(null); };
 
-    goBack = () => {
-      this.props.navigation.goBack(null);
-    };
-
-    showInfo = () => {
-
-    };
+    showInfo = () => { this.props.navigation.navigate(INFO); };
 
     render() {
         const {countries} = this.state;

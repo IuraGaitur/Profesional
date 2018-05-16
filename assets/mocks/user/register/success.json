@@ -1,7 +1,16 @@
 {
   "status": 200,
+  "error": "",
   "user": {
     "email": "iura.gaitur@gmail.com",
-    "username": "iura.gaitur"
+    "firstName": "Iura",
+    "lastName": "Gaitur",
+    "birthday": "1993-05-18",
+    "salonName": "Beauty",
+    "city": "Ungheni",
+    "phone": "+37378047860",
+    "country": "Moldova",
+    "acceptTerms": true,
+    "newsLetter": true
   }
 }

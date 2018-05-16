@@ -1,5 +1,6 @@
 import UserService from '../../data/api/UserApi';
 import CountryApi from "../../data/api/CountryApi";
+import UserDao from "../../data/database/UserDao";
 export const INIT = 'INIT';
 export const ERROR = 'ERROR';
 export const REQUEST_REGISTER = 'REQUEST_LOGIN';
@@ -51,6 +52,7 @@ export function registerRequest(user) {
 
         let response = await new UserService().instance().register(user);
         if (response && response.status == StatusCode.OK) {
+            await new UserDao().savePrimaryUser(response.user);
             return dispatch(successRegister(response.user));
         } else {
             return dispatch(errorRegister(response.error))

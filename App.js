@@ -35,6 +35,7 @@ export const LOGIN = 'Login';
 export const REGISTER = 'Register';
 export const PROFILE = 'Profile';
 export const MAIN = 'Main';
+export const INFO = 'Info';
 
 const RootStack = createStackNavigator({
     Splash: { path: '/splash', screen: SplashScreen},
