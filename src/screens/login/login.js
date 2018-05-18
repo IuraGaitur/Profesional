@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { loginRequest, showSecure, emailChange, passChange } from './loginAction';
 import LoginView from "./loginView";
 import { MAIN } from './../../../App';
-import {REGISTER} from "../../../App";
+import {FORGOT_PASS, INFO, REGISTER} from "../../../App";
 
 class LoginScreen extends Component {
 
@@ -61,8 +61,12 @@ class LoginScreen extends Component {
         this.props.navigation.navigate(MAIN);
     }
 
-    forgotPass() {
-        this.props.navigation.navigate('ForgotPass');
+    forgotPassScreen() {
+        this.props.navigation.navigate(FORGOT_PASS);
+    }
+
+    showInfoScreen() {
+        this.props.navigation.navigate(INFO);
     }
 
     showPass(showPass) {
@@ -91,7 +95,8 @@ class LoginScreen extends Component {
                           isSecure={secure}
                           registerCallback={this.register.bind(this)}
                           loginCallback={this.login.bind(this)}
-                          forgotPassCallback={this.forgotPass.bind(this)}
+                          forgotPassCallback={this.forgotPassScreen.bind(this)}
+                          showInfoCallback={this.showInfoScreen.bind(this)}
                           showPassCallback={this.showPass.bind(this)}
                           emailChangeCallback={this.emailChangeCallback.bind(this)}
                           passChangeCallback={this.passChangeCallback.bind(this)}

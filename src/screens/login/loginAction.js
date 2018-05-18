@@ -1,5 +1,7 @@
 import UserService from '../../data/api/UserApi';
 import UserDao from "../../data/database/UserDao";
+import Strings from "./../../utils/Strings";
+import StatusCode from "./../../utils/StatusCode";
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const EMAIL_FAIL = 'EMAIL_FAIL';

@@ -1,11 +1,13 @@
 import UserService from '../../data/api/UserApi';
 import CountryApi from "../../data/api/CountryApi";
 import UserDao from "../../data/database/UserDao";
+import StatusCode from "./../../utils/StatusCode";
 export const INIT = 'INIT';
 export const ERROR = 'ERROR';
-export const REQUEST_REGISTER = 'REQUEST_LOGIN';
+export const REQUEST_REGISTER = 'REQUEST_REGISTER';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const NETWORK_ERROR = 'NETWORK_ERROR';
 
 export function init() {
     return async(dispatch) => {
@@ -41,10 +43,11 @@ function errorRegister(errorMessage) {
     }
 }
 
-function error(errorMessage, type) {
-    return { error: errorMessage, errorType: type, type: ERROR}
+function errorNetwork() {
+    return {
+        type: NETWORK_ERROR
+    }
 }
-
 
 export function registerRequest(user) {
     return async (dispatch) => {
@@ -54,8 +57,10 @@ export function registerRequest(user) {
         if (response && response.status == StatusCode.OK) {
             await new UserDao().savePrimaryUser(response.user);
             return dispatch(successRegister(response.user));
+        } else if (response && response.status == StatusCode.INVALID_USER) {
+            return dispatch(errorRegister(response.errorMsg))
         } else {
-            return dispatch(errorRegister(response.error))
+            return dispatch(errorNetwork())
         }
     }
 }

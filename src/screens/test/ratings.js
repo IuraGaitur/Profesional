@@ -7,7 +7,7 @@ const WATER_IMAGE = require('../../../assets/images/wallpaper_1.jpg');
 
 class Ratings extends React.Component {
   ratingCompleted(rating) {
-    console.log('Rating is: ' + rating);
+
   }
 
   render() {

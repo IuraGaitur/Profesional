@@ -1,3 +1,3 @@
-import MainScreen from './recovery';
+import RecoveryScreen from './recovery';
 
-export {MainScreen};
+export {RecoveryScreen};

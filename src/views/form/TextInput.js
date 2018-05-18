@@ -5,6 +5,7 @@ import ValidationUtil from "../../utils/ValidationUtil";
 export const REQUIRED = 'required';
 export const EMAIL = 'email';
 export const CONFIRMATION = 'confirmation';
+export const STRONG_PASS = 'strong_pass';
 
 export default class TextInput extends Component{
 
@@ -23,26 +24,26 @@ export default class TextInput extends Component{
 
     validateRequired(value, errorMessage) {
         let isValid =  value != "" && value != null;
-        if (!isValid) {
-            this.setState({...this.state, errorMessage: errorMessage});
-        } else {
-            this.setState({...this.state, errorMessage: null});
-        }
-        return isValid;
+        return this.setValidState(isValid, errorMessage);
     }
 
     validateEmail(value, errorMessage) {
         let isValid = ValidationUtil.validateEmail(value);
-        if (!isValid) {
-            this.setState({...this.state, errorMessage: errorMessage});
-        } else {
-            this.setState({...this.state, errorMessage: null});
-        }
-        return isValid;
+        return this.setValidState(isValid, errorMessage);
     }
 
     validateConfirmation(value1, value2, errorMessage) {
         let isValid = value1 == value2;
+        return this.setValidState(isValid, errorMessage);
+    }
+
+    validateStrongPass(value, errorMessage) {
+        let isValid = ValidationUtil.validateStrongPassword(value);
+        console.log("is valid"+ isValid + errorMessage);
+        return this.setValidState(isValid, errorMessage);
+    }
+
+    setValidState(isValid, errorMessage) {
         if (!isValid) {
             this.setState({...this.state, errorMessage: errorMessage});
         } else {
@@ -70,17 +71,22 @@ export default class TextInput extends Component{
                 case CONFIRMATION:
                     isValid = this.validateConfirmation(value, confirmationValue, error);
                     break;
+                case STRONG_PASS:
+                    isValid = this.validateStrongPass(value, error);
+                    break;
             }
             passValidations.push(isValid);
+            if(!isValid) break;
         }
-        return !passValidations.includes(false);
+        let isValid = !passValidations.includes(false);
+        return isValid;
     }
 
 
     render() {
         const {onChangeText, value, inputStyle, keyboardAppearance, placeholder, autoFocus,
             autoCapitalize, autoCorrect, keyboardType, returnKeyType, blurOnSubmit,
-                placeholderTextColor, containerStyle, editable, rightIcon} = this.props;
+                placeholderTextColor, containerStyle, editable, rightIcon, secureTextEntry} = this.props;
         const { errorMessage } = this.state;
             return <Input onChangeText={onChangeText}
                           value={value}
@@ -96,8 +102,9 @@ export default class TextInput extends Component{
                           placeholderTextColor={placeholderTextColor}
                           containerStyle={containerStyle}
                           editable={editable}
+                          errorMessage={errorMessage}
                           rightIcon={rightIcon}
-                          errorMessage={errorMessage}/>
+                          secureTextEntry={secureTextEntry}/>
     }
 }
 
@@ -118,5 +125,6 @@ TextInput.propTypes = {
     containerStyle: PropTypes.number,
     validation: PropTypes.array,
     editable: PropTypes.bool,
-    rightIcon: PropTypes.object
+    rightIcon: PropTypes.object,
+    secureTextEntry: PropTypes.bool
 };

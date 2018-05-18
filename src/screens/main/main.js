@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import MainView  from './mainView';
 
 class MainScreen extends Component {
+
+    static navigationOptions = { header: null};
+
     constructor(props) {
         super(props);
         this.state = {};

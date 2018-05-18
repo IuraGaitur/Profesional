@@ -28,6 +28,10 @@ class SplashScreen extends Component {
         }
     }
 
+    static getDeriverdState(prevState, nextState) {
+
+    }
+
     showMainScreen = () => { this.props.navigation.navigate(MAIN); };
 
     showLoginScreen = () => { this.props.navigation.navigate(LOGIN); };

@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {BACKGROUND_GRAY_COLOR, DARK_OVERLAY_COLOR, GRAY_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
 import {StyleSheet, Text, View, ImageBackground, Dimensions, Image, TouchableHighlight, TouchableWithoutFeedback, TouchableNativeFeedback, TouchableOpacity } from 'react-native';
 import {Input, Button, Icon, Overlay, Card} from 'react-native-elements'
+import NetworkErrorDialog from "../../views/NetworkErrorDialog";
 const BG_IMAGE = require('../../../assets/images/img_back_hair.jpg');
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -22,7 +23,8 @@ export default class LoginView extends Component {
         const {
             email, password, emailError, passError, showLoading, isSecure,
             loginCallback, registerCallback, forgotPassCallback, showPassCallback,
-            emailChangeCallback, passChangeCallback, showNetworkError, dismissCallback
+            emailChangeCallback, passChangeCallback, showNetworkError, dismissCallback,
+            showInfoCallback
         } = this.state;
 
         return (
@@ -30,6 +32,7 @@ export default class LoginView extends Component {
                 <View style={styles.headerContainer}>
                     <Image source={BG_IMAGE} style={styles.bgImage}/>
                     <Icon reverse
+                          onPress={(e) => showInfoCallback()}
                           name='ios-help' type='ionicon'
                           color={PRIMARY} containerStyle={styles.iconHelp}/>
                 </View>
@@ -42,7 +45,7 @@ export default class LoginView extends Component {
                     <Input
                         onChangeText={email => emailChangeCallback(email)}
                         value={email}
-                        inputStyle={{color: 'black', fontSize: 24}}
+                        inputStyle={{color: 'black', fontSize: 22, fontFamily:'sans'}}
                         keyboardAppearance="light"
                         placeholder="Email"
                         autoFocus={false}
@@ -50,7 +53,6 @@ export default class LoginView extends Component {
                         autoCorrect={false}
                         keyboardType="email-address"
                         returnKeyType="next"
-                        ref={ input => this.emailInput = input }
                         onSubmitEditing={() => {
                             this.setState({emailError: this.validateEmail(email)});
                             this.passwordInput.focus();
@@ -63,10 +65,10 @@ export default class LoginView extends Component {
                     <Input
                         onChangeText={(password) => passChangeCallback(password)}
                         value={password}
-                        inputStyle={{color: 'black', fontSize: 24}}
+                        inputStyle={{color: 'black', fontSize: 22, fontFamily:'sans'}}
                         secureTextEntry={isSecure}
-                        rightIcon={ <Icon name={isSecure ? 'ios-eye' : 'ios-eye-off'} type='ionicon' color={GRAY_COLOR}
-                                          onPress={e => showPassCallback(isSecure)}/>}
+                        rightIcon={ <Icon name={isSecure ? 'ios-eye-off' : 'ios-eye'} type='ionicon' color={GRAY_COLOR}
+                                          onPress={e => showPassCallback(isSecure)} TouchableComponent={TouchableWithoutFeedback}/>}
                         keyboardAppearance="light"
                         placeholder="Password"
                         autoCapitalize="none"
@@ -89,9 +91,8 @@ export default class LoginView extends Component {
                         onPress={(e) => loginCallback(e)}
                         loading={showLoading}
                         loadingProps={{size: 'small', color: 'white'}}
-                        //disabled={ !emailError && password.length < 3}
-                        buttonStyle={{backgroundColor: PRIMARY, borderWidth: 2, borderColor: 'white', padding: 4, height: 50}}
-                        titleStyle={{fontSize: 18, fontWeight: 'bold', color: 'white'}}
+                        buttonStyle={{backgroundColor: PRIMARY, borderWidth: 1, borderColor: 'white', padding: 4, height: 50}}
+                        titleStyle={{fontSize: 18, fontWeight: 'bold', color: 'white', fontFamily:'sans'}}
                         containerStyle={{width: SCREEN_WIDTH - 60, marginTop: 20}}
                     />
 
@@ -99,7 +100,7 @@ export default class LoginView extends Component {
                         title="RESET PASSWORD"
                         clear
                         activeOpacity={1}
-                        titleStyle={{fontSize: 18, color: GRAY_COLOR}}
+                        titleStyle={{fontSize: 18, color: GRAY_COLOR, fontFamily:'sans'}}
                         containerStyle={{marginTop: 20}}
                         onPress={(e) => forgotPassCallback(e)}
                         TouchableComponent={TouchableWithoutFeedback}
@@ -108,7 +109,7 @@ export default class LoginView extends Component {
                         title="CREATE AN ACCOUNT"
                         clear
                         activeOpacity={0.5}
-                        titleStyle={{fontSize: 18, color: GRAY_COLOR}}
+                        titleStyle={{fontSize: 18, color: GRAY_COLOR, fontFamily:'sans'}}
                         containerStyle={{marginTop: 20}}
                         onPress={(e) => registerCallback(e)}
                         TouchableComponent={TouchableWithoutFeedback}
@@ -116,20 +117,9 @@ export default class LoginView extends Component {
 
                 </View>
 
-                <Overlay
-                    isVisible={showNetworkError}
-                    windowBackgroundColor={DARK_OVERLAY_COLOR}
-                    overlayBackgroundColor="white"
-                    width={320}
-                    height={160}>
-                    <View style={styles.overlayContainer}>
-                        <Text style={styles.titleDialog}>No internet connection</Text>
-                        <Text style={styles.messageDialog}>You need internet connection in order to use the app!</Text>
-                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-                            <Button clear title="OK" TouchableComponent={TouchableWithoutFeedback} onPress={(e) => dismissCallback(e)} titleStyle={{fontSize: 18, color: GRAY_COLOR}}/>
-                        </View>
-                    </View>
-                </Overlay>
+                <NetworkErrorDialog
+                    dismissCallback={dismissCallback}
+                    showNetworkError={showNetworkError}/>
             </View>
         );
     }
@@ -139,22 +129,6 @@ export default class LoginView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1
-    },
-    titleDialog: {
-        fontSize: 22,
-        marginBottom: 20
-
-    },
-    messageDialog: {
-        fontSize: 18,
-        marginBottom: 20
-    },
-    overlayContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        width: 300,
-        height: 150,
-        padding: 16
     },
     loginForm: {
         flex: 1,
@@ -170,18 +144,20 @@ const styles = StyleSheet.create({
         paddingBottom: 20
     },
     titleName: {
-        width: SCREEN_WIDTH - 70,
+        width: 'auto',
         flexDirection: 'row'
     },
     boldTitle: {
         fontSize: 24,
         color: TEXT_COLOR,
         fontWeight: 'bold',
-        marginRight: 10
+        marginRight: 10,
+        fontFamily:'sans-bold'
     },
     title: {
         fontSize: 24,
         color: TEXT_COLOR,
+        fontFamily:'sans'
     },
     bgImage: {
         width: SCREEN_WIDTH,
@@ -243,6 +219,7 @@ LoginView.propTypes = {
     isSecure: PropTypes.bool,
     loginCallback: PropTypes.func,
     forgotPassCallback: PropTypes.func,
+    showInfoCallback: PropTypes.func,
     registerCallback: PropTypes.func,
     showPassCallback: PropTypes.func,
     emailChangeCallback: PropTypes.func,

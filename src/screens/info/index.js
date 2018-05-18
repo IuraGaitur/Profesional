@@ -1,3 +1,3 @@
-import MainScreen from './info';
+import InfoScreen from './info';
 
-export {MainScreen};
+export {InfoScreen};
