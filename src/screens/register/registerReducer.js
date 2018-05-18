@@ -1,4 +1,4 @@
-import {REQUEST_REGISTER, REGISTER_SUCCESS, REGISTER_FAIL, INIT, ERROR} from './registerAction';
+import {REQUEST_REGISTER, REGISTER_SUCCESS, REGISTER_FAIL, INIT, ERROR, NETWORK_ERROR} from './registerAction';
 
 const defaultState = {
     countries: []
@@ -7,13 +7,15 @@ const defaultState = {
 export default function reducer(state = defaultState, action) {
     switch (action.type) {
         case INIT:
-            return {...state, countries: action.countries};
+            return {...state, countries: action.countries, networkError: false};
         case REQUEST_REGISTER:
-            return {...state, showLoading: true};
+            return {...state, showLoading: true, networkError: false};
         case REGISTER_SUCCESS:
-            return {...state, error: null, user: action.user, showLoading: false};
+            return {...state, user: action.userResponse, showLoading: false, errorMessage: null, networkError: false};
         case REGISTER_FAIL:
-            return {...state, error: action.errorType, errorMessage: errorMessage, user: null, showLoading: false};
+            return {...state, errorMessage: action.error, user: null, showLoading: false, networkError: false};
+        case NETWORK_ERROR:
+            return {...state, errorMessage: action.error, user: null, showLoading: false, networkError: true};
         default:
             return state;
     }

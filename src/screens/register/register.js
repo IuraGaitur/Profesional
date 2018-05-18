@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { init, registerRequest } from './registerAction';
 import RegisterView  from './registerView';
-import {INFO} from "../../../App";
+import {INFO, MAIN} from "../../../App";
+import Toast, {DURATION} from 'react-native-easy-toast'
+import {View} from "react-native";
 
 class RegisterScreen extends Component {
 
@@ -11,7 +13,8 @@ class RegisterScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            countries: []
+            countries: [],
+            networkError: false
         };
     }
 
@@ -25,6 +28,11 @@ class RegisterScreen extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({...this.state, ...nextProps});
+        if(nextProps.user) {
+           this.props.navigation.navigate(MAIN);
+        } else if (nextProps.errorMessage) {
+            this.showError(nextProps.errorMessage);
+        }
     }
 
     registerUser = (user) => { this.props.register(user);};
@@ -33,12 +41,24 @@ class RegisterScreen extends Component {
 
     showInfo = () => { this.props.navigation.navigate(INFO); };
 
+    showError = (errorMessage) => { this.refs.errorToast.show(errorMessage); };
+
+    dismissDialogCallback = () => { this.setState({...this.state, networkError: false});};
+
     render() {
-        const {countries} = this.state;
+        const {countries, networkError, showLoading} = this.state;
 
         return (
-            <RegisterView registerCallback={user => this.registerUser(user)} countries={countries}
-                          actionBack={() => this.goBack()} actionInfo={() => this.showInfo()} />
+            <View>
+                <RegisterView registerCallback={user => this.registerUser(user)}
+                              countries={countries}
+                              actionBack={() => this.goBack()}
+                              actionInfo={() => this.showInfo()}
+                              showNetworkError={networkError}
+                              showLoading={showLoading}
+                              dismissDialogCallback={this.dismissDialogCallback}/>
+                <Toast ref="errorToast"/>
+            </View>
         );
     }
 }
@@ -47,7 +67,6 @@ const mapStateToProps = (state) => {
     return {
         countries: state.register.countries,
         showLoading: state.register.showLoading,
-        errorType: state.register.errorType,
         errorMessage: state.register.errorMessage,
         user: state.register.user,
         isLoggedIn: state.register.isLoggedIn

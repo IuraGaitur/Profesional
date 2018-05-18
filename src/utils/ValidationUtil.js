@@ -5,7 +5,7 @@ export default class ValidationUtil {
     }
 
     static validateStrongPassword(pass) {
-        let re =  "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})";
+        let re = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
         return re.test(pass);
     }
 }

@@ -1,101 +1,128 @@
 import React, { Component } from 'react';
 import Drawer from 'react-native-drawer'
-import {Header} from "react-native-elements";
-import {FlatList, Text, View, StyleSheet, Dimensions} from "react-native";
+import {Button, Header, Icon, Input, ListItem} from "react-native-elements";
+import {FlatList, Text, View, StyleSheet, Dimensions, Image, TouchableWithoutFeedback} from "react-native";
 import PropTypes from 'prop-types';
-import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
-import MenuItem from "../../views/MenuItem";
+import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR, TRANSPARENT} from '../../utils/Colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
+const BG_IMAGE = require('../../../assets/images/img_back_hair_2.jpg');
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
-export default class MainView extends Component {
-
-    isDrawerOpen = false;
+export default class InfoView extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = { ...props, searchInput: null};
     }
 
-    clickControlPanel = () => {
-        if (this.isDrawerOpen) {
-            this._drawer.close()
-        } else {
-            this._drawer.open()
-        }
-        this.isDrawerOpen = !this.isDrawerOpen;
-    }
-
-    getContent(user, menuItems, selectPageCalback) {
-        return (
-                <View style={styles.menu}>
-                    <FlatList
-                        keyExtractor={item => item.id.toString()}
-                        data={menuItems}
-                        scrollEnabled={true}
-                        renderSeparator={(sectionId, rowId) => <View key={rowId.toString()} style={styles.separator}/>}
-                        renderItem={(rowData) =>
-                            <MenuItem
-                                selectPageCallback={selectPageCalback}
-                                title={rowData.item.title}
-                                position={rowData.index}
-                            />}
-                    />
-                </View>
-                );
+    renderFixedHeader() {
+        return <Image source={BG_IMAGE} style={{width: window.width, height: 350}}/>
     }
 
     render() {
-        const {title, user, menuItems, selectPageCalback} = this.props;
-        const content = this.getContent(user, menuItems, selectPageCalback);
-        const drawerStyles = { drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3}, main: {paddingLeft: 3} };
+        const {searchCallback, showLoading, searchInput, closeCallback} = this.props;
 
         return (
-            <View>
-                <Header
-                    statusBarProps={{ backgroundColor: PRIMARY }}
-                    placement="left"
-                    leftComponent={{ icon: 'menu', color: '#fff', onPress: () => this.clickControlPanel() }}
-                    centerComponent={{ text: title, style: { color: '#fff' } }}
-                    rightComponent={{ icon: 'home', color: '#fff' }} />
-                <Drawer
-                    type="overlay"
-                    content={content}
-                    tapToClose={true}
-                    openDrawerOffset={0.2} // 20% gap on the right side of drawer
-                    panCloseMask={0.2}
-                    closedDrawerOffset={-3}
-                    styles={drawerStyles}
-                    ref={(ref) => this._drawer = ref}
-                    tweenHandler={(ratio) => ({
-                        main: { opacity:(2-ratio)/2 }
-                    })}>
-                </Drawer>
+            <View style={{ flex: 1, backgroundColor:'white' }}>
+                <ParallaxScrollView
+                    renderBackground={() => {return this.renderFixedHeader(closeCallback)}}
+                    stickyHeaderHeight={200}
+                    fadeOutForeground={false}
+                    parallaxHeaderHeight={ 350 }>
+
+                    <View style={styles.paralaxContainer}>
+                        <Icon color="black" name="search" size={62} />
+                        <Input
+                            onChangeText={(value) => this.setState({...this.state, searchInput: value})}
+                            value={searchInput}
+                            inputStyle={{color: 'black', fontSize: 20}}
+                            keyboardAppearance="light"
+                            placeholder="Type keyword to find answer"
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            keyboardType="default"
+                            returnKeyType="done"
+                            ref={ input => this.searchInput = input}
+                            blurOnSubmit={true}
+                            placeholderTextColor={GRAY_COLOR}
+                            containerStyle={{marginTop: 30, width: 'auto'}}
+                            errorStyle={{color: 'red'}}
+                        />
+                        <Button
+                            large
+                            title='SEARCH'
+                            activeOpacity={1}
+                            underlayColor="transparent"
+                            onPress={(e) => searchCallback(e)}
+                            loading={showLoading}
+                            loadingProps={{size: 'small', color: 'white'}}
+                            buttonStyle={styles.buttonStyle}
+                            titleStyle={styles.buttonTitleStyle}
+                            containerStyle={styles.buttonContainer}
+                        />
+                        <ListItem title="FAQ" chevronColor="#bdc6cf" chevron={true}/>
+                        <ListItem title="Contact Us" chevronColor="#bdc6cf" chevron={true}/>
+
+                    </View>
+
+                </ParallaxScrollView>
+                <View style={styles.close}>
+                    <Icon name='ios-close' type='ionicon' color='white' size={40}
+                          underlayColor={TRANSPARENT} onPress={e => closeCallback()} TouchableComponent={TouchableWithoutFeedback} />
+                </View>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    separator: {
+    inputsContainer: {
         flex: 1,
+        flexDirection: 'column',
+        paddingHorizontal: 16,
+        paddingBottom: 70,
+        alignItems: 'center'
     },
-
-    menu: {
-        width: SCREEN_WIDTH / 3 * 2,
-        height: SCREEN_HEIGHT,
+    input: {
+        color: 'black',
+        fontSize: 15
+    },
+    inputContainer: {
+        marginTop: 30,
+        width: SCREEN_WIDTH - 40
+    },
+    buttonStyle: {
         backgroundColor: PRIMARY,
+        borderWidth: 2,
+        borderColor: 'white',
+        padding: 4,
+        height: 50
+    },
+    buttonContainer: {
+        width: 'auto',
+        marginTop: 20
+    },
+    buttonTitleStyle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'white',
+    },
+    close: {
+        flex: 1,
+        position: 'absolute',
+        left: 30,
+        top: 30,
+    },
+    paralaxContainer: {
+        flex: 1,
+        flexDirection:'column',
+        padding: 14
     }
 });
 
-MainView.defaultProps = {
-    title: 'MainView'
-};
-
-
-MainView.propTypes = {
-    title: PropTypes.string,
-    user: PropTypes.object,
-    selectPageCalback: PropTypes.func,
-    menuItems: PropTypes.array
+InfoView.propTypes = {
+    searchCallback: PropTypes.func,
+    closeCallback: PropTypes.func,
+    showLoading: PropTypes.bool,
 };

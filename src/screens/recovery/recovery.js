@@ -1,48 +1,72 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MainView  from './recoveryView';
+import RecoveryView  from './recoveryView';
+import {INFO} from "../../../App";
+import {resetPassword} from "./recoveryAction";
 
-class MainScreen extends Component {
+class RecoveryScreen extends Component {
+
+    static navigationOptions = { header: null};
+
     constructor(props) {
         super(props);
         this.state = {};
     }
 
-    static start(navigation) {
-        navigation.navigate('Main');
-    }
-
     async componentDidMount() {}
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.isLoggedIn) {
-            this.loginSuccess();
-        } else {
+        this.setState({...this.state, ...nextProps});
+        if (nextProps.successMessage) {
+            this.showResetSuccess(nextProps.successMessage);
+        } else if(nextProps.errorMessage) {
             this.showError(nextProps.errorMessage);
         }
     }
 
-    selectPage = (position) => {
-      console.log("Position:" + position);
+    showResetSuccess = (message) => {
+        this.refs.recoverView.showToast(message);
     };
 
+    showError = (message) => {
+        this.refs.recoverView.showToast(message);
+    };
+
+    actionInfo = () => { this.props.navigation.navigate(INFO);};
+
+    actionReset = (email, newPassword) => {this.props.resetPass(email, newPassword);};
+
+    actionBack = () => {this.props.navigation.goBack(null);};
+
+    dismissDialogCallback = () => { this.setState({...this.state, networkError: false});};
+
+
     render() {
-        const {} = this.state;
+        const {showLoading} = this.state;
 
         return (
-            <MainView title={'HOME'} user={{email:"iura.gaitur@gmail.com"}}
-                      selectPageCalback={this.selectPage.bind(this)}
-                      menuItems={[{id:0, title: 'Data'}]}/>
+            <RecoveryView ref="recoverView"
+                          actionInfoCallback={this.actionInfo}
+                          showLoading={showLoading}
+                          actionBackCallback={this.actionBack}
+                          actionResetCallback={this.actionReset}/>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    return {};
+    return {
+        showLoading: state.recover.showLoading,
+        successMessage: state.recover.successMessage,
+        errorMessage: state.recover.errorMessage,
+        message: state.recover.message
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        resetPass: (email, newPass) => dispatch(resetPassword(email, newPass))
+    }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (MainScreen);
+export default connect(mapStateToProps, mapDispatchToProps) (RecoveryScreen);

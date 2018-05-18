@@ -2,36 +2,37 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {View} from "react-native";
 
-export default class Form extends Component{
+export default class Form extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
     validate(items) {
-        const { shouldValidate } = this.props;
+        const {shouldValidate} = this.props;
         let passValidation = true;
-        if(shouldValidate) {
-            passValidation = this.checkForm(items);
+        if (shouldValidate) {
+            passValidation = Form.passValidation(items);
         }
 
         return passValidation;
     }
 
-    checkForm(formItems) {
-        let validItems = [];
-        for(let i = 0; i < formItems.length; i++) {
-            let item = formItems[i];
-            let validationResult = item.isValid();
-            validItems.push(validationResult);
+    static passValidation(formItems) {
+        let itemValidations = [];
+        if (!formItems) return true;
+
+        for (let item in formItems) {
+            let isValid = formItems[item].isValid();
+            itemValidations.push(isValid);
         }
 
-        return validItems.includes(true);
+        return !itemValidations.includes(false);
     }
 
     render() {
         let formContainerStyles = [styles.formContainer, this.props.style ? this.props.style : {}];
-        return(
+        return (
             <View style={formContainerStyles}>
                 {this.props.children}
             </View>
@@ -45,11 +46,11 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
-    shouldValidate: false,
+    shouldValidate: true,
     style: {}
 };
 
 const styles = {
-    formContainer:{},
-    formItem:{}
+    formContainer: {},
+    formItem: {}
 };

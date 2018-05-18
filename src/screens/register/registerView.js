@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
-import {Button, Header, Icon, CheckBox} from "react-native-elements";
-import {Text, View, StyleSheet, Dimensions, ScrollView, Platform} from "react-native";
-import RNPickerSelect from 'react-native-picker-select';
-import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import {GRAY_COLOR, PRIMARY} from '../../utils/Colors';
-import TouchOpacityDebounce from "../../utils/touchable_debounce/TouchOpacityDebounce";
-import CollectionUtils from './../../utils/CollectionUtils';
-
+import React, {Component} from 'react';
 import Form from "../../views/form/Form";
-import TextInput, {CONFIRMATION, EMAIL, REQUIRED} from "../../views/form/TextInput";
 import User from "../../data/models/User";
-
+import CheckboxInput from "../../views/form/CheckboxInput";
+import CollectionUtils from './../../utils/CollectionUtils';
+import NetworkErrorDialog from "../../views/NetworkErrorDialog";
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import {Button, Header, Icon, CheckBox} from "react-native-elements";
+import {DARK_OVERLAY_COLOR, GRAY_COLOR, PRIMARY} from '../../utils/Colors';
+import TextInput, {CONFIRMATION, EMAIL, REQUIRED} from "../../views/form/TextInput";
+import {Text, View, StyleSheet, Dimensions, ScrollView, Platform} from "react-native";
+import TouchOpacityDebounce from "../../utils/touchable_debounce/TouchOpacityDebounce";
+import PickerInput from "../../views/form/PickerInput";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default class RegisterView extends Component {
@@ -22,31 +22,35 @@ export default class RegisterView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: null,
-            lastName: null,
-            email: null,
-            emailConfirm: null,
-            password: null,
-            passwordCheck: null,
+            firstName: 'Iura',
+            lastName: 'Gaitur',
+            email: 'Iura.gaitur@gmail.com',
+            emailConfirm: 'Iura.gaitur@gmail.com',
+            password: '123Abda',
+            passwordCheck: '123Abda',
             isSecure: true,
-            language: 'Java',
+            language: null,
             showLoading: false,
             checked: true,
             showDatePicker: false,
-            dateOfBirth: null,
-            salonName: null,
-            city: null,
-            phone: null,
-            termsCheck: false,
+            dateOfBirth: '2018-05-05',
+            salonName: 'Beauty',
+            city: 'Ungheni',
+            phone: '+37378047860',
+            termsCheck: true,
             newsLetterCheck: false,
             country: null,
             countries: this.props.countries,
-            errors: []
+            showPass: false,
+            showConfirmPass: false
         };
+        this.state = {...this.state, ...props};
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({...this.state, ...nextProps});
+        console.log("Props");
+        console.log(nextProps);
         if (!CollectionUtils.isNullOrEmpty(nextProps.countries)) {
             this.setState({...this.state, countries: nextProps.countries})
         }
@@ -68,38 +72,43 @@ export default class RegisterView extends Component {
         let areFieldsValid = this.form.validate(this.inputs);
         if (areFieldsValid) {
             let user = new User(this.state.firstName, this.state.lastName, this.state.email,
-                                this.state.password, this.state.dateOfBirth, this.state.salonName,
-                                this.state.city, this.state.country, this.state.phone,
-                                this.state.termsCheck, this.state.newsLetterCheck);
+                this.state.password, this.state.dateOfBirth, this.state.salonName,
+                this.state.city, this.state.country, this.state.phone,
+                this.state.termsCheck, this.state.newsLetterCheck);
             this.props.registerCallback(user);
         }
     };
-
-    static getPicker(countries, valueChangeCallBack) {
-        if (!CollectionUtils.isNullOrEmpty(countries)) {
-            return <RNPickerSelect
-                hideIcon={true}
-                placeholder={{label: 'COUNTRY*', value: ""}}
-                items={countries}
-                style={{inputIOS: styles.inputIOS, placeholderColor: GRAY_COLOR}}
-                onValueChange={e => {valueChangeCallBack(e)}}/>
-        }
-        return <View />
-    }
 
     changeCountryCallback = (selectedCountry) => {
         this.setState({...this.state, country: selectedCountry});
     };
 
+    checkTermsCallback = () => {
+        this.setState({...this.state, termsCheck: !this.state.termsCheck})
+    };
+
+    checkNewsLetterCallback = () => {
+        this.setState({...this.state, newsLetterCheck: !this.state.newsLetterCheck})
+    };
+
+    showPass(showPass) {
+        this.setState({...this.state, showPass: !showPass});
+    };
+
+    showConfirmPass(showConfirmPass) {
+        this.setState({...this.state, showConfirmPass: !showConfirmPass});
+    };
+
     render() {
         const {
             firstName, lastName, email, emailConfirm,
-            password, passwordCheck, isSecure, language, showLoading,
+            password, passwordCheck, language, showLoading,
             showDatePicker, dateOfBirth, salonName, city,
-            phone, termsCheck, newsLetterCheck, errors, country
+            phone, termsCheck, newsLetterCheck, country,
+            showPass, showConfirmPass, showNetworkError,
+            dismissDialogCallback
         } = this.state;
         const {countries, actionBack, actionInfo} = this.state;
-        let countryPicker = RegisterView.getPicker(countries, this.changeCountryCallback);
 
         return (
             <View>
@@ -115,8 +124,7 @@ export default class RegisterView extends Component {
                         </View>
                     }
                     rightComponent={{icon: 'info', color: GRAY_COLOR, onPress: () => actionInfo()}}/>
-
-                <ScrollView >
+                <ScrollView style={{backgroundColor: 'white'}}>
                     <View style={styles.inputsContainer}>
                         <Form
                             shouldValidate={true}
@@ -137,7 +145,6 @@ export default class RegisterView extends Component {
                                 ref={item => this.inputs[0] = item}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
                             />
-
                             <TextInput
                                 onChangeText={lastName => this.setState({...this.state, lastName: lastName})}
                                 value={lastName}
@@ -154,9 +161,7 @@ export default class RegisterView extends Component {
                                 ref={item => this.inputs[1] = item}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
                             />
-
                             <View style={{height: 20}}/>
-
                             <TextInput
                                 onChangeText={email => this.setState({...this.state, email: email})}
                                 value={email}
@@ -173,13 +178,15 @@ export default class RegisterView extends Component {
                                 containerStyle={styles.inputContainer}
                                 ref={item => this.inputs[2] = item}
                                 validation={[
-                                    {name: EMAIL, error: 'Email should contain one uppper, one lower and one number'},
+                                    {name: EMAIL, error: 'It is not a valid email'},
                                     {name: REQUIRED, error: 'Required'}
                                 ]}
                             />
-
                             <TextInput
-                                onChangeText={emailConfirm => this.setState({...this.state, emailConfirm: emailConfirm})}
+                                onChangeText={emailConfirm => this.setState({
+                                    ...this.state,
+                                    emailConfirm: emailConfirm
+                                })}
                                 value={emailConfirm}
                                 inputStyle={styles.input}
                                 keyboardAppearance="light"
@@ -222,15 +229,14 @@ export default class RegisterView extends Component {
                                     validation={[{name: REQUIRED, error: 'Required'}]}
                                 />
                             </TouchOpacityDebounce>
-
                             <TextInput
                                 onChangeText={password => this.setState({...this.state, password: password})}
                                 value={password}
                                 inputStyle={styles.input}
-                                secureTextEntry={isSecure}
-                                rightIcon={ <Icon name={isSecure ? 'ios-eye' : 'ios-eye-off'} type='ionicon'
+                                secureTextEntry={!showPass}
+                                rightIcon={ <Icon name={!showPass ? 'ios-eye-off': 'ios-eye'} type='ionicon'
                                                   color={GRAY_COLOR}
-                                                  onPress={e => showPassCallback(isSecure)}/>}
+                                                  onPress={e => this.showPass(showPass)}/>}
                                 keyboardAppearance="light"
                                 placeholder="PASSWORD*"
                                 autoCapitalize="none"
@@ -245,13 +251,16 @@ export default class RegisterView extends Component {
                                 validation={[{name: REQUIRED, error: 'Required'}]}
                             />
                             <TextInput
-                                onChangeText={passwordCheck => this.setState({...this.state, passwordCheck: passwordCheck})}
+                                onChangeText={passwordCheck => this.setState({
+                                    ...this.state,
+                                    passwordCheck: passwordCheck
+                                })}
                                 value={passwordCheck}
                                 inputStyle={styles.input}
-                                secureTextEntry={isSecure}
-                                rightIcon={ <Icon name={isSecure ? 'ios-eye' : 'ios-eye-off'} type='ionicon'
+                                secureTextEntry={!showConfirmPass}
+                                rightIcon={ <Icon name={!showConfirmPass ? 'ios-eye-off' : 'ios-eye'} type='ionicon'
                                                   color={GRAY_COLOR}
-                                                  onPress={e => showPassCallback(isSecure)}/>}
+                                                  onPress={e => this.showConfirmPass(showConfirmPass)}/>}
                                 keyboardAppearance="light"
                                 placeholder="PASSWORD CONFIRMATION*"
                                 autoCapitalize="none"
@@ -267,10 +276,8 @@ export default class RegisterView extends Component {
                                 validation={[
                                     {name: CONFIRMATION, error: 'Passwords are not same'},
                                     {name: REQUIRED, error: 'Required'}
-                                    ]}
+                                ]}
                             />
-
-
                             <TextInput
                                 onChangeText={salonName => this.setState({...this.state, salonName: salonName})}
                                 value={salonName}
@@ -305,10 +312,13 @@ export default class RegisterView extends Component {
                                 ref={item => this.inputs[8] = item}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
                             />
-                            <View style={styles.selectElement}>
-                                {countryPicker}
-                                <View style={styles.line}/>
-                            </View>
+                            <PickerInput
+                                items={countries}
+                                valueChangeCallBack={this.changeCountryCallback}
+                                defaultItem={{label: "COUNTRY*", value: ""}}
+                                needValidation={true}
+                                ref={item => this.inputs[9] = item}
+                            />
                             <TextInput
                                 onChangeText={phone => this.setState({...this.state, phone: phone})}
                                 value={phone}
@@ -323,24 +333,23 @@ export default class RegisterView extends Component {
                                 blurOnSubmit={true}
                                 placeholderTextColor={GRAY_COLOR}
                                 containerStyle={styles.inputContainer}
-                                ref={item => this.inputs[9] = item}
+                                ref={item => this.inputs[10] = item}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
                             />
                             <View style={styles.checkboxItem}>
-                                <Text>Accept terms *</Text>
-                                <CheckBox
-                                    checkedColor={PRIMARY}
-                                    checked={termsCheck}
-                                    onPress={() => this.setState({...this.state, termsCheck: !this.state.termsCheck})}/>
+                                <Text style={styles.textValidator}>Accept terms *</Text>
+                                <CheckboxInput checkedColor={PRIMARY}
+                                               checked={termsCheck}
+                                               needValidation={true}
+                                               ref={item => this.inputs[11] = item}
+                                               onPress={() => this.checkTermsCallback()}/>
                             </View>
                             <View style={styles.checkboxItem}>
                                 <Text>Sign to newsletter</Text>
                                 <CheckBox
                                     checkedColor={PRIMARY}
                                     checked={newsLetterCheck}
-                                    onPress={() => this.setState({
-                                        ...this.state, newsLetterCheck: !this.state.newsLetterCheck
-                                    })}/>
+                                    onPress={() => this.checkNewsLetterCallback()}/>
                             </View>
                             <Button
                                 large
@@ -372,6 +381,9 @@ export default class RegisterView extends Component {
                     onConfirm={(e) => this.handleDatePicked(e)}
                     onCancel={(e) => this.hideDateTimePicker(e)}
                 />
+                <NetworkErrorDialog
+                    dismissCallback={dismissDialogCallback}
+                    showNetworkError={showNetworkError}/>
             </View>
         );
     }
@@ -399,11 +411,12 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         paddingHorizontal: 16,
-        paddingBottom: 70
+        paddingBottom: 70,
+        backgroundColor: 'white'
     },
     signButton: {
         backgroundColor: PRIMARY,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: 'white',
         padding: 4,
         height: 50
@@ -414,7 +427,7 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     signContainer: {
-        width: SCREEN_WIDTH - 60,
+        width: 'auto',
         marginTop: 20
     },
     separator: {
@@ -430,16 +443,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center'
     },
-    selectElement: {
-        flex: 1,
-        flexDirection: 'column',
-        marginTop: 40,
-        width: SCREEN_WIDTH - 40
-    },
-    inputIOS: {
-        fontSize: 16,
-        paddingHorizontal: 8
-    },
     link: {
         flex: 1,
         textAlign: 'center',
@@ -447,12 +450,6 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
         marginTop: 12,
         borderBottomColor: PRIMARY
-    },
-    line: {
-        flex: 1,
-        height: 1,
-        marginTop: 8,
-        backgroundColor: GRAY_COLOR,
     },
     inputContainer: {
         marginTop: 30,
@@ -462,6 +459,18 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 15
     },
+    checkValidator: {
+        flex: 1,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        flexDirection: 'column'
+    },
+    textValidator: {
+        alignItems: 'flex-start'
+    },
+    validatorText: {
+        color: 'red'
+    }
 });
 
 RegisterView.defaultProps = {};
@@ -469,6 +478,9 @@ RegisterView.defaultProps = {};
 
 RegisterView.propTypes = {
     registerCallback: PropTypes.func,
+    dismissDialogCallback: PropTypes.func,
+    showLoading: PropTypes.bool,
+    showNetworkError: PropTypes.bool,
     countries: PropTypes.array,
     actionBack: PropTypes.func,
     actionInfo: PropTypes.func

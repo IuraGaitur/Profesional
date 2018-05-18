@@ -1,38 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MainView  from './infoView';
+import InfoView  from './infoView';
 
-class MainScreen extends Component {
+class InfoScreen extends Component {
+
+    static navigationOptions = { header: null};
+
     constructor(props) {
         super(props);
         this.state = {};
     }
 
-    static start(navigation) {
-        navigation.navigate('Main');
-    }
-
     async componentDidMount() {}
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.isLoggedIn) {
-            this.loginSuccess();
-        } else {
-            this.showError(nextProps.errorMessage);
-        }
     }
 
-    selectPage = (position) => {
+    closeView = () => {
+        this.props.navigation.goBack(null);
+    };
 
+    search = (keyword) => {
+        //Todo search
     };
 
     render() {
         const {} = this.state;
 
         return (
-            <MainView title={'HOME'} user={{email:"iura.gaitur@gmail.com"}}
-                      selectPageCalback={this.selectPage.bind(this)}
-                      menuItems={[{id:0, title: 'Data'}]}/>
+            <InfoView closeCallback={this.closeView}
+                      showLoading={false}
+                      searchCallback={this.search}  />
         );
     }
 }
@@ -45,4 +43,4 @@ const mapDispatchToProps = (dispatch) => {
     return {}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (MainScreen);
+export default connect(mapStateToProps, mapDispatchToProps) (InfoScreen);

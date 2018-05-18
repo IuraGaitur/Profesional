@@ -1,4 +1,5 @@
 {
-  "success": false,
-  "errorMsg": "No internet connection"
+  "status": 403,
+  "error": "Cannot create user with this info",
+  "errorMsg": "Cannot create user with this info"
 }
