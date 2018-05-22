@@ -10,7 +10,7 @@ export default class UserMock implements UserApi {
     login(email, pass) {
         return new Promise((resolve, reject) => {
             setTimeout(function () {
-                if (email && pass) {
+                if (email == 'test' && pass == 'test') {
                     resolve(loginDataSuccess);
                 }
                 resolve(loginDataFail);

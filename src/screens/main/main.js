@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MainView  from './mainView';
+import {signOut, getMenuItems} from './mainAction';
 
 class MainScreen extends Component {
 
@@ -11,41 +12,47 @@ class MainScreen extends Component {
         this.state = {};
     }
 
-    static start(navigation) {
-        navigation.navigate('Main');
-    }
-
-    async componentDidMount() {}
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.isLoggedIn) {
-            this.loginSuccess();
-        } else {
-            this.showError(nextProps.errorMessage);
-        }
+    componentDidMount() {
+        this.props.getMenuItems();
     }
 
     selectPage = (position) => {
-
+        console.log(position);
+        switch (position) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                this.props.signOut(signOut);
+                break;
+            default:
+                break;
+        }
     };
 
     render() {
-        const {} = this.state;
-
+        const {menuItems} = this.props;
         return (
-            <MainView title={'HOME'} user={{email:"iura.gaitur@gmail.com"}}
-                      selectPageCalback={this.selectPage.bind(this)}
-                      menuItems={[{id:0, title: 'Data'}]}/>
+            <MainView title={'HOME'} menuItems={menuItems} selectPageCalback={this.selectPage.bind(this)}
+            />
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    return {};
+    return {
+        menuItems: state.main.menuItems
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        getMenuItems: () => dispatch(getMenuItems()),
+        signOut: () => dispatch(signOut())
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps) (MainScreen);

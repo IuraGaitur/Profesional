@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image, Platform} from 'react-native';
-import {PRIMARY} from "../utils/Colors";
+import {GRAY_COLOR, LIGHT_COLOR, PRIMARY} from "../utils/Colors";
 import TouchOpacityDebounce from "../utils/touchable_debounce/TouchOpacityDebounce";
 import PropTypes from 'prop-types';
 
@@ -17,6 +17,7 @@ export default class MenuItem extends Component {
             <View style={styles.inline}>
                 <TouchOpacityDebounce onPress={() => selectPageCallback(position)}>
                     <View style={styles.switchContainer}>
+
                         <Text style={styles.drawerItem}> {title} </Text>
                     </View>
                 </TouchOpacityDebounce>
@@ -29,24 +30,24 @@ export default class MenuItem extends Component {
 const styles = StyleSheet.create({
     line: {
         flex: 1,
-        height: 2,
-        marginLeft: 15,
-        backgroundColor: 'white'
+        height: 1,
+        backgroundColor: GRAY_COLOR
     },
 
     drawerItem: {
-        fontSize: 24,
-        color: '#fff'
+        fontSize: 18,
+        color: 'black'
     },
 
     switchContainer: {
         flexDirection: 'row',
-        paddingRight: 8,
-        height: 38,
-        backgroundColor: PRIMARY
+        margin: 16,
+        height: 'auto',
+        backgroundColor: LIGHT_COLOR
     },
 
     inline: {
+        flex: 1,
         flexDirection: 'column',
     },
 });

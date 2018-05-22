@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { init, registerRequest } from './registerAction';
 import RegisterView  from './registerView';
-import {INFO, MAIN} from "../../../App";
 import Toast, {DURATION} from 'react-native-easy-toast'
+import { Actions } from 'react-native-router-flux';
 import {View} from "react-native";
 
 class RegisterScreen extends Component {
@@ -28,18 +28,16 @@ class RegisterScreen extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({...this.state, ...nextProps});
-        if(nextProps.user) {
-           this.props.navigation.navigate(MAIN);
-        } else if (nextProps.errorMessage) {
+        if (nextProps.errorMessage) {
             this.showError(nextProps.errorMessage);
         }
     }
 
     registerUser = (user) => { this.props.register(user);};
 
-    goBack = () => { this.props.navigation.goBack(null); };
+    goBack = () => { Actions.pop() };
 
-    showInfo = () => { this.props.navigation.navigate(INFO); };
+    showInfo = () => { Actions.info(); };
 
     showError = (errorMessage) => { this.refs.errorToast.show(errorMessage); };
 

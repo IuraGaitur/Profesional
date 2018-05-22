@@ -49,8 +49,6 @@ export default class RegisterView extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({...this.state, ...nextProps});
-        console.log("Props");
-        console.log(nextProps);
         if (!CollectionUtils.isNullOrEmpty(nextProps.countries)) {
             this.setState({...this.state, countries: nextProps.countries})
         }

@@ -1,38 +1,27 @@
-import UserService from '../../data/api/UserApi';
-export const REQUEST_LOGIN = 'REQUEST_LOGIN';
-export const LOGIN_FAIL = 'LOGIN_FAIL';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+import UserDao from '../../data/database/UserDao';
+import MenuDao from '../../data/database/MenuDao';
+import { Actions } from 'react-native-router-flux';
+export const GET_MENU_ITEMS = 'GET_MENU_ITEMS';
+export const SIGN_OUT = 'SIGN_OUT';
 
-function requestLogin() {
+export function getMenuItems() {
+    let items = new MenuDao().getItems();
     return {
-        type: REQUEST_LOGIN
+        items: items,
+        type: GET_MENU_ITEMS
     }
 }
 
-function successLogin(userResponse) {
+function sendSignOut() {
     return {
-        userResponse: userResponse,
-        type: LOGIN_SUCCESS
+        type: SIGN_OUT
     }
 }
 
-function errorLogin(errorMessage) {
-    return {
-        error: errorMessage,
-        type: LOGIN_FAIL
-    }
-}
-
-export function loginRequest(email, pass) {
+export function signOut() {
     return async (dispatch) => {
-        dispatch(requestLogin());
-        setTimeout(async function () {
-            let response = await new UserService().instance().login(email, pass);
-            if (response && response.success) {
-                return dispatch(successLogin(response.user));
-            }
-            return dispatch(errorLogin(response.error))
-        }, 2000)
-
+        await new UserDao().removePrimaryUser();
+        Actions.login();
+        return dispatch(sendSignOut());
     }
 }

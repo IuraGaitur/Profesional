@@ -27,8 +27,6 @@ class MainScreen extends Component {
     };
 
     render() {
-        const {} = this.state;
-
         return (
             <MainView title={'HOME'} user={{email:"iura.gaitur@gmail.com"}}
                       selectPageCalback={this.selectPage.bind(this)}

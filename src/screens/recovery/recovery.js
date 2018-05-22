@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import RecoveryView  from './recoveryView';
 import {INFO} from "../../../App";
 import {resetPassword} from "./recoveryAction";
+import {Actions} from 'react-native-router-flux';
 
 class RecoveryScreen extends Component {
 
@@ -32,11 +33,11 @@ class RecoveryScreen extends Component {
         this.refs.recoverView.showToast(message);
     };
 
-    actionInfo = () => { this.props.navigation.navigate(INFO);};
+    actionInfo = () => { Actions.info();};
 
     actionReset = (email, newPassword) => {this.props.resetPass(email, newPassword);};
 
-    actionBack = () => {this.props.navigation.goBack(null);};
+    actionBack = () => {Actions.pop();};
 
     dismissDialogCallback = () => { this.setState({...this.state, networkError: false});};
 

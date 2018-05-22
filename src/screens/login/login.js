@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Font } from 'expo';
 import { connect } from 'react-redux';
 import { loginRequest, showSecure, emailChange, passChange } from './loginAction';
 import LoginView from "./loginView";
-import { MAIN } from './../../../App';
 import {FORGOT_PASS, INFO, REGISTER} from "../../../App";
+import { Actions } from 'react-native-router-flux';
 
 class LoginScreen extends Component {
 
@@ -27,13 +26,6 @@ class LoginScreen extends Component {
     }
 
     async componentDidMount() {
-        await Font.loadAsync({
-            'georgia': require('../../../assets/fonts/Georgia.ttf'),
-            'regular': require('../../../assets/fonts/Montserrat-Regular.ttf'),
-            'light': require('../../../assets/fonts/Montserrat-Light.ttf'),
-            'bold': require('../../../assets/fonts/Montserrat-Bold.ttf'),
-        });
-
         this.setState({ fontLoaded: true });
     }
 
@@ -54,11 +46,11 @@ class LoginScreen extends Component {
     }
 
     register() {
-        this.props.navigation.navigate(REGISTER);
+        Actions.register();
     }
 
     loginSuccess() {
-        this.props.navigation.navigate(MAIN);
+        Actions.main();
     }
 
     forgotPassScreen() {
@@ -66,7 +58,7 @@ class LoginScreen extends Component {
     }
 
     showInfoScreen() {
-        this.props.navigation.navigate(INFO);
+        Actions.info();
     }
 
     showPass(showPass) {

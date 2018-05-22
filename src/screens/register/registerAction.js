@@ -2,6 +2,7 @@ import UserService from '../../data/api/UserApi';
 import CountryApi from "../../data/api/CountryApi";
 import UserDao from "../../data/database/UserDao";
 import StatusCode from "./../../utils/StatusCode";
+import {Actions} from 'react-native-router-flux';
 export const INIT = 'INIT';
 export const ERROR = 'ERROR';
 export const REQUEST_REGISTER = 'REQUEST_REGISTER';
@@ -30,6 +31,7 @@ function requestRegister() {
 }
 
 function successRegister(userResponse) {
+    Actions.main();
     return {
         userResponse: userResponse,
         type: REGISTER_SUCCESS

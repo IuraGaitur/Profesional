@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {Text, View, StyleSheet} from "react-native";
+import {Text, View, StyleSheet, Platform} from "react-native";
 import React, {Component} from 'react';
 import {GRAY_COLOR} from "../../utils/Colors";
 import CollectionUtils from "../../utils/CollectionUtils";
@@ -48,7 +48,8 @@ export default class PickerInput extends Component{
                             hideIcon={true}
                             placeholder={defaultItem}
                             items={items}
-                            style={{inputIOS: styles.inputIOS, placeholderColor: GRAY_COLOR}}
+                            style={{inputIOS: styles.inputIOS, placeholderColor: GRAY_COLOR,
+                                    inputAndroid: styles.inputAndroid, underline: {borderTopWidth: 0}}}
                             onValueChange={e => {this.changeItem(e, valueChangeCallBack)}}/>
                             <View style={styles.line}/>
                             {requiredValidator}
@@ -63,11 +64,14 @@ const styles = StyleSheet.create({
     line: {
         flex: 1,
         height: 1,
-        marginTop: 8,
+        marginTop: Platform.OS === 'ios' ? 8 : 0,
         backgroundColor: GRAY_COLOR,
     },
     inputIOS: {
         fontSize: 16,
+        paddingHorizontal: 8
+    },
+    inputAndroid: {
         paddingHorizontal: 8
     },
     selectElement: {

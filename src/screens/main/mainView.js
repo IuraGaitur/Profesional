@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Drawer from 'react-native-drawer'
 import {Header} from "react-native-elements";
-import {FlatList, Text, View, StyleSheet, Dimensions} from "react-native";
+import {FlatList, Text, View, StyleSheet, Dimensions, TouchableWithoutFeedback} from "react-native";
 import PropTypes from 'prop-types';
-import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
+import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
 import MenuItem from "../../views/MenuItem";
+import HeaderItem from "../../views/HeaderItem";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -24,52 +25,60 @@ export default class MainView extends Component {
             this._drawer.open()
         }
         this.isDrawerOpen = !this.isDrawerOpen;
-    }
-
-    getContent(user, menuItems, selectPageCalback) {
-        return (
-                <View style={styles.menu}>
-                    <FlatList
-                        keyExtractor={item => item.id.toString()}
-                        data={menuItems}
-                        scrollEnabled={true}
-                        renderSeparator={(sectionId, rowId) => <View key={rowId.toString()} style={styles.separator}/>}
-                        renderItem={(rowData) =>
-                            <MenuItem
-                                selectPageCallback={selectPageCalback}
-                                title={rowData.item.title}
-                                position={rowData.index}
-                            />}
-                    />
-                </View>
-                );
-    }
+    };
 
     render() {
         const {title, user, menuItems, selectPageCalback} = this.props;
-        const content = this.getContent(user, menuItems, selectPageCalback);
         const drawerStyles = { drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3}, main: {paddingLeft: 3} };
 
         return (
-            <View>
+            <View style={styles.mainContainer}>
                 <Header
-                    statusBarProps={{ backgroundColor: PRIMARY }}
+                    outerContainerStyles={styles.headerOuter}
+                    backgroundColor={LIGHT_COLOR}
                     placement="left"
-                    leftComponent={{ icon: 'menu', color: '#fff', onPress: () => this.clickControlPanel() }}
-                    centerComponent={{ text: title, style: { color: '#fff' } }}
-                    rightComponent={{ icon: 'home', color: '#fff' }} />
+                    leftComponent={{ icon:
+                        'menu',
+                        color: 'black',
+                        onPress: () => this.clickControlPanel(), TouchableComponent: {TouchableWithoutFeedback}
+                    }}
+                    centerComponent={{ text: title, style: { color: 'black' } }}/>
                 <Drawer
                     type="overlay"
-                    content={content}
+                    content={
+                        <View style={styles.menu}>
+                            <FlatList
+                                keyExtractor={item => item.id.toString()}
+                                data={menuItems}
+                                scrollEnabled={true}
+                                renderSeparator={(sectionId, rowId) => <View key={rowId.toString()} style={styles.separator}/>}
+                                ListHeaderComponent={<HeaderItem />}
+                                renderItem={(rowData) =>
+                                    <MenuItem
+                                        selectPageCallback={selectPageCalback}
+                                        title={rowData.item.title}
+                                        position={rowData.index}
+                                    />}
+                            />
+                        </View>
+                    }
                     tapToClose={true}
-                    openDrawerOffset={0.2} // 20% gap on the right side of drawer
+                    openDrawerOffset={0.2}
                     panCloseMask={0.2}
                     closedDrawerOffset={-3}
                     styles={drawerStyles}
+                    open={false}
                     ref={(ref) => this._drawer = ref}
                     tweenHandler={(ratio) => ({
                         main: { opacity:(2-ratio)/2 }
                     })}>
+                    <View style={{backgroundColor: 'white', flex: 1}}>
+                            <FlatList
+                            refreshing={false}
+                            onRefresh={() => {}}
+                        />
+
+                    </View>
                 </Drawer>
             </View>
         );
@@ -77,14 +86,28 @@ export default class MainView extends Component {
 }
 
 const styles = StyleSheet.create({
+    mainContainer: {
+        flex:1,
+        flexDirection: 'column'
+    },
     separator: {
         flex: 1,
     },
-
+    headerOuter: {
+        borderWidth: 1,
+        borderRadius: 2,
+        borderColor: '#ddd',
+        borderBottomWidth: 0,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1
+    },
     menu: {
         width: SCREEN_WIDTH / 3 * 2,
         height: SCREEN_HEIGHT,
-        backgroundColor: PRIMARY,
+        backgroundColor: LIGHT_COLOR,
     }
 });
 

@@ -3,9 +3,10 @@ import Drawer from 'react-native-drawer'
 import {Button, Header, Icon, Input, ListItem} from "react-native-elements";
 import {FlatList, Text, View, StyleSheet, Dimensions, Image, TouchableWithoutFeedback} from "react-native";
 import PropTypes from 'prop-types';
+import ScreenUtils from './../../utils/ScreenUtils';
 import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR, TRANSPARENT} from '../../utils/Colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_HEIGHT = ScreenUtils.HEIGHT;
 const BG_IMAGE = require('../../../assets/images/img_back_hair_2.jpg');
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
@@ -17,7 +18,7 @@ export default class InfoView extends Component {
     }
 
     renderFixedHeader() {
-        return <Image source={BG_IMAGE} style={{width: window.width, height: 350}}/>
+        return <Image source={BG_IMAGE} style={{width: window.width, height: ScreenUtils.HEIGHT / 2.2}}/>
     }
 
     render() {
@@ -27,16 +28,16 @@ export default class InfoView extends Component {
             <View style={{ flex: 1, backgroundColor:'white' }}>
                 <ParallaxScrollView
                     renderBackground={() => {return this.renderFixedHeader(closeCallback)}}
-                    stickyHeaderHeight={200}
+                    stickyHeaderHeight={ScreenUtils.HEIGHT / 3.5}
                     fadeOutForeground={false}
-                    parallaxHeaderHeight={ 350 }>
+                    parallaxHeaderHeight={ ScreenUtils.HEIGHT / 2.2 }>
 
                     <View style={styles.paralaxContainer}>
                         <Icon color="black" name="search" size={62} />
                         <Input
                             onChangeText={(value) => this.setState({...this.state, searchInput: value})}
                             value={searchInput}
-                            inputStyle={{color: 'black', fontSize: 20}}
+                            inputStyle={{color: 'black', fontSize: 16}}
                             keyboardAppearance="light"
                             placeholder="Type keyword to find answer"
                             autoCapitalize="none"

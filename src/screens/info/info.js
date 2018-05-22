@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import InfoView  from './infoView';
+import {Actions} from 'react-native-router-flux';
 
 class InfoScreen extends Component {
 
@@ -17,7 +18,7 @@ class InfoScreen extends Component {
     }
 
     closeView = () => {
-        this.props.navigation.goBack(null);
+        Actions.pop();
     };
 
     search = (keyword) => {
@@ -25,8 +26,6 @@ class InfoScreen extends Component {
     };
 
     render() {
-        const {} = this.state;
-
         return (
             <InfoView closeCallback={this.closeView}
                       showLoading={false}

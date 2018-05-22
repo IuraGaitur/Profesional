@@ -3,7 +3,6 @@ import {
     StyleSheet, Text, View, Image, ScrollView, Dimensions, TouchableOpacity, StatusBar
 } from 'react-native';
 import { Button } from 'react-native-elements'
-import { Font } from 'expo';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -53,12 +52,6 @@ export default class ProfileScreen extends Component {
     }
 
     async componentDidMount() {
-        await Font.loadAsync({
-            'georgia': require('../../../assets/fonts/Georgia.ttf'),
-            'regular': require('../../../assets/fonts/Montserrat-Regular.ttf'),
-            'light': require('../../../assets/fonts/Montserrat-Light.ttf'),
-            'bold': require('../../../assets/fonts/Montserrat-Bold.ttf'),
-        });
 
         this.setState({ fontLoaded: true });
     }
