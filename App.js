@@ -31,9 +31,9 @@ class App extends Component {
         return (
             <Router hideNavBar="true">
                 <Scene key="root">
-                    <Scene key={SPLASH} component={SplashScreen}  initial={true}/>
+                    <Scene key={SPLASH} component={SplashScreen}/>
                     <Scene key={LOGIN} component={LoginScreen}/>
-                    <Scene key={REGISTER} component={RegisterScreen}/>
+                    <Scene key={REGISTER} component={RegisterScreen} initial={true}/>
                     <Scene key={PROFILE} component={ProfileScreen}/>
                     <Scene key={MAIN} component={MainScreen}/>
                     <Scene key={FORGOT_PASS} component={RecoveryScreen}/>

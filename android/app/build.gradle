@@ -1,6 +1,20 @@
 apply plugin: "com.android.application"
+apply plugin: "io.fabric"
 
 import com.android.build.OutputFile
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.22.1'
+    }
+}
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -96,17 +110,30 @@ def enableProguardInReleaseBuilds = false
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
+    def versionPropsFile = file('../version.properties')
 
-    defaultConfig {
-        applicationId "com.sytem_pro"
-        minSdkVersion 16
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+
+        versionProps['VERSION_CODE']=code.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        defaultConfig {
+            versionCode code
+            versionName "1.1"
+            minSdkVersion 16
+            targetSdkVersion 22
+            ndk { abiFilters "armeabi-v7a", "x86" }
         }
     }
+    else {
+        throw new GradleException("Could not read version.properties!")
+    }
+
     splits {
         abi {
             reset()
@@ -152,6 +179,9 @@ dependencies {
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
+        transitive = true
+    }
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
 

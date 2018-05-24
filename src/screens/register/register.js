@@ -44,7 +44,7 @@ class RegisterScreen extends Component {
     dismissDialogCallback = () => { this.setState({...this.state, networkError: false});};
 
     render() {
-        const {countries, networkError, showLoading} = this.state;
+        const {countries, networkError, showLoading} = this.props;
 
         return (
             <View>
@@ -66,6 +66,7 @@ const mapStateToProps = (state) => {
         countries: state.register.countries,
         showLoading: state.register.showLoading,
         errorMessage: state.register.errorMessage,
+        networkError: state.register.networkError,
         user: state.register.user,
         isLoggedIn: state.register.isLoggedIn
     };

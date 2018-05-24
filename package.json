@@ -14,7 +14,8 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "test": "jest"
+    "test": "jest",
+    "deploy-crashlytics": "cd android && ./gradlew assembleRelease crashlyticsUploadDistributionRelease"
   },
   "jest": {
     "preset": "jest-expo",
@@ -34,6 +35,7 @@
     "@expo/vector-icons": "^6.2.2",
     "axios": "^0.18.0",
     "moment": "^2.20.1",
+    "native-base": "^2.4.5",
     "prop-types": "^15.6.1",
     "react": "16.0.0-beta.5",
     "react-native": "^0.49.5",

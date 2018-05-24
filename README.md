@@ -1,6 +1,10 @@
 ## SystemPro Project
 
-
+Added FastLine https://fastlane.tools/ for build automation
+ - Android 
+    - Integrated with Crashlitics Beta
+ - iOS 
+    - Integrated with Crashlitics Beta
 
 ### Instructions
 

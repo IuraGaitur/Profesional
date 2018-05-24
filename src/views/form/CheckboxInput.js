@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {CheckBox, Input} from "react-native-elements";
+import {Input} from "react-native-elements";
+import {CheckBox} from "native-base";
 import PropTypes from 'prop-types';
 import {PRIMARY} from "../../utils/Colors";
 export const REQUIRED = 'required';
@@ -33,7 +34,7 @@ export default class CheckboxInput extends Component {
         let {checked, checkedColor, onPress} = this.state;
         return <View style={styles.checkValidator}>
                     <CheckBox
-                        checkedColor={checkedColor}
+                        color={checkedColor}
                         checked={checked}
                         onPress={onPress}/>
                     {requiredValidator}

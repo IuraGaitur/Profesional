@@ -1,7 +1,10 @@
 import {REQUEST_REGISTER, REGISTER_SUCCESS, REGISTER_FAIL, INIT, ERROR, NETWORK_ERROR} from './registerAction';
 
 const defaultState = {
-    countries: []
+    countries: [],
+    networkError: false,
+    showLoading: false,
+    user: null
 };
 
 export default function reducer(state = defaultState, action) {

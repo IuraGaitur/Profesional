@@ -1,13 +1,23 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {BACKGROUND_GRAY_COLOR, DARK_OVERLAY_COLOR, GRAY_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
-import { StyleSheet, Text, View, ImageBackground, Dimensions, Image, TouchableHighlight, TouchableWithoutFeedback,
+import {
+    BACKGROUND_GRAY_COLOR,
+    DARK_OVERLAY_COLOR,
+    GRAY_COLOR,
+    PRIMARY,
+    TEXT_COLOR,
+    TEXT_GRAY_COLOR
+} from '../../utils/Colors';
+import {
+    StyleSheet, Text, View, ImageBackground, Dimensions, Image, TouchableHighlight, TouchableWithoutFeedback,
     TouchableNativeFeedback, TouchableOpacity, ScrollView
 } from 'react-native';
-import {Input, Button, Icon, Overlay, Card} from 'react-native-elements'
+import {Icon, Overlay, Card} from 'react-native-elements'
 import NetworkErrorDialog from "../../views/NetworkErrorDialog";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import ScreenUtils from "../../utils/ScreenUtils";
+import {Form, Item, Label, Input, Container, Content, Button} from "native-base";
+import FormItem from "../../views/native_elements/FormItem";
 
 const BG_IMAGE = require('../../../assets/images/bg_image_1.png');
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -32,15 +42,14 @@ export default class LoginView extends Component {
         } = this.state;
 
         return (
-
-
-                <ScrollView contentContainerStyle={{flexGrow:1}}>
-                    <View style={{flex:1, flexDirection:'column'}}>
+            <Container>
+                <Content>
+                    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+                        <View style={{flex: 1, flexDirection: 'column'}}>
 
                         <View style={styles.headerContainer}>
                             <Image source={BG_IMAGE} style={styles.bgImage}/>
-                            <Icon reverse
-                                  onPress={(e) => showInfoCallback()}
+                            <Icon reverse onPress={(e) => showInfoCallback()}
                                   name='ios-help' type='ionicon'
                                   color={PRIMARY} containerStyle={styles.iconHelp}/>
                         </View>
@@ -50,91 +59,36 @@ export default class LoginView extends Component {
                                 <Text style={styles.title}>LOGIN</Text>
                             </View>
 
-                            <Input
-                                onChangeText={email => emailChangeCallback(email)}
-                                value={email}
-                                inputStyle={styles.inputLogin}
-                                keyboardAppearance="light"
-                                placeholder="Email ADDRESS"
-                                autoFocus={false}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                keyboardType="email-address"
-                                returnKeyType="next"
-                                onSubmitEditing={() => {
-                                    this.setState({emailError: this.validateEmail(email)});
-                                    this.passwordInput.focus();
-                                }}
-                                blurOnSubmit={false}
-                                placeholderTextColor={GRAY_COLOR}
-                                containerStyle={styles.containerInput}
-                                errorMessage={emailError}
-                            />
-                            <Input
-                                onChangeText={(password) => passChangeCallback(password)}
-                                value={password}
-                                inputStyle={styles.inputLogin}
-                                secureTextEntry={isSecure}
-                                rightIcon={ <Icon name={isSecure ? 'ios-eye-off' : 'ios-eye'} type='ionicon' color={GRAY_COLOR}
-                                                  onPress={e => showPassCallback(isSecure)} TouchableComponent={TouchableWithoutFeedback}/>}
-                                keyboardAppearance="light"
-                                placeholder="Password"
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                keyboardType="default"
-                                returnKeyType="done"
-                                ref={ input => this.passwordInput = input}
-                                blurOnSubmit={true}
-                                placeholderTextColor={GRAY_COLOR}
-                                containerStyle={styles.containerInput}
-                                errorStyle={{color: 'red'}}
-                                errorMessage={passError}
-                            />
-
-                            <Button
-                                large
-                                title='SIGN IN'
-                                activeOpacity={1}
-                                underlayColor="transparent"
-                                onPress={(e) => loginCallback(e)}
-                                loading={showLoading}
-                                loadingProps={{size: 'small', color: 'white'}}
-                                buttonStyle={{backgroundColor: PRIMARY, borderWidth: 1, borderColor: 'white', padding: 4, height: 40}}
-                                titleStyle={{fontSize: 16, color: 'white'}}
-                                containerStyle={{width: SCREEN_WIDTH - 60, marginTop: 15}}
-                            />
-
-                            <Button
-                                title="RESET PASSWORD"
-                                clear
-                                activeOpacity={1}
-                                titleStyle={styles.buttonFont}
-                                containerStyle={{marginTop: 15}}
-                                onPress={(e) => forgotPassCallback(e)}
-                                TouchableComponent={TouchableWithoutFeedback}
-                            />
-                            <Button
-                                title="CREATE AN ACCOUNT"
-                                clear
-                                activeOpacity={0.5}
-                                titleStyle={styles.buttonFont}
-                                containerStyle={{marginTop: 15}}
-                                onPress={(e) => registerCallback(e)}
-                                TouchableComponent={TouchableWithoutFeedback}
-                            />
+                            <Form style={{width: '100%'}}>
+                                <FormItem>
+                                    <Label>Username</Label>
+                                </FormItem>
+                                <FormItem password={true}>
+                                    <Label>Password</Label>
+                                </FormItem>
+                                <Button block style={styles.mainButton}
+                                        onPress={(e) => loginCallback(e)}>
+                                    <Text style={{color: 'white'}}>SIGN IN</Text>
+                                </Button>
+                                <Button block transparent success
+                                        onPress={(e) => forgotPassCallback(e)}>
+                                    <Text>RESET PASSWORD</Text>
+                                </Button>
+                                <Button block transparent success
+                                        onPress={(e) => registerCallback(e)}>
+                                    <Text>CREATE AN ACCOUNT</Text>
+                                </Button>
+                            </Form>
                         </View>
                         <NetworkErrorDialog
                             dismissCallback={dismissCallback}
                             showNetworkError={showNetworkError}/>
                     </View>
                 </ScrollView>
-
-
-
-
+                </Content>
+            </Container>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -142,11 +96,22 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white'
     },
+    mainButton: {
+        backgroundColor: PRIMARY,
+        marginTop: 15
+    },
+    buttonConfirm: {
+        backgroundColor: PRIMARY,
+        borderWidth: 1,
+        borderColor: 'white',
+        padding: 4,
+        height: 35
+    },
     loginForm: {
         flexGrow: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        marginTop: ScreenUtils.HEIGHT/ 3,
+        marginTop: ScreenUtils.HEIGHT / 3,
         width: SCREEN_WIDTH,
         backgroundColor: BACKGROUND_GRAY_COLOR,
         paddingTop: 80,
@@ -163,12 +128,12 @@ const styles = StyleSheet.create({
         color: TEXT_COLOR,
         fontWeight: 'bold',
         marginRight: 10,
-        fontFamily:'WorkSansBold'
+        fontFamily: 'WorkSansBold'
     },
     title: {
         fontSize: 28,
         color: TEXT_COLOR,
-        fontFamily:'WorkSansRegular'
+        fontFamily: 'WorkSansRegular'
     },
     bgImage: {
         width: SCREEN_WIDTH,
@@ -185,7 +150,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     buttonFont: {
-        fontSize: 16,
+        fontSize: 15,
         color: GRAY_COLOR,
         fontFamily: 'WorkSansRegular'
     },
@@ -221,10 +186,11 @@ const styles = StyleSheet.create({
     inputLogin: {
         color: 'black',
         fontSize: 18,
-        fontFamily:'WorkSansRegular'
+        fontFamily: 'WorkSansRegular',
+        height: '100%'
     },
     containerInput: {
-        marginTop: 15
+        marginTop: 12
     },
 });
 

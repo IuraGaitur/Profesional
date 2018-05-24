@@ -17,8 +17,8 @@ export default class RecoveryView extends Component {
         super(props);
         this.state = {
             showPass:false,
-            email: 'iura.gaitur@gmail.com',
-            password: '1905Ga123',
+            email: '',
+            password: '',
             ...props
         };
     }
