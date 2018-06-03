@@ -34,6 +34,7 @@ export default class CheckboxInput extends Component {
         let {checked, checkedColor, onPress} = this.state;
         return <View style={styles.checkValidator}>
                     <CheckBox
+                        style={{marginRight: 8}}
                         color={checkedColor}
                         checked={checked}
                         onPress={onPress}/>
@@ -47,15 +48,14 @@ const styles = StyleSheet.create({
     checkValidator: {
         flex: 1,
         alignItems: 'flex-end',
-        justifyContent: 'flex-end',
+        //justifyContent: 'flex-end',
         flexDirection: 'column'
     },
-    textValidator: {
-        alignItems: 'flex-start'
-    },
     validatorText: {
+        flexGrow: 1,
         color: 'red',
-        fontSize: 12
+        fontSize: 10,
+        textAlign: 'right'
     }
 });
 

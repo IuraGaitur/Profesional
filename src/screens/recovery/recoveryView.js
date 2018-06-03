@@ -1,17 +1,19 @@
 import React, {Component} from 'react';
-import {Button, Header, Icon} from "react-native-elements";
 import {FlatList, Text, View, StyleSheet, Dimensions, Platform} from "react-native";
 import PropTypes from 'prop-types';
-import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
+import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
 import TextInput, {EMAIL, REQUIRED, STRONG_PASS} from "../../views/form/TextInput";
-import Form from "../../views/form/Form";
+import Form from "../../views/form/FormData";
 import Toast from "react-native-easy-toast";
-
+import SubmitButton from "../../views/native_elements/SubmitButton";
+import {Body, Grid, Left, Row, Header, Right, Button, Label} from "native-base";
+import {Icon} from "react-native-elements";
+import FormItem from "../../views/native_elements/FormItem";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default class RecoveryView extends Component {
 
-    inputs = [];
+    user = {};
 
     constructor(props) {
         super(props);
@@ -27,11 +29,16 @@ export default class RecoveryView extends Component {
         this.setState({...this.state, ...nextProps});
     }
 
-    reset = (email, password, form, inputs, resetCallback) => {
-      let passValidation = form.validate(inputs);
+    reset = (email, password, resetCallback) => {
+      let passValidation = this.refs.formData.validate([this.refs.emailEdit, this.refs.passEdit]);
       if (passValidation) {
           resetCallback(email, password);
       }
+    };
+
+    updateForm = (item, value) => {
+        this.setState({[item]: value});
+        this.user[item] = value;
     };
 
     showPass(showPass) {
@@ -43,79 +50,50 @@ export default class RecoveryView extends Component {
     }
 
     render() {
-        const {email, password, actionResetCallback, actionInfoCallback,
+        const {email, newPass, actionResetCallback, actionInfoCallback,
                actionBackCallback, showLoading, showPass} = this.state;
         return (
-            <View style={{flex:1, backgroundColor: 'white'}}>
-                <Header
-                    outerContainerStyles={styles.headerContainer}
-                    backgroundColor='white'
-                    placement="left"
-                    leftComponent={{icon: 'arrow-back', color: GRAY_COLOR, onPress: () => actionBackCallback()}}
-                    centerComponent={
-                        <View style={styles.headerTitle}>
-                            <Text style={styles.titleBold}>RECOVERY </Text><Text style={styles.title}>
-                            PASS</Text>
-                        </View>
-                    }
-                    rightComponent={{icon: 'info', color: GRAY_COLOR, onPress: () => actionInfoCallback()}}/>
+            <View>
+                <Header style={styles.headerContainer}>
+                    <Left>
+                        <Button transparent onPress={() => actionBackCallback()}>
+                            <Icon name='arrow-back' color={GRAY_COLOR}/>
+                        </Button>
+                    </Left>
+                    <Body>
+                    <Grid>
+                        <Row>
+                            <Text style={styles.titleBold}>RECOVER YOUR </Text>
+                            <Text style={styles.title}>OWN</Text>
+                        </Row>
+                        <Row><Text style={styles.title}>PASSWORD</Text></Row>
+                    </Grid>
+                    </Body>
+                    <Right>
+                        <Button transparent onPress={() => actionInfoCallback()}>
+                            <Icon name='info' color={GRAY_COLOR}/>
+                        </Button>
+                    </Right>
+                </Header>
                 <View style={styles.inputsContainer}>
-                    <Form shouldValidate={true}
-                          ref={item => this.form = item}>
+                    <Form shouldValidate={true} ref="formData">
                         <Text style={{paddingTop: 20}}>Enter your email and choose a new password.</Text>
                         <Text style={{paddingBottom: 20}}>You will receive a PIN via email. Enter the pin to reset the password.</Text>
-                        <TextInput
-                            onChangeText={email => this.setState({...this.state, email: email})}
-                            value={email}
-                            inputStyle={styles.input}
-                            keyboardAppearance="light"
-                            placeholder="Email"
-                            autoFocus={false}
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            returnKeyType="next"
-                            blurOnSubmit={true}
-                            placeholderTextColor={GRAY_COLOR}
-                            containerStyle={styles.inputContainer}
-                            ref={item => this.inputs[0] = item}
-                            validation={[{name: EMAIL, error: 'It is not a valid email'},
-                                        {name: REQUIRED, error: 'Required'}]}
-                        />
-
-                        <TextInput
-                            onChangeText={password => this.setState({...this.state, password: password})}
-                            value={password}
-                            secureTextEntry={!showPass}
-                            rightIcon={ <Icon name={!showPass ? 'ios-eye-off' : 'ios-eye'} type='ionicon'
-                                              color={GRAY_COLOR}
-                                              onPress={e => this.showPass(showPass)}/>}
-                            inputStyle={styles.input}
-                            keyboardAppearance="light"
-                            placeholder="New Password"
-                            autoFocus={false}
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            returnKeyType="next"
-                            blurOnSubmit={true}
-                            placeholderTextColor={GRAY_COLOR}
-                            containerStyle={styles.inputContainer}
-                            ref={item => this.inputs[1] = item}
-                            validation={[{name: STRONG_PASS, error: 'Password must contain at least one upper, one lower and a number'},
-                                         {name: REQUIRED, error: 'Required'}]}
-                        />
-
-                        <Button
-                            large
-                            title='RESET PASSWORD'
-                            activeOpacity={1}
-                            underlayColor="transparent"
-                            onPress={(e) => this.reset(email, password, this.form, this.inputs, actionResetCallback)}
-                            loading={showLoading}
-                            loadingProps={{size: 'small', color: 'white'}}
-                            buttonStyle={styles.buttonStyle}
-                            titleStyle={styles.buttonTitleStyle}
-                            containerStyle={styles.buttonContainer}
-                        />
+                        <FormItem ref="emailEdit"
+                                  value={email}
+                                  onChangeText={(text) => {this.updateForm('email', text)}}
+                                  onSubmitEditing={() => this.refs.passEdit.focus()}
+                                  validation={[{name: REQUIRED, error: 'Required'},
+                                                {name: EMAIL, error: 'Not valid email'}]}>
+                            <Label>Email Address</Label>
+                        </FormItem>
+                        <FormItem ref="passEdit" password={true}
+                                  value={newPass}
+                                  onChangeText={(text) => {this.updateForm('newPass', text)}}
+                                  isLast validation={[{name: REQUIRED, error: 'Required'}, {name: STRONG_PASS, error: 'Not a strong pass'}]}>
+                            <Label>New Password</Label>
+                        </FormItem>
+                        <SubmitButton text='RESET PASSWORD' showLoading={showLoading} onPress={() => this.reset(this.user.email, this.user.pass, actionResetCallback)}/>
                     </Form>
                 </View>
                 <Toast ref="errorToast"/>
@@ -143,7 +121,7 @@ const styles = StyleSheet.create({
         fontSize: 22
     },
     inputsContainer: {
-        flex: 1,
+        flexGrow: 1,
         flexDirection: 'column',
         paddingHorizontal: 20,
         alignItems: 'center'
@@ -171,7 +149,10 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: 'white'
-    }
+    },
+    headerContainer: {
+        backgroundColor: LIGHT_COLOR
+    },
 });
 
 

@@ -1,5 +1,4 @@
 import React, {Component}  from 'react';
-import {View, Image, Dimensions, AppRegistry} from 'react-native';
 import {LoginScreen} from './src/screens/login';
 import {ProfileScreen} from './src/screens/profile';
 import {MainScreen} from './src/screens/main';
@@ -7,11 +6,14 @@ import {RegisterScreen} from './src/screens/register';
 import {SplashScreen} from './src/screens/splash';
 import {RecoveryScreen} from './src/screens/recovery';
 import {InfoScreen} from './src/screens/info';
-import {createStackNavigator} from 'react-navigation';
-import {Provider} from 'react-redux';
-import store from './src/app/store'
+import {FaqScreen} from './src/screens/faq';
+import {ContactScreen} from './src/screens/contact';
+import {DetailsFormScreen} from './src/screens/details_form';
+import {ProductsScreen} from './src/screens/products';
 import {Router, Scene} from "react-native-router-flux";
 import ScreenUtils from "./src/utils/ScreenUtils";
+import {Provider} from 'react-redux';
+import store from './src/app/store'
 
 export const SPLASH = 'splash';
 export const LOGIN = 'login';
@@ -20,7 +22,10 @@ export const PROFILE = 'profile';
 export const FORGOT_PASS = 'forgotPass';
 export const INFO = 'info';
 export const MAIN = 'main';
-
+export const FAQ = 'faq';
+export const CONTACT_US = 'contact';
+export const DETAILS_FORM = 'details_form';
+export const PRODUCTS = 'products';
 
 class App extends Component {
     async componentWillMount() {
@@ -31,13 +36,17 @@ class App extends Component {
         return (
             <Router hideNavBar="true">
                 <Scene key="root">
-                    <Scene key={SPLASH} component={SplashScreen}/>
-                    <Scene key={LOGIN} component={LoginScreen}/>
-                    <Scene key={REGISTER} component={RegisterScreen} initial={true}/>
-                    <Scene key={PROFILE} component={ProfileScreen}/>
-                    <Scene key={MAIN} component={MainScreen}/>
-                    <Scene key={FORGOT_PASS} component={RecoveryScreen}/>
-                    <Scene key={INFO} component={InfoScreen}/>
+                    <Scene key={SPLASH} component={SplashScreen} />
+                    <Scene key={LOGIN} component={LoginScreen} />
+                    <Scene key={REGISTER} component={RegisterScreen}/>
+                    <Scene key={MAIN} component={MainScreen} initial/>
+                    <Scene key={FORGOT_PASS} component={RecoveryScreen} />
+                    <Scene key={FAQ} component={FaqScreen}/>
+                    <Scene key={CONTACT_US} component={ContactScreen}/>
+                    <Scene key={INFO} component={InfoScreen} />
+                    <Scene key={DETAILS_FORM} component={DetailsFormScreen} />
+                    <Scene key={PRODUCTS} component={ProductsScreen} />
+                    <Scene key={PROFILE} component={ProfileScreen} />
                 </Scene>
             </Router>
         );

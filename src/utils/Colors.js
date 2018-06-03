@@ -12,3 +12,4 @@ export const TRANSPARENT = 'rgba(0,0,0,0)';
 export const LIGHT_BACKGROUND_COLOR = '#f7f7f5';
 export const DARK_BACKGROUND_COLOR = '#25283e';
 export const DARK_OVERLAY_COLOR = 'rgba(45, 48, 71, 0.38)';
+export const SELECTED = '#7AA49E';

@@ -11,11 +11,11 @@ export default class HeaderItem extends Component {
     }
 
     render() {
-        const { selectPageCallback, title, position } = this.props;
+        const { selectPageCallback, title } = this.props;
 
         return (
             <View style={styles.inline}>
-                <TouchOpacityDebounce onPress={() => selectPageCallback(position)}>
+                <TouchOpacityDebounce onPress={() => selectPageCallback(0)}>
                     <View style={styles.switchContainer}>
                         <Image style={styles.imageItem} source={require('./../../assets/images/logo.png')}/>
                     </View>

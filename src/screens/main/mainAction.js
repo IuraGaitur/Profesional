@@ -3,6 +3,17 @@ import MenuDao from '../../data/database/MenuDao';
 import { Actions } from 'react-native-router-flux';
 export const GET_MENU_ITEMS = 'GET_MENU_ITEMS';
 export const SIGN_OUT = 'SIGN_OUT';
+const NO_ACTION = '';
+
+export function showHelp() {
+    Actions.faq();
+    return {type: NO_ACTION};
+}
+
+export function showMyProfile() {
+    Actions.profile();
+    return {type: NO_ACTION};
+}
 
 export function getMenuItems() {
     let items = new MenuDao().getItems();

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MainView  from './mainView';
-import {signOut, getMenuItems} from './mainAction';
+import {signOut, showHelp, showMyProfile, getMenuItems} from './mainAction';
+export const MAIN = 'MAIN';
+export const PRODUCTS = 'PRODUCTS';
+export const PROFILE = 'PROFILE';
+export const HELP = 'HELP';
 
 class MainScreen extends Component {
 
@@ -9,24 +13,28 @@ class MainScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
-    }
-
-    componentDidMount() {
+        this.state = {selectedPage: PRODUCTS};
         this.props.getMenuItems();
     }
 
     selectPage = (position) => {
-        console.log(position);
+
         switch (position) {
+            case 0:
             case 1:
+                this.setState({selectedPage: MAIN});
                 break;
             case 2:
+                this.props.showMyProfile();
                 break;
             case 3:
+                this.setState({selectedPage: PRODUCTS});
                 break;
             case 4:
-                this.props.signOut(signOut);
+                this.props.showHelp();
+                break;
+            case 5:
+                this.props.signOut();
                 break;
             default:
                 break;
@@ -35,9 +43,11 @@ class MainScreen extends Component {
 
     render() {
         const {menuItems} = this.props;
+        const {selectedPage} = this.state;
         return (
-            <MainView title={'HOME'} menuItems={menuItems} selectPageCalback={this.selectPage.bind(this)}
-            />
+            <MainView title={'HOME'} menuItems={menuItems}
+                      selectPageCalback={this.selectPage}
+                      selectedPage={selectedPage}/>
         );
     }
 }
@@ -51,7 +61,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getMenuItems: () => dispatch(getMenuItems()),
-        signOut: () => dispatch(signOut())
+        signOut: () => dispatch(signOut()),
+        showMyProfile: () => dispatch(showMyProfile()),
+        showHelp: () => dispatch(showHelp())
     }
 };
 

@@ -1,46 +1,54 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MainView  from './faqView';
+import FaqView  from './faqView';
+import {getQuestions, goContacts, goBack} from "./faqAction";
 
-class MainScreen extends Component {
+class FaqScreen extends Component {
+
+    static navigationOptions = { header: null};
+
     constructor(props) {
         super(props);
-        this.state = {};
     }
 
-    static start(navigation) {
-        navigation.navigate('Main');
+    componentDidMount() {
+        this.props.getQuestions();
     }
 
-    async componentDidMount() {}
+    searchCallback = (string) => {
+        this.props.getQuestions(string);
+    };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.isLoggedIn) {
-            this.loginSuccess();
-        } else {
-            this.showError(nextProps.errorMessage);
-        }
-    }
+    backCallback = () => {
+        this.props.goBack();
+    };
 
-    selectPage = (position) => {
-
+    contactCallback = () => {
+        this.props.goContacts();
     };
 
     render() {
+        const {questions} = this.props;
         return (
-            <MainView title={'HOME'} user={{email:"iura.gaitur@gmail.com"}}
-                      selectPageCalback={this.selectPage.bind(this)}
-                      menuItems={[{id:0, title: 'Data'}]}/>
+            <FaqView searchCallback={this.searchCallback} backCallback={this.backCallback}
+                     contactCallback={this.contactCallback}
+                     questions={questions}/>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    return {};
+    return {
+        questions: state.faq.questions
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        getQuestions: (string) => dispatch(getQuestions(string)),
+        goContacts: () => dispatch(goContacts()),
+        goBack: () => dispatch(goBack())
+    }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (MainScreen);
+export default connect(mapStateToProps, mapDispatchToProps) (FaqScreen);

@@ -1,38 +1,47 @@
-import UserService from '../../data/api/UserApi';
-export const REQUEST_LOGIN = 'REQUEST_LOGIN';
-export const LOGIN_FAIL = 'LOGIN_FAIL';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+import QuestionApi from '../../data/api/QuestionApi';
+import {Actions} from 'react-native-router-flux';
+export const NO_DISPATCH = 'NO_DISPATCH';
+export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
+export const REQUEST_FAIL = 'REQUEST_FAIL';
+export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 
-function requestLogin() {
-    return {
-        type: REQUEST_LOGIN
-    }
-}
-
-function successLogin(userResponse) {
-    return {
-        userResponse: userResponse,
-        type: LOGIN_SUCCESS
-    }
-}
-
-function errorLogin(errorMessage) {
+function errorRequest(errorMessage) {
     return {
         error: errorMessage,
-        type: LOGIN_FAIL
+        type: REQUEST_FAIL
     }
 }
 
-export function loginRequest(email, pass) {
-    return async (dispatch) => {
-        dispatch(requestLogin());
-        setTimeout(async function () {
-            let response = await new UserService().instance().login(email, pass);
-            if (response && response.success) {
-                return dispatch(successLogin(response.user));
-            }
-            return dispatch(errorLogin(response.error))
-        }, 2000)
+function successRequest(questions) {
+    return {
+        questions: questions,
+        type: REQUEST_SUCCESS
+    }
+}
 
+function requestItems() {
+    return {
+        type: REQUEST_QUESTIONS
+    }
+}
+
+export function goBack() {
+    Actions.pop();
+    return {type: NO_DISPATCH};
+}
+
+export function goContacts() {
+    Actions.contact();
+    return {type: NO_DISPATCH};
+}
+
+export function getQuestions(name = '') {
+    return async (dispatch) => {
+        dispatch(requestItems());
+        let response = await new QuestionApi().instance().getQuestions(name);
+        if (response) {
+            return dispatch(successRequest(response));
+        }
+        return dispatch(errorRequest(response.error))
     }
 }

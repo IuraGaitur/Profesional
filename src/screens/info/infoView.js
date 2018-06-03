@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import Drawer from 'react-native-drawer'
-import {Button, Header, Icon, Input, ListItem} from "react-native-elements";
+import {Header, Input, ListItem} from "react-native-elements";
 import {FlatList, Text, View, StyleSheet, Dimensions, Image, TouchableWithoutFeedback} from "react-native";
 import PropTypes from 'prop-types';
 import ScreenUtils from './../../utils/ScreenUtils';
 import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR, TRANSPARENT} from '../../utils/Colors';
+import SubmitButton from "../../views/native_elements/SubmitButton";
+import FormItem from "../../views/native_elements/FormItem";
+import {Form, Label, Button, Icon} from "native-base";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = ScreenUtils.HEIGHT;
 const BG_IMAGE = require('../../../assets/images/img_back_hair_2.jpg');
@@ -34,42 +37,25 @@ export default class InfoView extends Component {
 
                     <View style={styles.paralaxContainer}>
                         <Icon color="black" name="search" size={62} />
-                        <Input
-                            onChangeText={(value) => this.setState({...this.state, searchInput: value})}
-                            value={searchInput}
-                            inputStyle={{color: 'black', fontSize: 16}}
-                            keyboardAppearance="light"
-                            placeholder="Type keyword to find answer"
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            keyboardType="default"
-                            returnKeyType="done"
-                            ref={ input => this.searchInput = input}
-                            blurOnSubmit={true}
-                            placeholderTextColor={GRAY_COLOR}
-                            containerStyle={{marginTop: 30, width: 'auto'}}
-                            errorStyle={{color: 'red'}}
-                        />
-                        <Button
-                            large
-                            title='SEARCH'
-                            activeOpacity={1}
-                            underlayColor="transparent"
-                            onPress={(e) => searchCallback(e)}
-                            loading={showLoading}
-                            loadingProps={{size: 'small', color: 'white'}}
-                            buttonStyle={styles.buttonStyle}
-                            titleStyle={styles.buttonTitleStyle}
-                            containerStyle={styles.buttonContainer}
-                        />
-                        <ListItem title="FAQ" chevronColor="#bdc6cf" chevron={true}/>
-                        <ListItem title="Contact Us" chevronColor="#bdc6cf" chevron={true}/>
-
+                        <Form style={{width: '100%'}}>
+                            <FormItem>
+                                <Label>Type keyword to find answer</Label>
+                            </FormItem>
+                        </Form>
+                        <SubmitButton text='SEARCH' showLoading={showLoading} onPress={searchCallback}/>
+                        <Button block transparent light>
+                            <Text style={{flex: 1, paddingLeft: 4, fontSize: 14}}>FAQ</Text>
+                            <Icon name='ios-arrow-forward' style={{color:GRAY_COLOR}}/>
+                        </Button>
+                        <Button block transparent light>
+                            <Text style={{flex: 1, paddingLeft: 4, fontSize: 14}}>Contact Us</Text>
+                            <Icon name='ios-arrow-forward' style={{color:GRAY_COLOR}}/>
+                        </Button>
                     </View>
 
                 </ParallaxScrollView>
                 <View style={styles.close}>
-                    <Icon name='ios-close' type='ionicon' color='white' size={40}
+                    <Icon name='ios-close' style={{color:'white', fontSize: 40}}
                           underlayColor={TRANSPARENT} onPress={e => closeCallback()} TouchableComponent={TouchableWithoutFeedback} />
                 </View>
             </View>
@@ -116,8 +102,9 @@ const styles = StyleSheet.create({
         top: 30,
     },
     paralaxContainer: {
-        flex: 1,
+        flexGrow: 1,
         flexDirection:'column',
+        justifyContent: 'center',
         padding: 14
     }
 });

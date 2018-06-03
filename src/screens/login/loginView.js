@@ -17,28 +17,45 @@ import NetworkErrorDialog from "../../views/NetworkErrorDialog";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import ScreenUtils from "../../utils/ScreenUtils";
 import {Form, Item, Label, Input, Container, Content, Button} from "native-base";
-import FormItem from "../../views/native_elements/FormItem";
+import FormItem, {EMAIL, REQUIRED, STRONG_PASS} from "../../views/native_elements/FormItem";
+import SubmitButton from "../../views/native_elements/SubmitButton";
+import FormData from "../../views/form/FormData";
 
 const BG_IMAGE = require('../../../assets/images/bg_image_1.png');
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = ScreenUtils.HEIGHT;
 
 export default class LoginView extends Component {
+
+    user = {};
+
     constructor(props) {
         super(props);
         this.state = this.props;
     }
 
+    updateForm = (item, value) => {
+        this.setState({[item]: value});
+        this.user[item] = value;
+    };
+
     componentWillReceiveProps(newProps) {
         this.setState({...this.state, ...newProps});
     }
 
+    login(user, callback) {
+        let passValidation = this.refs.formData.validate([this.refs.emailEdit, this.refs.passEdit]);
+        if (passValidation) {
+           callback(user.email, user.pass);
+        } else {
+            console.log("Error");
+        }
+    }
+
     render() {
         const {
-            email, password, emailError, passError, showLoading, isSecure,
-            loginCallback, registerCallback, forgotPassCallback, showPassCallback,
-            emailChangeCallback, passChangeCallback, showNetworkError, dismissCallback,
-            showInfoCallback
+            email, pass, passError, showLoading, loginCallback, registerCallback,
+            forgotPassCallback, showNetworkError, dismissCallback, showInfoCallback
         } = this.state;
 
         return (
@@ -59,17 +76,24 @@ export default class LoginView extends Component {
                                 <Text style={styles.title}>LOGIN</Text>
                             </View>
 
-                            <Form style={{width: '100%'}}>
-                                <FormItem>
+                            <FormData shouldValidate={true} ref="formData">
+                                <FormItem
+                                    ref="emailEdit"
+                                    value={email}
+                                    onChangeText={(text) => {this.updateForm('email', text)}}
+                                    onSubmitEditing={() => this.refs.passEdit.focus()}
+                                    validation={[{name: REQUIRED, error: 'Required'},
+                                                 {name: EMAIL, error: 'Not valid email'}]}>
                                     <Label>Username</Label>
                                 </FormItem>
-                                <FormItem password={true}>
+                                <FormItem
+                                    value={pass}
+                                    onChangeText={(text) => {this.updateForm('pass', text)}}
+                                    password={true} ref="passEdit"
+                                    isLast validation={[{name: REQUIRED, error: 'Required'}]}>
                                     <Label>Password</Label>
                                 </FormItem>
-                                <Button block style={styles.mainButton}
-                                        onPress={(e) => loginCallback(e)}>
-                                    <Text style={{color: 'white'}}>SIGN IN</Text>
-                                </Button>
+                                <SubmitButton text='SIGN IN' showLoading={showLoading} onPress={() => this.login(this.user, loginCallback)}/>
                                 <Button block transparent success
                                         onPress={(e) => forgotPassCallback(e)}>
                                     <Text>RESET PASSWORD</Text>
@@ -78,7 +102,7 @@ export default class LoginView extends Component {
                                         onPress={(e) => registerCallback(e)}>
                                     <Text>CREATE AN ACCOUNT</Text>
                                 </Button>
-                            </Form>
+                            </FormData>
                         </View>
                         <NetworkErrorDialog
                             dismissCallback={dismissCallback}
@@ -198,19 +222,12 @@ LoginView.defaultProps = {};
 
 
 LoginView.propTypes = {
-    email: PropTypes.string,
-    password: PropTypes.string,
-    emailError: PropTypes.string,
     passError: PropTypes.string,
     showLoading: PropTypes.bool,
-    isSecure: PropTypes.bool,
     loginCallback: PropTypes.func,
     forgotPassCallback: PropTypes.func,
     showInfoCallback: PropTypes.func,
     registerCallback: PropTypes.func,
-    showPassCallback: PropTypes.func,
-    emailChangeCallback: PropTypes.func,
-    passChangeCallback: PropTypes.func,
     dismissCallback: PropTypes.func,
     showNetworkError: PropTypes.bool
 };

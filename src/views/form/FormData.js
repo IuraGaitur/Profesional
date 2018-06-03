@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {View} from "react-native";
+import {Form} from "native-base";
 
-export default class Form extends Component {
+export default class FormData extends Component {
 
     constructor(props) {
         super(props);
@@ -12,7 +13,7 @@ export default class Form extends Component {
         const {shouldValidate} = this.props;
         let passValidation = true;
         if (shouldValidate) {
-            passValidation = Form.passValidation(items);
+            passValidation = FormData.passValidation(items);
         }
 
         return passValidation;
@@ -34,23 +35,25 @@ export default class Form extends Component {
         let formContainerStyles = [styles.formContainer, this.props.style ? this.props.style : {}];
         return (
             <View style={formContainerStyles}>
-                {this.props.children}
+                <Form>
+                    {this.props.children}
+                </Form>
             </View>
         );
     }
 }
 
-Form.propTypes = {
+FormData.propTypes = {
     shouldValidate: PropTypes.bool,
     style: PropTypes.any
 };
 
-Form.defaultProps = {
+FormData.defaultProps = {
     shouldValidate: true,
     style: {}
 };
 
 const styles = {
-    formContainer: {},
+    formContainer: {width: '100%'},
     formItem: {}
 };

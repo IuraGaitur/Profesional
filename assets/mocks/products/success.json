@@ -1,0 +1,27 @@
+[
+  {
+    "name": "BALANCE SHAMPOO",
+    "type": "B1",
+    "image": "assets/images/prod_1.png"
+  },
+  {
+    "name": "BALANCE MASK",
+    "type": "B1",
+    "image": "assets/images/prod_3.png"
+  },
+  {
+    "name": "BALANCE ENERGY SURUM",
+    "type": "B1",
+    "image": "assets/images/prod_3.png"
+  },
+  {
+    "name": "BALANCE LOTION",
+    "type": "B1",
+    "image": "assets/images/prod_4.png"
+  },
+  {
+    "name": "BALANCE SHAMPOO",
+    "type": "B1",
+    "image": "assets/images/prod_5.png"
+  }
+]

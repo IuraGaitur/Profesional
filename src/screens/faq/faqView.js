@@ -1,101 +1,100 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Drawer from 'react-native-drawer'
-import {Header} from "react-native-elements";
 import {FlatList, Text, View, StyleSheet, Dimensions} from "react-native";
 import PropTypes from 'prop-types';
-import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
+import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
 import MenuItem from "../../views/MenuItem";
+import {Body, Button, Container, Icon, Input, Item, Left, List, ListItem, Right, Title, Header} from "native-base";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-export default class MainView extends Component {
-
-    isDrawerOpen = false;
+export default class FaqView extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
     }
 
-    clickControlPanel = () => {
-        if (this.isDrawerOpen) {
-            this._drawer.close()
-        } else {
-            this._drawer.open()
-        }
-        this.isDrawerOpen = !this.isDrawerOpen;
-    }
-
-    getContent(user, menuItems, selectPageCalback) {
-        return (
-                <View style={styles.menu}>
-                    <FlatList
-                        keyExtractor={item => item.id.toString()}
-                        data={menuItems}
-                        scrollEnabled={true}
-                        renderSeparator={(sectionId, rowId) => <View key={rowId.toString()} style={styles.separator}/>}
-                        renderItem={(rowData) =>
-                            <MenuItem
-                                selectPageCallback={selectPageCalback}
-                                title={rowData.item.title}
-                                position={rowData.index}
-                            />}
-                    />
-                </View>
-                );
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
     }
 
     render() {
-        const {title, user, menuItems, selectPageCalback} = this.props;
-        const content = this.getContent(user, menuItems, selectPageCalback);
-        const drawerStyles = { drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3}, main: {paddingLeft: 3} };
-
+        const {questions, backCallback, contactCallback} = this.props;
         return (
             <View>
-                <Header
-                    statusBarProps={{ backgroundColor: PRIMARY }}
-                    placement="left"
-                    leftComponent={{ icon: 'menu', color: '#fff', onPress: () => this.clickControlPanel() }}
-                    centerComponent={{ text: title, style: { color: '#fff' } }}
-                    rightComponent={{ icon: 'home', color: '#fff' }} />
-                <Drawer
-                    type="overlay"
-                    content={content}
-                    tapToClose={true}
-                    openDrawerOffset={0.2} // 20% gap on the right side of drawer
-                    panCloseMask={0.2}
-                    closedDrawerOffset={-3}
-                    styles={drawerStyles}
-                    ref={(ref) => this._drawer = ref}
-                    tweenHandler={(ratio) => ({
-                        main: { opacity:(2-ratio)/2 }
-                    })}>
-                </Drawer>
+                <View>
+                    <Header style={styles.headerContainer}>
+                        <Left>
+                            <Button transparent onPress={() => backCallback()}>
+                                <Icon name='arrow-back' style={{color:GRAY_COLOR}}/>
+                            </Button>
+                        </Left>
+                        <Body>
+                            <Title style={styles.title}>FAQ</Title>
+                        </Body>
+                        <Right>
+                            <Button transparent onPress={() => contactCallback()}>
+                                <Icon name='mail' style={{color:GRAY_COLOR}}/>
+                            </Button>
+                        </Right>
+                    </Header>
+                    <Header searchBar rounded style={[styles.headerContainer]}>
+                        <Item style={styles.searchBar}>
+                            <Icon name="ios-search" />
+                            <Input placeholder="Search" returnKeyType="search"/>
+                        </Item>
+                    </Header>
+                </View>
+                <View>
+                    <List dataArray={questions}
+                          renderRow={(item) =>
+                              <ListItem style={styles.listItem}>
+                                  <Left>
+                                      <Text style={styles.textItem}>{item.title}</Text>
+                                  </Left>
+                                  <Right>
+                                      <Icon name="ios-arrow-forward" />
+                                  </Right>
+                              </ListItem>
+                          }>
+                    </List>
+                </View>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    separator: {
-        flex: 1,
+    headerContainer: {
+        backgroundColor: LIGHT_COLOR
     },
+    searchBar: {
+        borderColor: GRAY_COLOR,
+        borderWidth: 1,
+        padding: 16
+    },
+    title: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#333'
 
-    menu: {
-        width: SCREEN_WIDTH / 3 * 2,
-        height: SCREEN_HEIGHT,
-        backgroundColor: PRIMARY,
+    },
+    listItem: {
+        backgroundColor: LIGHT_COLOR,
+        marginLeft: 0,
+        marginRight: 0,
+        paddingHorizontal: 16
+    },
+    textItem: {
+        fontSize: 20,
+        color: TEXT_COLOR
     }
 });
 
-MainView.defaultProps = {
-    title: 'MainView'
-};
 
-
-MainView.propTypes = {
-    title: PropTypes.string,
-    user: PropTypes.object,
-    selectPageCalback: PropTypes.func,
-    menuItems: PropTypes.array
+FaqView.propTypes = {
+    searchCallback: PropTypes.func,
+    backCallback: PropTypes.func,
+    contactCallback: PropTypes.func,
+    questions: PropTypes.array
 };

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loginRequest, showSecure, emailChange, passChange } from './loginAction';
+import { loginRequest, register, forgotPass, getInfo } from './loginAction';
 import LoginView from "./loginView";
-import {FORGOT_PASS, INFO, REGISTER} from "../../../App";
-import { Actions } from 'react-native-router-flux';
 
 class LoginScreen extends Component {
 
@@ -11,66 +9,27 @@ class LoginScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            fontLoaded: false,
-            email: '',
-            password: '',
-            emailError: null,
-            passError: null,
-            showLoading: false,
-            networkError: false,
-            isLoggedIn: false,
-            secure: true,
-        };
         this.login = this.login.bind(this);
-    }
-
-    async componentDidMount() {
-        this.setState({ fontLoaded: true });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({...this.state, ...nextProps});
-        if (nextProps.isLoggedIn) {
-            this.loginSuccess();
-        }
     }
 
     showError(error) {
         console.log(error);
     }
 
-    login(e) {
-        this.props.onLogin(this.state.email, this.state.password);
-        e.preventDefault();
+    login(email, pass) {
+        this.props.onLogin(email, pass);
     }
 
     register() {
-        Actions.register();
-    }
-
-    loginSuccess() {
-        Actions.main();
+        this.props.onRegister();
     }
 
     forgotPassScreen() {
-        this.props.navigation.navigate(FORGOT_PASS);
+        this.props.onForgotPass();
     }
 
     showInfoScreen() {
-        Actions.info();
-    }
-
-    showPass(showPass) {
-        this.setState({...this.state, secure: !showPass});
-    }
-
-    emailChangeCallback(email) {
-        this.setState({...this.state, email: email});
-    }
-
-    passChangeCallback(pass) {
-        this.setState({...this.state, password: pass});
+        this.props.onInfo();
     }
 
     dismissDialogCallback() {
@@ -78,20 +37,13 @@ class LoginScreen extends Component {
     }
 
     render() {
-        const { email, password, emailError, passError, showLoading, secure, networkError } = this.state;
-        return <LoginView email={email}
-                          password={password}
-                          emailError={emailError}
-                          passError={passError}
+        const { passError, showLoading, networkError } = this.props;
+        return <LoginView passError={passError}
                           showLoading={showLoading}
-                          isSecure={secure}
                           registerCallback={this.register.bind(this)}
                           loginCallback={this.login.bind(this)}
                           forgotPassCallback={this.forgotPassScreen.bind(this)}
                           showInfoCallback={this.showInfoScreen.bind(this)}
-                          showPassCallback={this.showPass.bind(this)}
-                          emailChangeCallback={this.emailChangeCallback.bind(this)}
-                          passChangeCallback={this.passChangeCallback.bind(this)}
                           showNetworkError={networkError}
                           dismissCallback={this.dismissDialogCallback.bind(this)}
         />
@@ -100,18 +52,18 @@ class LoginScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        emailError: state.login.emailError,
         passError: state.login.passError,
         showLoading: state.login.showLoading,
         networkError: state.login.networkError,
-        isLoggedIn: state.login.isLoggedIn,
-        user: state.login.user
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (email, pass) => { dispatch(loginRequest(email, pass)) },
+        onRegister: () => {dispatch(register())},
+        onForgotPass: () => {dispatch(forgotPass)},
+        onInfo: () => {dispatch(getInfo())}
     }
 };
 

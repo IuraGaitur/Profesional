@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, Platform} from "react-native";
 import React, {Component} from 'react';
 import {GRAY_COLOR} from "../../utils/Colors";
 import CollectionUtils from "../../utils/CollectionUtils";
-import RNPickerSelect from "react-native-picker-select";
+import RNPickerSelect from "./../native_elements/PickerElement";
 
 
 export default class PickerInput extends Component{
@@ -37,6 +37,10 @@ export default class PickerInput extends Component{
             callback(element);
     }
 
+    focus() {
+        this.refs.picker.togglePicker(true);
+    }
+
     render() {
         const {defaultItem, items, valueChangeCallBack} = this.state;
         let requiredValidator = this.needValidation();
@@ -48,7 +52,7 @@ export default class PickerInput extends Component{
                             hideIcon={true}
                             placeholder={defaultItem}
                             items={items}
-                            style={{inputIOS: styles.inputIOS, placeholderColor: GRAY_COLOR,
+                            style={{inputIOS: styles.inputIOS, placeholderColor: 'black',
                                     inputAndroid: styles.inputAndroid, underline: {borderTopWidth: 0}}}
                             onValueChange={e => {this.changeItem(e, valueChangeCallBack)}}/>
                             <View style={styles.line}/>
@@ -64,20 +68,21 @@ const styles = StyleSheet.create({
     line: {
         flex: 1,
         height: 1,
-        marginTop: Platform.OS === 'ios' ? 8 : 0,
         backgroundColor: GRAY_COLOR,
     },
     inputIOS: {
         fontSize: 16,
-        paddingHorizontal: 8
+        paddingTop: 8,
+        color: 'black'
     },
     inputAndroid: {
-        paddingHorizontal: 8
+        color: 'black',
+        margin: 0,
+        padding: 0
     },
     selectElement: {
         flex: 1,
         flexDirection: 'column',
-        marginTop: 40,
         width: 'auto'
     },
     checkValidator: {
@@ -92,7 +97,6 @@ const styles = StyleSheet.create({
     validatorText: {
         color: 'red',
         fontSize: 12,
-        paddingLeft: 8
     }
 });
 

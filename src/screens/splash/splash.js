@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { checkForPrimaryUser } from './splashAction';
 import SplashView  from './splashView';
 import ScreenUtils from "../../utils/ScreenUtils";
+import {NativeModules} from "react-native";
 
 class SplashScreen extends Component {
 

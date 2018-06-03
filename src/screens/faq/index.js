@@ -1,3 +1,3 @@
-import MainScreen from './faq';
+import FaqScreen from './faq';
 
-export {MainScreen};
+export {FaqScreen};

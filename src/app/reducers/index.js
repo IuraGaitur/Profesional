@@ -5,6 +5,10 @@ import registerReducer from './../../screens/register/registerReducer';
 import recoverReducer from './../../screens/recovery/recoveryReducer';
 import infoReducer from './../../screens/info/infoReducer';
 import mainReducer from './../../screens/main/mainReducer';
+import faqReducer from './../../screens/faq/faqReducer';
+import contactReducer from './../../screens/contact/contactReducer';
+import productReducer from './../../screens/products/productsReducer';
+import clientDetailsReducer from "./../../screens/details_form/detailsFormReducer";
 
 export default combineReducers({
     splash: splashReducer,
@@ -12,5 +16,9 @@ export default combineReducers({
     register: registerReducer,
     recover: recoverReducer,
     info: infoReducer,
-    main: mainReducer
+    faq: faqReducer,
+    contact: contactReducer,
+    main: mainReducer,
+    clientDetails: clientDetailsReducer,
+    products: productReducer
 });
