@@ -1,0 +1,18 @@
+{
+  "status": 200,
+  "error": "",
+  "user": {
+    "email": "iura.gaitur@gmail.com",
+    "firstName": "Iura",
+    "lastName": "Gaitur",
+    "birthday": "1993-05-18",
+    "salonName": "Beauty",
+    "city": "Ungheni",
+    "phone": "+37378047860",
+    "country": "MD",
+    "acceptTerms": true,
+    "postalCode": "MD-2040",
+    "wellaNumber": "Wella678",
+    "newsLetterCheck": true
+  }
+}
