@@ -1,3 +1,3 @@
-import RegisterScreen from './register';
+import CreateClientScreen from './createClient';
 
-export {RegisterScreen};
+export {CreateClientScreen};

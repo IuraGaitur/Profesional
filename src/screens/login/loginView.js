@@ -152,12 +152,12 @@ const styles = StyleSheet.create({
         color: TEXT_COLOR,
         fontWeight: 'bold',
         marginRight: 10,
-        fontFamily: 'WorkSansBold'
+        //fontFamily: 'WorkSansBold'
     },
     title: {
         fontSize: 28,
         color: TEXT_COLOR,
-        fontFamily: 'WorkSansRegular'
+        //fontFamily: 'WorkSansRegular'
     },
     bgImage: {
         width: SCREEN_WIDTH,
@@ -176,12 +176,12 @@ const styles = StyleSheet.create({
     buttonFont: {
         fontSize: 15,
         color: GRAY_COLOR,
-        fontFamily: 'WorkSansRegular'
+        //fontFamily: 'WorkSansRegular'
     },
     plusText: {
         color: 'white',
         fontSize: 30,
-        fontFamily: 'WorkSansRegular'
+        //fontFamily: 'WorkSansRegular'
     },
     loginInput: {
         flex: 1,
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     inputLogin: {
         color: 'black',
         fontSize: 18,
-        fontFamily: 'WorkSansRegular',
+        //fontFamily: 'WorkSansRegular',
         height: '100%'
     },
     containerInput: {

@@ -1,4 +1,4 @@
-import {REQUEST_REGISTER, REGISTER_SUCCESS, REGISTER_FAIL, INIT, ERROR, NETWORK_ERROR} from './registerAction';
+import {REQUEST_REGISTER, REGISTER_SUCCESS, REGISTER_FAIL, INIT, ERROR, NETWORK_ERROR} from './createClientAction';
 
 const defaultState = {
     countries: [],

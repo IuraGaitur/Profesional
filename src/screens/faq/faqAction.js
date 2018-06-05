@@ -1,6 +1,6 @@
 import QuestionApi from '../../data/api/QuestionApi';
 import {Actions} from 'react-native-router-flux';
-export const NO_DISPATCH = 'NO_DISPATCH';
+import Constants from './../../utils/Constants';
 export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
 export const REQUEST_FAIL = 'REQUEST_FAIL';
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
@@ -27,12 +27,12 @@ function requestItems() {
 
 export function goBack() {
     Actions.pop();
-    return {type: NO_DISPATCH};
+    return {type: Constants.NO_ACTION};
 }
 
 export function goContacts() {
     Actions.contact();
-    return {type: NO_DISPATCH};
+    return {type: Constants.NO_ACTION};
 }
 
 export function getQuestions(name = '') {

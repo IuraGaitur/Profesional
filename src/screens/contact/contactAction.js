@@ -1,6 +1,7 @@
 import UserService from '../../data/api/UserApi';
 import CountryApi from "../../data/api/CountryApi";
 import StatusCode from "./../../utils/StatusCode";
+import Constants from './../../utils/Constants';
 import { Actions } from 'react-native-router-flux';
 export const INIT = 'INIT';
 export const ERROR = 'ERROR';
@@ -69,5 +70,5 @@ export function sendMessage(message) {
 
 export function goBack() {
     Actions.pop();
-    return {type: ''};
+    return {type: Constants.NO_ACTION};
 }

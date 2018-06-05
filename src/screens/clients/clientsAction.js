@@ -1,27 +1,18 @@
 import UserDao from '../../data/database/UserDao';
 import MenuDao from '../../data/database/MenuDao';
 import { Actions } from 'react-native-router-flux';
-export const GET_MENU_ITEMS = 'GET_MENU_ITEMS';
-export const SIGN_OUT = 'SIGN_OUT';
+export const GET_PRIMARY_USER = 'GET_PRIMARY_USER';
 
-export function getMenuItems() {
-    let items = new MenuDao().getItems();
-    return {
-        items: items,
-        type: GET_MENU_ITEMS
-    }
-}
-
-function sendSignOut() {
-    return {
-        type: SIGN_OUT
-    }
-}
-
-export function signOut() {
+export function getPrimaryUser() {
     return async (dispatch) => {
-        await new UserDao().removePrimaryUser();
-        Actions.login();
-        return dispatch(sendSignOut());
+        let user = await new UserDao().getPrimaryUser();
+        return dispatch(sendUser(user));
     }
+}
+
+function sendUser(user) {
+    return {
+        user: user,
+        type: GET_PRIMARY_USER
+    };
 }

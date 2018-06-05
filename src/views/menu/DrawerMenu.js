@@ -23,13 +23,14 @@ export default class DrawerMenu extends Component {
     };
 
     selectPage = (pos, callback) => {
-        this.isDrawerOpen = !this.isDrawerOpen;
+        this._drawer.close();
+        this.isDrawerOpen = false;
         callback(pos);
     };
 
     render() {
-        const {title, menuItems, selectPageCalback, selectedItem} = this.props;
-        const drawerStyles = { drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3}, main: {paddingLeft: 3} };
+        const {title, menuItems, selectPageCalback} = this.props;
+        const drawerStyles = { drawer: { shadowColor: '#000000', shadowOpacity: 0, shadowRadius: 1}, main: {paddingLeft: 3} };
 
         return <View style={styles.mainContainer}>
                     <Header style={styles.headerOuter}>
@@ -41,7 +42,9 @@ export default class DrawerMenu extends Component {
                         <Body>
                             <Title style={{color:'black'}}>{title}</Title>
                         </Body>
-                        <Right></Right>
+                        <Right>
+                            {this.props.actions}
+                        </Right>
                     </Header>
                     <Drawer
                         type="overlay"
@@ -97,3 +100,10 @@ const styles = StyleSheet.create({
         backgroundColor: LIGHT_COLOR,
     }
 });
+
+DrawerMenu.propTypes = {
+    title: PropTypes.string,
+    menuItems: PropTypes.array,
+    selectPageCalback: PropTypes.func,
+    actions: PropTypes.node
+};

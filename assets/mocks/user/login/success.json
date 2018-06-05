@@ -9,8 +9,10 @@
     "salonName": "Beauty",
     "city": "Ungheni",
     "phone": "+37378047860",
-    "country": "Moldova",
+    "country": "MD",
     "acceptTerms": true,
-    "newsLetter": true
+    "postalCode": "MD-2040",
+    "wellaNumber": "Wella678",
+    "newsLetterCheck": true
   }
 }

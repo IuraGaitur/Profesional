@@ -114,10 +114,12 @@ const styles = StyleSheet.create({
         padding: 10
     },
     titleBold: {
+        color: TEXT_COLOR,
         fontSize: 22,
         fontWeight: 'bold'
     },
     title: {
+        color: TEXT_COLOR,
         fontSize: 22
     },
     inputsContainer: {

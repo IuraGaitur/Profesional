@@ -11,7 +11,7 @@ function noPrimaryUser() {
 }
 
 function hasPrimaryUser(user) {
-    Actions.login();
+    Actions.main();
     return {
         type: HAS_USER,
         user: user

@@ -9,6 +9,8 @@ import faqReducer from './../../screens/faq/faqReducer';
 import contactReducer from './../../screens/contact/contactReducer';
 import productReducer from './../../screens/products/productsReducer';
 import clientDetailsReducer from "./../../screens/details_form/detailsFormReducer";
+import clientsReducer from './../../screens/clients/clientsReducer';
+import profileReducer from './../../screens/profile/profileReducer';
 
 export default combineReducers({
     splash: splashReducer,
@@ -20,5 +22,7 @@ export default combineReducers({
     contact: contactReducer,
     main: mainReducer,
     clientDetails: clientDetailsReducer,
-    products: productReducer
+    products: productReducer,
+    clients: clientsReducer,
+    profile: profileReducer
 });

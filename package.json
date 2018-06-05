@@ -3,27 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "babel-jest": "^22.4.4",
-    "babel-preset-react-native": "^4.0.0",
-    "jest": "^22.4.4",
-    "jest-expo": "^22.0.0",
-    "jest-react-native": "^18.0.0",
+    "jest-expo": "^27.0.1",
     "react-test-renderer": "^16.3.2"
   },
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "test": "jest",
+    "test": "node node_modules/jest/bin/jest.js --watch",
     "deploy-crashlytics": "cd android && ./gradlew assembleRelease crashlyticsUploadDistributionRelease"
   },
   "jest": {
     "preset": "jest-expo",
-    "testPathIgnorePatterns": [
-      "<rootDir>/(?:.+?)/__tests__/"
-    ],
     "transformIgnorePatterns": [
-      "node_modules/*"
+      "node_modules/(?!((jest-)?react-native|react-clone-referenced-element|expo(nent)?|@expo(nent)?/.*|react-navigation))"
     ]
   },
   "rnpm": {

@@ -1,5 +1,6 @@
 import DetailsQuestionsApi from "../../data/api/DetailsQuestionsApi";
 import { Actions } from 'react-native-router-flux';
+import Constants from './../../utils/Constants';
 export const INIT = 'INIT';
 export const ERROR = 'ERROR';
 export const REQUEST_REGISTER = 'REQUEST_REGISTER';
@@ -9,9 +10,7 @@ export const NETWORK_ERROR = 'NETWORK_ERROR';
 
 export function init() {
     return async(dispatch) => {
-        console.log("Get data");
         let questions = new DetailsQuestionsApi().instance().getAll();
-        console.log("Dispatch data");
         return dispatch(getQuestions(questions));
     }
 }
@@ -32,5 +31,5 @@ function errorNetwork() {
 
 export function goBack() {
     Actions.pop();
-    return {type: ''};
+    return {type: Constants.NO_ACTION};
 }

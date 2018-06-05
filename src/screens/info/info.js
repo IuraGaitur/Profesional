@@ -25,11 +25,21 @@ class InfoScreen extends Component {
         //Todo search
     };
 
+    showFaqScreen = () => {
+        Actions.faq();
+    };
+
+    showContactScreen = () => {
+       Actions.contact();
+    };
+
     render() {
         return (
             <InfoView closeCallback={this.closeView}
                       showLoading={false}
-                      searchCallback={this.search}  />
+                      searchCallback={this.search}
+                      contactCallback={this.showContactScreen}
+                      faqCallback={this.showFaqScreen}  />
         );
     }
 }

@@ -25,7 +25,7 @@ export default class InfoView extends Component {
     }
 
     render() {
-        const {searchCallback, showLoading, searchInput, closeCallback} = this.props;
+        const {searchCallback, showLoading, searchInput, closeCallback, contactCallback, faqCallback} = this.props;
 
         return (
             <View style={{ flex: 1, backgroundColor:'white' }}>
@@ -43,11 +43,11 @@ export default class InfoView extends Component {
                             </FormItem>
                         </Form>
                         <SubmitButton text='SEARCH' showLoading={showLoading} onPress={searchCallback}/>
-                        <Button block transparent light>
+                        <Button block transparent light onPress={faqCallback}>
                             <Text style={{flex: 1, paddingLeft: 4, fontSize: 14}}>FAQ</Text>
                             <Icon name='ios-arrow-forward' style={{color:GRAY_COLOR}}/>
                         </Button>
-                        <Button block transparent light>
+                        <Button block transparent light onPress={contactCallback}>
                             <Text style={{flex: 1, paddingLeft: 4, fontSize: 14}}>Contact Us</Text>
                             <Icon name='ios-arrow-forward' style={{color:GRAY_COLOR}}/>
                         </Button>
@@ -55,8 +55,8 @@ export default class InfoView extends Component {
 
                 </ParallaxScrollView>
                 <View style={styles.close}>
-                    <Icon name='ios-close' style={{color:'white', fontSize: 40}}
-                          underlayColor={TRANSPARENT} onPress={e => closeCallback()} TouchableComponent={TouchableWithoutFeedback} />
+                    <Icon name='ios-close' style={{color:'white', fontSize: 40, backgroundColor: 'transparent'}}
+                          underlayColor={TRANSPARENT} onPress={e => closeCallback()} />
                 </View>
             </View>
         );

@@ -1,5 +1,6 @@
 import UserService from '../../data/api/UserApi';
 import StatusCode from "./../../utils/StatusCode";
+import Constants from './../../utils/Constants';
 export const REQUEST_RESET = 'REQUEST_RESET';
 export const RESET_FAIL = 'RESET_FAIL';
 export const RESET_SUCCESS = 'RESET_SUCCESS';
@@ -33,12 +34,10 @@ function errorNetwork() {
 
 export function resetPassword(email, newPass) {
     return async (dispatch) => {
-        console.log("Show loading");
         dispatch(requestReset());
 
         let response = await new UserService().instance().resetPass(email, newPass);
         if (response && response.status == StatusCode.OK) {
-            console.log("Success");
             return dispatch(successReset("Reset with success"));
         }else if (response && response.status == StatusCode.INVALID_USER) {
             return dispatch(errorReset(response.error))

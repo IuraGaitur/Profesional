@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { init, registerRequest, goBack, showInfo } from './profileAction';
+import { init, getPrimaryUser, goBack, saveRequest } from './profileAction';
 import ProfileView  from './profileView';
 import Toast, {DURATION} from 'react-native-easy-toast'
 import {View} from "react-native";
@@ -12,15 +12,9 @@ class ProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = this.props;
-    }
-
-    async componentDidMount() {
-        this.getCountries();
-    }
-
-    getCountries = () => {
         this.props.getCountries();
-    };
+        this.props.getPrimaryUser();
+    }
 
     componentWillReceiveProps(nextProps) {
         this.setState({...this.state, ...nextProps});
@@ -29,28 +23,23 @@ class ProfileScreen extends Component {
         }
     }
 
-    registerUser = (user) => { this.props.register(user);};
-
-    goBack = () => { this.props.goBack(); };
-
-    showInfo = () => { this.props.showInfo(); };
-
     showError = (errorMessage) => { this.refs.errorToast.show(errorMessage); };
+
+    updatePrimaryUser = (user) => { this.props.save(user); };
 
     dismissDialogCallback = () => { this.setState({...this.state, networkError: false});};
 
     render() {
-        const {countries, networkError, showLoading} = this.props;
+        const {countries, networkError, showLoading, primaryUser} = this.props;
 
         return (
             <View>
-                <ProfileView registerCallback={user => this.registerUser(user)}
-                              countries={countries}
-                              actionBack={() => this.goBack()}
-                              actionInfo={() => this.showInfo()}
-                              showNetworkError={networkError}
-                              showLoading={showLoading}
-                              dismissDialogCallback={this.dismissDialogCallback}/>
+                <ProfileView updatePrimaryUserCallback={user => this.updatePrimaryUser(user)}
+                             countries={countries}
+                             showNetworkError={networkError}
+                             showLoading={showLoading}
+                             primaryUser={primaryUser}
+                             dismissDialogCallback={this.dismissDialogCallback}/>
                 <Toast ref="errorToast"/>
             </View>
         );
@@ -59,21 +48,21 @@ class ProfileScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        countries: state.register.countries,
-        showLoading: state.register.showLoading,
-        errorMessage: state.register.errorMessage,
-        networkError: state.register.networkError,
-        user: state.register.user,
-        isLoggedIn: state.register.isLoggedIn
+        countries: state.profile.countries,
+        showLoading: state.profile.showLoading,
+        errorMessage: state.profile.errorMessage,
+        networkError: state.profile.networkError,
+        primaryUser: state.profile.user,
+        isLoggedIn: state.profile.isLoggedIn
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getCountries: () => {dispatch(init())},
-        register: (user) => {dispatch(registerRequest(user))},
+        save: (user) => {dispatch(saveRequest(user))},
         goBack: () => {dispatch(goBack)},
-        showInfo: () => {dispatch(showInfo)},
+        getPrimaryUser: () => dispatch(getPrimaryUser())
     }
 };
 

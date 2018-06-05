@@ -3,6 +3,7 @@ import CountryApi from "../../data/api/CountryApi";
 import UserDao from "../../data/database/UserDao";
 import StatusCode from "./../../utils/StatusCode";
 import { Actions } from 'react-native-router-flux';
+import Constants from './../../utils/Constants';
 export const INIT = 'INIT';
 export const ERROR = 'ERROR';
 export const REQUEST_REGISTER = 'REQUEST_REGISTER';
@@ -68,12 +69,12 @@ export function registerRequest(user) {
     }
 }
 
-export function showInfo() {
-    Actions.info();
-    return {type: ''};
+export function addUser() {
+    Actions.detailsForm();
+    return {type: Constants.NO_ACTION};
 }
 
 export function goBack() {
     Actions.pop();
-    return {type: ''};
+    return {type: Constants.NO_ACTION};
 }

@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { init, registerRequest, goBack, showInfo } from './registerAction';
-import RegisterView  from './registerView';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {init, registerRequest, goBack, addUser} from './createClientAction';
+import CreateClientView  from './createClientView';
 import Toast, {DURATION} from 'react-native-easy-toast'
 import {View} from "react-native";
 
-class RegisterScreen extends Component {
+class CreateClientScreen extends Component {
 
-    static navigationOptions = { header: null};
+    static navigationOptions = {header: null};
 
     constructor(props) {
         super(props);
@@ -22,6 +22,10 @@ class RegisterScreen extends Component {
         this.props.getCountries();
     };
 
+    addUser = () => {
+        this.props.addUser();
+    };
+
     componentWillReceiveProps(nextProps) {
         this.setState({...this.state, ...nextProps});
         if (nextProps.errorMessage) {
@@ -29,28 +33,38 @@ class RegisterScreen extends Component {
         }
     }
 
-    registerUser = (user) => { this.props.register(user);};
+    registerUser = (user) => {
+        this.props.register(user);
+    };
 
-    goBack = () => { this.props.goBack(); };
+    goBack = () => {
+        this.props.goBack();
+    };
 
-    showInfo = () => { this.props.showInfo(); };
+    showInfo = () => {
+        this.props.showInfo();
+    };
 
-    showError = (errorMessage) => { this.refs.errorToast.show(errorMessage); };
+    showError = (errorMessage) => {
+        this.refs.errorToast.show(errorMessage);
+    };
 
-    dismissDialogCallback = () => { this.setState({...this.state, networkError: false});};
+    dismissDialogCallback = () => {
+        this.setState({...this.state, networkError: false});
+    };
 
     render() {
         const {countries, networkError, showLoading} = this.props;
 
         return (
             <View>
-                <RegisterView registerCallback={user => this.registerUser(user)}
-                              countries={countries}
-                              actionBack={() => this.goBack()}
-                              actionInfo={() => this.showInfo()}
-                              showNetworkError={networkError}
-                              showLoading={showLoading}
-                              dismissDialogCallback={this.dismissDialogCallback}/>
+                <CreateClientView registerCallback={user => this.registerUser(user)}
+                                  countries={countries}
+                                  actionBack={() => this.goBack()}
+                                  showNetworkError={networkError}
+                                  showLoading={showLoading}
+                                  addUserCallback={this.addUser}
+                                  dismissDialogCallback={this.dismissDialogCallback}/>
                 <Toast ref="errorToast"/>
             </View>
         );
@@ -70,11 +84,19 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCountries: () => {dispatch(init())},
-        register: (user) => {dispatch(registerRequest(user))},
-        goBack: () => {dispatch(goBack)},
-        showInfo: () => {dispatch(showInfo)},
+        getCountries: () => {
+            dispatch(init())
+        },
+        register: (user) => {
+            dispatch(registerRequest(user))
+        },
+        goBack: () => {
+            dispatch(goBack)
+        },
+        addUser: () => {
+            dispatch(addUser)
+        },
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (RegisterScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateClientScreen);

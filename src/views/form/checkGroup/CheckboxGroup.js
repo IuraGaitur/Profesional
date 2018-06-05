@@ -16,10 +16,10 @@ export default class CheckboxGroup extends Component {
         this.setState({items: this.items});
     }
 
-    changeItemState = (element, active) => {
-        let view = this.items.filter(item => element.index == item.index)[0];
-        this.items[this.items.indexOf(view)].active = active;
-        this.setState({items: this.items});
+    changeItemState = (items, element, active) => {
+        let view = items.filter(item => element.id == item.id)[0];
+        items[items.indexOf(view)].active = active;
+        this.setState({items: items});
     };
 
     render() {
@@ -27,7 +27,7 @@ export default class CheckboxGroup extends Component {
             {this.props.items && this.props.items.map(item =>
                 <CheckboxItem key={item.title} title={item.title}
                               isSelected={item.active}
-                              onSelect={() => {this.changeItemState(item, !item.active)}}/>)}
+                              onSelect={() => {this.changeItemState(this.props.items, item, !item.active)}}/>)}
         </View>
     }
 }

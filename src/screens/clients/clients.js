@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {signOut, getMenuItems} from './clientsAction';
+import {getPrimaryUser} from './clientsAction';
 import ClientsView from "./clientsView";
 
 class ClientsScreen extends Component {
@@ -9,24 +9,26 @@ class ClientsScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.props.getPrimaryUser();
     }
 
-
     render() {
+        const {primaryUser} = this.props;
         return (
-            <ClientsView />
+            <ClientsView primaryUser={primaryUser}/>
         );
     }
 }
 
 const mapStateToProps = (state) => {
     return {
+        primaryUser: state.clients.user
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        getPrimaryUser: () => dispatch(getPrimaryUser())
     }
 };
 

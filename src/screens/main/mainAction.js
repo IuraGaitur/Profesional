@@ -1,18 +1,23 @@
 import UserDao from '../../data/database/UserDao';
 import MenuDao from '../../data/database/MenuDao';
-import { Actions } from 'react-native-router-flux';
+import Constants from './../../utils/Constants';
+import {Actions} from 'react-native-router-flux';
 export const GET_MENU_ITEMS = 'GET_MENU_ITEMS';
 export const SIGN_OUT = 'SIGN_OUT';
-const NO_ACTION = '';
 
 export function showHelp() {
-    Actions.faq();
-    return {type: NO_ACTION};
+    Actions.info();
+    return {type: Constants.NO_ACTION};
 }
 
 export function showMyProfile() {
     Actions.profile();
-    return {type: NO_ACTION};
+    return {type: Constants.NO_ACTION};
+}
+
+export function showCreateClient() {
+    Actions.createClient();
+    return {type: Constants.NO_ACTION};
 }
 
 export function getMenuItems() {

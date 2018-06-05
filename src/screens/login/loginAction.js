@@ -2,6 +2,7 @@ import UserService from '../../data/api/UserApi';
 import UserDao from "../../data/database/UserDao";
 import Strings from "./../../utils/Strings";
 import StatusCode from "./../../utils/StatusCode";
+import Constants from './../../utils/Constants';
 import { Actions } from 'react-native-router-flux';
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
@@ -9,7 +10,6 @@ export const EMAIL_FAIL = 'EMAIL_FAIL';
 export const PASS_FAIL = 'PASS_FAIL';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const NETWORK_ERROR = 'NETWORK_ERROR';
-export const NO_DISPATCH = 'NO_DISPATCH';
 
 function requestLogin() {
     return {
@@ -72,17 +72,17 @@ export function loginRequest(email, pass) {
 
 export function register() {
     Actions.register();
-    return {type: NO_DISPATCH};
+    return {type: Constants.NO_ACTION};
 }
 
 export function forgotPass() {
     Actions.forgotPass();
-    return {type: NO_DISPATCH};
+    return {type: Constants.NO_ACTION};
 }
 
 export function getInfo() {
     Actions.info();
-    return {type: NO_DISPATCH};
+    return {type: Constants.NO_ACTION};
 }
 
 

@@ -68,7 +68,7 @@ export default class RegisterView extends Component {
     }
 
     handleDatePicked(time) {
-        this.updateForm('birthDate', moment(time).format('YYYY-MM-DD'));
+        this.updateForm('birthday', moment(time).format('YYYY-MM-DD'));
         this.setState({showDatePicker: false});
     };
 
@@ -78,8 +78,8 @@ export default class RegisterView extends Component {
 
     render() {
         const { firstName, lastName, email, emailConfirm,
-                birthDate, pass, passConfirm, salonName,
-                city, country, phone, termsCheck, newsLetterCheck,
+                birthday, pass, passConfirm, salonName,
+                city, country, phone, wellaNumber, postalCode, termsCheck, newsLetterCheck,
                 showDatePicker} = this.state;
         const {showLoading, showNetworkError, countries, actionBack, actionInfo, dismissDialogCallback} = this.props;
 
@@ -152,7 +152,7 @@ export default class RegisterView extends Component {
                                 validation={[{name: REQUIRED, error: 'Required'}]}
                                 onFocus={() => {this.showDateTimerPicker()}}
                                 onSubmitEditing={() => this.formInputs[5].focus()}
-                                value={birthDate}>
+                                value={birthday}>
                                 <Label>DATE OF BIRTH*</Label>
                             </FormItem>
                             <Space height={15}/>
@@ -187,9 +187,25 @@ export default class RegisterView extends Component {
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[8] = item}
-                                value={city}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
                                 onSubmitEditing={() => this.formInputs[9].focus()}
+                                value={phone}
+                                onChangeText={item => this.updateForm('phone', item)}>
+                                <Label>PHONE NUMBER*</Label>
+                            </FormItem>
+                            <FormItem
+                                ref={item => this.formInputs[9] = item}
+                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                onSubmitEditing={() => this.formInputs[10].focus()}
+                                value={postalCode}
+                                onChangeText={item => this.updateForm('postalCode', item)}>
+                                <Label>POSTAL CODE*</Label>
+                            </FormItem>
+                            <FormItem
+                                ref={item => this.formInputs[10] = item}
+                                value={city}
+                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                onSubmitEditing={() => this.formInputs[11].focus()}
                                 onChangeText={item => this.updateForm('city', item)}>
                                 <Label>CITY*</Label>
                             </FormItem>
@@ -198,15 +214,15 @@ export default class RegisterView extends Component {
                                 valueChangeCallBack={this.changeCountryCallback}
                                 defaultItem={{label: "COUNTRY*", value: ""}}
                                 needValidation value={country}
-                                ref={item => this.formInputs[9] = item}
-                                onSubmitEditing={() => this.formInputs[10].focus()}
+                                ref={item => this.formInputs[11] = item}
+                                onSubmitEditing={() => this.formInputs[12].focus()}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
                             />
                             <FormItem
-                                ref={item => this.formInputs[10] = item}
-                                value={phone} isLast
+                                ref={item => this.formInputs[12] = item}
+                                value={wellaNumber} isLast
                                 validation={[{name: REQUIRED, error: 'Required'}]}
-                                onChangeText={item => this.updateForm('phone', item)}>
+                                onChangeText={item => this.updateForm('wellaNumber', item)}>
                                 <Label>WELLA CUSTOMER NUMBER*</Label>
                             </FormItem>
                             <Space height={25}/>
@@ -214,7 +230,7 @@ export default class RegisterView extends Component {
                                 <Text style={styles.textValidator}>Accept terms *</Text>
                                 <CheckboxInput checkedColor={PRIMARY}
                                                checked={termsCheck} needValidation
-                                               ref={item => this.formInputs[11] = item}
+                                               ref={item => this.formInputs[13] = item}
                                                validation={[{name: REQUIRED, error: 'Required'}]}
                                                onPress={() => this.checkTermsCallback()}/>
                             </View>

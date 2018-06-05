@@ -35,12 +35,28 @@ export default class ProfileView extends Component {
         if (!CollectionUtils.isNullOrEmpty(nextProps.countries)) {
             this.setState({countries: nextProps.countries})
         }
+        if(nextProps.primaryUser != null) {
+            console.log(nextProps.primaryUser);
+            this.setState({
+                firstName: nextProps.primaryUser.firstName,
+                lastName: nextProps.primaryUser.lastName,
+                birthday: nextProps.primaryUser.birthday,
+                salonName: nextProps.primaryUser.salonName,
+                city: nextProps.primaryUser.city,
+                country: nextProps.primaryUser.country,
+                phone: nextProps.primaryUser.phone,
+                wellaNumber: nextProps.primaryUser.wellaNumber,
+                postalCode: nextProps.primaryUser.postalCode,
+                newsLetterCheck: nextProps.primaryUser.newsLetterCheck,
+
+            })
+        }
     }
 
-    register = (e) => {
+    updateUser = (e) => {
         let areFieldsValid = this.refs.formData.validate(this.formInputs);
         if (areFieldsValid) {
-            this.props.registerCallback(this.user);
+            this.props.updatePrimaryUserCallback(this.user);
         }
     };
 
@@ -68,7 +84,7 @@ export default class ProfileView extends Component {
     }
 
     handleDatePicked(time) {
-        this.updateForm('birthDate', moment(time).format('YYYY-MM-DD'));
+        this.updateForm('birthday', moment(time).format('YYYY-MM-DD'));
         this.setState({showDatePicker: false});
     };
 
@@ -77,35 +93,13 @@ export default class ProfileView extends Component {
     };
 
     render() {
-        const { firstName, lastName, email, emailConfirm,
-                birthDate, pass, passConfirm, salonName,
-                city, country, phone, termsCheck, newsLetterCheck,
+        const { firstName, lastName, birthday, salonName,
+                city, country, phone, postalCode, wellaNumber, newsLetterCheck,
                 showDatePicker} = this.state;
-        const {showLoading, showNetworkError, countries, actionBack, actionInfo, dismissDialogCallback} = this.props;
+        const {showLoading, showNetworkError, countries, dismissDialogCallback} = this.props;
 
         return (
             <View>
-                <Header style={styles.headerContainer}>
-                    <Left>
-                        <Button transparent onPress={() => actionBack()}>
-                            <Icon name='arrow-back' color={GRAY_COLOR}/>
-                        </Button>
-                    </Left>
-                    <Body>
-                        <Grid>
-                            <Row>
-                                <Text style={styles.titleBold}>TELL US </Text>
-                                <Text style={styles.title}>ABOUT</Text>
-                            </Row>
-                            <Row><Text style={styles.title}>YOURSELF</Text></Row>
-                        </Grid>
-                    </Body>
-                    <Right>
-                        <Button transparent onPress={() => actionInfo()}>
-                            <Icon name='info' color={GRAY_COLOR}/>
-                        </Button>
-                    </Right>
-                </Header>
                 <ScrollView style={{backgroundColor: 'white'}}>
                     <View style={styles.inputsContainer}>
                         <Form shouldValidate ref="formData">
@@ -126,70 +120,44 @@ export default class ProfileView extends Component {
                                 onChangeText={item => this.updateForm('lastName', item)}>
                                 <Label>LAST NAME*</Label>
                             </FormItem>
-                            <Space height={15}/>
                             <FormItem
                                 ref={item => this.formInputs[2] = item}
-                                validation={[{name: REQUIRED, error: 'Required'},
-                                             {name: EMAIL, error: 'Not valid email'}]}
-                                value={email}
-                                onSubmitEditing={() => this.formInputs[3].focus()}
-                                onChangeText={item => {this.updateForm('email', item);}}>
-                                <Label>EMAIL ADDRESS*</Label>
-                            </FormItem>
-                            <FormItem
-                                ref={item => this.formInputs[3] = item}
-                                validation={[{name: REQUIRED, error: 'Required'},
-                                    {name: EMAIL, error: 'Not valid email'},
-                                    {name: CONFIRMATION, error: 'Emails are not the same'}]}
-                                confirmationValue={this.state.email}
-                                value={emailConfirm}
-                                onSubmitEditing={() => this.formInputs[4].focus()}
-                                onChangeText={item => {this.updateForm('emailConfirm', item);}}>
-                                <Label>EMAIL CONFIRMATION*</Label>
-                            </FormItem>
-                            <FormItem
-                                ref={item => this.formInputs[4] = item}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
                                 onFocus={() => {this.showDateTimerPicker()}}
-                                onSubmitEditing={() => this.formInputs[5].focus()}
-                                value={birthDate}>
+                                onSubmitEditing={() => this.formInputs[3].focus()}
+                                value={birthday}>
                                 <Label>DATE OF BIRTH*</Label>
                             </FormItem>
                             <Space height={15}/>
                             <FormItem
-                                ref={item => this.formInputs[5] = item}
-                                validation={[{name: REQUIRED, error: 'Required'},
-                                             {name: STRONG_PASS, error: 'Not valid password'}]}
-                                value={pass} password
-                                onSubmitEditing={() => this.formInputs[6].focus()}
-                                onChangeText={item => {this.updateForm('pass', item);}}>
-                                <Label>PASSWORD*</Label>
-                            </FormItem>
-                            <FormItem
-                                ref={item => this.formInputs[6] = item}
-                                confirmationValue={this.state.pass}
-                                value={passConfirm} password
-                                onSubmitEditing={() => this.formInputs[7].focus()}
-                                validation={[{name: REQUIRED, error: 'Required'},
-                                             {name: STRONG_PASS, error: 'Not valid password'},
-                                             {name: CONFIRMATION, error: 'Passwords are not the same'}]}
-                                onChangeText={item => this.updateForm('passConfirm', item)}>
-                                <Label>PASSWORD CONFIRMATION*</Label>
-                            </FormItem>
-                            <Space height={15}/>
-                            <FormItem
-                                ref={item => this.formInputs[7] = item}
+                                ref={item => this.formInputs[3] = item}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
-                                onSubmitEditing={() => this.formInputs[8].focus()}
+                                onSubmitEditing={() => this.formInputs[4].focus()}
                                 value={salonName}
                                 onChangeText={item => this.updateForm('salonName', item)}>
                                 <Label>SALON NAME*</Label>
                             </FormItem>
                             <FormItem
-                                ref={item => this.formInputs[8] = item}
+                                ref={item => this.formInputs[4] = item}
+                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                onSubmitEditing={() => this.formInputs[5].focus()}
+                                value={phone}
+                                onChangeText={item => this.updateForm('phone', item)}>
+                                <Label>PHONE NUMBER*</Label>
+                            </FormItem>
+                            <FormItem
+                                ref={item => this.formInputs[5] = item}
+                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                onSubmitEditing={() => this.formInputs[6].focus()}
+                                value={postalCode}
+                                onChangeText={item => this.updateForm('postalCode', item)}>
+                                <Label>POSTAL CODE*</Label>
+                            </FormItem>
+                            <FormItem
+                                ref={item => this.formInputs[6] = item}
                                 value={city}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
-                                onSubmitEditing={() => this.formInputs[9].focus()}
+                                onSubmitEditing={() => this.formInputs[7].focus()}
                                 onChangeText={item => this.updateForm('city', item)}>
                                 <Label>CITY*</Label>
                             </FormItem>
@@ -198,26 +166,17 @@ export default class ProfileView extends Component {
                                 valueChangeCallBack={this.changeCountryCallback}
                                 defaultItem={{label: "COUNTRY*", value: ""}}
                                 needValidation value={country}
-                                ref={item => this.formInputs[9] = item}
-                                onSubmitEditing={() => this.formInputs[10].focus()}
+                                ref={item => this.formInputs[7] = item}
+                                onSubmitEditing={() => this.formInputs[8].focus()}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
                             />
                             <FormItem
-                                ref={item => this.formInputs[10] = item}
-                                value={phone} isLast
+                                ref={item => this.formInputs[8] = item}
+                                value={wellaNumber} isLast
                                 validation={[{name: REQUIRED, error: 'Required'}]}
-                                onChangeText={item => this.updateForm('phone', item)}>
+                                onChangeText={item => this.updateForm('wellaNumber', item)}>
                                 <Label>WELLA CUSTOMER NUMBER*</Label>
                             </FormItem>
-                            <Space height={25}/>
-                            <View style={styles.checkboxItem}>
-                                <Text style={styles.textValidator}>Accept terms *</Text>
-                                <CheckboxInput checkedColor={PRIMARY}
-                                               checked={termsCheck} needValidation
-                                               ref={item => this.formInputs[11] = item}
-                                               validation={[{name: REQUIRED, error: 'Required'}]}
-                                               onPress={() => this.checkTermsCallback()}/>
-                            </View>
                             <Space height={16}/>
                             <View style={styles.checkboxItem}>
                                 <Text>Sign to newsletter</Text>
@@ -229,19 +188,8 @@ export default class ProfileView extends Component {
                             </View>
                             <Space height={25}/>
 
-                            <SubmitButton text='SIGN UP' showLoading={showLoading} onPress={this.register}/>
-                            <Text style={styles.terms}>
-                                Please note, we use approved digital cookies, in these terms emails let us know you've
-                                received cookies to make sure we're giving you news and information that interests you.
-                            </Text>
-                            <TouchOpacityDebounce>
-                                <Text style={styles.link}>Find out more about cookies.</Text>
-                            </TouchOpacityDebounce>
-                            <TouchOpacityDebounce>
-                                <Text style={styles.link}>By clicking above you accept T&C.</Text>
-                            </TouchOpacityDebounce>
+                            <SubmitButton text='Save' showLoading={showLoading} onPress={this.updateUser}/>
                         </Form>
-                        <Space height={25}/>
                     </View>
                 </ScrollView>
                 <DateTimePicker
@@ -346,11 +294,9 @@ ProfileView.defaultProps = {};
 
 
 ProfileView.propTypes = {
-    registerCallback: PropTypes.func,
+    updatePrimaryUserCallback: PropTypes.func,
     dismissDialogCallback: PropTypes.func,
     showLoading: PropTypes.bool,
     showNetworkError: PropTypes.bool,
     countries: PropTypes.array,
-    actionBack: PropTypes.func,
-    actionInfo: PropTypes.func
 };

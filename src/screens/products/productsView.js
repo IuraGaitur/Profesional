@@ -17,12 +17,12 @@ export default class ProductsView extends Component {
     }
 
     render() {
-        const {title, user, menuItems, selectPageCalback, products} = this.props;
+        const {products} = this.props;
 
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.container}>
-                    {products && products.map(item => <CardProduct title={item.name} picture={item.image}/>)}
+                    {products && products.map(item => <CardProduct key={item.name} title={item.name} picture={item.image}/>)}
                 </View>
             </View>
         );
