@@ -111,7 +111,6 @@ export default class TextInput extends Component{
 TextInput.propTypes = {
     onChangeText: PropTypes.func,
     value: PropTypes.string,
-    confirmationValue: PropTypes.string,
     inputStyle: PropTypes.number,
     keyboardAppearance: PropTypes.string,
     placeholder: PropTypes.string,
@@ -124,6 +123,7 @@ TextInput.propTypes = {
     placeholderTextColor: PropTypes.string,
     containerStyle: PropTypes.number,
     validation: PropTypes.array,
+    confirmationValue: PropTypes.string,
     editable: PropTypes.bool,
     rightIcon: PropTypes.object,
     secureTextEntry: PropTypes.bool

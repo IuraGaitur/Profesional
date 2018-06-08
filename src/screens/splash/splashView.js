@@ -15,6 +15,7 @@ export default class SplashView extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text style={{fontSize: 28, fontWeight: 'bold'}}>System Professional</Text>
                 <Text style={{fontSize: 20}}>Loading...</Text>
                 <ActivityIndicator style={styles.indicator} color={PRIMARY} animating={true} size="small"/>
             </View>

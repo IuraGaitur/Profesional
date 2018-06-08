@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import {Text, View, StyleSheet} from "react-native";
+import {Text, View, StyleSheet, Platform} from "react-native";
 import React, {Component} from 'react';
-import {GRAY_COLOR} from "../../utils/Colors";
+import {GRAY_COLOR, GRAY_LIGHT, TEXT_COLOR} from "../../utils/Colors";
 import CollectionUtils from "../../utils/CollectionUtils";
-import RNPickerSelect from "react-native-picker-select";
+import RNPickerSelect from "./../native_elements/PickerElement";
 
 
 export default class PickerInput extends Component{
@@ -17,6 +17,7 @@ export default class PickerInput extends Component{
 
     componentWillReceiveProps(nextProps) {
         this.setState({...this.state, ...nextProps});
+        this.currentItemValue = this.props.value;
     }
 
     isValid() {
@@ -37,6 +38,10 @@ export default class PickerInput extends Component{
             callback(element);
     }
 
+    focus() {
+        this.refs.picker.togglePicker(true);
+    }
+
     render() {
         const {defaultItem, items, valueChangeCallBack} = this.state;
         let requiredValidator = this.needValidation();
@@ -45,10 +50,13 @@ export default class PickerInput extends Component{
             return <View style={styles.selectElement}>
                         <RNPickerSelect
                             ref="picker"
+                            mode={this.props.mode}
                             hideIcon={true}
                             placeholder={defaultItem}
                             items={items}
-                            style={{inputIOS: styles.inputIOS, placeholderColor: GRAY_COLOR}}
+                            value={this.props.value}
+                            style={{inputIOS: styles.inputIOS, placeholderColor: TEXT_COLOR,
+                                    inputAndroid: styles.inputAndroid, underline: {borderTopWidth: 0}}}
                             onValueChange={e => {this.changeItem(e, valueChangeCallBack)}}/>
                             <View style={styles.line}/>
                             {requiredValidator}
@@ -63,17 +71,23 @@ const styles = StyleSheet.create({
     line: {
         flex: 1,
         height: 1,
-        marginTop: 8,
-        backgroundColor: GRAY_COLOR,
+        backgroundColor: GRAY_LIGHT,
     },
     inputIOS: {
         fontSize: 16,
-        paddingHorizontal: 8
+        color: TEXT_COLOR,
+        marginTop: 16,
+        padding: 0,
+        paddingLeft: 8
+    },
+    inputAndroid: {
+        color: TEXT_COLOR,
+        margin: 0,
+        padding: 0
     },
     selectElement: {
         flex: 1,
         flexDirection: 'column',
-        marginTop: 40,
         width: 'auto'
     },
     checkValidator: {
@@ -88,7 +102,6 @@ const styles = StyleSheet.create({
     validatorText: {
         color: 'red',
         fontSize: 12,
-        paddingLeft: 8
     }
 });
 
@@ -96,5 +109,6 @@ PickerInput.propTypes = {
     valueChangeCallBack: PropTypes.func,
     defaultItem: PropTypes.object,
     items: PropTypes.array,
-    needValidation: PropTypes.bool
+    needValidation: PropTypes.bool,
+    prompt: PropTypes.string
 };

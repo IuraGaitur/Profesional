@@ -5,12 +5,15 @@ import registerDataSuccess from "../../../../assets/mocks/user/register/success.
 import registerDataFail from '../../../../assets/mocks/user/register/fail.json';
 import resetSuccess from "../../../../assets/mocks/user/register/success.json";
 import resetFail from '../../../../assets/mocks/user/register/fail.json';
+import updateSuccess from "../../../../assets/mocks/user/update/success.json";
+import updateFail from '../../../../assets/mocks/user/update/fail.json';
+
 
 export default class UserMock implements UserApi {
     login(email, pass) {
         return new Promise((resolve, reject) => {
             setTimeout(function () {
-                if (email && pass) {
+                if (email == 'test@gmail.com' && pass == 'test') {
                     resolve(loginDataSuccess);
                 }
                 resolve(loginDataFail);
@@ -36,6 +39,17 @@ export default class UserMock implements UserApi {
                     resolve(resetFail)
                 }
                 resolve(resetSuccess);
+            }, 1500);
+        });
+    }
+
+    updatePrimaryUser(user) {
+        return new Promise((resolve, reject) => {
+            setTimeout(function () {
+                if (!user) {
+                    resolve(updateFail)
+                }
+                resolve(updateSuccess);
             }, 1500);
         });
     }
