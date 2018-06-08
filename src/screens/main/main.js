@@ -14,32 +14,7 @@ class MainScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {selectedPage: MAIN, title: 'Home'};
-        this.props.getMenuItems();
     }
-
-    selectPage = (position) => {
-
-        switch (position) {
-            case 0:
-            case 1:
-                this.setState({selectedPage: MAIN, title: 'Home'});
-                break;
-            case 2:
-                this.setState({selectedPage: PROFILE, title: 'Profile'});
-                break;
-            case 3:
-                this.setState({selectedPage: PRODUCTS, title: 'Products'});
-                break;
-            case 4:
-                this.props.showHelp();
-                break;
-            case 5:
-                this.props.signOut();
-                break;
-            default:
-                break;
-        }
-    };
 
     createClient = () => {
         this.props.showCreateClient()
@@ -47,11 +22,9 @@ class MainScreen extends Component {
 
     render() {
         const {menuItems} = this.props;
-        const {selectedPage, title} = this.state;
+        const {title} = this.state;
         return (
             <MainView title={title} menuItems={menuItems}
-                      selectPageCalback={this.selectPage}
-                      selectedPage={selectedPage}
                       createClient={this.createClient}
             />
         );
@@ -60,13 +33,11 @@ class MainScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        menuItems: state.main.menuItems,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getMenuItems: () => dispatch(getMenuItems()),
         signOut: () => dispatch(signOut()),
         showMyProfile: () => dispatch(showMyProfile()),
         showHelp: () => dispatch(showHelp()),

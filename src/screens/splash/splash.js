@@ -19,15 +19,6 @@ class SplashScreen extends Component {
         this.props.checkLoggedInUser();
     }
 
-    componentWillReceiveProps(nextProps) {
-        //console.log(nextProps);
-    }
-
-    static getDerivedState(prevState, nextState) {
-        console.log(prevState);
-        console.log(nextState);
-    }
-
     render() {
         return (
             <SplashView />

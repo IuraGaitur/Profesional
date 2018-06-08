@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Drawer from 'react-native-drawer'
 import {FlatList, Text, View, StyleSheet, Dimensions, TouchableWithoutFeedback} from "react-native";
 import PropTypes from 'prop-types';
 import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
 import CardProduct from "../../views/native_elements/CardProduct";
 import PickerInput from "../../views/form/PickerInput";
+import DrawerMenu from "../../views/menu/DrawerMenu";
+import ContentFlex from "../../views/native_elements/ContentFlex";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -17,14 +19,19 @@ export default class ProductsView extends Component {
     }
 
     render() {
-        const {products} = this.props;
+        const {products, title} = this.props;
 
         return (
-            <View style={styles.mainContainer}>
-                <View style={styles.container}>
-                    {products && products.map(item => <CardProduct key={item.name} title={item.name} picture={item.image}/>)}
-                </View>
-            </View>
+            <DrawerMenu title={title}>
+                <ContentFlex scrollable>
+                    <View style={styles.mainContainer}>
+                        <View style={styles.container}>
+                            {products && products.map(item => <CardProduct key={item.name} title={item.name}
+                                                                           picture={item.image}/>)}
+                        </View>
+                    </View>
+                </ContentFlex>
+            </DrawerMenu>
         );
     }
 }

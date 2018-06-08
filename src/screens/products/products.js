@@ -16,7 +16,7 @@ class ProductsScreen extends Component {
 
     render() {
         return (
-            <ProductsView products={this.props.products}/>
+            <ProductsView products={this.props.products} title={'Products'}/>
         );
     }
 }

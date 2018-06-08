@@ -1,5 +1,9 @@
 export default class DetailsQuestionsNetwork  {
-    getAll() {
+    getBlowDry() {
+        throw new Error("Method not implemented.");
+    }
+
+    getEnergyCode() {
         throw new Error("Method not implemented.");
     }
 }

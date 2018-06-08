@@ -1,6 +1,6 @@
 import UserDao from '../../data/database/UserDao';
 import MenuDao from '../../data/database/MenuDao';
-import Constants from './../../utils/Constants';
+import Constants from '../../utils/Constants';
 import {Actions} from 'react-native-router-flux';
 export const GET_MENU_ITEMS = 'GET_MENU_ITEMS';
 export const SIGN_OUT = 'SIGN_OUT';

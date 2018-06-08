@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { init, getPrimaryUser, goBack, saveRequest } from './profileAction';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {init, getPrimaryUser, goBack, saveRequest} from './profileAction';
 import ProfileView  from './profileView';
 import Toast, {DURATION} from 'react-native-easy-toast'
 import {View} from "react-native";
 
 class ProfileScreen extends Component {
 
-    static navigationOptions = { header: null};
+    static navigationOptions = {header: null};
 
     constructor(props) {
         super(props);
@@ -23,25 +23,25 @@ class ProfileScreen extends Component {
         }
     }
 
-    showError = (errorMessage) => { this.refs.errorToast.show(errorMessage); };
+    updatePrimaryUser = (user) => {
+        this.props.save(user);
+    };
 
-    updatePrimaryUser = (user) => { this.props.save(user); };
-
-    dismissDialogCallback = () => { this.setState({...this.state, networkError: false});};
+    dismissDialogCallback = () => {
+        this.setState({...this.state, networkError: false});
+    };
 
     render() {
         const {countries, networkError, showLoading, primaryUser} = this.props;
 
         return (
-            <View>
-                <ProfileView updatePrimaryUserCallback={user => this.updatePrimaryUser(user)}
-                             countries={countries}
-                             showNetworkError={networkError}
-                             showLoading={showLoading}
-                             primaryUser={primaryUser}
-                             dismissDialogCallback={this.dismissDialogCallback}/>
-                <Toast ref="errorToast"/>
-            </View>
+            <ProfileView updatePrimaryUserCallback={user => this.updatePrimaryUser(user)}
+                         countries={countries}
+                         showNetworkError={networkError}
+                         showLoading={showLoading}
+                         primaryUser={primaryUser}
+                         title={'Profile'}
+                         dismissDialogCallback={this.dismissDialogCallback}/>
         );
     }
 }
@@ -59,11 +59,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCountries: () => {dispatch(init())},
-        save: (user) => {dispatch(saveRequest(user))},
-        goBack: () => {dispatch(goBack)},
+        getCountries: () => {
+            dispatch(init())
+        },
+        save: (user) => {
+            dispatch(saveRequest(user))
+        },
+        goBack: () => {
+            dispatch(goBack)
+        },
         getPrimaryUser: () => dispatch(getPrimaryUser())
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (ProfileScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);

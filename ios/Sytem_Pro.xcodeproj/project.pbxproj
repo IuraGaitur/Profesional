@@ -743,7 +743,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = FYBFKSFB5N;
+						DevelopmentTeam = 6M6FEN2D93;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1272,9 +1272,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = FYBFKSFB5N;
+				DEVELOPMENT_TEAM = 6M6FEN2D93;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
@@ -1286,7 +1287,9 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.assist.system-pro";
 				PRODUCT_NAME = Sytem_Pro;
+				PROVISIONING_PROFILE_SPECIFIER = "$(sigh_com.assist.system-pro_appstore)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1295,8 +1298,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FYBFKSFB5N;
+				DEVELOPMENT_TEAM = 6M6FEN2D93;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
@@ -1308,7 +1312,9 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.assist.system-pro";
 				PRODUCT_NAME = Sytem_Pro;
+				PROVISIONING_PROFILE_SPECIFIER = "$(sigh_com.assist.system-pro_appstore)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

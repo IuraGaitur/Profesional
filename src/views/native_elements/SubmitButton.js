@@ -20,7 +20,8 @@ export default class SubmitButton extends Component {
 const styles = StyleSheet.create({
     mainButton: {
         backgroundColor: PRIMARY,
-        marginTop: 15
+        marginTop: 15,
+        width: '100%'
     },
     indicator: {
         padding: 8

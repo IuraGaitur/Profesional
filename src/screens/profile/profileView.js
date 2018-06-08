@@ -3,22 +3,17 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import Form from "../../views/form/FormData";
 import User from "../../data/models/User";
-import CheckboxInput from "../../views/form/CheckboxInput";
 import CollectionUtils from './../../utils/CollectionUtils';
-import NetworkErrorDialog from "../../views/NetworkErrorDialog";
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import {Icon} from "react-native-elements";
-import {DARK_OVERLAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY} from '../../utils/Colors';
+import {DARK_OVERLAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR} from '../../utils/Colors';
 import TextInput, {CONFIRMATION, EMAIL, REQUIRED} from "../../views/form/TextInput";
 import {View, StyleSheet, Dimensions, ScrollView, Platform} from "react-native";
-import TouchOpacityDebounce from "../../utils/touchable_debounce/TouchOpacityDebounce";
 import PickerInput from "../../views/form/PickerInput";
 import {Body, Left, Right, Button, Header, Label, CheckBox, Text, Grid} from "native-base";
 import FormItem from './../../views/native_elements/FormItem';
-import { Col, Row } from 'react-native-easy-grid';
 import Space from "../../views/native_elements/Space";
-import SubmitButton from "../../views/native_elements/SubmitButton";
-import {STRONG_PASS} from "../../views/native_elements/FormItem";
+import DrawerMenu from "../../views/menu/DrawerMenu";
+import ContentFlex from "../../views/native_elements/ContentFlex";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default class ProfileView extends Component {
@@ -35,8 +30,7 @@ export default class ProfileView extends Component {
         if (!CollectionUtils.isNullOrEmpty(nextProps.countries)) {
             this.setState({countries: nextProps.countries})
         }
-        if(nextProps.primaryUser != null) {
-            console.log(nextProps.primaryUser);
+        if (nextProps.primaryUser != null) {
             this.setState({
                 firstName: nextProps.primaryUser.firstName,
                 lastName: nextProps.primaryUser.lastName,
@@ -93,14 +87,18 @@ export default class ProfileView extends Component {
     };
 
     render() {
-        const { firstName, lastName, birthday, salonName,
-                city, country, phone, postalCode, wellaNumber, newsLetterCheck,
-                showDatePicker} = this.state;
-        const {showLoading, showNetworkError, countries, dismissDialogCallback} = this.props;
+        const {
+            firstName, lastName, birthday, salonName,
+            city, country, phone, postalCode, wellaNumber, newsLetterCheck, showDatePicker
+        } = this.state;
+        const {showLoading, countries, title} = this.props;
 
         return (
-            <View>
-                <ScrollView style={{backgroundColor: 'white'}}>
+            <DrawerMenu title={title} actions={
+                <Button transparent onPress={(user) => this.updateUser(user)}>
+                    <Text style={{color: TEXT_COLOR}}>SAVE</Text>
+                </Button>}>
+                <ContentFlex scrollable>
                     <View style={styles.inputsContainer}>
                         <Form shouldValidate ref="formData">
 
@@ -123,7 +121,9 @@ export default class ProfileView extends Component {
                             <FormItem
                                 ref={item => this.formInputs[2] = item}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
-                                onFocus={() => {this.showDateTimerPicker()}}
+                                onFocus={() => {
+                                    this.showDateTimerPicker()
+                                }}
                                 onSubmitEditing={() => this.formInputs[3].focus()}
                                 value={birthday}>
                                 <Label>DATE OF BIRTH*</Label>
@@ -186,21 +186,15 @@ export default class ProfileView extends Component {
                                     checked={newsLetterCheck}
                                     onPress={() => this.checkNewsLetterCallback()}/>
                             </View>
-                            <Space height={25}/>
-
-                            <SubmitButton text='Save' showLoading={showLoading} onPress={this.updateUser}/>
                         </Form>
                     </View>
-                </ScrollView>
+                </ContentFlex>
                 <DateTimePicker
                     isVisible={showDatePicker}
                     onConfirm={(e) => this.handleDatePicked(e)}
                     onCancel={(e) => this.hideDateTimePicker(e)}
                 />
-                <NetworkErrorDialog
-                    dismissCallback={dismissDialogCallback}
-                    showNetworkError={showNetworkError}/>
-            </View>
+            </DrawerMenu>
         );
     }
 }
@@ -294,6 +288,7 @@ ProfileView.defaultProps = {};
 
 
 ProfileView.propTypes = {
+    title: PropTypes.string,
     updatePrimaryUserCallback: PropTypes.func,
     dismissDialogCallback: PropTypes.func,
     showLoading: PropTypes.bool,

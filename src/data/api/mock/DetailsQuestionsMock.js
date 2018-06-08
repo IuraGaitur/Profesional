@@ -1,7 +1,12 @@
-import allQuestions from "../../../../assets/mocks/details/success.json";
+import blowQuestions from "../../../../assets/mocks/diagnoses/blow/success.json";
+import energyQuestions from "../../../../assets/mocks/diagnoses/energy/success.json";
 
 export default class DetailsQuestionsMock {
-    getAll() {
-        return allQuestions;
+    getBlowDry() {
+        return blowQuestions;
+    }
+
+    getEnergyCode() {
+        return energyQuestions;
     }
 }
