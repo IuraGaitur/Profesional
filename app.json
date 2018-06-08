@@ -17,5 +17,7 @@
   },
   "android": {
     "package": "com.assist.pro"
-  }
+  },
+  "name": "Sytem_Pro",
+  "displayName": "SystemPro"
 }

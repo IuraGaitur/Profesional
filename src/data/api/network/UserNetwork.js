@@ -7,4 +7,11 @@ export default class UserNetwork  {
         throw new Error("Method not implemented.");
     }
 
+    reset(email, newPass) {
+        throw new Error("Method not implemented.");
+    }
+
+    updateUser(user) {
+        throw new Error("Method not implemented.");
+    }
 }

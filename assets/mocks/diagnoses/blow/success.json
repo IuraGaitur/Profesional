@@ -1,0 +1,154 @@
+[
+  {"form": {
+    "title": "WHAT DO YOU LIKE ABOUT YOUR HAIR?",
+    "answers": [
+      {"id": 0, "title": "LENGTH", "active": false},
+      {"id": 1, "title": "VERSATILITY", "active": false},
+      {"id": 2, "title": "VOLUME", "active": false},
+      {"id": 3, "title": "SMOOTHNESS", "active": false},
+      {"id": 4, "title": "CURLS", "active": false},
+      {"id": 5, "title": "COLOR", "active": false},
+      {"id": 6, "title": "EASY TO STYLE", "active": false},
+      {"id": 7, "title": "MOVEMENT", "active": false},
+      {"id": 8, "title": "THICKNESS", "active": false},
+      {"id": 9, "title": "SHINE", "active": false}
+    ]},
+    "type": "PICK"
+  },
+  {"form": {
+    "title": "WHAT DO YOU DISLIKE ABOUT YOUR HAIR?",
+    "answers": [
+      {"id": 0, "title": "DRYNESS", "active": false},
+      {"id": 1, "title": "SPLIT HAIR", "active": false},
+      {"id": 2, "title": "DULL", "active": false},
+      {"id": 3, "title": "LACK OF VOLUME", "active": false},
+      {"id": 4, "title": "STYLE DOES NOT LAST", "active": false},
+      {"id": 5, "title": "COMPATIBILITY/DAMAGE", "active": false},
+      {"id": 6, "title": "FRIZZY/MANAGEABILITY", "active": false},
+      {"id": 7, "title": "OLLY", "active": false},
+      {"id": 8, "title": "THINNY", "active": false},
+      {"id": 9, "title": "DIFFICULT TO STYLE", "active": false}
+    ]},
+    "type": "PICK"
+  },
+  {"form": {
+    "title": "CARE HABITS",
+    "answers": [
+      {"id": 0, "title": "SHAMPOO",
+        "options": [
+          {"label": "No", "value": 0},
+          {"label": "Daily", "value": 20},
+          {"label": "Every day", "value": 50},
+          {"label": "2x times", "value": 80},
+          {"label": "More", "value": 100}
+        ]
+      },
+      {"id": 1, "title": "Conditioner",
+        "options": [
+          {"label": "No", "value": 0},
+          {"label": "Daily", "value": 20},
+          {"label": "Every day", "value": 50},
+          {"label": "2x times", "value": 80},
+          {"label": "More", "value": 100}
+        ]
+      },
+      {"id": 2, "title": "Mask",
+        "options": [
+          {"label": "No", "value": 0},
+          {"label": "More Than twice", "value": 100}
+        ]
+      }
+    ]},
+    "type": "PROGRESS_CHOOSE"
+  },
+  {"form": {
+    "title": "DERMA",
+    "answers": [
+      {"id": 0, "title": "SCALP HYDRO-LIPID BALANCE", "background": "assets/images/pick_back_1",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "VERY DRY", "value": 100}
+        ]
+      },
+      {"id": 1, "title": "SCALP SENSITIVITY", "background": "assets/images/pick_back_2",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "SENSITIVE", "value": 100}
+        ]
+      },
+      {"id": 2, "title": "HAIRLOSS", "background": "assets/images/pick_back_3",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "NOTICEABLE", "value": 100}
+        ]
+      },
+      {"id": 3, "title": "DANDRUFF", "background": "assets/images/pick_back_4",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "VERY DRY", "value": 100}
+        ]
+      }
+    ]},
+    "type": "PROGRESS"
+  },
+  {"form": {
+    "title": "HAIR",
+    "answers": [
+      {"id": 0, "title": "FIBRA", "background": "assets/images/pick_back_4",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "PERMED/STRENGTH", "value": 100}
+        ]
+      },
+      {"id": 1, "title": "DAMAGE / POPOSITY", "background": "assets/images/pick_back_4",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "DAMAGED", "value": 100}
+        ]
+      },
+      {"id": 2, "title": "SPLIT ENDS", "background": "assets/images/pick_back_4",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "MANY", "value": 100}
+        ]
+      },
+      {"id": 3, "title": "SUNEXPOSED", "background": "assets/images/pick_back_4",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "INTENSE SUN", "value": 100}
+        ]
+      }
+    ]},
+    "type": "PROGRESS"
+  },
+  {"form": {
+    "title": "STYLE",
+    "answers": [
+      {"id": 0, "title": "FORMA", "background": "assets/images/pick_back_4",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "LONG", "value": 100}
+        ]
+      },
+      {"id": 1, "title": "FINE HAIR", "background": "assets/images/pick_back_4",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "VERY FINE", "value": 100}
+        ]
+      },
+      {"id": 2, "title": "TEXTURE", "background": "assets/images/pick_back_4",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "CURLY", "value": 100}
+        ]
+      },
+      {"id": 3, "title": "FRIZZ", "background": "assets/images/pick_back_4",
+        "options": [
+          {"label": "NORMAL", "value": 0},
+          {"label": "VERY FRIZZY", "value": 100}
+        ]
+      }
+    ]},
+    "type": "PROGRESS"
+  }
+]

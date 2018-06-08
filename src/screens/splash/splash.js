@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { checkForPrimaryUser } from './splashAction';
 import SplashView  from './splashView';
-import { LOGIN, MAIN } from './../../../App';
+import ScreenUtils from "../../utils/ScreenUtils";
+import {NativeModules} from "react-native";
 
 class SplashScreen extends Component {
 
@@ -14,26 +15,11 @@ class SplashScreen extends Component {
     }
 
     async componentDidMount() {
+        await ScreenUtils.calcHeight();
         this.props.checkLoggedInUser();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.checkedForUser) {
-            this.showLoginScreen();
-            if (nextProps.user) {
-                //this.showMainScreen();
-            } else {
-                //this.showLoginScreen();
-            }
-        }
-    }
-
-    showMainScreen = () => { this.props.navigation.navigate(MAIN); };
-
-    showLoginScreen = () => { this.props.navigation.navigate(LOGIN); };
-
     render() {
-        const {} = this.state;
         return (
             <SplashView />
         );

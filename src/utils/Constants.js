@@ -3,4 +3,6 @@ export default class Constants {
     static IS_DEBUG = true;
     static DEFAULT_URL = "http://data.com";
     static PAGE_SIZE = 20;
+
+    static NO_ACTION = '';
 }
