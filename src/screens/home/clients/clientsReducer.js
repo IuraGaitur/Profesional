@@ -1,14 +1,15 @@
-import {GET_MENU_ITEMS, GET_PRIMARY_USER, SIGN_OUT} from './clientsAction';
-import User from "../../../data/models/User";
+import {GET_CLIENTS, GET_PRIMARY_USER} from './clientsAction';
 
 const defaultState = {
-    user: new User()
+    userClients: []
 };
 
 export default function reducer(state = defaultState, action) {
     switch (action.type) {
+        case GET_CLIENTS:
+            return {...state, userClients: action.clients};
         case GET_PRIMARY_USER:
-            return {...state, user: action.user};
+            return {...state, primaryUser: action.user};
         default:
             return state;
     }

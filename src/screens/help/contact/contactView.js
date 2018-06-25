@@ -45,7 +45,7 @@ export default class ContactView extends Component {
 
         return (
             <ContainerFlex>
-                <BackMenu title={'CONTACT US'}/>
+                <BackMenu title={'<p>CONTACT <b>US</b></p>'}/>
                 <ContentFlex scrollable padding={8}>
                     <Form shouldValidate ref="formData">
 

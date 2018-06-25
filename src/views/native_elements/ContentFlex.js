@@ -7,11 +7,15 @@ export default class ContentFlex extends Component {
 
     render() {
         if(!this.props.scrollable) {
-            return <View style={{flex: 1, padding: this.props.padding ? this.props.padding : 0}}>
+            return <View style={{flex: 1, padding: this.props.padding ? this.props.padding : 0,
+                margin: this.props.margin ? this.props.margin : 0}}>
                 {this.props.children}
             </View>
         } else {
-            return <Content style={{flex: 1, padding: this.props.padding ? this.props.padding : 0}}>
+            return <Content style={{flex: 1,
+                padding: this.props.padding ? this.props.padding : 0,
+                margin: this.props.margin ? this.props.margin : 0
+            }}>
                 {this.props.children}
             </Content>
         }
@@ -20,6 +24,7 @@ export default class ContentFlex extends Component {
 };
 
 ContentFlex.propTypes = {
+    margin: PropTypes.number,
     padding: PropTypes.number,
     scrollable: PropTypes.bool
 };

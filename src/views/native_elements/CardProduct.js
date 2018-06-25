@@ -3,22 +3,23 @@ import {Body, Card, CardItem, Text, View} from "native-base";
 import {GRAY_LIGHT} from "../../utils/Colors";
 import {Image, StyleSheet} from "react-native";
 import PropTypes from 'prop-types';
+import TouchOpacityDebounce from "../../utils/touchable_debounce/TouchOpacityDebounce";
 
 export default class CardProduct extends Component {
 
     render() {
         return <View style={styles.mainContainer}>
-            <Card style={{borderColor: GRAY_LIGHT}}>
-                <CardItem>
-                    <Body style={styles.picContent}>
+                <Card style={{borderColor: GRAY_LIGHT}}>
+                    <CardItem button onPress={() => this.props.onPress({id: 1})}>
+                        <Body style={styles.picContent}>
                         <Image source={require('../../../assets/images/prod_1.png')}
                                style={styles.picture}/>
-                    </Body>
-                </CardItem>
-                <CardItem footer>
-                    <Text style={styles.title}>{this.props.title}</Text>
-                </CardItem>
-            </Card>
+                        </Body>
+                    </CardItem>
+                    <CardItem footer>
+                        <Text style={styles.title}>{this.props.title}</Text>
+                    </CardItem>
+                </Card>
         </View>
     };
 
@@ -46,5 +47,6 @@ const styles = StyleSheet.create({
 
 CardProduct.propTypes = {
     title: PropTypes.string,
-    image: PropTypes.string
+    image: PropTypes.string,
+    onPress: PropTypes.func
 };

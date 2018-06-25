@@ -1,12 +1,95 @@
 import {StyleSheet} from 'react-native';
+import {GRAY_COLOR, TEXT_COLOR} from "../utils/Colors";
 
 export default StyleSheet.create({
 
-    primary: {
-        fontSize: 20,
+    h2: {
+        fontSize: 62,
+        fontWeight: 'bold',
+        color: TEXT_COLOR
     },
+
+    h3: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+    h4: {
+        textAlign: 'left',
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+
+
+    primary: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: TEXT_COLOR
+    },
+
     secondary: {
-        fontSize: 18,
+        fontSize: 16,
+        color: TEXT_COLOR
+    },
+
+    body1: {
+        fontSize: 16,
+    },
+
+    body2: {
+        fontSize: 14,
+    },
+
+    button: {
+
+    },
+
+    caption: {
+
+    },
+
+    overline: {
+
+    },
+
+
+    //Margins
+    defaultHorizontalMargin: {
+        marginHorizontal: 20
+    },
+
+    //Aligning
+    rightAlign: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end'
+    },
+    centerAlign: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+
+    centerColAlign: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+
+    rightPosition: {
+        position: 'absolute',
+        right: 0
+    },
+
+    //Icons
+    infoButton: {
+        color: GRAY_COLOR,
+        fontSize: 28
+    },
+
+    saveButton: {
+        color: GRAY_COLOR,
+        fontSize: 42
     }
 
 });

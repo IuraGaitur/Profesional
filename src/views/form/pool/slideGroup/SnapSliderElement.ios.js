@@ -6,7 +6,7 @@ var ReactNativeElements = require('react-native-elements');
 var PropTypes = require('prop-types');
 var createReactClass = require('create-react-class');
 import Slider from "react-native-slider";
-import {GRAY_LIGHT, LIGHT_COLOR, PRIMARY} from "../../../utils/Colors";
+import {GRAY_LIGHT, LIGHT_COLOR, PRIMARY} from "../../../../utils/Colors";
 
 var {
     StyleSheet,
@@ -22,7 +22,7 @@ var SnapSlider = createReactClass({
         containerStyle: ViewPropTypes.style,
         itemWrapperStyle: ViewPropTypes.style,
         itemStyle: Text.propTypes.style,
-        items: PropTypes.array.isRequired,
+        steps: PropTypes.array.isRequired,
         defaultItem: PropTypes.number,
         labelPosition: PropTypes.string,
         onSlide: PropTypes.func,
@@ -30,7 +30,10 @@ var SnapSlider = createReactClass({
 
     },
     getInitialState() {
-        var sliderRatio = this.props.maximumValue / (this.props.items.length - 1);
+        var sliderRatio = 1;
+        if (this.props.steps) {
+            sliderRatio = this.props.maximumValue / (this.props.steps.length - 2);
+        }
         var value = sliderRatio * this.props.defaultItem || 0;
         var item = this.props.defaultItem;
         return {
@@ -56,7 +59,7 @@ var SnapSlider = createReactClass({
         //pad the value to the snap position
         var halfRatio = this.state.sliderRatio / 2;
         var i = 0;
-        for (;;) {
+        for (; ;) {
             if ((v < this.state.sliderRatio) || (v <= 0)) {
                 if (v >= halfRatio) {
                     i++;
@@ -75,14 +78,17 @@ var SnapSlider = createReactClass({
         } else {
             this.setState({adjustSign: 1});
         }
-        this.setState({value: value, item: i});
+        if(value) {
+            this.setState({value: value, item: i});
+        }
+        callback(true);
 
     },
     /*
      componentWillUpdate() {
      //get the width for all items
      var iw = [];
-     for (var i = 0; i < this.props.items.length; i++) {
+     for (var i = 0; i < this.props.steps.length; i++) {
      var node = eval('this.refs.t' + i);
      node.measure(function (ox, oy, width, height, px, py) {
      iw.push(width);
@@ -96,13 +102,16 @@ var SnapSlider = createReactClass({
         itemWidth.push(width);
         this.setState({itemWidth: itemWidth});
         //we have all itemWidth determined, let's update the silder width
-        if (this.state.itemWidth.length == this.props.items.length) {
+        if (!this.props.steps) {
+            return this.state.itemWidth;
+        }
+        if (this.state.itemWidth.length == this.props.steps.length) {
             var max = Math.max.apply(null, this.state.itemWidth);
             if (this.refs.slider && this.state.sliderWidth > 0) {
                 var that = this;
                 var w, l;
                 var buffer = 30;//add buffer for the slider 'ball' control
-                if(buffer > w){
+                if (buffer > w) {
                     buffer = 0;
                 }
                 w = that.state.sliderWidth - max;
@@ -119,8 +128,11 @@ var SnapSlider = createReactClass({
         this.setState({sliderWidth: width});
     },
     _labelView() {
+        if (!this.props.steps) return null;
         var itemStyle = [defaultStyles.item, this.props.itemStyle];
-        let labels = this.props.items.map((i, j) => <Text key={i.value} ref={"t"+j} style={itemStyle} onLayout={this._getItemWidth}>{i.label}</Text>);
+        let labels = this.props.steps.map((i, j) => <Text key={i.value} ref={"t" + j} style={itemStyle}
+                                                          onLayout={this._getItemWidth}>{i.label}</Text>);
+
         return (
             <View style={[defaultStyles.itemWrapper, this.props.itemWrapperStyle]}>
                 { labels }
@@ -138,9 +150,9 @@ var SnapSlider = createReactClass({
                             width: '95%',
                             height: 28,
                             borderRadius: 12,
-                            borderWidth: this.props.background ? 0 : 4 ,
+                            borderWidth: this.props.background ? 0 : 4,
                             borderColor: LIGHT_COLOR,
-                            backgroundColor: this.props.background ? 'transparent': PRIMARY
+                            backgroundColor: this.props.background ? 'transparent' : PRIMARY
                         }}
                         thumbStyle={{
                             width: 34,
@@ -152,6 +164,7 @@ var SnapSlider = createReactClass({
                         }}
                         step={this.props.step}
                         value={this.state.value}
+                        onSlidingStart={() => this.props.onSlide(false)}
                         onSlidingComplete={(value) => this._onSlidingCompleteCallback(value, this.props.onSlide)}
 
                 />
@@ -165,15 +178,13 @@ var defaultStyles = StyleSheet.create({
     container: {
         alignSelf: 'stretch',
     },
-    slider: {
-    },
+    slider: {},
     itemWrapper: {
         justifyContent: 'space-between',
         alignSelf: 'stretch',
         flexDirection: 'row',
     },
-    item: {
-    },
+    item: {},
 });
 
 module.exports = SnapSlider;

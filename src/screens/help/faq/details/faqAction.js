@@ -1,6 +1,6 @@
-import QuestionApi from '../../../data/api/QuestionApi';
+import QuestionApi from '../../../../data/api/QuestionApi';
 import {Actions} from 'react-native-router-flux';
-import Constants from '../../../utils/Constants';
+import Constants from '../../../../utils/Constants';
 export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
 export const REQUEST_FAIL = 'REQUEST_FAIL';
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';

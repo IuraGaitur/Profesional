@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {registerRequest, goBack, showInfo, init } from './energyCodeDiagnosisAction';
+import {registerRequest, goBack, showInfo, init, showTreatment } from './energyCodeDiagnosisAction';
 import EnergyCodeDiagnosisView  from './energyCodeDiagnosisView';
 
 class EnergyCodeDiagnosisScreen extends Component {
@@ -9,6 +9,7 @@ class EnergyCodeDiagnosisScreen extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {showSaveAction: false};
     }
 
     componentDidMount() {
@@ -19,14 +20,28 @@ class EnergyCodeDiagnosisScreen extends Component {
         this.props.goBack();
     };
 
+    actionPageSelected = (position, totalPages) => {
+        let showEditAction = position == totalPages - 1;
+        this.setState({showSaveAction: showEditAction});
+    };
+
+    actionSave = () => {
+        let newClient = this.props.newClient;
+        this.props.showTreatment(newClient);
+    };
+
     render() {
         const {networkError, showLoading, questions} = this.props;
+        const {showSaveAction} = this.state;
 
-        return <EnergyCodeDiagnosisView questions={questions}
+        return <EnergyCodeDiagnosisView
                                  actionBack={() => this.goBack()}
                                  showNetworkError={networkError}
+                                 showSaveAction={showSaveAction}
                                  showLoading={showLoading}
+                                 actionPageSelectedCallback={this.actionPageSelected}
                                  pagesData={questions}
+                                 actionSave={this.actionSave}
                                  dismissDialogCallback={this.dismissDialogCallback}/>
     }
 }
@@ -44,6 +59,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getQuestions: () => {dispatch(init())},
         goBack: () => {dispatch(goBack)},
+        showTreatment: (newClient) => {dispatch(showTreatment(newClient))}
     }
 };
 

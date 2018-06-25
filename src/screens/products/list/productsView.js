@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import Drawer from 'react-native-drawer'
 import {FlatList, Text, View, StyleSheet, Dimensions, TouchableWithoutFeedback} from "react-native";
 import PropTypes from 'prop-types';
-import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
-import CardProduct from "../../views/native_elements/CardProduct";
-import PickerInput from "../../views/form/PickerInput";
-import DrawerMenu from "../../views/menu/DrawerMenu";
-import ContentFlex from "../../views/native_elements/ContentFlex";
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
+import DrawerMenu from "../../../views/menu/DrawerMenu";
+import ContentFlex from "../../../views/native_elements/ContentFlex";
+import {IndicatorViewPager, PagerTabIndicator, PagerTitleIndicator} from "rn-viewpager";
+import {GRAY_LIGHT, LIGHT_BACKGROUND_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR} from "../../../utils/Colors";
+import ProductsPage from "./pages/ProductsPage";
+const HALF_SCREEN_WIDTH = Dimensions.get('window').width / 2;
 
 export default class ProductsView extends Component {
 
@@ -18,19 +16,42 @@ export default class ProductsView extends Component {
         this.state = {};
     }
 
+    _renderTabIndicator() {
+        return <PagerTitleIndicator style={styles.indicatorContainer}
+                                    titles={['CARE PRODUCTS', 'STYLING PRODUCTS']}
+                                    itemStyle={{width: HALF_SCREEN_WIDTH}}
+                                    itemTextStyle={{width: HALF_SCREEN_WIDTH, textAlign: 'center'}}
+                                    selectedBorderStyle={{width: HALF_SCREEN_WIDTH, backgroundColor: PRIMARY}}
+                                    selectedItemTextStyle={{width: HALF_SCREEN_WIDTH,fontWeight: 'bold', textAlign: 'center', color: TEXT_COLOR}}/>;
+    }
+
     render() {
-        const {products, title} = this.props;
+        const {
+            title, showProductDetails,
+            careProducts, careProductsType, careSelectedProductType, careActionChangeProductsCallback,
+            stylingProducts, stylingProductsType, stylingSelectedProductType, stylingActionChangeProductsCallback,
+        } = this.props;
 
         return (
             <DrawerMenu title={title}>
-                <ContentFlex scrollable>
-                    <View style={styles.mainContainer}>
-                        <View style={styles.container}>
-                            {products && products.map(item => <CardProduct key={item.name} title={item.name}
-                                                                           picture={item.image}/>)}
-                        </View>
+                <IndicatorViewPager style={{flex: 1, paddingTop: 50}}
+                                    indicator={this._renderTabIndicator()}>
+                    <View style={{backgroundColor: LIGHT_COLOR}}>
+                        <ProductsPage products={careProducts}
+                                      productsType={careProductsType}
+                                      showProductDetails={showProductDetails}
+                                      selectedProductsType={careSelectedProductType}
+                                      actionChangeProductsCallback={careActionChangeProductsCallback}/>
                     </View>
-                </ContentFlex>
+                    <View style={{backgroundColor: LIGHT_COLOR}}>
+                        <ProductsPage products={stylingProducts}
+                                      productsType={stylingProductsType}
+                                      showProductDetails={showProductDetails}
+                                      selectedProductsType={stylingSelectedProductType}
+                                      actionChangeProductsCallback={stylingActionChangeProductsCallback}/>
+                    </View>
+                </IndicatorViewPager>
+
             </DrawerMenu>
         );
     }
@@ -39,14 +60,22 @@ export default class ProductsView extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'column',
+        padding: 8
     },
     container: {
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        padding: 5
-    }
+    },
+    indicatorContainer: {
+        height: 50,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: LIGHT_COLOR
+    },
 });
 
 ProductsView.defaultProps = {
@@ -56,7 +85,13 @@ ProductsView.defaultProps = {
 
 ProductsView.propTypes = {
     title: PropTypes.string,
-    user: PropTypes.object,
-    selectPageCalback: PropTypes.func,
-    menuItems: PropTypes.array
+    careProducts: PropTypes.array,
+    careProductsType: PropTypes.array,
+    careSelectedProductType: PropTypes.string,
+    careActionChangeProductsCallback: PropTypes.func,
+    stylingProducts: PropTypes.array,
+    stylingProductsType: PropTypes.array,
+    stylingSelectedProductType: PropTypes.string,
+    stylingActionChangeProductsCallback: PropTypes.func,
+    showProductDetails: PropTypes.func,
 };

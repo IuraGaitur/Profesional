@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from "react-native";
 import {Button, Text} from "native-base";
-import {GRAY_COLOR, GRAY_LIGHT, SELECTED} from "../../../utils/Colors";
+import {GRAY_COLOR, GRAY_LIGHT, SELECTED} from "../../../../utils/Colors";
 
 export default class CheckboxItem extends Component {
 

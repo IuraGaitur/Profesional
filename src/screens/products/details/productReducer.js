@@ -1,4 +1,4 @@
-import {REQUEST_LOGIN, LOGIN_FAIL, LOGIN_SUCCESS} from './infoAction';
+import {REQUEST_LOGIN, LOGIN_FAIL, LOGIN_SUCCESS} from './productAction';
 import User from "../../../data/models/User";
 
 const defaultState = {

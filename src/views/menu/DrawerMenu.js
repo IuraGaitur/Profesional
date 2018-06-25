@@ -163,7 +163,10 @@ const styles = StyleSheet.create({
         backgroundColor: LIGHT_COLOR,
     },
     headerContainer: {
-        backgroundColor: LIGHT_BACKGROUND_COLOR
+        backgroundColor: LIGHT_COLOR,
+        paddingTop: 8,
+        paddingLeft: 0,
+        paddingRight: 0,
     }
 });
 

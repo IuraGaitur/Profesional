@@ -1,3 +1,3 @@
-import ClientsScreen from './clients';
+import TreatmentScreen from './treatment';
 
-export {ClientsScreen};
+export {TreatmentScreen};

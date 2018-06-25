@@ -11,6 +11,9 @@ import PickerSelectPage from "../../../views/pages/pickerSelectPage";
 import BackMenuLogo from "../../../views/menu/BackMenuLogo";
 import ContainerFlex from "../../../views/native_elements/ContainerFlex";
 import ContentFlex from "../../../views/native_elements/ContentFlex";
+import ConfirmationPage from "./pages/ConfirmationPage";
+import MainStyle from "../../../views/MainStyle";
+import PoolPage from "../../../views/pages/PoolPage";
 
 export default class BlowDryDiagnosisView extends Component {
 
@@ -35,45 +38,61 @@ export default class BlowDryDiagnosisView extends Component {
     };
 
     _renderDotIndicator() {
-        return <PagerDotIndicator pageCount={6} dotStyle={styles.dot}
-                                    selectedDotStyle={styles.selectedDot}/>;
+        return <PagerDotIndicator pageCount={7} dotStyle={styles.dot}
+                                  selectedDotStyle={styles.selectedDot}/>;
     }
 
-    setScrollEnabled = (state) => {
-        console.log(state, ' enabled');
+    setScrollEnabled = (state, page) => {
+        if(!state) {
+            this.refs.pager.setPageWithoutAnimation(page);
+        }
         this.setState({scrollable: state})
-    }
+    };
+
+    showDialogInfo = (info) => {
+        this.refs.mainContainer.showInfoDialog(info);
+    };
 
     render() {
-        const { fullName, email, subject, issue, country, message, scrollable} = this.state;
-        const {showLoading, showNetworkError, actionBack, actionInfo, dismissDialogCallback, countries, pagesData} = this.props;
+        const {fullName, email, subject, issue, country, message, scrollable } = this.state;
+        const {pagesData, actionCreate, actionPageSelectedCallback, showEditAction, actionEdit,} = this.props;
 
         return (
-            <ContainerFlex>
-                <BackMenuLogo/>
+            <ContainerFlex ref="mainContainer">
+                <BackMenuLogo actions={
+                    showEditAction && <Button transparent onPress={() => actionEdit()}>
+                        <Text style={MainStyle.secondary}>Edit</Text>
+                    </Button>}/>
                 <ContentFlex>
                     {pagesData && pagesData.length > 0 &&
-                        <IndicatorViewPager style={{height: '100%'}} scrollEnabled={scrollable}
-                                            indicator={this._renderDotIndicator()}>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <SelectPage data={pagesData[0].form}/>
-                            </View>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <SelectPage data={pagesData[1].form}/>
-                            </View>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <PickerSelectPage data={pagesData[2].form} onSlideCallback={this.setScrollEnabled}/>
-                            </View>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <PickerSelectPage data={pagesData[3].form} onSlideCallback={this.setScrollEnabled}/>
-                            </View>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <PickerSelectPage data={pagesData[4].form} onSlideCallback={this.setScrollEnabled}/>
-                            </View>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <PickerSelectPage data={pagesData[5].form} onSlideCallback={this.setScrollEnabled}/>
-                            </View>
-                        </IndicatorViewPager>}
+                    <IndicatorViewPager style={{height: '100%'}}
+                                        ref="pager"
+                                        onPageSelected={(data) => actionPageSelectedCallback(data.position, 7)}
+                                        scrollEnabled={scrollable}
+                                        indicator={this._renderDotIndicator()}>
+
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={pagesData[0]}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={pagesData[1]}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={pagesData[2]} onSlideCallback={(state) => this.setScrollEnabled(state, 2)}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={pagesData[3]} onSlideCallback={(state) => this.setScrollEnabled(state, 3)}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={pagesData[4]} onSlideCallback={(state) => this.setScrollEnabled(state, 4)}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={pagesData[5]} onSlideCallback={(state) => this.setScrollEnabled(state, 5)}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <ConfirmationPage actionCreateCallback={actionCreate}/>
+                        </View>
+                    </IndicatorViewPager>}
                 </ContentFlex>
             </ContainerFlex>
         );
@@ -111,7 +130,7 @@ const styles = StyleSheet.create({
     },
     dot: {
         width: 16,
-        height:16,
+        height: 16,
         borderRadius: 8,
         borderWidth: 1,
         backgroundColor: LIGHT_COLOR,
@@ -119,7 +138,7 @@ const styles = StyleSheet.create({
     },
     selectedDot: {
         width: 16,
-        height:16,
+        height: 16,
         borderRadius: 8,
         borderWidth: 1,
         backgroundColor: SELECTED,
@@ -135,8 +154,11 @@ BlowDryDiagnosisView.propTypes = {
     dismissDialogCallback: PropTypes.func,
     showLoading: PropTypes.bool,
     showNetworkError: PropTypes.bool,
+    showEditAction: PropTypes.bool,
     countries: PropTypes.array,
     actionBack: PropTypes.func,
     actionInfo: PropTypes.func,
+    actionCreate: PropTypes.func,
+    actionPageSelectedCallback: PropTypes.func,
     pagesData: PropTypes.array
 };

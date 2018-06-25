@@ -4,14 +4,14 @@ import loginReducer from '../../screens/authentication/login/loginReducer';
 import registerReducer from '../../screens/authentication/register/registerReducer';
 import recoverReducer from '../../screens/authentication/recovery/recoveryReducer';
 import infoReducer from '../../screens/help/info/infoReducer';
-import mainReducer from '../../screens/main/mainReducer';
-import faqReducer from '../../screens/help/faq/faqReducer';
+import faqReducer from '../../screens/help/faq/list/faqReducer';
 import contactReducer from '../../screens/help/contact/contactReducer';
-import productReducer from './../../screens/products/productsReducer';
+import productReducer from '../../screens/products/list/productsReducer';
 import blowDryReducer from "../../screens/home/blowDryDiagnosis/blowDryDiagnosisReducer";
 import energyCodeReducer from "../../screens/home/energyCodeDiagnosis/energyCodeDiagnosisReducer";
 import clientsReducer from '../../screens/home/clients/clientsReducer';
 import createClientReducer from '../../screens/home/newClient/createClientReducer';
+import treatmentReducer from '../../screens/home/treatment/treatmentReducer';
 import profileReducer from './../../screens/profile/profileReducer';
 
 export default combineReducers({
@@ -22,11 +22,11 @@ export default combineReducers({
     info: infoReducer,
     faq: faqReducer,
     contact: contactReducer,
-    main: mainReducer,
     energyCode: energyCodeReducer,
     blowDry: blowDryReducer,
     products: productReducer,
     clients: clientsReducer,
     profile: profileReducer,
-    createClient: createClientReducer
+    createClient: createClientReducer,
+    treatment: treatmentReducer
 });

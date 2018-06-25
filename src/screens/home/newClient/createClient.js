@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {init, createClient, goBack, startDiagnosis} from './createClientAction';
+import {init, startDiagnosis, showCookieInfo, showPrivacyInfo} from './createClientAction';
 import CreateClientView  from './createClientView';
 
 class CreateClientScreen extends Component {
@@ -20,49 +20,28 @@ class CreateClientScreen extends Component {
         this.props.getInitData();
     };
 
-    startDiagnosis = () => {
-        this.props.startDiagnosis();
+    startDiagnosis = (newClient) => {
+        this.props.startDiagnosis(newClient);
     };
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({...this.state, ...nextProps});
-        if (nextProps.errorMessage) {
-            this.showError(nextProps.errorMessage);
-        }
-    }
-
-    registerUser = (user) => {
-        this.props.register(user);
+    actionFindAboutCookie = () => {
+        this.props.showCookieInfo();
     };
 
-    goBack = () => {
-        this.props.goBack();
-    };
-
-    showInfo = () => {
-        this.props.showInfo();
-    };
-
-    showError = (errorMessage) => {
-        this.refs.errorToast.show(errorMessage);
-    };
-
-    dismissDialogCallback = () => {
-        this.setState({...this.state, networkError: false});
+    actionFindAboutPrivacy = () => {
+        this.props.showPrivacyInfo();
     };
 
     render() {
-        const {countries, languages, networkError, showLoading} = this.props;
+        const {countries, languages} = this.props;
 
         return (
-            <CreateClientView registerCallback={user => this.registerUser(user)}
-                              countries={countries}
+            <CreateClientView countries={countries}
                               languages={languages}
-                              actionBack={() => this.goBack()}
-                              showNetworkError={networkError}
-                              showLoading={showLoading}
                               startDiagnosisCallback={this.startDiagnosis}
-                              dismissDialogCallback={this.dismissDialogCallback}/>
+                              actionFindAboutCookieCallback={this.actionFindAboutCookie}
+                              actionFindAboutPrivacyCallback={this.actionFindAboutPrivacy}
+            />
 
         );
     }
@@ -72,10 +51,6 @@ const mapStateToProps = (state) => {
     return {
         countries: state.createClient.countries,
         languages: state.createClient.languages,
-        showLoading: state.createClient.showLoading,
-        errorMessage: state.createClient.errorMessage,
-        networkError: state.createClient.networkError,
-        user: state.createClient.user,
     };
 };
 
@@ -84,15 +59,15 @@ const mapDispatchToProps = (dispatch) => {
         getInitData: () => {
             dispatch(init())
         },
-        createClient: (user) => {
-            dispatch(createClient(user))
+        startDiagnosis: (newClient) => {
+            dispatch(startDiagnosis(newClient))
         },
-        goBack: () => {
-            dispatch(goBack)
+        showCookieInfo: () => {
+            dispatch(showCookieInfo())
         },
-        startDiagnosis: () => {
-            dispatch(startDiagnosis)
-        },
+        showPrivacyInfo: () => {
+            dispatch(showPrivacyInfo())
+        }
     }
 };
 

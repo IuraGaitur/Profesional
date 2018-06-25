@@ -1,18 +1,21 @@
 import React, {Component}  from 'react';
 import {LoginScreen} from './src/screens/authentication/login';
 import {ProfileScreen} from './src/screens/profile';
-import {MainScreen} from './src/screens/main';
+import {ClientsScreen} from './src/screens/home/clients';
 import {RegisterScreen} from './src/screens/authentication/register';
 import {SplashScreen} from './src/screens/splash';
 import {RecoveryScreen} from './src/screens/authentication/recovery';
 import {InfoScreen} from './src/screens/help/info';
-import {FaqScreen} from './src/screens/help/faq';
+import {AboutScreen} from './src/screens/help/about';
+import {FaqScreen} from './src/screens/help/faq/list/index';
 import {ContactScreen} from './src/screens/help/contact';
 import {BlowDryDiagnosisScreen} from './src/screens/home/blowDryDiagnosis';
 import {EnergyCodeDiagnosisScreen} from './src/screens/home/energyCodeDiagnosis';
 import {CreateClientScreen} from './src/screens/home/newClient';
-import {ProductsScreen} from './src/screens/products';
 import {NewDiagnosisScreen} from './src/screens/home/newDiagnosis';
+import {TreatmentScreen} from './src/screens/home/treatment';
+import {ProductsScreen} from './src/screens/products/list';
+import {ProductScreen} from './src/screens/products/details';
 import {Router, Scene} from "react-native-router-flux";
 import ScreenUtils from "./src/utils/ScreenUtils";
 import {Provider} from 'react-redux';
@@ -26,6 +29,7 @@ export const PROFILE = 'profile';
 export const CREATE_CLIENT = 'createClient';
 export const FORGOT_PASS = 'forgotPass';
 export const INFO = 'info';
+export const ABOUT = 'about';
 export const MAIN = 'main';
 export const FAQ = 'faq';
 export const CONTACT_US = 'contact';
@@ -33,6 +37,8 @@ export const BLOW_DRY_DIAGNOSIS = 'blowDiagnosis';
 export const ENERGY_CODE_DIAGNOSIS = 'energyDiagnosis';
 export const PRODUCTS = 'products';
 export const NEW_DIAGNOSIS = 'newDiagnosis';
+export const TREATMENT = 'treatment';
+export const PRODUCT_DETAILS = 'productDetails';
 
 class App extends Component {
     async componentWillMount() {
@@ -44,24 +50,27 @@ class App extends Component {
             <Router hideNavBar="true">
                 <Scene key="root">
 
-                    <Scene key={SPLASH} component={SplashScreen} initial/>
+                    <Scene key={SPLASH} component={SplashScreen} />
                     {/*Authentication SCENES*/}
                     <Scene key={LOGIN} component={LoginScreen}/>
-                    <Scene key={REGISTER} component={RegisterScreen}/>
-                    <Scene key={FORGOT_PASS} component={RecoveryScreen}/>
+                    <Scene key={REGISTER} component={RegisterScreen} />
+                    <Scene key={FORGOT_PASS} component={RecoveryScreen} />
                     {/*HELP SCENES*/}
                     <Scene key={FAQ} component={FaqScreen}/>
-                    <Scene key={CONTACT_US} component={ContactScreen}/>
+                    <Scene key={CONTACT_US} component={ContactScreen} />
                     <Scene key={INFO} component={InfoScreen}/>
+                    <Scene key={ABOUT} component={AboutScreen}/>
                     {/*MAIN*/}
-                    <Scene key={MAIN} component={MainScreen} />
+                    <Scene key={MAIN} component={ClientsScreen} />
                     {/*HOME SCENES*/}
                     <Scene key={CREATE_CLIENT} component={CreateClientScreen} />
                     <Scene key={NEW_DIAGNOSIS} component={NewDiagnosisScreen}/>
-                    <Scene key={BLOW_DRY_DIAGNOSIS} component={BlowDryDiagnosisScreen} />
+                    <Scene key={BLOW_DRY_DIAGNOSIS} component={BlowDryDiagnosisScreen} initial/>
                     <Scene key={ENERGY_CODE_DIAGNOSIS} component={EnergyCodeDiagnosisScreen}/>
+                    <Scene key={TREATMENT} component={TreatmentScreen} />
                     {/*PRODUCTS SCENES*/}
-                    <Scene key={PRODUCTS} component={ProductsScreen}/>
+                    <Scene key={PRODUCTS} component={ProductsScreen} />
+                    <Scene key={PRODUCT_DETAILS} component={ProductScreen}/>
                     {/*PROFILE SCENES*/}
                     <Scene key={PROFILE} component={ProfileScreen}/>
                     {/*PRODUCTS SCENES*/}

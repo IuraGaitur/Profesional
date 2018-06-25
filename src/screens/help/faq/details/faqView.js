@@ -9,12 +9,12 @@ import {
     PRIMARY,
     TEXT_COLOR,
     TEXT_GRAY_COLOR
-} from '../../../utils/Colors';
-import MenuItem from "../../../views/menu/MenuItem";
+} from '../../../../utils/Colors';
+import MenuItem from "../../../../views/menu/MenuItem";
 import {Body, Button, Container, Icon, Input, Item, Left, List, ListItem, Right, Title, Header} from "native-base";
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
-import ContentFlex from "../../../views/native_elements/ContentFlex";
-import BackMenu from "../../../views/menu/BackMenu";
+import ContainerFlex from "../../../../views/native_elements/ContainerFlex";
+import ContentFlex from "../../../../views/native_elements/ContentFlex";
+import BackMenu from "../../../../views/menu/BackMenu";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -25,7 +25,7 @@ export default class FaqView extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+
     }
 
     render() {

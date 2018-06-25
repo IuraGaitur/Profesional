@@ -1,3 +1,3 @@
-import InfoScreen from './info';
+import ProductScreen from './product';
 
-export {InfoScreen};
+export {ProductScreen};

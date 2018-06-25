@@ -57,7 +57,7 @@ export default class RecoveryView extends Component {
         const {email, newPass, actionResetCallback, actionInfoCallback, showLoading, showPass} = this.state;
         return (
             <ContainerFlex>
-                <BackMenu title={"RECOVER PASSWORD"} actions={
+                <BackMenu title={'<p><b>FORGOT</b> YOUR PASSWORD</p>'} actions={
                     <Button transparent onPress={() => actionInfoCallback()}>
                         <Icon name='information-circle-outline' style={{color: GRAY_COLOR}}/>
                     </Button>

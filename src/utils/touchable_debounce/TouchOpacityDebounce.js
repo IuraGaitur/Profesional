@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { TouchableOpacity } from "react-native";
 import { debounce } from "./Debounce";
+import PropTypes from 'prop-types';
 
 class TouchOpacityDebounce extends Component {
 
@@ -24,5 +25,9 @@ class TouchOpacityDebounce extends Component {
         );
     }
 }
+
+TouchOpacityDebounce.propTypes = {
+    onPress: PropTypes.func
+};
 
 export default TouchOpacityDebounce;

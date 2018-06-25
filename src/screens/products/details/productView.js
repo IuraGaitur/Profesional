@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Drawer from 'react-native-drawer'
 import {Header, Input, ListItem} from "react-native-elements";
 import {FlatList, Text, View, StyleSheet, Dimensions, Image, TouchableWithoutFeedback} from "react-native";
 import PropTypes from 'prop-types';
@@ -12,16 +11,34 @@ import {
     TEXT_GRAY_COLOR,
     TRANSPARENT
 } from '../../../utils/Colors';
-import SubmitButton from "../../../views/native_elements/SubmitButton";
-import FormItem from "../../../views/native_elements/FormItem";
 import {Form, Label, Button, Icon, Thumbnail} from "native-base";
 import ContainerFlex from "../../../views/native_elements/ContainerFlex";
+import BackMenu from "../../../views/menu/BackMenu";
+import TransparentBackMenu from "../../../views/menu/TransparentBackMenu";
+import Space from "../../../views/native_elements/Space";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = ScreenUtils.HEIGHT;
-const BG_IMAGE = require('../../../../assets/images/img_back_hair_2.jpg');
+const PRODUCT_IMAGE = require('../../../../assets/images/img_product_full.png');
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
-export default class InfoView extends Component {
+export default class ProductView extends Component {
+
+    texts = {title: 'INTENSIVE COLOR PROTECTION',
+             header1: 'RESULT',
+             subTitle1: 'Longer lasting color, smoothness and manageability.',
+             header2: 'TARGET GROUP',
+             subTitle2: 'For clients with colored hair and increased care need. Suitable for all hair colors,' +
+                        'highlited and bleached hair. The mask is the ideal weekly intense treatment for clients who'+
+                        'take their time',
+             header3: 'PRODUCT',
+             subTitle3: 'For clients with colored hair and increased care need. Suitable for all hair colors,' +
+             'highlited and bleached hair. The mask is the ideal weekly intense treatment for clients who'+
+             'take their time',
+             header4: 'IN SALON APP',
+             subTitle4: 'For clients with colored hair and increased care need. Suitable for all hair colors,' +
+             'highlited and bleached hair. The mask is the ideal weekly intense treatment for clients who'+
+             'take their time'
+    };
 
     constructor(props) {
         super(props);
@@ -29,7 +46,20 @@ export default class InfoView extends Component {
     }
 
     renderFixedHeader() {
-        return <Image source={BG_IMAGE} style={{width: window.width, height: ScreenUtils.HEIGHT / 2.2}}/>
+        return (
+            <View style={{flex: 1, backgroundColor: '#E7F5F3'}}>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-end'}}>
+                    <Image source={PRODUCT_IMAGE} style={{width: 60, height: 140}}/>
+                </View>
+            </View>);
+    }
+
+    renderStickyHeader() {
+        return (
+            <View style={{position: 'absolute', width: SCREEN_WIDTH, backgroundColor: 'transparent'}}>
+                <TransparentBackMenu closeIcon={'ios-close'} title={'H1 HYDRATE SHAMPOO'}/>
+            </View>
+        );
     }
 
     render() {
@@ -37,40 +67,48 @@ export default class InfoView extends Component {
 
         return (
             <ContainerFlex>
+
                 <ParallaxScrollView
-                    renderBackground={() => {
+                    renderForeground={() => {
                         return this.renderFixedHeader(closeCallback)
                     }}
-                    stickyHeaderHeight={ScreenUtils.HEIGHT / 3.5}
-                    fadeOutForeground={false}
-                    parallaxHeaderHeight={ ScreenUtils.HEIGHT / 2.2 }>
+                    renderFixedHeader={() => {
+                        return this.renderStickyHeader('BB65 INSTANT RESET')
+                    }}
+                    renderBackground={() => {
+                        return <View style={{height: 60, width: 400, backgroundColor: 'white'}}></View>
+                    }}
+                    contentBackgroundColor={'#fff'}
+                    backgroundColor={'transparent'}
+                    fadeOutForeground={true}
+                    fadeOutParallaxForeground={true}
+                    stickyHeaderHeight={90}
+                    parallaxHeaderHeight={ ScreenUtils.HEIGHT / 3 }>
 
                     <View style={styles.paralaxContainer}>
-                        <View style={{flex:1,  justifyContent: 'center', alignItems: 'center'}}>
-                            <Thumbnail square source={require('../../../../assets/images/logo.png')}
-                                       style={{width: 100, height: 65}}/>
-                        </View>
-                        <Form style={{width: '100%'}}>
-                            <FormItem>
-                                <Label>Type keyword to find answer</Label>
-                            </FormItem>
-                        </Form>
-                        <SubmitButton text='SEARCH' showLoading={showLoading} onPress={searchCallback}/>
-                        <Button block transparent light onPress={faqCallback}>
-                            <Text style={{flex: 1, paddingLeft: 4, fontSize: 19}}>FAQ</Text>
-                            <Icon name='ios-arrow-forward' style={{color: GRAY_COLOR}}/>
-                        </Button>
-                        <Button block transparent light onPress={contactCallback}>
-                            <Text style={{flex: 1, paddingLeft: 4, fontSize: 19}}>Contact Us</Text>
-                            <Icon name='ios-arrow-forward' style={{color: GRAY_COLOR}}/>
-                        </Button>
+                        <Text style={{fontSize: 22}}>{this.texts.title}</Text>
+                        <Space height={16}/>
+                        <Text style={styles.headerText}>{this.texts.header1}</Text>
+                        <Space height={16}/>
+                        <Text style={styles.contentText}>{this.texts.subTitle1}</Text>
+                        <Space height={16}/>
+                        <Text style={styles.headerText}>{this.texts.header2}</Text>
+                        <Space height={16}/>
+                        <Text style={styles.contentText}>{this.texts.subTitle2}</Text>
+                        <Space height={16}/>
+                        <Text style={styles.headerText}>{this.texts.header3}</Text>
+                        <Space height={16}/>
+                        <Text style={styles.contentText}>{this.texts.subTitle3}</Text>
+                        <Space height={16}/>
+                        <Text style={styles.headerText}>{this.texts.header4}</Text>
+                        <Space height={16}/>
+                        <Text style={styles.contentText}>{this.texts.subTitle4}</Text>
+                        <Space height={40}/>
+                        <Text style={styles.contentText}>Available sizes: 15ml, 200ml, 400ml</Text>
                     </View>
 
                 </ParallaxScrollView>
-                <View style={styles.close}>
-                    <Icon name='ios-close' style={{color: 'white', fontSize: 40, backgroundColor: 'transparent'}}
-                          underlayColor={TRANSPARENT} onPress={e => closeCallback()}/>
-                </View>
+
             </ContainerFlex>
         );
     }
@@ -119,10 +157,17 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         padding: 14
+    },
+    headerText: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    contentText: {
+        fontSize: 18
     }
 });
 
-InfoView.propTypes = {
+ProductView.propTypes = {
     searchCallback: PropTypes.func,
     closeCallback: PropTypes.func,
     showLoading: PropTypes.bool,

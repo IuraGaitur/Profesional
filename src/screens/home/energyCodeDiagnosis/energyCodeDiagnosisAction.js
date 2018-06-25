@@ -15,6 +15,11 @@ export function init() {
     }
 }
 
+export function showTreatment(client) {
+    Actions.treatment({newClient: client});
+    return {type: Constants.NO_ACTION};
+}
+
 function getQuestions(questions) {
     return {
         type: INIT,

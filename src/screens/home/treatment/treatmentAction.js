@@ -1,18 +1,11 @@
-import UserDao from '../../../data/database/UserDao';
-import MenuDao from '../../../data/database/MenuDao';
 import { Actions } from 'react-native-router-flux';
-export const GET_PRIMARY_USER = 'GET_PRIMARY_USER';
+import Constants from './../../../utils/Constants';
+import ClientDao from "../../../data/database/ClientDao";
 
-export function getPrimaryUser() {
+export function saveClient(client) {
     return async (dispatch) => {
-        let user = await new UserDao().getPrimaryUser();
-        return dispatch(sendUser(user));
+        await new ClientDao().save(client);
+        Actions.main();
+        dispatch({type: Constants.NO_ACTION});
     }
-}
-
-function sendUser(user) {
-    return {
-        user: user,
-        type: GET_PRIMARY_USER
-    };
 }

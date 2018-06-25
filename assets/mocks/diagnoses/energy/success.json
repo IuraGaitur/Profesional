@@ -1,55 +1,179 @@
 [
-  {"form": {
-    "title": "HAIR QUICK CHECK",
-    "answers": [
-      {"id": 0, "title": "STRENGTH",
-        "options": [
-          {"label": "FINE", "value": 0, "active": true},
-          {"label": "THICK", "value": 1, "active": false}
-        ]
-      },
-      {"id": 1, "title": "LENGTH",
-        "options": [
-          {"label": "SHORT", "value": 0, "active": true},
-          {"label": "LONG", "value": 1, "active": false}
-        ]
-      },
-      {"id": 2, "title": "COLOR",
-        "options": [
-          {"label": "NATURAL", "value": 0, "active": true},
-          {"label": "COLORED", "value": 1, "active": false}
-        ]
-      }
-    ]},
-    "type": "RADIO_CHOOSE"
+  {
+    "page": {
+      "title": "HAIR QUICK CHECK",
+      "form": [
+        {
+          "type": "RADIO_CHOOSE",
+          "data": {
+            "id": 0,
+            "title": "STRENGTH",
+            "options": [
+              {
+                "label": "FINE",
+                "value": 0,
+                "active": true
+              },
+              {
+                "label": "THICK",
+                "value": 1,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "RADIO_CHOOSE",
+          "data": {
+            "id": 1,
+            "title": "LENGTH",
+            "options": [
+              {
+                "label": "SHORT",
+                "value": 0,
+                "active": true
+              },
+              {
+                "label": "LONG",
+                "value": 1,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "RADIO_CHOOSE",
+          "data": {
+            "id": 2,
+            "title": "COLOR",
+            "options": [
+              {
+                "label": "NATURAL",
+                "value": 0,
+                "active": true
+              },
+              {
+                "label": "COLORED",
+                "value": 1,
+                "active": false
+              }
+            ]
+          }
+        }
+      ]
+    }
   },
-  {"form": {
-    "title": "LOOKING FOR",
-    "answers": [
-      {"id": 0, "title": "CURL DEFINITION", "active": false},
-      {"id": 1, "title": "ANTI-FRIZZ", "active": false},
-      {"id": 2, "title": "SMOOTHNESS", "active": false},
-      {"id": 3, "title": "LASTING HOLD", "active": false},
-      {"id": 4, "title": "VOLUME", "active": false},
-      {"id": 5, "title": "ANTI HUMIDITY", "active": false},
-      {"id": 6, "title": "TEXTURE", "active": false},
-      {"id": 7, "title": "HEAT PROTECTION", "active": false}
-    ]},
-    "type": "PICK"
+  {
+    "page": {
+      "title": "LOOKING FOR",
+      "form": [
+        {
+          "type": "PICK",
+          "data": {
+            "options": [
+              {
+                "id": 0,
+                "title": "CURL DEFINITION",
+                "active": false
+              },
+              {
+                "id": 1,
+                "title": "ANTI-FRIZZ",
+                "active": false
+              },
+              {
+                "id": 2,
+                "title": "SMOOTHNESS",
+                "active": false
+              },
+              {
+                "id": 3,
+                "title": "LASTING HOLD",
+                "active": false
+              },
+              {
+                "id": 4,
+                "title": "VOLUME",
+                "active": false
+              },
+              {
+                "id": 5,
+                "title": "ANTI HUMIDITY",
+                "active": false
+              },
+              {
+                "id": 6,
+                "title": "TEXTURE",
+                "active": false
+              },
+              {
+                "id": 7,
+                "title": "HEAT PROTECTION",
+                "active": false
+              }
+            ]
+          }
+        }
+      ]
+    }
   },
-  {"form": {
-    "title": "PRODUCTS USED",
-    "answers": [
-      {"id": 0, "title": "SPRAY", "active": false},
-      {"id": 1, "title": "MOUSSE", "active": false},
-      {"id": 2, "title": "DULL", "active": false},
-      {"id": 3, "title": "LOTION", "active": false},
-      {"id": 4, "title": "OIL", "active": false},
-      {"id": 5, "title": "GEL", "active": false},
-      {"id": 6, "title": "WAX", "active": false},
-      {"id": 7, "title": "CREAM", "active": false},
-      {"id": 8, "title": "DRY SHAMPOO", "active": false}
-    ]},
-    "type": "PICK"
+  {
+    "page": {
+      "title": "PRODUCTS USED",
+      "form": [
+        {
+          "type": "PICK",
+          "data": {
+            "options": [
+              {
+                "id": 0,
+                "title": "SPRAY",
+                "active": false
+              },
+              {
+                "id": 1,
+                "title": "MOUSSE",
+                "active": false
+              },
+              {
+                "id": 2,
+                "title": "DULL",
+                "active": false
+              },
+              {
+                "id": 3,
+                "title": "LOTION",
+                "active": false
+              },
+              {
+                "id": 4,
+                "title": "OIL",
+                "active": false
+              },
+              {
+                "id": 5,
+                "title": "GEL",
+                "active": false
+              },
+              {
+                "id": 6,
+                "title": "WAX",
+                "active": false
+              },
+              {
+                "id": 7,
+                "title": "CREAM",
+                "active": false
+              },
+              {
+                "id": 8,
+                "title": "DRY SHAMPOO",
+                "active": false
+              }
+            ]
+          }
+        }
+      ]
+    }
   }
 ]

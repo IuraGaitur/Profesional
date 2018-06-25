@@ -11,9 +11,13 @@ export const NETWORK_ERROR = 'NETWORK_ERROR';
 export function init() {
     return async(dispatch) => {
         let questions = new DetailsQuestionsApi().instance().getBlowDry();
-        //console.log(questions.length, " Length");
         return dispatch(getQuestions(questions));
     }
+}
+
+export function createTreatment(client) {
+    Actions.treatment({newClient: client});
+    return {type: Constants.NO_ACTION};
 }
 
 function getQuestions(questions) {

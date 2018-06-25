@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet} from "react-native";
 import {View, Button} from "native-base";
-import {GRAY_COLOR, SELECTED, TEXT_COLOR} from "../../../utils/Colors";
+import {GRAY_COLOR, SELECTED, TEXT_COLOR} from "../../../../utils/Colors";
 import RadioItem from "./RadioItem";
 
 export default class RadioBoxGroup extends Component {

@@ -28,56 +28,22 @@ function getInitData(countries, languages) {
     }
 }
 
-function requestRegister() {
-    return {
-        type: REQUEST_REGISTER
-    }
-}
-
-function successRegister(userResponse) {
-    Actions.main();
-    return {
-        userResponse: userResponse,
-        type: REGISTER_SUCCESS
-    }
-}
-
-function errorRegister(errorMessage) {
-    return {
-        error: errorMessage,
-        type: REGISTER_FAIL
-    }
-}
-
-function errorNetwork() {
-    return {
-        type: NETWORK_ERROR
-    }
-}
-
-export function createClient(user) {
-    return async (dispatch) => {
-        dispatch(requestRegister());
-
-        let response = await new UserService().instance().register(user);
-        if (response && response.status == StatusCode.OK) {
-            await new UserDao().savePrimaryUser(response.user);
-            Actions.main();
-            return dispatch(successRegister(response.user));
-        } else if (response && response.status == StatusCode.INVALID_USER) {
-            return dispatch(errorRegister(response.errorMsg))
-        } else {
-            return dispatch(errorNetwork())
-        }
-    }
-}
-
-export function startDiagnosis() {
-    Actions.newDiagnosis();
+export function startDiagnosis(client) {
+    Actions.newDiagnosis({newClient: client});
     return {type: Constants.NO_ACTION};
 }
 
 export function goBack() {
     Actions.pop();
+    return {type: Constants.NO_ACTION};
+}
+
+export function showCookieInfo() {
+   Actions.about({url: Constants.urlCookie});
+   return {type: Constants.NO_ACTION};
+}
+
+export function showPrivacyInfo() {
+    Actions.about({url: Constants.urlPrivacy});
     return {type: Constants.NO_ACTION};
 }

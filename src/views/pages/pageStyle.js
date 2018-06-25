@@ -24,5 +24,5 @@ export default StyleSheet.create({
         marginBottom: 5,
         textAlign: 'center',
         color: TEXT_COLOR
-    },
+    }
 });

@@ -17,12 +17,13 @@ import SubHeader from "../../../views/form/SubHeader";
 import ContainerFlex from "../../../views/native_elements/ContainerFlex";
 import ContentFlex from "../../../views/native_elements/ContentFlex";
 import BackMenu from "../../../views/menu/BackMenu";
+import Client from "../../../data/models/Client";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default class CreateClientView extends Component {
 
     formInputs = [];
-    user = new User();
+    client = new Client();
 
     constructor(props) {
         super(props);
@@ -35,13 +36,6 @@ export default class CreateClientView extends Component {
         }
     }
 
-    register = (e) => {
-        let areFieldsValid = this.refs.formData.validate(this.formInputs);
-        if (areFieldsValid) {
-            this.props.registerCallback(this.user);
-        }
-    };
-
     changeCountryCallback = (selectedCountry) => {
         this.setState({country: selectedCountry});
     };
@@ -50,19 +44,9 @@ export default class CreateClientView extends Component {
         this.setState({language: selectedLanguage});
     };
 
-    checkEnergyCallback = () => {
-        this.user.energySave = !this.state.energySave;
-        this.setState({energySave: !this.state.energySave})
-    };
-
-    checkNewsLetterCallback = () => {
-        this.user.newsLetterCheck = !this.state.newsLetterCheck;
-        this.setState({newsLetterCheck: !this.state.newsLetterCheck})
-    };
-
     updateForm = (item, value) => {
         this.setState({[item]: value});
-        this.user[item] = value;
+        this.client[item] = value;
     };
 
     showDateTimerPicker() {
@@ -79,23 +63,33 @@ export default class CreateClientView extends Component {
     };
 
     startDiagnosis(startDiagnosisCallback) {
-        let areFieldsValid = this.refs.formData.validate(this.formInputs);
+        let areFieldsValid = this.refs.formData.validate([this.formInputs[0], this.formInputs[1]]);
         if (areFieldsValid) {
-            startDiagnosisCallback(this.user);
+            startDiagnosisCallback(this.client);
         }
     }
+
+    checkSaveEnergy() {
+        this.setState({energySave: !this.state.energySave});
+    }
+
+    checkReceiveEmails() {
+        this.setState({receiveEmails: !this.state.receiveEmails});
+    }
+
 
     render() {
         const {
             firstName, lastName, email, birthDate, city, country, phone,
-            energySave, newsLetterCheck, showDatePicker, language} = this.state;
-        const {countries, languages, startDiagnosisCallback} = this.props;
+            energySave, receiveEmails, showDatePicker, language} = this.state;
+        const {countries, languages, startDiagnosisCallback,
+                actionFindAboutCookieCallback, actionFindAboutPrivacyCallback} = this.props;
 
         return (
             <ContainerFlex>
-                <BackMenu title={'NEW CLIENT'} closeIcon={'close'} actions={
+                <BackMenu title={'<p>NEW <b>CLIENT</b></p>'} closeIcon={'close'} actions={
                     <Button transparent onPress={() => this.startDiagnosis(startDiagnosisCallback)}>
-                        <Text style={{color: TEXT_COLOR, fontSize: 14}}>START</Text>
+                        <Text style={styles.rightAction}>START</Text>
                     </Button>}
 
                 />
@@ -127,28 +121,24 @@ export default class CreateClientView extends Component {
                                 mode={'dropdown'}
                                 ref={item => this.formInputs[2] = item}
                                 onSubmitEditing={() => this.formInputs[3].focus()}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
                             />
                             <FormItem
                                 ref={item => this.formInputs[3] = item}
-                                validation={[{name: REQUIRED, error: 'Required'},
-                                    {name: EMAIL, error: 'Not valid email'}]}
                                 value={email}
                                 onSubmitEditing={() => this.formInputs[4].focus()}
                                 onChangeText={item => {
                                     this.updateForm('email', item);
                                 }}>
-                                <Label>EMAIL ADDRESS*</Label>
+                                <Label>EMAIL ADDRESS</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[4] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
                                 onFocus={() => {
                                     this.showDateTimerPicker()
                                 }}
                                 onSubmitEditing={() => this.formInputs[5].focus()}
                                 value={birthDate}>
-                                <Label>DATE OF BIRTH*</Label>
+                                <Label>DATE OF BIRTH</Label>
                             </FormItem>
                         </View>
                         <SubHeader title='Contact Details' color={UN_SELECTED}/>
@@ -156,32 +146,29 @@ export default class CreateClientView extends Component {
                             <PickerInput
                                 items={languages}
                                 valueChangeCallBack={this.changeLanguageCallback}
-                                defaultItem={{label: "Language*", value: ""}}
+                                defaultItem={{label: "LANGUAGE", value: ""}}
                                 needValidation value={language}
                                 ref={item => this.formInputs[5] = item}
                                 onSubmitEditing={() => this.formInputs[6].focus()}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
                             />
                             <FormItem
                                 ref={item => this.formInputs[6] = item}
                                 value={city}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
                                 onSubmitEditing={() => this.formInputs[7].focus()}
                                 onChangeText={item => this.updateForm('city', item)}>
-                                <Label>CITY*</Label>
+                                <Label>CITY</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[7] = item}
                                 value={phone} isLast
-                                validation={[{name: REQUIRED, error: 'Required'}]}
                                 onSubmitEditing={() => this.formInputs[8].focus()}
                                 onChangeText={item => this.updateForm('phone', item)}>
-                                <Label>POSTAL CODE*</Label>
+                                <Label>POSTAL CODE</Label>
                             </FormItem>
                             <PickerInput
                                 items={countries}
                                 valueChangeCallBack={this.changeCountryCallback}
-                                defaultItem={{label: "COUNTRY*", value: ""}}
+                                defaultItem={{label: "COUNTRY", value: ""}}
                                 needValidation value={country}
                                 ref={item => this.formInputs[8] = item}
                                 onSubmitEditing={() => this.formInputs[9].focus()}
@@ -196,7 +183,7 @@ export default class CreateClientView extends Component {
                                     color={PRIMARY}
                                     style={{marginRight: 8}}
                                     checked={energySave}
-                                    onPress={() => this.checkEnergyCallback()}/>
+                                    onPress={() => this.checkSaveEnergy()}/>
                             </View>
                             <View style={styles.divider}/>
                             <View style={styles.checkboxItem}>
@@ -204,8 +191,8 @@ export default class CreateClientView extends Component {
                                 <CheckBox
                                     color={PRIMARY}
                                     style={{marginRight: 8}}
-                                    checked={newsLetterCheck}
-                                    onPress={() => this.checkNewsLetterCallback()}/>
+                                    checked={receiveEmails}
+                                    onPress={() => this.checkReceiveEmails()}/>
                             </View>
                             <Space height={25}/>
 
@@ -215,10 +202,10 @@ export default class CreateClientView extends Component {
                                 received cookies to make sure we're giving you news and information that
                                 interests you.
                             </Text>
-                            <TouchOpacityDebounce>
+                            <TouchOpacityDebounce onPress={actionFindAboutCookieCallback}>
                                 <Text style={styles.link}>Find out more about cookies.</Text>
                             </TouchOpacityDebounce>
-                            <TouchOpacityDebounce>
+                            <TouchOpacityDebounce onPress={actionFindAboutPrivacyCallback}>
                                 <Text style={styles.link}>By clicking above you accept T&C.</Text>
                             </TouchOpacityDebounce>
                         </View>
@@ -234,6 +221,11 @@ export default class CreateClientView extends Component {
 }
 
 const styles = StyleSheet.create({
+    rightAction: {
+        color: TEXT_COLOR,
+        fontSize: 14,
+        paddingLeft: 0
+    },
     divider: {
         width: '100%',
         height: 1,
@@ -270,12 +262,9 @@ CreateClientView.defaultProps = {};
 
 
 CreateClientView.propTypes = {
-    registerCallback: PropTypes.func,
-    dismissDialogCallback: PropTypes.func,
-    showLoading: PropTypes.bool,
-    showNetworkError: PropTypes.bool,
     countries: PropTypes.array,
     languages: PropTypes.array,
-    actionBack: PropTypes.func,
-    startDiagnosisCallback: PropTypes.func
+    startDiagnosisCallback: PropTypes.func,
+    actionFindAboutCookieCallback: PropTypes.func,
+    actionFindAboutPrivacyCallback: PropTypes.func,
 };

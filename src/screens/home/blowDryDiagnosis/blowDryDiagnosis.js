@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {registerRequest, goBack, showInfo, init} from './blowDryDiagnosisAction';
+import {registerRequest, goBack, showInfo, init, createTreatment} from './blowDryDiagnosisAction';
 import BlowDryDiagnosisView  from './blowDryDiagnosisView';
 
 class BlowDryDiagnosisScreen extends Component {
@@ -9,6 +9,7 @@ class BlowDryDiagnosisScreen extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {showEditAction: false};
     }
 
     componentDidMount() {
@@ -19,15 +20,28 @@ class BlowDryDiagnosisScreen extends Component {
         this.props.goBack();
     };
 
+    createTreatment = () => {
+        let newClient = this.props.newClient;
+        this.props.createTreatment(newClient);
+    };
+
+    actionPageSelected = (position, totalPages) => {
+        let showEditAction = position == totalPages - 1;
+        this.setState({showEditAction: showEditAction});
+    };
+
     render() {
         const {networkError, showLoading, questions} = this.props;
+        const {showEditAction} = this.state;
 
         return <BlowDryDiagnosisView questions={questions}
-                                  actionBack={() => this.goBack()}
-                                  showNetworkError={networkError}
-                                  showLoading={showLoading}
-                                  pagesData={questions}
-                                  dismissDialogCallback={this.dismissDialogCallback}/>
+                                     showNetworkError={networkError}
+                                     showLoading={showLoading}
+                                     pagesData={questions}
+                                     showEditAction={showEditAction}
+                                     actionCreate={this.createTreatment}
+                                     actionPageSelectedCallback={this.actionPageSelected}
+                                     dismissDialogCallback={this.dismissDialogCallback}/>
     }
 }
 
@@ -45,9 +59,9 @@ const mapDispatchToProps = (dispatch) => {
         getQuestions: () => {
             dispatch(init())
         },
-        goBack: () => {
-            dispatch(goBack)
-        },
+        createTreatment: (newClient) => {
+            dispatch(createTreatment(newClient));
+        }
     }
 };
 

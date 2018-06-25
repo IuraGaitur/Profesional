@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {getPrimaryUser} from './clientsAction';
+import {showCreationScreen, getClients, getPrimaryUser} from './clientsAction';
 import ClientsView from "./clientsView";
+import CollectionUtils from "../../../utils/CollectionUtils";
 
 class ClientsScreen extends Component {
 
@@ -10,24 +11,40 @@ class ClientsScreen extends Component {
     constructor(props) {
         super(props);
         this.props.getPrimaryUser();
+        this.props.getClients();
     }
 
+    createClient = () => {
+        this.props.showCreationScreen();
+    };
+
+    actionSearch = (text) => {
+        this.props.getClients(text);
+    };
+
     render() {
-        const {primaryUser} = this.props;
+        const {userClients} = this.props;
         return (
-            <ClientsView primaryUser={primaryUser}/>
+            <ClientsView userClients={userClients}
+                         showClientsList={!CollectionUtils.isNullOrEmpty(userClients)}
+                         createClient={this.createClient}
+                         actionSearchCallback={this.actionSearch}
+                         title={'HOME'}/>
         );
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        primaryUser: state.clients.user
+        userClients: state.clients.userClients,
+        primaryUser: state.clients.primaryUser
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        showCreationScreen: () => dispatch(showCreationScreen()),
+        getClients: (search) => dispatch(getClients(search)),
         getPrimaryUser: () => dispatch(getPrimaryUser())
     }
 };

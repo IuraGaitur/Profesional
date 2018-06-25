@@ -1,35 +1,98 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {getPrimaryUser} from './clientsAction';
-import ClientsView from "./clientsView";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import TreatmentView from "./treatmentView";
+import {saveClient} from "./treatmentAction";
 
-class ClientsScreen extends Component {
+class TreatmentScreen extends Component {
 
-    static navigationOptions = { header: null};
+    static navigationOptions = {header: null};
+    products = [
+        {
+            "name": "BALANCE SHAMPOO",
+            "type": "B1",
+            "image": "assets/images/prod_1.png"
+        },
+        {
+            "name": "BALANCE MASK",
+            "type": "B1",
+            "image": "assets/images/prod_3.png"
+        },
+        {
+            "name": "BALANCE ENERGY SURUM",
+            "type": "B1",
+            "image": "assets/images/prod_3.png"
+        },
+        {
+            "name": "BALANCE LOTION",
+            "type": "B1",
+            "image": "assets/images/prod_4.png"
+        },
+        {
+            "name": "BALANCE SHAMPOO",
+            "type": "B1",
+            "image": "assets/images/prod_5.png"
+        }
+    ];
 
     constructor(props) {
         super(props);
-        this.props.getPrimaryUser();
     }
 
+    actionInfo = () => {
+
+    };
+    actionSave = () => {
+        let newClient = this.props.newClient;
+        this.props.saveClient(newClient);
+
+    };
+    actionInfoEmailSend = () => {
+
+    };
+    actionInfoDelete = () => {
+
+    };
+    actionInfoTreatment = () => {
+
+    };
+    actionEdit = () => {
+
+    };
+    actionEssentials = () => {
+
+    };
+    actionShowProducts = () => {
+
+    };
+    actionModifyTreatment = () => {
+
+    };
+
     render() {
-        const {primaryUser} = this.props;
         return (
-            <ClientsView primaryUser={primaryUser}/>
+            <TreatmentView products={this.products}
+                           actionInfo={this.actionInfo}
+                           actionEdit={this.actionEdit}
+                           actionEssentials={this.actionEssentials}
+                           actionInfoDelete={this.actionInfoDelete}
+                           actionInfoEmailSend={this.actionInfoEmailSend}
+                           actionInfoTreatment={this.actionInfoTreatment}
+                           actionModifyTreatment={this.actionModifyTreatment}
+                           actionSave={this.actionSave}
+                           actionShowProducts={this.actionShowProducts}
+            />
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        primaryUser: state.clients.user
-    };
+    return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPrimaryUser: () => dispatch(getPrimaryUser())
+        saveClient: (client) => dispatch(saveClient(client))
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (ClientsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(TreatmentScreen);

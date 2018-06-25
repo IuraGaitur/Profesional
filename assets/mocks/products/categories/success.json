@@ -1,0 +1,46 @@
+{
+  "care": [
+    {
+      "label": "BALANCE",
+      "value": "1"
+    },
+    {
+      "label": "PURIFY",
+      "value": "2"
+    },
+    {
+      "label": "COLOR SAVE",
+      "value": "3"
+    },
+    {
+      "label": "REPAIR",
+      "value": "4"
+    },
+    {
+      "label": "SOLAR",
+      "value": "5"
+    },
+    {
+      "label": "LUXEOIL",
+      "value": "6"
+    },
+    {
+      "label": "HYDRATE",
+      "value": "7"
+    }
+  ],
+  "styling": [
+    {
+      "label": "BB - BEAUTIFUL BASE",
+      "value": "1"
+    },
+    {
+      "label": "CC - CREATIVE CARE",
+      "value": "2"
+    },
+    {
+      "label": "DD - DYNAMIC DEFINITION",
+      "value": "3"
+    }
+  ]
+}
