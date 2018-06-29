@@ -1,18 +1,25 @@
-import UserDao from '../../../data/database/UserDao';
-import MenuDao from '../../../data/database/MenuDao';
 import { Actions } from 'react-native-router-flux';
-export const GET_PRIMARY_USER = 'GET_PRIMARY_USER';
+import Constants from './../../../utils/Constants';
+import ClientDao from "../../../data/database/ClientDao";
+export const INIT = 'INIT';
 
-export function getPrimaryUser() {
-    return async (dispatch) => {
-        let user = await new UserDao().getPrimaryUser();
-        return dispatch(sendUser(user));
+export function init() {
+    return {
+        type: INIT,
+        infoCode: '<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>',
+        infoCare: '<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>'
     }
 }
 
-function sendUser(user) {
-    return {
-        user: user,
-        type: GET_PRIMARY_USER
-    };
+export function showInfoScreen() {
+    Actions.info();
+    dispatch({type: Constants.NO_ACTION});
+}
+
+export function saveClient(client) {
+    return async (dispatch) => {
+        await new ClientDao().save(client);
+        Actions.main();
+        dispatch({type: Constants.NO_ACTION});
+    }
 }

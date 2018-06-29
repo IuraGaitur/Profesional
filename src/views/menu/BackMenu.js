@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
 import {Body, Button, Header, Icon, Left, Right, Text, Title, View} from "native-base";
-import {GRAY_COLOR, LIGHT_BACKGROUND_COLOR, TEXT_COLOR} from "../../utils/Colors";
+import {GRAY_COLOR, LIGHT_BACKGROUND_COLOR, LIGHT_COLOR, TEXT_COLOR} from "../../utils/Colors";
 import PropTypes from 'prop-types';
 import {Actions} from 'react-native-router-flux';
+import HtmlText from "../native_elements/HtmlText";
 
 export default class BackMenu extends Component {
     render() {
@@ -14,10 +15,10 @@ export default class BackMenu extends Component {
                     <Icon name={this.props.closeIcon ? this.props.closeIcon : 'arrow-back'}
                           style={{color: GRAY_COLOR}}/>
                 </Button>
-                <View style={{width: '55%', alignContent: 'flex-start', justifyContent: 'center'}}>
-                    <Title style={styles.title}>{this.props.title}</Title>
+                <View style={styles.centerItem}>
+                    <HtmlText html={this.props.title}/>
                 </View>
-                <Right>{this.props.actions}</Right>
+                <Right style={{}}>{this.props.actions}</Right>
             </Header>);
     }
 }
@@ -29,15 +30,28 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     headerContainer: {
-        padding: 0,
-        backgroundColor: LIGHT_BACKGROUND_COLOR
+        paddingTop: 8,
+        paddingLeft: 0,
+        marginTop: 0,
+        backgroundColor: LIGHT_COLOR,
+        height: 'auto'
+    },
+    centerItem: {
+        width: '65%',
+        alignContent: 'flex-start',
+        justifyContent: 'center',
+        height: 'auto',
+        paddingLeft: 8,
+        paddingTop: 8
     }
 });
 
 BackMenu.propTypes = {
     actionBack: PropTypes.func,
     title: PropTypes.string,
-    actions: PropTypes.object,
+    actions: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.bool]),
     closeIcon: PropTypes.string
 
 };

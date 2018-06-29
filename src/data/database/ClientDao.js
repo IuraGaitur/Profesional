@@ -1,29 +1,40 @@
 import {AsyncStorage} from 'react-native';
+import CollectionUtils from "../../utils/CollectionUtils";
+import Client from "../models/Client";
 
-export default class ContactsDao {
+export default class ClientDao {
 
-    CONTACTS_KEY = 'USER_KEY';
+    CLIENT_KEY = 'CLIENT_KEY';
 
-    async save(contact) {
-        if(!contact) return;
-        let contacts = AsyncStorage.getItem(this.CONTACTS_KEY);
-        if(!contacts) {
-            contacts = [];
-        }else {
-            contacts = JSON.parse(contacts);
+    async save(client) {
+        if (!client) return;
+        let clients = await AsyncStorage.getItem(this.CLIENT_KEY);
+        if (!clients) {
+            clients = [];
+        } else {
+            clients = JSON.parse(clients);
         }
-        contacts.push(contact);
+        clients.push(client);
 
-        return await AsyncStorage.setItem(this.CONTACTS_KEY, JSON.stringify(contacts));
+        return await AsyncStorage.setItem(this.CLIENT_KEY, JSON.stringify(clients));
+    }
+
+    async getByName(text) {
+        let clients = await this.getAll();
+        if (CollectionUtils.isNullOrEmpty(clients)) return clients;
+        if (!text) return clients;
+        let filteredClients = clients.filter(item => (item.firstName.includes(text) || item.lastName.includes(text)));
+        return filteredClients;
     }
 
     async getAll() {
-        let data = await AsyncStorage.getItem(this.CONTACTS_KEY);
-        if (data) {
-            data = JSON.parse(data);
+        let clients = await AsyncStorage.getItem(this.CLIENT_KEY);
+        if (clients) {
+            clients = JSON.parse(clients);
+            clients = clients.map(item => new Client().fromJSON(item));
         } else {
-            data = [];
+            clients = [];
         }
-        return data;
+        return clients;
     }
 }

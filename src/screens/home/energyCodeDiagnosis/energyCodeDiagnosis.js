@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {registerRequest, goBack, showInfo, init } from './energyCodeDiagnosisAction';
+import {goBack, init, showTreatment } from './energyCodeDiagnosisAction';
 import EnergyCodeDiagnosisView  from './energyCodeDiagnosisView';
 
 class EnergyCodeDiagnosisScreen extends Component {
@@ -9,41 +9,54 @@ class EnergyCodeDiagnosisScreen extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {showSaveAction: false};
     }
 
     componentDidMount() {
-        this.props.getQuestions();
+        this.props.getDiagnosis();
     }
 
     goBack = () => {
         this.props.goBack();
     };
 
-    render() {
-        const {networkError, showLoading, questions} = this.props;
+    actionPageSelected = (position, totalPages) => {
+        let showEditAction = position == totalPages - 1;
+        this.setState({showSaveAction: showEditAction});
+    };
 
-        return <EnergyCodeDiagnosisView questions={questions}
+    actionSave = () => {
+        let newClient = this.props.newClient;
+        this.props.showTreatment(newClient);
+    };
+
+    render() {
+        const {networkError, showLoading, diagnosisQuiz} = this.props;
+        const {showSaveAction} = this.state;
+
+        return <EnergyCodeDiagnosisView
                                  actionBack={() => this.goBack()}
+                                 actionSave={this.actionSave}
+                                 actionPageSelectedCallback={this.actionPageSelected}
+                                 dismissDialogCallback={this.dismissDialogCallback}
+                                 showSaveAction={showSaveAction}
                                  showNetworkError={networkError}
                                  showLoading={showLoading}
-                                 pagesData={questions}
-                                 dismissDialogCallback={this.dismissDialogCallback}/>
+                                 quiz={diagnosisQuiz}/>
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        questions: state.energyCode.questions,
-        showLoading: state.energyCode.showLoading,
-        errorMessage: state.energyCode.errorMessage,
-        networkError: state.energyCode.networkError,
+        diagnosisQuiz: state.energyCode.diagnosisQuiz
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getQuestions: () => {dispatch(init())},
+        getDiagnosis: () => {dispatch(init())},
         goBack: () => {dispatch(goBack)},
+        showTreatment: (newClient) => {dispatch(showTreatment(newClient))}
     }
 };
 

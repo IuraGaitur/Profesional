@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import NetworkErrorDialog from "../../../views/NetworkErrorDialog";
 import {GRAY_COLOR, LIGHT_COLOR, SELECTED,} from '../../../utils/Colors';
-import {View, StyleSheet, Dimensions, ScrollView, Platform} from "react-native";
+import {View, StyleSheet, Dimensions, ScrollView, Platform, WebView} from "react-native";
 import {Body, Left, Button, Header, Label, Text, Title, Right, Thumbnail} from "native-base";
 import Message from "../../../data/models/Message";
 import {IndicatorViewPager, PagerDotIndicator} from "rn-viewpager";
@@ -11,6 +11,9 @@ import PickerSelectPage from "../../../views/pages/pickerSelectPage";
 import BackMenuLogo from "../../../views/menu/BackMenuLogo";
 import ContainerFlex from "../../../views/native_elements/ContainerFlex";
 import ContentFlex from "../../../views/native_elements/ContentFlex";
+import ConfirmationPage from "./pages/ConfirmationPage";
+import MainStyle from "../../../views/MainStyle";
+import PoolPage from "../../../views/pages/PoolPage";
 
 export default class BlowDryDiagnosisView extends Component {
 
@@ -20,6 +23,10 @@ export default class BlowDryDiagnosisView extends Component {
     constructor(props) {
         super(props);
         this.state = {fullName: '', email: '', subject: '', salonName: '', city: '', message: '', scrollable: true}
+    }
+
+    componentWillReceiveProps(newProps) {
+        console.log(newProps);
     }
 
     sendMessage = (e) => {
@@ -35,45 +42,69 @@ export default class BlowDryDiagnosisView extends Component {
     };
 
     _renderDotIndicator() {
-        return <PagerDotIndicator pageCount={6} dotStyle={styles.dot}
-                                    selectedDotStyle={styles.selectedDot}/>;
+        return <PagerDotIndicator pageCount={7} dotStyle={styles.dot}
+                                  selectedDotStyle={styles.selectedDot}/>;
     }
 
-    setScrollEnabled = (state) => {
-        console.log(state, ' enabled');
+    setScrollEnabled = (state, page) => {
+        if(!state) {
+            this.refs.pager.setPageWithoutAnimation(page);
+        }
         this.setState({scrollable: state})
-    }
+    };
+
+    showDialogInfo = (info) => {
+        this.refs.mainContainer.showInfoDialog(info);
+    };
 
     render() {
-        const { fullName, email, subject, issue, country, message, scrollable} = this.state;
-        const {showLoading, showNetworkError, actionBack, actionInfo, dismissDialogCallback, countries, pagesData} = this.props;
+        const { scrollable } = this.state;
+        const {diagnosisQuiz, actionCreate, actionPageSelectedCallback, showEditAction, actionEdit} = this.props;
 
         return (
-            <ContainerFlex>
-                <BackMenuLogo/>
+            <ContainerFlex ref="mainContainer">
+                <BackMenuLogo actions={
+                    showEditAction && <Button transparent onPress={() => actionEdit()}>
+                        <Text style={MainStyle.secondary}>Edit</Text>
+                    </Button>}/>
                 <ContentFlex>
-                    {pagesData && pagesData.length > 0 &&
-                        <IndicatorViewPager style={{height: '100%'}} scrollEnabled={scrollable}
-                                            indicator={this._renderDotIndicator()}>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <SelectPage data={pagesData[0].form}/>
-                            </View>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <SelectPage data={pagesData[1].form}/>
-                            </View>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <PickerSelectPage data={pagesData[2].form} onSlideCallback={this.setScrollEnabled}/>
-                            </View>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <PickerSelectPage data={pagesData[3].form} onSlideCallback={this.setScrollEnabled}/>
-                            </View>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <PickerSelectPage data={pagesData[4].form} onSlideCallback={this.setScrollEnabled}/>
-                            </View>
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <PickerSelectPage data={pagesData[5].form} onSlideCallback={this.setScrollEnabled}/>
-                            </View>
-                        </IndicatorViewPager>}
+                    {diagnosisQuiz.subjects && diagnosisQuiz.subjects.length > 0 &&
+                    <IndicatorViewPager style={{height: '100%'}}
+                                        ref="pager"
+                                        onPageSelected={(data) => actionPageSelectedCallback(data.position, 7)}
+                                        scrollEnabled={scrollable}
+                                        indicator={this._renderDotIndicator()}>
+
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[0]} actionInfoCallback={this.showDialogInfo}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[1]} actionInfoCallback={this.showDialogInfo}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[2]}
+                                      actionInfoCallback={this.showDialogInfo}
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 2)}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[3]}
+                                      actionInfoCallback={this.showDialogInfo}
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 3)}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[4]}
+                                      actionInfoCallback={this.showDialogInfo}
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 4)}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[5]}
+                                      actionInfoCallback={this.showDialogInfo}
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 5)}/>
+                        </View>
+                        <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <ConfirmationPage actionCreateCallback={actionCreate}/>
+                        </View>
+                    </IndicatorViewPager>}
                 </ContentFlex>
             </ContainerFlex>
         );
@@ -111,7 +142,7 @@ const styles = StyleSheet.create({
     },
     dot: {
         width: 16,
-        height:16,
+        height: 16,
         borderRadius: 8,
         borderWidth: 1,
         backgroundColor: LIGHT_COLOR,
@@ -119,7 +150,7 @@ const styles = StyleSheet.create({
     },
     selectedDot: {
         width: 16,
-        height:16,
+        height: 16,
         borderRadius: 8,
         borderWidth: 1,
         backgroundColor: SELECTED,
@@ -131,12 +162,11 @@ BlowDryDiagnosisView.defaultProps = {};
 
 
 BlowDryDiagnosisView.propTypes = {
-    registerCallback: PropTypes.func,
     dismissDialogCallback: PropTypes.func,
-    showLoading: PropTypes.bool,
-    showNetworkError: PropTypes.bool,
-    countries: PropTypes.array,
+    showEditAction: PropTypes.bool,
     actionBack: PropTypes.func,
     actionInfo: PropTypes.func,
-    pagesData: PropTypes.array
+    actionCreate: PropTypes.func,
+    actionPageSelectedCallback: PropTypes.func,
+    diagnosisQuiz: PropTypes.object
 };

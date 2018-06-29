@@ -1,0 +1,116 @@
+[
+  [
+    {
+      "id": 0,
+      "name": "BALANCE",
+      "products": [
+        {
+          "name": "BALANCE SHAMPOO",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        },
+        {
+          "name": "BALANCE SHAMPOO 2",
+          "type": "B1",
+          "image": "assets/images/prod_2.png"
+        },
+        {
+          "name": "BALANCE SHAMPOO 3",
+          "type": "B1",
+          "image": "assets/images/prod_2.png"
+        },
+        {
+          "name": "BALANCE SHAMPOO 4",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        },
+        {
+          "name": "BALANCE SHAMPOO",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        },
+        {
+          "name": "BALANCE SHAMPOO",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        },
+        {
+          "name": "BALANCE SHAMPOO",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        },
+        {
+          "name": "BALANCE SHAMPOO",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        },
+        {
+          "name": "BALANCE SHAMPOO",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        },
+        {
+          "name": "BALANCE SHAMPOO",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "PURIFY",
+      "products": [
+        {
+          "name": "BALANCE SHAMPOO",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        },
+        {
+          "name": "BALANCE SHAMPOO 2",
+          "type": "B1",
+          "image": "assets/images/prod_2.png"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "COLOR SAVE",
+      "products": [
+        {
+          "name": "BALANCE SHAMPOO",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "id": 1,
+      "name": "BB - BEAUTIFUL BASE",
+      "products": [
+        {
+          "name": "BALANCE SHAMPOO",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "CC - CREATIVE CARE",
+      "products": [
+        {
+          "name": "BB - BEAUTIFUL BASE",
+          "type": "B1",
+          "image": "assets/images/prod_1.png"
+        },
+        {
+          "name": "CC - CREATIVE CARE",
+          "type": "B1",
+          "image": "assets/images/prod_2.png"
+        }
+      ]
+    }
+  ]
+]

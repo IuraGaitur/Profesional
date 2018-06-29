@@ -52,7 +52,7 @@ export default class PickerInput extends Component{
                             ref="picker"
                             mode={this.props.mode}
                             hideIcon={true}
-                            placeholder={defaultItem}
+                            placeholder={defaultItem ? defaultItem : {}}
                             items={items}
                             value={this.props.value}
                             style={{inputIOS: styles.inputIOS, placeholderColor: TEXT_COLOR,

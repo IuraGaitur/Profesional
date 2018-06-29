@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import InfoView  from './infoView';
+import ProductView  from './productView';
 import {Actions} from 'react-native-router-flux';
 
-class InfoScreen extends Component {
+class ProductScreen extends Component {
 
     static navigationOptions = { header: null};
 
@@ -14,8 +14,6 @@ class InfoScreen extends Component {
 
     async componentDidMount() {}
 
-    componentWillReceiveProps(nextProps) {
-    }
 
     closeView = () => {
         Actions.pop();
@@ -35,7 +33,7 @@ class InfoScreen extends Component {
 
     render() {
         return (
-            <InfoView closeCallback={this.closeView}
+            <ProductView closeCallback={this.closeView}
                       showLoading={false}
                       searchCallback={this.search}
                       contactCallback={this.showContactScreen}
@@ -52,4 +50,4 @@ const mapDispatchToProps = (dispatch) => {
     return {}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (InfoScreen);
+export default connect(mapStateToProps, mapDispatchToProps) (ProductScreen);

@@ -1,0 +1,2 @@
+export const GET_PRIMARY_USER = 'GET_PRIMARY_USER';
+export const GET_CLIENTS = 'GET_CLIENTS';

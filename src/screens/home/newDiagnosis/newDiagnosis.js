@@ -11,19 +11,32 @@ class NewDiagnosis extends Component {
         super(props);
     }
 
+    energyCodeDiagnosis = () => {
+        console.log(newClient);
+        let newClient = this.props.newClient;
+        this.props.showUsingEnergyCode(newClient);
+    };
+
+    blowDryDiagnosis = () => {
+        let newClient = this.props.newClient;
+        this.props.showUsingBlowDry(newClient);
+    };
+
     render() {
         return <NewDiagnosisView
-                    actionEnergyCode={this.props.showUsingEnergyCode}
-                    actionBlowDry={this.props.showUsingBlowDry} />
+            actionEnergyCode={this.energyCodeDiagnosis}
+            actionBlowDry={this.blowDryDiagnosis}/>
     }
 }
 
-const mapStateToProps = (state) => { return {};};
+const mapStateToProps = (state) => {
+    return {};
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        showUsingEnergyCode: () => dispatch(showUsingEnergyCode()),
-        showUsingBlowDry: () => dispatch(showUsingBlowDryCode()),
+        showUsingEnergyCode: (newClient) => dispatch(showUsingEnergyCode(newClient)),
+        showUsingBlowDry: (newClient) => dispatch(showUsingBlowDryCode(newClient)),
     }
 };
 

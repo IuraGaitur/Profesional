@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import Form from "../../../views/form/FormData";
 import User from "../../../data/models/User";
-import CheckboxInput from "../../../views/form/checkGroup/CheckboxInput";
+import CheckboxInput from "../../../views/form/pool/checkGroup/CheckboxInput";
 import CollectionUtils from '../../../utils/CollectionUtils';
 import NetworkErrorDialog from "../../../views/NetworkErrorDialog";
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -87,7 +87,7 @@ export default class RegisterView extends Component {
 
         return (
             <ContainerFlex>
-                <BackMenu title={"TELL ABOUT YOURSELF"} actions={
+                <BackMenu title={'<p><b>TELL US </b>ABOUT YOURSELF</p>'} actions={
                     <Button transparent onPress={() => actionInfo()}>
                         <Icon name='information-circle-outline' style={{color: GRAY_COLOR}}/>
                     </Button>

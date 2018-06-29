@@ -25,3 +25,6 @@ Run android: - Build application from android/ directory and run it on device (P
  - Run watchman watch-del-all to clear Watchman’s state
  - Kill the watchman daemon process
 
+### Code Style
+ - Callbacks should start with action_ in parent and in child action____Callback
+

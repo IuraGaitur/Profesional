@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Text} from "react-native";
 import {View} from "native-base";
-import CheckboxGroup from "../form/checkGroup/CheckboxGroup";
+import CheckboxGroup from "../form/pool/checkGroup/CheckboxGroup";
 import styles from './pageStyle';
 
 export default class SelectPage extends Component {

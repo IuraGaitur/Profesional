@@ -39,7 +39,6 @@ export default class TextInput extends Component{
 
     validateStrongPass(value, errorMessage) {
         let isValid = ValidationUtil.validateStrongPassword(value);
-        console.log("is valid"+ isValid + errorMessage);
         return this.setValidState(isValid, errorMessage);
     }
 

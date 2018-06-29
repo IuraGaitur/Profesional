@@ -19,7 +19,7 @@ export default class NetworkErrorDialog extends Component {
         const {showNetworkError, dismissCallback} = this.state;
         return (<Overlay
             visible={showNetworkError}
-            closeOnTouchOutside animationType="zoomIn"
+            closeOnTouchOutside={false} animationType="zoomIn"
             childrenWrapperStyle={{backgroundColor: 'rgb(255, 255, 255)',
                 borderWidth: 1, borderColor: GRAY_COLOR, borderRadius: 10}}
             containerStyle={{backgroundColor: 'rgba(255,255,255, 0.3)'}}

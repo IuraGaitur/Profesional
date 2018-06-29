@@ -12,7 +12,7 @@ export default class BackMenu extends Component {
                 <Button transparent
                         onPress={() => this.props.actionBack != null ? this.props.actionBack() : Actions.pop()}>
                     <Icon name={this.props.closeIcon ? this.props.closeIcon : 'arrow-back'}
-                          style={{color: GRAY_COLOR}}/>
+                          style={{color: GRAY_COLOR, fontSize: 34}}/>
                 </Button>
                 <View style={{width: '55%', alignContent: 'flex-start', justifyContent: 'center'}}>
                     <Title style={styles.title}>{this.props.title}</Title>
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         padding: 0,
-        backgroundColor: LIGHT_COLOR
+        backgroundColor: 'transparent'
     }
 });
 

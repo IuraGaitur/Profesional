@@ -5,4 +5,7 @@ export default class Constants {
     static PAGE_SIZE = 20;
 
     static NO_ACTION = '';
+
+    static urlPrivacy = 'https://privacy.coty.com/en_gb/#privacy-jump3';
+    static urlCookie = 'https://www.coty.com/cookie-policy';
 }
