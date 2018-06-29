@@ -40,9 +40,7 @@ export default class EnergyCodeDiagnosisView extends Component {
     }
 
     render() {
-        const { fullName, email, subject, issue, country, message} = this.state;
-        const {showLoading, showNetworkError, actionBack, actionSave, showSaveAction,
-               pagesData, actionPageSelectedCallback} = this.props;
+        const { actionSave, showSaveAction, actionPageSelectedCallback, quiz} = this.props;
 
         return (
             <ContainerFlex>
@@ -51,18 +49,18 @@ export default class EnergyCodeDiagnosisView extends Component {
                         <Icon name='checkmark' style={MainStyle.saveButton}/>
                     </Button>}/>
                 <View style={{flexGrow:1}}>
-                    {pagesData && pagesData.length > 0 &&
+                    {quiz.subjects && quiz.subjects.length > 0 &&
                         <IndicatorViewPager style={{height: '94%'}}
                                             onPageSelected={(data) => actionPageSelectedCallback(data.position, 3)}
                                             indicator={this._renderDotIndicator()}>
                             <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <PoolPage pageInfo={pagesData[0]}/>
+                                <PoolPage pageInfo={quiz.subjects[0]}/>
                             </View>
                             <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <PoolPage pageInfo={pagesData[1]}/>
+                                <PoolPage pageInfo={quiz.subjects[1]}/>
                             </View>
                             <View style={{backgroundColor: LIGHT_COLOR}}>
-                                <PoolPage pageInfo={pagesData[2]}/>
+                                <PoolPage pageInfo={quiz.subjects[2]}/>
                             </View>
                         </IndicatorViewPager>}
                 </View>
@@ -131,5 +129,5 @@ EnergyCodeDiagnosisView.propTypes = {
     actionPageSelectedCallback: PropTypes.func,
     actionSave: PropTypes.func,
     showSaveAction: PropTypes.bool,
-    pagesData: PropTypes.array
+    quiz: PropTypes.object
 };

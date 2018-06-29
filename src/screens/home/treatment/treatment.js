@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import TreatmentView from "./treatmentView";
-import {saveClient} from "./treatmentAction";
+import {init, saveClient, showInfoScreen} from "./treatmentAction";
 
 class TreatmentScreen extends Component {
 
@@ -36,21 +36,23 @@ class TreatmentScreen extends Component {
 
     constructor(props) {
         super(props);
+        this.props.init();
     }
 
     actionInfo = () => {
-
+        this.props.showInfoScreen()
     };
+
     actionSave = () => {
         let newClient = this.props.newClient;
         this.props.saveClient(newClient);
 
     };
-    actionInfoEmailSend = () => {
-
+    actionCodeInfo = () => {
+        this.refs.treatmentView.showInfoDialog(this.props.codeInfo);
     };
-    actionInfoDelete = () => {
-
+    actionCareInfo = () => {
+        this.refs.treatmentView.showInfoDialog(this.props.careInfo);
     };
     actionInfoTreatment = () => {
 
@@ -70,12 +72,13 @@ class TreatmentScreen extends Component {
 
     render() {
         return (
-            <TreatmentView products={this.products}
+            <TreatmentView ref="treatmentView"
+                           products={this.products}
                            actionInfo={this.actionInfo}
                            actionEdit={this.actionEdit}
                            actionEssentials={this.actionEssentials}
-                           actionInfoDelete={this.actionInfoDelete}
-                           actionInfoEmailSend={this.actionInfoEmailSend}
+                           actionCareInfo={this.actionCareInfo}
+                           actionCodeInfo={this.actionCodeInfo}
                            actionInfoTreatment={this.actionInfoTreatment}
                            actionModifyTreatment={this.actionModifyTreatment}
                            actionSave={this.actionSave}
@@ -86,12 +89,18 @@ class TreatmentScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {};
+    return {
+        codeInfo: state.treatment.codeInfo,
+        careInfo: state.treatment.careInfo,
+
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        saveClient: (client) => dispatch(saveClient(client))
+        init: () => dispatch(init()),
+        saveClient: (client) => dispatch(saveClient(client)),
+        showInfoScreen: () => dispatch(showInfoScreen())
     }
 };
 

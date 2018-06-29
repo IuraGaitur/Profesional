@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {registerRequest, goBack, showInfo, init, createTreatment} from './blowDryDiagnosisAction';
+import {goBack, init, createTreatment} from './blowDryDiagnosisAction';
 import BlowDryDiagnosisView  from './blowDryDiagnosisView';
 
 class BlowDryDiagnosisScreen extends Component {
@@ -13,7 +13,7 @@ class BlowDryDiagnosisScreen extends Component {
     }
 
     componentDidMount() {
-        this.props.getQuestions();
+        this.props.getDiagnosisQuiz();
     }
 
     goBack = () => {
@@ -31,13 +31,10 @@ class BlowDryDiagnosisScreen extends Component {
     };
 
     render() {
-        const {networkError, showLoading, questions} = this.props;
+        const {diagnosisQuiz} = this.props;
         const {showEditAction} = this.state;
 
-        return <BlowDryDiagnosisView questions={questions}
-                                     showNetworkError={networkError}
-                                     showLoading={showLoading}
-                                     pagesData={questions}
+        return <BlowDryDiagnosisView diagnosisQuiz={diagnosisQuiz}
                                      showEditAction={showEditAction}
                                      actionCreate={this.createTreatment}
                                      actionPageSelectedCallback={this.actionPageSelected}
@@ -47,21 +44,14 @@ class BlowDryDiagnosisScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        questions: state.blowDry.blowQuestions,
-        showLoading: state.blowDry.showLoading,
-        errorMessage: state.blowDry.errorMessage,
-        networkError: state.blowDry.networkError,
+        diagnosisQuiz: state.blowDry.diagnosisQuiz
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getQuestions: () => {
-            dispatch(init())
-        },
-        createTreatment: (newClient) => {
-            dispatch(createTreatment(newClient));
-        }
+        getDiagnosisQuiz: () => {dispatch(init())},
+        createTreatment: (newClient) => {dispatch(createTreatment(newClient));}
     }
 };
 

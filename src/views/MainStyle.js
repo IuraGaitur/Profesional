@@ -52,6 +52,14 @@ export default StyleSheet.create({
 
     },
 
+    column: {
+        flex: 1,
+        flexDirection: 'column'
+    },
+    row: {
+        flex: 1,
+        flexDirection: 'row'
+    },
 
     //Margins
     defaultHorizontalMargin: {
@@ -74,6 +82,13 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center'
+    },
+
+    rightCenterPosition: {
+        position: 'absolute',
+        right: 0,
+        top: '30%',
+        bottom: '30%'
     },
 
     rightPosition: {

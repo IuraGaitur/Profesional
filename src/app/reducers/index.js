@@ -9,8 +9,8 @@ import contactReducer from '../../screens/help/contact/contactReducer';
 import productReducer from '../../screens/products/list/productsReducer';
 import blowDryReducer from "../../screens/home/blowDryDiagnosis/blowDryDiagnosisReducer";
 import energyCodeReducer from "../../screens/home/energyCodeDiagnosis/energyCodeDiagnosisReducer";
-import clientsReducer from '../../screens/home/clients/clientsReducer';
-import createClientReducer from '../../screens/home/newClient/createClientReducer';
+import clientsReducer from '../../screens/home/client/clients/clientsReducer';
+import createClientReducer from '../../screens/home/client/newClient/createClientReducer';
 import treatmentReducer from '../../screens/home/treatment/treatmentReducer';
 import profileReducer from './../../screens/profile/profileReducer';
 

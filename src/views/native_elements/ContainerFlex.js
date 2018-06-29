@@ -5,6 +5,7 @@ import {Content} from "native-base";
 import StatusBarBackground from "../StatusBarBackground";
 import NetworkErrorDialog from "../NetworkErrorDialog";
 import {LIGHT_COLOR} from "../../utils/Colors";
+import InfoDialog from "../InfoDialog";
 
 export default class ContainerFlex extends Component {
 
@@ -17,8 +18,12 @@ export default class ContainerFlex extends Component {
         this.setState({showDialog: true})
     }
 
-    hideDialog() {
-        this.setState({showDialog: false})
+    hideAllDialogs() {
+        this.setState({showDialog: false, showInfoDialog: false})
+    }
+
+    showInfoDialog(html) {
+        this.setState({showInfoDialog: true, html: html})
     }
 
     render() {
@@ -28,8 +33,13 @@ export default class ContainerFlex extends Component {
                 <StatusBarBackground/>
                 {this.props.children}
                 <NetworkErrorDialog
-                    dismissCallback={() => this.hideDialog()}
+                    dismissCallback={() => this.hideAllDialogs()}
                     showNetworkError={this.state.showDialog}/>
+                <InfoDialog
+                    dismissCallback={() => this.hideAllDialogs()}
+                    html={this.state.html}
+                    showInfo={this.state.showInfoDialog}/>
+
             </Content>);
     };
 

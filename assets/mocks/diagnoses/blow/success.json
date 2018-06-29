@@ -1,7 +1,8 @@
 [
   {
-    "page": {
+    "subject": {
       "title": "WHAT DO YOU LIKE ABOUT YOUR HAIR?",
+      "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
       "form": [
         {
           "type": "PICK",
@@ -64,8 +65,9 @@
     }
   },
   {
-    "page": {
+    "subject": {
       "title": "WHAT DO YOU DISLIKE ABOUT YOUR HAIR?",
+      "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
       "form": [
         {
           "type": "PICK",
@@ -128,8 +130,9 @@
     }
   },
   {
-    "page": {
+    "subject": {
       "title": "CARE HABITS",
+      "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
       "form": [
         {
           "type": "PROGRESS",
@@ -160,10 +163,6 @@
                 }
               ],
               "categories": [
-                {
-                  "label": "Others",
-                  "value": 0
-                },
                 {
                   "label": "Audua",
                   "value": 1
@@ -226,10 +225,6 @@
               ],
               "categories": [
                 {
-                  "label": "Others",
-                  "value": 0
-                },
-                {
                   "label": "Audua",
                   "value": 1
                 },
@@ -290,10 +285,6 @@
                 }
               ],
               "categories": [
-                {
-                  "label": "Others",
-                  "value": 0
-                },
                 {
                   "label": "Audua",
                   "value": 1
@@ -356,10 +347,6 @@
               ],
               "categories": [
                 {
-                  "label": "Others",
-                  "value": 0
-                },
-                {
                   "label": "Audua",
                   "value": 1
                 },
@@ -391,61 +378,58 @@
             }
         },
         {
-          "type": "PROGRESS",
-          "data":
-            {
-              "id": 4,
-              "title": "STYLING",
-              "type": "STEP",
-              "answers": [
-                {
-                  "id": 0,
-                  "title": "SPRAY",
-                  "active": false
-                },
-                {
-                  "id": 1,
-                  "title": "MOUSSE",
-                  "active": false
-                },
-                {
-                  "id": 2,
-                  "title": "LOTION",
-                  "active": false
-                },
-                {
-                  "id": 3,
-                  "title": "OIL",
-                  "active": false
-                },
-                {
-                  "id": 4,
-                  "title": "GEL",
-                  "active": false
-                },
-                {
-                  "id": 5,
-                  "title": "WAX",
-                  "active": false
-                },
-                {
-                  "id": 6,
-                  "title": "CREAM",
-                  "active": false
-                },
-                {
-                  "id": 7,
-                  "title": "DRY SHAMPOO",
-                  "active": false
-                }
-              ]
-            }
+          "type": "PICK",
+          "data": {
+            "title": "STYLING",
+            "options": [
+              {
+                "id": 0,
+                "title": "SPRAY",
+                "active": false
+              },
+              {
+                "id": 1,
+                "title": "MOUSSE",
+                "active": false
+              },
+              {
+                "id": 2,
+                "title": "LOTION",
+                "active": false
+              },
+              {
+                "id": 3,
+                "title": "OIL",
+                "active": false
+              },
+              {
+                "id": 4,
+                "title": "GEL",
+                "active": false
+              },
+              {
+                "id": 5,
+                "title": "WAX",
+                "active": false
+              },
+              {
+                "id": 6,
+                "title": "CREAM",
+                "active": false
+              },
+              {
+                "id": 7,
+                "title": "DRY SHAMPOO",
+                "active": false
+              }
+            ]
+          }
         }
       ]
     }
   },
   {
-    "page": {
+    "subject": {
       "title": "DERMA",
       "form": [
         {
@@ -456,6 +440,7 @@
               "title": "SCALP HYDRO-LIPID BALANCE",
               "type": "BACKGROUND",
               "background": "assets/images/pick_back_1",
+              "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "options": [
                 {
                   "label": "NORMAL",
@@ -476,6 +461,7 @@
               "id": 1,
               "title": "SCALP SENSITIVITY",
               "type": "BACKGROUND",
+              "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "background": "assets/images/pick_back_2",
               "options": [
                 {
@@ -497,6 +483,7 @@
               "id": 2,
               "title": "HAIRLOSS",
               "type": "BACKGROUND",
+              "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "background": "assets/images/pick_back_3",
               "options": [
                 {
@@ -518,6 +505,7 @@
               "id": 3,
               "title": "DANDRUFF",
               "type": "BACKGROUND",
+              "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "background": "assets/images/pick_back_4",
               "options": [
                 {
@@ -535,7 +523,7 @@
     }
   },
   {
-    "page": {
+    "subject": {
       "title": "HAIR",
       "form": [
         {
@@ -546,6 +534,7 @@
               "title": "FIBRA",
               "type": "BACKGROUND",
               "background": "assets/images/pick_back_4",
+              "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "options": [
                 {
                   "label": "NORMAL",
@@ -565,6 +554,7 @@
               "id": 1,
               "title": "DAMAGE / POPOSITY",
               "type": "BACKGROUND",
+              "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "background": "assets/images/pick_back_4",
               "options": [
                 {
@@ -585,6 +575,7 @@
               "id": 2,
               "title": "SPLIT ENDS",
               "type": "BACKGROUND",
+              "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "background": "assets/images/pick_back_4",
               "options": [
                 {
@@ -605,6 +596,7 @@
               "id": 3,
               "title": "SUNEXPOSED",
               "type": "BACKGROUND",
+              "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "background": "assets/images/pick_back_4",
               "options": [
                 {
@@ -622,7 +614,7 @@
     }
   },
   {
-    "page": {
+    "subject": {
       "title": "STYLE",
       "form": [
         {
@@ -632,6 +624,7 @@
               "id": 0,
               "title": "FORMA",
               "type": "BACKGROUND",
+              "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "background": "assets/images/pick_back_4",
               "options": [
                 {
@@ -651,6 +644,7 @@
               "id": 1,
               "title": "FINE HAIR",
               "type": "BACKGROUND",
+            "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "background": "assets/images/pick_back_4",
               "options": [
                 {
@@ -687,6 +681,7 @@
               "id": 3,
               "title": "FRIZZ",
               "type": "BACKGROUND",
+            "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "background": "assets/images/pick_back_4",
               "options": [
                 {

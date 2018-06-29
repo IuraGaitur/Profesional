@@ -27,32 +27,32 @@ export default class SlideGroup extends Component {
 
     _renderCategoryButton(categories) {
         return (
-            <View style={[styles.infoIcon, {right: 8}]}>
-                <ButtonPickerInput items={categories}/>
+            <View style={{marginBottom: 15}}>
+                <ButtonPickerInput items={categories} valueChangeCallBack={(item) => {}}/>
             </View>);
 
     }
 
-    _renderInfoButton(actionInfoCallback) {
+    _renderInfoButton(info, actionInfoCallback) {
         return (
-            <Button transparent style={styles.infoIcon} onPress={() => actionInfoCallback()}>
+            <Button transparent onPress={() => actionInfoCallback(info)}>
                 <Icon name='information-circle' style={MainStyle.infoButton}/>
             </Button>);
     }
 
-    _renderSlider(item) {
+    _renderSlider(item, actionInfoCallback) {
         return (
-            <View>
-                <View>
+            <View style={{marginBottom: 15}}>
+                <View style={styles.sliderContainer}>
                     <Text style={styles.title}> {item.title}</Text>
                     {item.categories && this._renderCategoryButton(item.categories)}
-                    {!item.categories && this._renderInfoButton(() => {
-                    })}
+                    {!item.categories && item.info && this._renderInfoButton(item.info, actionInfoCallback)}
                 </View>
                 <View>
                     {item.background && this._renderBackground(item.background)}
                     <SnapSlider background={item.background}
                                 steps={item.steps}
+                                itemStyle={styles.itemSlider}
                                 onSlide={this.props.onSlide}
                                 step={item.steps && item.steps.length > 2 ? (100 / (item.steps.length - 1)) : 1 }/>
                 </View>
@@ -60,9 +60,9 @@ export default class SlideGroup extends Component {
     }
 
     render() {
-        const {question} = this.props;
+        const {question, actionInfoCallback} = this.props;
         return <View style={styles.container}>
-            {question && this._renderSlider(question)}
+            {question && this._renderSlider(question, actionInfoCallback)}
         </View>
     }
 }
@@ -76,6 +76,17 @@ SlideGroup.propTypes = {
 };
 
 const styles = StyleSheet.create({
+    itemSlider: {
+        fontSize: 11
+    },
+    sliderContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        marginTop: 15,
+        marginBottom: 5
+    },
     container: {
         flex: 1,
         flexDirection: 'column',
@@ -94,19 +105,17 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: 'bold',
         fontSize: 20,
-        marginTop: 20,
-        marginBottom: 8,
         textAlign: 'left',
-        color: TEXT_COLOR
+        alignSelf: 'center',
+        color: TEXT_COLOR,
     },
     snapsliderContainer: {
         width: 'auto',
         height: 70
-
     },
     background: {
-        width: '95%',
-        height: 25,
+        width: '90%',
+        height: 22,
         margin: 10,
         position: 'absolute'
     },

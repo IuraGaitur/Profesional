@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {getProducts, getProductsCategories, showDetails} from './productsAction';
 import ProductsView from "./productsView";
 import CollectionUtils from "../../../utils/CollectionUtils";
-import ProductManager from "../../../data/models/ProductManager";
+import ProductManager from "../../../data/models/product/ProductManager";
 
 class ProductsScreen extends Component {
 

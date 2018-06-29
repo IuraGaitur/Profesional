@@ -1,5 +1,6 @@
 export default class Client {
 
+    id = 0;
     firstName = '';
     lastName = '';
     email = '';
@@ -10,6 +11,7 @@ export default class Client {
     postalCode = '';
     saveEnergyCode = false;
     receiveEmails = false;
+    treatments = [];
 
     fromJSON(data) {
         this.firstName = data.firstName;

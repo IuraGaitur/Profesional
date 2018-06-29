@@ -1,17 +1,9 @@
 import React, {Component} from 'react';
 import MainStyle from './../../../views/MainStyle';
-import {FlatList, Text, View, StyleSheet, Dimensions, TouchableWithoutFeedback} from "react-native";
+import {Text, View, StyleSheet} from "react-native";
 import PropTypes from 'prop-types';
-import {
-    BACKGROUND_GRAY_COLOR,
-    GRAY_COLOR,
-    LIGHT_COLOR,
-    PRIMARY,
-    TEXT_COLOR,
-    TEXT_GRAY_COLOR
-} from '../../../utils/Colors';
-import MenuItem from "../../../views/menu/MenuItem";
-import {Body, Button, Icon, Left, Title, Header, Grid, Row, Thumbnail} from "native-base";
+import {GRAY_COLOR,} from '../../../utils/Colors';
+import {Button, Icon, Thumbnail} from "native-base";
 import ContainerFlex from "../../../views/native_elements/ContainerFlex";
 import BackMenuLogo from "../../../views/menu/BackMenuLogo";
 import ContentFlex from "../../../views/native_elements/ContentFlex";
@@ -28,15 +20,19 @@ export default class TreatmentView extends Component {
         super(props);
     }
 
+    showInfoDialog(html) {
+        this.refs.mainContainer.showInfoDialog(html);
+    }
+
     render() {
         const {
             products, actionInfo, actionSave, actionInfoEmailSend,
-            actionInfoDelete, actionInfoTreatment, actionEdit,
+            actionCodeInfo, actionCareInfo, actionEdit,
             actionEssentials, actionShowProducts, actionModifyTreatment
         } = this.props;
 
         return (
-            <ContainerFlex>
+            <ContainerFlex ref="mainContainer">
                 <BackMenuLogo actions={
                     <View style={MainStyle.rightAlign}>
                         <Button transparent onPress={() => actionInfo()}>
@@ -52,7 +48,7 @@ export default class TreatmentView extends Component {
                     <Text style={MainStyle.h3}>ENERGY CODE</Text>
                     <Formula text={'C1 + L3 + BB61 + DD62'}/>
                     <View style={MainStyle.rightAlign}>
-                        <Button transparent onPress={() => actionInfoEmailSend()}>
+                        <Button transparent onPress={() => actionCodeInfo()}>
                             <Icon name='information-circle' style={MainStyle.infoButton}/>
                         </Button>
                     </View>
@@ -66,7 +62,7 @@ export default class TreatmentView extends Component {
                     <Text style={MainStyle.h3}>CARE SYSTEM</Text>
                     <Text style={styles.infoText}>TAP ON PRODUCTS TO DELETE</Text>
                     <View style={MainStyle.rightPosition}>
-                        <Button transparent onPress={() => actionInfoDelete()}>
+                        <Button transparent onPress={() => actionCareInfo()}>
                             <Icon name='information-circle' style={MainStyle.infoButton}/>
                         </Button>
                     </View>
@@ -87,7 +83,7 @@ export default class TreatmentView extends Component {
 
                     <View style={styles.productsContainer}>
                         {products && products.map(item =>
-                            <CardProduct key={item.name} title={item.name} picture={item.image}/>)}
+                            <CardProduct key={item.name} title={item.name} picture={item.image} onPress={() => {}}/>)}
                     </View>
 
                     <Divider height={1}/>
@@ -95,7 +91,7 @@ export default class TreatmentView extends Component {
                     <View style={MainStyle.centerAlign}>
                         <Text style={[MainStyle.h3, {paddingTop: 8}]}>SYSTEM TREATMENT:</Text>
                         <View style={MainStyle.rightPosition}>
-                            <Button transparent onPress={() => actionInfoTreatment()}>
+                            <Button transparent onPress={() => actionCareInfo()}>
                                 <Icon name='information-circle' style={MainStyle.infoButton}/>
                             </Button>
                         </View>
@@ -110,7 +106,7 @@ export default class TreatmentView extends Component {
                                                source={require('./../../../../assets/images/img_hair_type.png')}/>
                                 </View>
                             </View>
-                            <BigButton text={'ESSENTIALS'} color={'#FAD3C8'} onPress={() => actionEssentials()}/>
+                            <BigButton text={'ESSENTIALS'} color={'#FAD3C8'} onPress={() => actionEssentials()} disabled/>
                             <BigButton text={'SHOW PRODUCTS'} color={'#E0EDEA'} onPress={() => actionShowProducts()}/>
                         </View>
                     </View>
@@ -156,8 +152,8 @@ TreatmentView.propTypes = {
     actionInfo: PropTypes.func,
     actionSave: PropTypes.func,
     actionInfoEmailSend: PropTypes.func,
-    actionInfoDelete: PropTypes.func,
-    actionInfoTreatment: PropTypes.func,
+    actionCodeInfo: PropTypes.func,
+    actionCareInfo: PropTypes.func,
     actionEdit: PropTypes.func,
     actionEssentials: PropTypes.func,
     actionShowProducts: PropTypes.func,

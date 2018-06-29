@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import NetworkErrorDialog from "../../../views/NetworkErrorDialog";
 import {GRAY_COLOR, LIGHT_COLOR, SELECTED,} from '../../../utils/Colors';
-import {View, StyleSheet, Dimensions, ScrollView, Platform} from "react-native";
+import {View, StyleSheet, Dimensions, ScrollView, Platform, WebView} from "react-native";
 import {Body, Left, Button, Header, Label, Text, Title, Right, Thumbnail} from "native-base";
 import Message from "../../../data/models/Message";
 import {IndicatorViewPager, PagerDotIndicator} from "rn-viewpager";
@@ -23,6 +23,10 @@ export default class BlowDryDiagnosisView extends Component {
     constructor(props) {
         super(props);
         this.state = {fullName: '', email: '', subject: '', salonName: '', city: '', message: '', scrollable: true}
+    }
+
+    componentWillReceiveProps(newProps) {
+        console.log(newProps);
     }
 
     sendMessage = (e) => {
@@ -54,8 +58,8 @@ export default class BlowDryDiagnosisView extends Component {
     };
 
     render() {
-        const {fullName, email, subject, issue, country, message, scrollable } = this.state;
-        const {pagesData, actionCreate, actionPageSelectedCallback, showEditAction, actionEdit,} = this.props;
+        const { scrollable } = this.state;
+        const {diagnosisQuiz, actionCreate, actionPageSelectedCallback, showEditAction, actionEdit} = this.props;
 
         return (
             <ContainerFlex ref="mainContainer">
@@ -64,7 +68,7 @@ export default class BlowDryDiagnosisView extends Component {
                         <Text style={MainStyle.secondary}>Edit</Text>
                     </Button>}/>
                 <ContentFlex>
-                    {pagesData && pagesData.length > 0 &&
+                    {diagnosisQuiz.subjects && diagnosisQuiz.subjects.length > 0 &&
                     <IndicatorViewPager style={{height: '100%'}}
                                         ref="pager"
                                         onPageSelected={(data) => actionPageSelectedCallback(data.position, 7)}
@@ -72,22 +76,30 @@ export default class BlowDryDiagnosisView extends Component {
                                         indicator={this._renderDotIndicator()}>
 
                         <View style={{backgroundColor: LIGHT_COLOR}}>
-                            <PoolPage pageInfo={pagesData[0]}/>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[0]} actionInfoCallback={this.showDialogInfo}/>
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
-                            <PoolPage pageInfo={pagesData[1]}/>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[1]} actionInfoCallback={this.showDialogInfo}/>
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
-                            <PoolPage pageInfo={pagesData[2]} onSlideCallback={(state) => this.setScrollEnabled(state, 2)}/>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[2]}
+                                      actionInfoCallback={this.showDialogInfo}
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 2)}/>
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
-                            <PoolPage pageInfo={pagesData[3]} onSlideCallback={(state) => this.setScrollEnabled(state, 3)}/>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[3]}
+                                      actionInfoCallback={this.showDialogInfo}
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 3)}/>
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
-                            <PoolPage pageInfo={pagesData[4]} onSlideCallback={(state) => this.setScrollEnabled(state, 4)}/>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[4]}
+                                      actionInfoCallback={this.showDialogInfo}
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 4)}/>
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
-                            <PoolPage pageInfo={pagesData[5]} onSlideCallback={(state) => this.setScrollEnabled(state, 5)}/>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[5]}
+                                      actionInfoCallback={this.showDialogInfo}
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 5)}/>
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
                             <ConfirmationPage actionCreateCallback={actionCreate}/>
@@ -150,15 +162,11 @@ BlowDryDiagnosisView.defaultProps = {};
 
 
 BlowDryDiagnosisView.propTypes = {
-    registerCallback: PropTypes.func,
     dismissDialogCallback: PropTypes.func,
-    showLoading: PropTypes.bool,
-    showNetworkError: PropTypes.bool,
     showEditAction: PropTypes.bool,
-    countries: PropTypes.array,
     actionBack: PropTypes.func,
     actionInfo: PropTypes.func,
     actionCreate: PropTypes.func,
     actionPageSelectedCallback: PropTypes.func,
-    pagesData: PropTypes.array
+    diagnosisQuiz: PropTypes.object
 };

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {registerRequest, goBack, showInfo, init, showTreatment } from './energyCodeDiagnosisAction';
+import {goBack, init, showTreatment } from './energyCodeDiagnosisAction';
 import EnergyCodeDiagnosisView  from './energyCodeDiagnosisView';
 
 class EnergyCodeDiagnosisScreen extends Component {
@@ -13,7 +13,7 @@ class EnergyCodeDiagnosisScreen extends Component {
     }
 
     componentDidMount() {
-        this.props.getQuestions();
+        this.props.getDiagnosis();
     }
 
     goBack = () => {
@@ -31,33 +31,30 @@ class EnergyCodeDiagnosisScreen extends Component {
     };
 
     render() {
-        const {networkError, showLoading, questions} = this.props;
+        const {networkError, showLoading, diagnosisQuiz} = this.props;
         const {showSaveAction} = this.state;
 
         return <EnergyCodeDiagnosisView
                                  actionBack={() => this.goBack()}
-                                 showNetworkError={networkError}
-                                 showSaveAction={showSaveAction}
-                                 showLoading={showLoading}
-                                 actionPageSelectedCallback={this.actionPageSelected}
-                                 pagesData={questions}
                                  actionSave={this.actionSave}
-                                 dismissDialogCallback={this.dismissDialogCallback}/>
+                                 actionPageSelectedCallback={this.actionPageSelected}
+                                 dismissDialogCallback={this.dismissDialogCallback}
+                                 showSaveAction={showSaveAction}
+                                 showNetworkError={networkError}
+                                 showLoading={showLoading}
+                                 quiz={diagnosisQuiz}/>
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        questions: state.energyCode.questions,
-        showLoading: state.energyCode.showLoading,
-        errorMessage: state.energyCode.errorMessage,
-        networkError: state.energyCode.networkError,
+        diagnosisQuiz: state.energyCode.diagnosisQuiz
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getQuestions: () => {dispatch(init())},
+        getDiagnosis: () => {dispatch(init())},
         goBack: () => {dispatch(goBack)},
         showTreatment: (newClient) => {dispatch(showTreatment(newClient))}
     }

@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     },
     buttonPicker: {
         borderWidth: 1,
-        borderColor: GRAY_COLOR,
+        borderColor: GRAY_LIGHT,
         borderRadius: 7,
         backgroundColor: LIGHT_COLOR,
         width: 150,

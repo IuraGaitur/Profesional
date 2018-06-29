@@ -9,6 +9,7 @@ export default class BigButton extends Component {
     render() {
         return (
             <Button block style={[styles.mainButton, {backgroundColor: this.props.color}]}
+                    disabled={this.props.disabled}
                     onPress={(e) => this.props.onPress(e)}>
                 <Text style={{color: TEXT_COLOR, fontSize: 22}}>{this.props.text}</Text>
             </Button>);
@@ -31,5 +32,6 @@ BigButton.defaultProps = {};
 BigButton.propTypes = {
     text: PropTypes.string,
     color: PropTypes.string,
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    disabled: PropTypes.bool
 };

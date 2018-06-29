@@ -1,7 +1,7 @@
 import React, {Component}  from 'react';
 import {LoginScreen} from './src/screens/authentication/login';
 import {ProfileScreen} from './src/screens/profile';
-import {ClientsScreen} from './src/screens/home/clients';
+import {ClientsScreen} from './src/screens/home/client/clients';
 import {RegisterScreen} from './src/screens/authentication/register';
 import {SplashScreen} from './src/screens/splash';
 import {RecoveryScreen} from './src/screens/authentication/recovery';
@@ -11,7 +11,7 @@ import {FaqScreen} from './src/screens/help/faq/list/index';
 import {ContactScreen} from './src/screens/help/contact';
 import {BlowDryDiagnosisScreen} from './src/screens/home/blowDryDiagnosis';
 import {EnergyCodeDiagnosisScreen} from './src/screens/home/energyCodeDiagnosis';
-import {CreateClientScreen} from './src/screens/home/newClient';
+import {CreateClientScreen} from './src/screens/home/client/newClient';
 import {NewDiagnosisScreen} from './src/screens/home/newDiagnosis';
 import {TreatmentScreen} from './src/screens/home/treatment';
 import {ProductsScreen} from './src/screens/products/list';
@@ -50,7 +50,7 @@ class App extends Component {
             <Router hideNavBar="true">
                 <Scene key="root">
 
-                    <Scene key={SPLASH} component={SplashScreen} />
+                    <Scene key={SPLASH} component={SplashScreen} initial/>
                     {/*Authentication SCENES*/}
                     <Scene key={LOGIN} component={LoginScreen}/>
                     <Scene key={REGISTER} component={RegisterScreen} />
@@ -65,8 +65,8 @@ class App extends Component {
                     {/*HOME SCENES*/}
                     <Scene key={CREATE_CLIENT} component={CreateClientScreen} />
                     <Scene key={NEW_DIAGNOSIS} component={NewDiagnosisScreen}/>
-                    <Scene key={BLOW_DRY_DIAGNOSIS} component={BlowDryDiagnosisScreen} initial/>
-                    <Scene key={ENERGY_CODE_DIAGNOSIS} component={EnergyCodeDiagnosisScreen}/>
+                    <Scene key={BLOW_DRY_DIAGNOSIS} component={BlowDryDiagnosisScreen} />
+                    <Scene key={ENERGY_CODE_DIAGNOSIS} component={EnergyCodeDiagnosisScreen} />
                     <Scene key={TREATMENT} component={TreatmentScreen} />
                     {/*PRODUCTS SCENES*/}
                     <Scene key={PRODUCTS} component={ProductsScreen} />
