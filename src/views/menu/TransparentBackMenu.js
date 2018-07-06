@@ -1,9 +1,9 @@
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
-import {Body, Button, Header, Icon, Left, Right, Text, Title, View} from "native-base";
-import {GRAY_COLOR, LIGHT_BACKGROUND_COLOR, LIGHT_COLOR, TEXT_COLOR} from "../../utils/Colors";
-import PropTypes from 'prop-types';
+import {GRAY_COLOR, TEXT_COLOR} from 'src/utils/Colors';
 import {Actions} from 'react-native-router-flux';
+import {Button, Header, Icon, Right, Title, View} from 'native-base';
 
 export default class BackMenu extends Component {
     render() {
@@ -12,9 +12,9 @@ export default class BackMenu extends Component {
                 <Button transparent
                         onPress={() => this.props.actionBack != null ? this.props.actionBack() : Actions.pop()}>
                     <Icon name={this.props.closeIcon ? this.props.closeIcon : 'arrow-back'}
-                          style={{color: GRAY_COLOR, fontSize: 34}}/>
+                          style={styles.icon}/>
                 </Button>
-                <View style={{width: '55%', alignContent: 'flex-start', justifyContent: 'center'}}>
+                <View style={styles.titleContainer}>
                     <Title style={styles.title}>{this.props.title}</Title>
                 </View>
                 <Right>{this.props.actions}</Right>
@@ -23,6 +23,15 @@ export default class BackMenu extends Component {
 }
 
 const styles = StyleSheet.create({
+    icon: {
+        color: GRAY_COLOR,
+        fontSize: 34
+    },
+    titleContainer: {
+        width: '55%',
+        alignContent: 'flex-start',
+        justifyContent: 'center'
+    },
     title: {
         color: TEXT_COLOR,
         textAlign: 'left',

@@ -1,3 +1,3 @@
-import ProductScreen from './product';
+import ProductScreen from 'src/screens/products/details/product';
 
 export {ProductScreen};

@@ -1,26 +1,24 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import Form from "../../../views/form/FormData";
-import User from "../../../data/models/User";
-import CheckboxInput from "../../../views/form/pool/checkGroup/CheckboxInput";
-import CollectionUtils from '../../../utils/CollectionUtils';
-import NetworkErrorDialog from "../../../views/NetworkErrorDialog";
+import Form from 'src/views/form/FormData';
+import User from 'src/data/models/User';
+import CheckboxInput from 'src/views/form/pool/checkGroup/CheckboxInput';
+import CollectionUtils from 'src/utils/CollectionUtils';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import {DARK_OVERLAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY} from '../../../utils/Colors';
-import TextInput, {CONFIRMATION, EMAIL, REQUIRED} from "../../../views/form/TextInput";
-import {View, StyleSheet, Dimensions, ScrollView, Platform} from "react-native";
-import TouchOpacityDebounce from "../../../utils/touchable_debounce/TouchOpacityDebounce";
-import PickerInput from "../../../views/form/PickerInput";
-import {Body, Left, Right, Button, Header, Label, CheckBox, Text, Grid, Icon} from "native-base";
-import FormItem from '../../../views/native_elements/FormItem';
-import { Col, Row } from 'react-native-easy-grid';
-import Space from "../../../views/native_elements/Space";
-import SubmitButton from "../../../views/native_elements/SubmitButton";
-import {STRONG_PASS} from "../../../views/native_elements/FormItem";
-import ContentFlex from "../../../views/native_elements/ContentFlex";
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
-import BackMenu from "../../../views/menu/BackMenu";
+import {DARK_OVERLAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY} from 'src/utils/Colors';
+import TextInput, {CONFIRMATION, EMAIL, REQUIRED} from 'src/views/form/TextInput';
+import {View, StyleSheet, Dimensions, ScrollView, Platform} from 'react-native';
+import TouchOpacityDebounce from 'src/utils/touchable_debounce/TouchOpacityDebounce';
+import PickerInput from 'src/views/form/PickerInput';
+import {Body, Left, Right, Button, Header, Label, CheckBox, Text, Grid, Icon} from 'native-base';
+import FormItem from 'src/views/native_elements/FormItem';
+import Space from 'src/views/native_elements/Space';
+import SubmitButton from 'src/views/native_elements/SubmitButton';
+import {STRONG_PASS} from 'src/views/native_elements/FormItem';
+import ContentFlex from 'src/views/native_elements/ContentFlex';
+import ContainerFlex from 'src/views/native_elements/ContainerFlex';
+import BackMenu from 'src/views/menu/BackMenu';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default class RegisterView extends Component {
@@ -94,7 +92,7 @@ export default class RegisterView extends Component {
                 }/>
                 <ContentFlex scrollable>
                     <View style={styles.inputsContainer}>
-                        <Form shouldValidate ref="formData">
+                        <Form shouldValidate ref='formData'>
 
                             <FormItem
                                 ref={item => this.formInputs[0] = item}
@@ -198,7 +196,7 @@ export default class RegisterView extends Component {
                             <PickerInput
                                 items={countries}
                                 valueChangeCallBack={this.changeCountryCallback}
-                                defaultItem={{label: "COUNTRY*", value: ""}}
+                                defaultItem={{label: 'COUNTRY*', value: ''}}
                                 needValidation value={country}
                                 ref={item => this.formInputs[11] = item}
                                 onSubmitEditing={() => this.formInputs[12].focus()}

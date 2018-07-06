@@ -1,36 +1,36 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import TreatmentView from "./treatmentView";
-import {init, saveClient, showInfoScreen} from "./treatmentAction";
+import TreatmentView from 'src/screens/home/treatment/treatmentView';
+import {init, saveClient, showInfoScreen} from 'src/screens/home/treatment/treatmentAction';
 
 class TreatmentScreen extends Component {
 
     static navigationOptions = {header: null};
     products = [
         {
-            "name": "BALANCE SHAMPOO",
-            "type": "B1",
-            "image": "assets/images/prod_1.png"
+            'name': 'BALANCE SHAMPOO',
+            'type': 'B1',
+            'image': 'assets/images/prod_1.png'
         },
         {
-            "name": "BALANCE MASK",
-            "type": "B1",
-            "image": "assets/images/prod_3.png"
+            'name': 'BALANCE MASK',
+            'type': 'B1',
+            'image': 'assets/images/prod_3.png'
         },
         {
-            "name": "BALANCE ENERGY SURUM",
-            "type": "B1",
-            "image": "assets/images/prod_3.png"
+            'name': 'BALANCE ENERGY SURUM',
+            'type': 'B1',
+            'image': 'assets/images/prod_3.png'
         },
         {
-            "name": "BALANCE LOTION",
-            "type": "B1",
-            "image": "assets/images/prod_4.png"
+            'name': 'BALANCE LOTION',
+            'type': 'B1',
+            'image': 'assets/images/prod_4.png'
         },
         {
-            "name": "BALANCE SHAMPOO",
-            "type": "B1",
-            "image": "assets/images/prod_5.png"
+            'name': 'BALANCE SHAMPOO',
+            'type': 'B1',
+            'image': 'assets/images/prod_5.png'
         }
     ];
 
@@ -72,7 +72,7 @@ class TreatmentScreen extends Component {
 
     render() {
         return (
-            <TreatmentView ref="treatmentView"
+            <TreatmentView ref='treatmentView'
                            products={this.products}
                            actionInfo={this.actionInfo}
                            actionEdit={this.actionEdit}

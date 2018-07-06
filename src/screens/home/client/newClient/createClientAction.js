@@ -1,24 +1,17 @@
-import UserService from '../../../../data/api/UserApi';
-import CountryApi from "../../../../data/api/CountryApi";
-import UserDao from "../../../../data/database/UserDao";
-import StatusCode from "../../../../utils/StatusCode";
+import CountryApi from 'src/data/api/CountryApi';
 import { Actions } from 'react-native-router-flux';
-import Constants from '../../../../utils/Constants';
-import LanguageDao from "../../../../data/database/LanguageDao";
-export const INIT = 'INIT';
-export const ERROR = 'ERROR';
-export const REQUEST_REGISTER = 'REQUEST_REGISTER';
-export const REGISTER_FAIL = 'REGISTER_FAIL';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const NETWORK_ERROR = 'NETWORK_ERROR';
+import Constants from 'src/utils/Constants';
+import LanguageDao from 'src/data/database/LanguageDao';
+import ClientDao from 'src/data/database/ClientDao';
+import {INIT, NO_ACTION} from 'src/app/actions';
 
-export function init() {
+export const init = () => {
     return async(dispatch) => {
         let countries = await new CountryApi().instance().getAll();
         let languages = await new LanguageDao().getAll();
         return dispatch(getInitData(countries, languages));
     }
-}
+};
 
 function getInitData(countries, languages) {
     return {
@@ -28,22 +21,23 @@ function getInitData(countries, languages) {
     }
 }
 
-export function startDiagnosis(client) {
+export const startDiagnosis = (client) => {
+    new ClientDao().add(client);
     Actions.newDiagnosis({newClient: client});
-    return {type: Constants.NO_ACTION};
-}
+    return {type: NO_ACTION};
+};
 
-export function goBack() {
+export const goBack = () => {
     Actions.pop();
-    return {type: Constants.NO_ACTION};
-}
+    return {type: NO_ACTION};
+};
 
-export function showCookieInfo() {
-   Actions.about({url: Constants.urlCookie});
-   return {type: Constants.NO_ACTION};
-}
+export const showCookieInfo = () => {
+   Actions.about({url: Constants.urlCookie, title: '<b>Cookie Policy</b>'});
+   return {type: NO_ACTION};
+};
 
-export function showPrivacyInfo() {
-    Actions.about({url: Constants.urlPrivacy});
-    return {type: Constants.NO_ACTION};
-}
+export const showPrivacyInfo = () => {
+    Actions.about({url: Constants.urlPrivacy, title: '<b>Privacy Info</b>'});
+    return {type: NO_ACTION};
+};

@@ -1,24 +1,13 @@
 import React, {Component} from 'react';
-import {Header, Input, ListItem} from "react-native-elements";
-import {FlatList, Text, View, StyleSheet, Dimensions, Image, TouchableWithoutFeedback} from "react-native";
+import {Text, View, StyleSheet, Dimensions, Image} from 'react-native';
 import PropTypes from 'prop-types';
-import ScreenUtils from '../../../utils/ScreenUtils';
-import {
-    BACKGROUND_GRAY_COLOR,
-    GRAY_COLOR,
-    PRIMARY,
-    TEXT_COLOR,
-    TEXT_GRAY_COLOR,
-    TRANSPARENT
-} from '../../../utils/Colors';
-import {Form, Label, Button, Icon, Thumbnail} from "native-base";
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
-import BackMenu from "../../../views/menu/BackMenu";
-import TransparentBackMenu from "../../../views/menu/TransparentBackMenu";
-import Space from "../../../views/native_elements/Space";
+import ScreenUtils from 'src/utils/ScreenUtils';
+import {PRIMARY} from 'src/utils/Colors';
+import ContainerFlex from 'src/views/native_elements/ContainerFlex';
+import TransparentBackMenu from 'src/views/menu/TransparentBackMenu';
+import Space from 'src/views/native_elements/Space';
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = ScreenUtils.HEIGHT;
-const PRODUCT_IMAGE = require('../../../../assets/images/img_product_full.png');
+const PRODUCT_IMAGE = require('Sytem_Pro/assets/images/img_product_full.png');
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 export default class ProductView extends Component {

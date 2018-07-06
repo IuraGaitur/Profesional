@@ -1,10 +1,14 @@
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {Text, StyleSheet} from "react-native";
-import {View, Button} from "native-base";
-import {GRAY_COLOR, SELECTED, TEXT_COLOR} from "../../../../utils/Colors";
-import RadioItem from "./RadioItem";
+import {Text, StyleSheet} from 'react-native';
+import {View} from 'native-base';
+import {TEXT_COLOR} from 'src/utils/Colors';
+import RadioItem from 'src/views/form/pool/radioGroup/RadioItem';
 
 export default class RadioBoxGroup extends Component {
+
+    FIRST_ITEM = 0;
+    SECOND_ITEM = 1;
 
 
     constructor(props) {
@@ -24,25 +28,21 @@ export default class RadioBoxGroup extends Component {
         const {items} = this.state;
 
         return (
-            <View style={{height: 100}}>
-                <View style={{flex: 1, flexDirection: 'column'}}>
+            <View style={styles.view}>
+                <View style={styles.parent}>
                     <Text style={styles.title}>{this.props.title}</Text>
                     <View style={styles.container}>
-                        <RadioItem key={items[0].title} title={items[0].label}
-                                   isSelected={items[0].active}
-                                   onSelect={() => {
-                                       this.changeItemState(this.props.items, 0)
-                                   }}
-                                   style={{width: '42%', height: 60}}
+                        <RadioItem key={items[this.FIRST_ITEM].title} title={items[this.FIRST_ITEM].label}
+                                   isSelected={items[this.FIRST_ITEM].active}
+                                   onSelect={() => {this.changeItemState(this.props.items, this.FIRST_ITEM)}}
+                                   style={styles.radioItem}
 
                         />
 
-                        <RadioItem key={items[1].title} title={items[1].label}
-                                   isSelected={items[1].active}
-                                   onSelect={() => {
-                                       this.changeItemState(this.props.items, 1)
-                                   }}
-                                   style={{width: '42%', height: 60}}
+                        <RadioItem key={items[this.SECOND_ITEM].title} title={items[this.SECOND_ITEM].label}
+                                   isSelected={items[this.SECOND_ITEM].active}
+                                   onSelect={() => {this.changeItemState(this.props.items, this.SECOND_ITEM)}}
+                                   style={styles.radioItem}
                         />
 
                     </View>
@@ -52,6 +52,13 @@ export default class RadioBoxGroup extends Component {
 }
 
 const styles = StyleSheet.create({
+    view: {
+        height: 100
+    },
+    parent: {
+        flex: 1,
+        flexDirection: 'column'
+    },
     container: {
         flex: 1,
         flexWrap: 'wrap',
@@ -67,4 +74,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: TEXT_COLOR
     },
+    radioItem : {
+        width: '42%',
+        height: 60
+    }
 });

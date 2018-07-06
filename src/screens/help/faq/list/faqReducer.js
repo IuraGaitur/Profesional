@@ -1,4 +1,4 @@
-import {REQUEST_QUESTIONS, REQUEST_SUCCESS, REQUEST_FAIL} from './faqAction';
+import {SUCCESS, FAIL, GET_QUESTIONS} from 'src/app/actions';
 
 const defaultState = {
     questions: []
@@ -6,11 +6,11 @@ const defaultState = {
 
 export default function reducer(state = defaultState, action) {
     switch (action.type) {
-        case REQUEST_QUESTIONS:
+        case GET_QUESTIONS:
             return {...state, showLoading: true};
-        case REQUEST_SUCCESS:
+        case SUCCESS:
             return {...state, showLoading: false, questions: action.questions};
-        case REQUEST_FAIL:
+        case FAIL:
             return {...state, showLoading: false};
         default:
             return state;

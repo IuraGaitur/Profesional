@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
-import {Text} from "react-native";
-import {Button, Icon, View} from "native-base";
-import CheckboxGroup from "../form/pool/checkGroup/CheckboxGroup";
-import styles from './pageStyle';
 import PropTypes from 'prop-types';
-import RadioBoxGroup from "../form/pool/radioGroup/RadioGroup";
-import SlideGroup from "../form/pool/slideGroup/SlideGroup";
-import ContentFlex from "../native_elements/ContentFlex";
-import MainStyle from "../MainStyle";
-import CheckCondition from "../../data/models/diagnosis/condition/check/CheckCondition";
-import SliderCondition from "../../data/models/diagnosis/condition/slide/SliderCondition";
-import SliderStepCondition from "../../data/models/diagnosis/condition/slide/SliderStepCondition";
-import SelectCondition from "../../data/models/diagnosis/condition/select/SelectCondition";
+import {Text} from 'react-native';
+import React, {Component} from 'react';
+import {Button, Icon, View} from 'native-base';
+import MainStyle from 'src/views/MainStyle';
+import styles from 'src/views/pages/pageStyle';
+import ContentFlex from 'src/views/native_elements/ContentFlex';
+import SlideGroup from 'src/views/form/pool/slideGroup/SlideGroup';
+import RadioBoxGroup from 'src/views/form/pool/radioGroup/RadioGroup';
+import CheckboxGroup from 'src/views/form/pool/checkGroup/CheckboxGroup';
+import CheckCondition from 'src/data/models/diagnosis/condition/check/CheckCondition';
+import SliderCondition from 'src/data/models/diagnosis/condition/slide/SliderCondition';
+import SelectCondition from 'src/data/models/diagnosis/condition/select/SelectCondition';
+import SliderStepCondition from 'src/data/models/diagnosis/condition/slide/SliderStepCondition';
 
 export default class PoolPage extends Component {
 

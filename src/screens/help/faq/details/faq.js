@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import FaqView  from './faqView';
-import {getQuestions, goContacts, goBack} from "./faqAction";
+import FaqView  from 'src/screens/help/faq/details/faqView';
+import {getQuestions, goContacts, goBack} from 'src/screens/help/faq/details/faqAction';
 
 class FaqScreen extends Component {
 

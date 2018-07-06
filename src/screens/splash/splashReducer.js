@@ -1,4 +1,4 @@
-import {HAS_USER, NO_USER} from './splashAction';
+import {IS_LOGGED_IN, NO_USER} from 'src/app/actions';
 
 const defaultState = {
     checkedForUser: false,
@@ -6,8 +6,9 @@ const defaultState = {
 };
 
 export default function reducer(state = defaultState, action) {
+
     switch (action.type) {
-        case HAS_USER:
+        case IS_LOGGED_IN:
             return {...state, checkedForUser: true, user: action.user};
         case NO_USER:
             return {...state, checkedForUser: true, user: null};

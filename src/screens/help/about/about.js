@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import AboutView  from './aboutView';
+import AboutView  from 'src/screens/help/about/aboutView';
 
 class AboutScreen extends Component {
 
@@ -12,7 +12,7 @@ class AboutScreen extends Component {
 
     render() {
         return (
-            <AboutView url={this.props.url}/>
+            <AboutView url={this.props.url} title={this.props.title}/>
         );
     }
 }

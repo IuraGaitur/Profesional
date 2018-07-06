@@ -1,23 +1,24 @@
 import React, {Component} from 'react';
-import {View} from "react-native";
+import {View} from 'react-native';
 import PropTypes from 'prop-types';
-import {Content} from "native-base";
+import {Content} from 'native-base';
 
 export default class ContentFlex extends Component {
 
     render() {
-        if(!this.props.scrollable) {
-            return <View style={{flex: 1, padding: this.props.padding ? this.props.padding : 0,
-                margin: this.props.margin ? this.props.margin : 0}}>
-                {this.props.children}
-            </View>
+
+        const {margin, padding, scrollable} = this.props;
+
+        if (!scrollable) {
+            return (
+                <View style={{flex: 1, padding: padding ? padding : 0, margin: margin ? margin : 0}}>
+                    {this.props.children}
+                </View>);
         } else {
-            return <Content style={{flex: 1,
-                padding: this.props.padding ? this.props.padding : 0,
-                margin: this.props.margin ? this.props.margin : 0
-            }}>
-                {this.props.children}
-            </Content>
+            return (
+                <Content style={{flex: 1, padding: padding ? padding : 0, margin: margin ? margin : 0}}>
+                    {this.props.children}
+                </Content>);
         }
     };
 

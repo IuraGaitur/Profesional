@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
-import {Text, View, StyleSheet, Platform} from "react-native";
 import React, {Component} from 'react';
-import {GRAY_COLOR, GRAY_LIGHT, LIGHT_COLOR, TEXT_COLOR} from "../../utils/Colors";
-import CollectionUtils from "../../utils/CollectionUtils";
-import RNPickerSelect from "./../native_elements/PickerElement";
-
+import {View, StyleSheet} from 'react-native';
+import CollectionUtils from 'src/utils/CollectionUtils';
+import RNPickerSelect from 'src/views/native_elements/PickerElement';
+import {GRAY_LIGHT, LIGHT_COLOR, TEXT_COLOR} from 'src/utils/Colors';
 
 export default class ButtonPickerInput extends Component {
 
-    currentItemValue = "";
+    currentItemValue = '';
 
     constructor(props) {
         super(props);
@@ -32,7 +31,7 @@ export default class ButtonPickerInput extends Component {
             return (
                 <View style={styles.buttonPicker}>
                     <RNPickerSelect
-                        ref="picker"
+                        ref='picker'
                         mode={this.props.mode}
                         hideIcon={true}
                         placeholder={defaultItem ? defaultItem : {}}

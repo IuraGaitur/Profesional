@@ -1,4 +1,4 @@
-import {INIT} from "./treatmentAction";
+import {INIT} from 'src/app/actions';
 
 const defaultState = {
     codeInfo: '',

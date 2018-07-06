@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {init, getPrimaryUser, goBack, saveRequest} from './profileAction';
-import ProfileView  from './profileView';
-import Toast, {DURATION} from 'react-native-easy-toast'
-import {View} from "react-native";
+import ProfileView  from 'src/screens/profile/profileView';
 
 class ProfileScreen extends Component {
 

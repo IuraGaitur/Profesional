@@ -1,38 +1,35 @@
-import QuestionApi from '../../../../data/api/QuestionApi';
+import QuestionApi from 'src/data/api/QuestionApi';
 import {Actions} from 'react-native-router-flux';
-import Constants from '../../../../utils/Constants';
-export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
-export const REQUEST_FAIL = 'REQUEST_FAIL';
-export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
+import {NO_ACTION, SUCCESS, FAIL, GET_QUESTIONS} from 'src/app/actions';
 
 function errorRequest(errorMessage) {
     return {
         error: errorMessage,
-        type: REQUEST_FAIL
+        type: FAIL
     }
 }
 
 function successRequest(questions) {
     return {
         questions: questions,
-        type: REQUEST_SUCCESS
+        type: SUCCESS
     }
 }
 
 function requestItems() {
     return {
-        type: REQUEST_QUESTIONS
+        type: GET_QUESTIONS
     }
 }
 
 export function goBack() {
     Actions.pop();
-    return {type: Constants.NO_ACTION};
+    return {type: NO_ACTION};
 }
 
 export function goContacts() {
     Actions.contact();
-    return {type: Constants.NO_ACTION};
+    return {type: NO_ACTION};
 }
 
 export function getQuestions(name = '') {

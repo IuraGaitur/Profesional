@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {Input} from "react-native-elements";
+import {Input} from 'react-native-elements';
 import PropTypes from 'prop-types';
-import ValidationUtil from "../../utils/ValidationUtil";
+import ValidationUtil from 'src/utils/ValidationUtil';
+
 export const REQUIRED = 'required';
 export const EMAIL = 'email';
 export const CONFIRMATION = 'confirmation';
 export const STRONG_PASS = 'strong_pass';
 
-export default class TextInput extends Component{
+export default class TextInput extends Component {
 
     constructor(props) {
         super(props);
@@ -23,7 +24,7 @@ export default class TextInput extends Component{
     }
 
     validateRequired(value, errorMessage) {
-        let isValid =  value != "" && value != null;
+        let isValid = value != '' && value != null;
         return this.setValidState(isValid, errorMessage);
     }
 
@@ -52,7 +53,7 @@ export default class TextInput extends Component{
     }
 
     isValid() {
-        let { value, confirmationValue } = this.props;
+        let {value, confirmationValue} = this.props;
         if (!this.props.validation) return true;
         let passValidations = [];
 
@@ -75,7 +76,7 @@ export default class TextInput extends Component{
                     break;
             }
             passValidations.push(isValid);
-            if(!isValid) break;
+            if (!isValid) break;
         }
         let isValid = !passValidations.includes(false);
         return isValid;
@@ -83,27 +84,29 @@ export default class TextInput extends Component{
 
 
     render() {
-        const {onChangeText, value, inputStyle, keyboardAppearance, placeholder, autoFocus,
+        const {
+            onChangeText, value, inputStyle, keyboardAppearance, placeholder, autoFocus,
             autoCapitalize, autoCorrect, keyboardType, returnKeyType, blurOnSubmit,
-                placeholderTextColor, containerStyle, editable, rightIcon, secureTextEntry} = this.props;
-        const { errorMessage } = this.state;
-            return <Input onChangeText={onChangeText}
-                          value={value}
-                          inputStyle={inputStyle}
-                          keyboardAppearance={keyboardAppearance}
-                          placeholder={placeholder}
-                          autoFocus={autoFocus}
-                          autoCapitalize={autoCapitalize}
-                          autoCorrect={autoCorrect}
-                          keyboardType={keyboardType}
-                          returnKeyType={returnKeyType}
-                          blurOnSubmit={blurOnSubmit}
-                          placeholderTextColor={placeholderTextColor}
-                          containerStyle={containerStyle}
-                          editable={editable}
-                          errorMessage={errorMessage}
-                          rightIcon={rightIcon}
-                          secureTextEntry={secureTextEntry}/>
+            placeholderTextColor, containerStyle, editable, rightIcon, secureTextEntry
+        } = this.props;
+        const {errorMessage} = this.state;
+        return <Input onChangeText={onChangeText}
+                      value={value}
+                      inputStyle={inputStyle}
+                      keyboardAppearance={keyboardAppearance}
+                      placeholder={placeholder}
+                      autoFocus={autoFocus}
+                      autoCapitalize={autoCapitalize}
+                      autoCorrect={autoCorrect}
+                      keyboardType={keyboardType}
+                      returnKeyType={returnKeyType}
+                      blurOnSubmit={blurOnSubmit}
+                      placeholderTextColor={placeholderTextColor}
+                      containerStyle={containerStyle}
+                      editable={editable}
+                      errorMessage={errorMessage}
+                      rightIcon={rightIcon}
+                      secureTextEntry={secureTextEntry}/>
     }
 }
 

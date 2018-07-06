@@ -1,18 +1,19 @@
-import React, {Component} from 'react';
-import {Body, Card, CardItem, Text, View} from "native-base";
-import {GRAY_LIGHT} from "../../utils/Colors";
-import {Image, StyleSheet} from "react-native";
 import PropTypes from 'prop-types';
-import TouchOpacityDebounce from "../../utils/touchable_debounce/TouchOpacityDebounce";
+import React, {Component} from 'react';
+import {GRAY_LIGHT} from 'src/utils/Colors';
+import {Image, StyleSheet} from 'react-native';
+import {Body, Card, CardItem, Text, View} from 'native-base';
+
 
 export default class CardProduct extends Component {
 
     render() {
-        return <View style={styles.mainContainer}>
+        return (
+            <View style={styles.mainContainer}>
                 <Card style={{borderColor: GRAY_LIGHT}}>
                     <CardItem button onPress={() => this.props.onPress({id: 1})}>
                         <Body style={styles.picContent}>
-                        <Image source={require('../../../assets/images/prod_1.png')}
+                        <Image source={require('Sytem_Pro/assets/images/prod_1.png')}
                                style={styles.picture}/>
                         </Body>
                     </CardItem>
@@ -20,9 +21,8 @@ export default class CardProduct extends Component {
                         <Text style={styles.title}>{this.props.title}</Text>
                     </CardItem>
                 </Card>
-        </View>
+            </View>);
     };
-
 };
 
 const styles = StyleSheet.create({

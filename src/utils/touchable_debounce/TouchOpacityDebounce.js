@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { TouchableOpacity } from "react-native";
-import { debounce } from "./Debounce";
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { TouchableOpacity } from 'react-native';
+import { debounce } from 'src/utils/touchable_debounce/Debounce';
 
 class TouchOpacityDebounce extends Component {
 

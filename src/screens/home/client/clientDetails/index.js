@@ -1,3 +1,3 @@
-import ClientDetailsScreen from './clientDetails';
+import ClientDetailsScreen from 'src/screens/home/client/clientDetails/clientDetails';
 
 export {ClientDetailsScreen};

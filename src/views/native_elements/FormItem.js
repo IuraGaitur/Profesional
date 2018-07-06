@@ -1,9 +1,9 @@
-import {Icon, Input, Item, Text, View} from "native-base";
+import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
 import React, {Component} from 'react';
-import {GRAY_COLOR, PRIMARY} from "../../utils/Colors";
-import PropTypes from 'prop-types';
-import ValidationUtil from "../../utils/ValidationUtil";
+import {GRAY_COLOR, PRIMARY} from 'src/utils/Colors';
+import ValidationUtil from 'src/utils/ValidationUtil';
+import {Icon, Input, Item, Text, View} from 'native-base';
 
 export const REQUIRED = 'required';
 export const EMAIL = 'email';
@@ -41,7 +41,7 @@ export default class FormItem extends Component {
     };
 
     validateRequired(value, errorMessage) {
-        let isValid =  value != "" && value != null;
+        let isValid =  value != '' && value != null;
         return this.setValidState(isValid, errorMessage);
     }
 
@@ -139,6 +139,7 @@ export default class FormItem extends Component {
                                returnKeyType={isLast? 'done': 'next'}
                                onSubmitEditing={onSubmitEditing}
                                numberOfLines={numberOfLines}
+                               autoCapitalize='none'
                                multiline={numberOfLines ? true : false}
 
                         />

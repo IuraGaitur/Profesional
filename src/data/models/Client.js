@@ -1,6 +1,6 @@
 export default class Client {
 
-    id = 0;
+    _id = 0;
     firstName = '';
     lastName = '';
     email = '';
@@ -12,8 +12,11 @@ export default class Client {
     saveEnergyCode = false;
     receiveEmails = false;
     treatments = [];
+    formula = '';
+    _rev = '';
 
     fromJSON(data) {
+        this._id = data._id;
         this.firstName = data.firstName;
         this.lastName = data.lastName;
         this.email = data.email;
@@ -24,6 +27,8 @@ export default class Client {
         this.saveEnergyCode = data.saveEnergyCode;
         this.receiveEmails = data.receiveEmails;
         this.postalCode = data.postalCode;
+        this.formula = data.formula;
+        this._rev = data._rev;
         return this;
     }
 
@@ -36,7 +41,16 @@ export default class Client {
     }
 
     getFormula() {
-        return 'A5 + B6 + E12 + F12';
+        return this.formula || 'A5 + B6 + E12 + F12';
+    }
+
+    getFormulas() {
+        return [{
+            id: 0,
+            formula: this.getFormula(),
+            date: 'May 7, 2018',
+            type: 'Intense'
+        }];
     }
 
 }

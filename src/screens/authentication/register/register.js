@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {init, registerRequest, goBack, showInfo} from './registerAction';
-import RegisterView  from './registerView';
-import Toast, {DURATION} from 'react-native-easy-toast'
-import {View} from "react-native";
+import {init, registerRequest, goBack, showInfo} from 'src/screens/authentication/register/registerAction';
+import RegisterView  from 'src/screens/authentication/register/registerView';
 
 class RegisterScreen extends Component {
 

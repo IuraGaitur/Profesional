@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Drawer from 'react-native-drawer'
-import {Header, Input, ListItem} from "react-native-elements";
-import {FlatList, Text, View, StyleSheet, Dimensions, Image, TouchableWithoutFeedback} from "react-native";
+import {Header, Input, ListItem} from 'react-native-elements';
+import {FlatList, Text, View, StyleSheet, Dimensions, Image, TouchableWithoutFeedback} from 'react-native';
 import PropTypes from 'prop-types';
-import ScreenUtils from '../../../utils/ScreenUtils';
+import ScreenUtils from 'src/utils/ScreenUtils';
 import {
     BACKGROUND_GRAY_COLOR,
     GRAY_COLOR,
@@ -11,14 +11,14 @@ import {
     TEXT_COLOR,
     TEXT_GRAY_COLOR,
     TRANSPARENT
-} from '../../../utils/Colors';
-import SubmitButton from "../../../views/native_elements/SubmitButton";
-import FormItem from "../../../views/native_elements/FormItem";
-import {Form, Label, Button, Icon, Thumbnail} from "native-base";
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
+} from 'src/utils/Colors';
+import SubmitButton from 'src/views/native_elements/SubmitButton';
+import FormItem from 'src/views/native_elements/FormItem';
+import {Form, Label, Button, Icon, Thumbnail} from 'native-base';
+import ContainerFlex from 'src/views/native_elements/ContainerFlex';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = ScreenUtils.HEIGHT;
-const BG_IMAGE = require('../../../../assets/images/img_back_hair_2.jpg');
+const BG_IMAGE = require('Sytem_Pro/assets/images/img_back_hair_2.jpg');
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 export default class InfoView extends Component {
@@ -47,7 +47,7 @@ export default class InfoView extends Component {
 
                     <View style={styles.paralaxContainer}>
                         <View style={{flex:1,  justifyContent: 'center', alignItems: 'center'}}>
-                            <Thumbnail square source={require('../../../../assets/images/logo.png')}
+                            <Thumbnail square source={require('Sytem_Pro/assets/images/logo.png')}
                                        style={{width: 100, height: 65}}/>
                         </View>
                         <Form style={{width: '100%'}}>

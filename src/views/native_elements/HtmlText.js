@@ -1,13 +1,9 @@
+import parse5 from 'parse5';
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import PropTypes from 'prop-types';
-import parse5 from 'parse5';
 
 export default class HtmlText extends Component {
-
-    _renderContent(text) {
-        //Markdown parser and in for cycle create text with one style or text with another
-    }
 
     parse(html) {
         let fragment = parse5.parseFragment(html)
@@ -17,7 +13,7 @@ export default class HtmlText extends Component {
     render() {
         let html = this.props.html;
         let fragment = this.parse(html);
-        let rootKey = "ht_";
+        let rootKey = 'ht_';
         let itemStyle = this.props.textStyle;
 
         let children = [];
@@ -50,9 +46,9 @@ HtmlText.defaultProps = {
     }
 };
 
-const BLOCK_ELEMENTS = ["blockquote", "div", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "ol", "p", "pre", "ul", "li"]
+const BLOCK_ELEMENTS = ['blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'ol', 'p', 'pre', 'ul', 'li']
 
-const INLINE_ELEMENTS = ["b", "i", "em", "strong", "a", "br", "q", "span", "sub", "sup"]
+const INLINE_ELEMENTS = ['b', 'i', 'em', 'strong', 'a', 'br', 'q', 'span', 'sub', 'sup']
 
 const DEFAULT_STYLES = StyleSheet.create({
     a: {},
@@ -115,7 +111,7 @@ const DEFAULT_STYLES = StyleSheet.create({
 
 
 function isText(tagName) {
-    return tagName === "#text"
+    return tagName === '#text'
 }
 
 function isBlockElement(tagName) {
@@ -127,7 +123,7 @@ function isInlineElement(tagName) {
 }
 
 function styleForTag(additionalStyle, tagName) {
-    var style = DEFAULT_STYLES[tagName] ? DEFAULT_STYLES[tagName] : DEFAULT_STYLES["default"];
+    var style = DEFAULT_STYLES[tagName] ? DEFAULT_STYLES[tagName] : DEFAULT_STYLES['default'];
     var result = [style, additionalStyle];
     return result;
 }

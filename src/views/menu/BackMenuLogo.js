@@ -1,9 +1,9 @@
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
-import {Body, Button, Header, Icon, Left, Right, Text, Thumbnail, Title, View} from "native-base";
-import {GRAY_COLOR, LIGHT_BACKGROUND_COLOR, LIGHT_COLOR, TEXT_COLOR} from "../../utils/Colors";
-import PropTypes from 'prop-types';
 import {Actions} from 'react-native-router-flux';
+import {GRAY_COLOR, LIGHT_COLOR, TEXT_COLOR} from 'src/utils/Colors';
+import {Button, Header, Icon, Left, Right, Thumbnail, View} from 'native-base';
 
 export default class BackMenuLogo extends Component {
     render() {
@@ -11,12 +11,12 @@ export default class BackMenuLogo extends Component {
             <Header androidStatusBarColor={GRAY_COLOR} style={styles.headerContainer}>
                 <Left style={styles.header}>
                     <Button transparent onPress={() => this.props.actionBack ? this.props.actionBack() : Actions.pop()}>
-                        <Icon name='arrow-back' style={{color: GRAY_COLOR, fontSize: 24}}/>
+                        <Icon name='arrow-back' style={styles.icon}/>
                     </Button>
                 </Left>
-                <View style={{position: 'absolute', flex:1, justifyContent: 'center', alignItems: 'flex-end', marginTop: 20}}>
-                    <Thumbnail square source={require('../../../assets/images/logo.png')}
-                               style={{width: 70, height: 40}}/>
+                <View style={styles.logo}>
+                    <Thumbnail square style={styles.thumb}
+                               source={require('Sytem_Pro/assets/images/logo.png')}/>
                 </View>
                 <Right>{this.props.actions}</Right>
             </Header>);
@@ -24,6 +24,20 @@ export default class BackMenuLogo extends Component {
 }
 
 const styles = StyleSheet.create({
+    icon: {
+        color: GRAY_COLOR, fontSize: 24
+    },
+    logo: {
+        position: 'absolute',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        marginTop: 20
+    },
+    thumb: {
+        width: 70,
+        height: 40
+    },
     title: {
         color: TEXT_COLOR,
         textAlign: 'left',

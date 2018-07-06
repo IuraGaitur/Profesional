@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {init, startDiagnosis, showCookieInfo, showPrivacyInfo} from './editClientAction';
-import CreateClientView  from './editClientView';
+import {
+    init,
+    startDiagnosis,
+    showCookieInfo,
+    showPrivacyInfo
+} from 'src/screens/home/client/editClient/editClientAction';
+import EditClientView  from 'src/screens/home/client/editClient/editClientView';
+import moment from "moment";
 
 class EditClientScreen extends Component {
 
@@ -32,15 +38,45 @@ class EditClientScreen extends Component {
         this.props.showPrivacyInfo();
     };
 
+    changeClient = (item, value) => {
+        let client = this.state.currentClient;
+        client[item] = value;
+        this.setState({currentClient: client});
+    };
+
+    showDatePicker = () => {
+        this.setState({showDatePicker: true});
+    };
+
+    handleDatePicked = (time) => {
+        this.changeClient('birthDate', moment(time).format('YYYY-MM-DD'));
+        this.setState({showDatePicker: false});
+    };
+
+    hideDatePicker = () => {
+        this.setState({showDatePicker: false});
+    };
+
+    saveChanges = () => {
+
+    };
+
     render() {
-        const {countries, languages} = this.props;
+        const {countries, languages, currentClient, showDatePicker} = this.state;
 
         return (
-            <CreateClientView countries={countries}
-                              languages={languages}
-                              startDiagnosisCallback={this.startDiagnosis}
-                              actionFindAboutCookieCallback={this.actionFindAboutCookie}
-                              actionFindAboutPrivacyCallback={this.actionFindAboutPrivacy}
+            <EditClientView client={currentClient}
+                            actionChangeClientCallback={this.changeClient}
+                            countries={countries}
+                            languages={languages}
+                            startDiagnosisCallback={this.startDiagnosis}
+                            actionFindAboutCookieCallback={this.actionFindAboutCookie}
+                            actionFindAboutPrivacyCallback={this.actionFindAboutPrivacy}
+                            actionHandleDatePicked={this.handleDatePicked}
+                            actionHideDateTimePicker={this.hideDatePicker}
+                            showDatePicker={showDatePicker}
+                            actionShowDatePicker={this.showDatePicker}
+                            actionSaveChanges={this.saveChanges}
             />
 
         );
@@ -49,8 +85,7 @@ class EditClientScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        countries: state.createClient.countries,
-        languages: state.createClient.languages,
+
     };
 };
 

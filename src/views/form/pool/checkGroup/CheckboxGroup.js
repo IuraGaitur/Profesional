@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet} from "react-native";
-import {View, Button} from "native-base";
 import PropTypes from 'prop-types';
-import {GRAY_COLOR, SELECTED, TEXT_COLOR} from "../../../../utils/Colors";
-import CheckboxItem from "./CheckboxItem";
-import BigCheckboxItem from "./BigCheckboxItem";
-import {SMALL} from "../../../../data/models/diagnosis/condition/check/CheckType";
+import React, {Component} from 'react';
+import {Text, StyleSheet} from 'react-native';
+import {View} from 'native-base';
+import {TEXT_COLOR} from 'src/utils/Colors';
+import CheckboxItem from 'src/views/form/pool/checkGroup/CheckboxItem';
+import BigCheckboxItem from 'src/views/form/pool/checkGroup/BigCheckboxItem';
+import {SMALL} from 'src/data/models/diagnosis/condition/check/CheckType';
 
 export default class CheckboxGroup extends Component {
 
@@ -41,7 +41,7 @@ export default class CheckboxGroup extends Component {
         return (
             <View style={styles.bigContainer}>
                 <Text style={styles.title}>{this.props.title}</Text>
-                <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
+                <View style={styles.many}>
                     {this.props.items && this.props.items.map(item =>
                         <BigCheckboxItem key={item.title} title={item.title}
                                          isSelected={item.active}
@@ -81,6 +81,10 @@ const styles = StyleSheet.create({
         color: TEXT_COLOR,
         alignSelf: 'center'
     },
+    many: {
+        flexWrap: 'wrap',
+        flexDirection: 'row'
+    }
 });
 
 CheckboxGroup.propTypes = {

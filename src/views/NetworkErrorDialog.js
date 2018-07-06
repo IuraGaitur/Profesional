@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {DARK_OVERLAY_COLOR, GRAY_COLOR} from "../utils/Colors";
-import {Text, View, StyleSheet, TouchableWithoutFeedback, Button} from "react-native";
-import Overlay from "react-native-modal-overlay";
+import {GRAY_COLOR} from 'src/utils/Colors';
+import {Text, View, StyleSheet, TouchableWithoutFeedback, Button} from 'react-native';
+import Overlay from 'react-native-modal-overlay';
 
 export default class NetworkErrorDialog extends Component {
 
@@ -19,16 +19,15 @@ export default class NetworkErrorDialog extends Component {
         const {showNetworkError, dismissCallback} = this.state;
         return (<Overlay
             visible={showNetworkError}
-            closeOnTouchOutside={false} animationType="zoomIn"
-            childrenWrapperStyle={{backgroundColor: 'rgb(255, 255, 255)',
-                borderWidth: 1, borderColor: GRAY_COLOR, borderRadius: 10}}
-            containerStyle={{backgroundColor: 'rgba(255,255,255, 0.3)'}}
+            closeOnTouchOutside={false} animationType='zoomIn'
+            childrenWrapperStyle={styles.backgroundContainer}
+            containerStyle={styles.container}
             animationDuration={500}>
             <Text style={styles.titleDialog}>No internet connection</Text>
             <Text style={styles.messageDialog}>You need internet connection in order to use the app!</Text>
             <View style={styles.buttonDialog}>
-                <Button clear title="OK" TouchableComponent={TouchableWithoutFeedback}
-                        onPress={(e) => dismissCallback(e)} titleStyle={{fontSize: 18, color: GRAY_COLOR}}/>
+                <Button clear title='OK' TouchableComponent={TouchableWithoutFeedback}
+                        onPress={(e) => dismissCallback(e)} titleStyle={styles.title}/>
             </View>
         </Overlay>);
     }
@@ -40,6 +39,15 @@ NetworkErrorDialog.propTypes = {
 };
 
 const styles = StyleSheet.create({
+    backgroundContainer: {
+        backgroundColor: 'rgb(255, 255, 255)',
+        borderWidth: 1,
+        borderColor: GRAY_COLOR,
+        borderRadius: 10
+    },
+    container: {
+        backgroundColor: 'rgba(255,255,255, 0.3)'
+    },
     buttonDialog: {
         flex: 1,
         flexDirection: 'row',
@@ -54,6 +62,10 @@ const styles = StyleSheet.create({
     messageDialog: {
         fontSize: 18,
         marginBottom: 20
+    },
+    title: {
+        fontSize: 18,
+        color: GRAY_COLOR
     },
     overlayContainer: {
         flex: 1,

@@ -1,4 +1,4 @@
-import CollectionUtils from "../../../utils/CollectionUtils";
+import CollectionUtils from 'src/utils/CollectionUtils';
 export default class ProductManager {
 
     products = [];

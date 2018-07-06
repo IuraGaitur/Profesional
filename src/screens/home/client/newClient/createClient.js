@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {init, startDiagnosis, showCookieInfo, showPrivacyInfo} from './createClientAction';
-import CreateClientView  from './createClientView';
+import {init, startDiagnosis, showCookieInfo, showPrivacyInfo} from 'src/screens/home/client/newClient/createClientAction';
+import CreateClientView  from 'src/screens/home/client/newClient/createClientView';
 
 class CreateClientScreen extends Component {
 
@@ -21,6 +21,7 @@ class CreateClientScreen extends Component {
     };
 
     startDiagnosis = (newClient) => {
+        console.log(newClient);
         this.props.startDiagnosis(newClient);
     };
 

@@ -1,3 +1,3 @@
-import NewDiagnosisScreen from './newDiagnosis';
+import NewDiagnosisScreen from 'src/screens/home/newDiagnosis/newDiagnosis';
 
 export {NewDiagnosisScreen};

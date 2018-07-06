@@ -1,6 +1,5 @@
-import {SHOW_LOADING, UPDATE_SUCCESS, UPDATE_FAIL, INIT,
-        ERROR, NETWORK_ERROR, GET_PRIMARY_USER, GET_MENU_ITEMS} from './profileAction';
-import User from "../../data/models/User";
+import {INIT, SHOW_LOADING, GET_MENU_ITEMS, NETWORK_ERROR, SUCCESS, FAIL, GET_PRIMARY_USER} from 'src/app/actions';
+import User from 'src/data/models/User';
 
 const defaultState = {
     countries: [],
@@ -15,12 +14,12 @@ export default function reducer(state = defaultState, action) {
             return {...state, countries: action.countries, networkError: false};
         case SHOW_LOADING:
             return {...state, showLoading: true, networkError: false, successMessage: null};
-        case UPDATE_SUCCESS:
+        case SUCCESS:
             return {...state, user: action.userResponse, showLoading: false, errorMessage: null, networkError: false,
-                successMessage: "Saved with success"};
+                successMessage: 'Saved with success'};
         case GET_MENU_ITEMS:
             return {...state, menuItems: action.items};
-        case UPDATE_FAIL:
+        case FAIL:
             return {...state, errorMessage: action.error, user: null, showLoading: false, networkError: false,
                 successMessage: null};
         case GET_PRIMARY_USER:

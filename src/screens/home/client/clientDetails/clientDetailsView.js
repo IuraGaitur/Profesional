@@ -1,20 +1,15 @@
 import React, {Component} from 'react';
-import {FlatList, Text, View, StyleSheet, Dimensions, TouchableWithoutFeedback} from "react-native";
+import {FlatList, Text, View, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import {
-    BACKGROUND_GRAY_COLOR,
-    GRAY_COLOR, GRAY_LIGHT, LIGHT_BACKGROUND_COLOR,
-    LIGHT_COLOR,
-    PRIMARY,
-    TEXT_COLOR,
-    TEXT_GRAY_COLOR
-} from '../../../../utils/Colors';
-import {Button, Icon, Item, Input} from "native-base";
-import DrawerMenu from "../../../../views/menu/DrawerMenu";
-import ContentFlex from "../../../../views/native_elements/ContentFlex";
-import ClientItemView from "./views/ClientItemView";
-import BackMenu from "../../../../views/menu/BackMenu";
-import MainStyle from "../../../../views/MainStyle";
+import {GRAY_COLOR, GRAY_LIGHT} from 'src/utils/Colors';
+import {Button, Icon} from 'native-base';
+import ContentFlex from 'src/views/native_elements/ContentFlex';
+import BackMenu from 'src/views/menu/BackMenu';
+import ContainerFlex from 'src/views/native_elements/ContainerFlex';
+import ClientItemView from './views/ClientItemView';
+import SubmitButton from 'src/views/native_elements/SubmitButton';
+import MainStyle from 'src/views/MainStyle';
+import Dash from 'react-native-dash';
 
 export default class ClientDetailsView extends Component {
 
@@ -24,40 +19,58 @@ export default class ClientDetailsView extends Component {
     }
 
     render() {
-        const {client} = this.props;
+        const {client, actionEditClick, actionDeleteClick} = this.props;
+        let title = '<p>' + client.firstName + ' <b>' + client.lastName + '</b></p>';
 
         return (
             <ContainerFlex>
-                <BackMenu title={client.getFullName()} actions={(
-                    <View>
-                        <Button transparent onPress={() => editClient()}>
-                            <Icon name='person-add' style={{color: GRAY_COLOR}}/>
+                <BackMenu title={title} actions={(
+                    <View style={MainStyle.spaceRowAlign}>
+                        <Button transparent onPress={() => actionEditClick(client)}>
+                            <Icon name='create' active={true} style={{color: GRAY_COLOR}}/>
                         </Button>
-                        <Button transparent onPress={() => editClient()}>
-                            <Icon name='person-add' style={{color: GRAY_COLOR}}/>
+                        <Button transparent onPress={() => actionDeleteClick(client)}>
+                            <Icon name='trash' active={true} style={{color: GRAY_COLOR}}/>
                         </Button>
                     </View>
                 )}/>
+                <ContentFlex scrollable={true}>
+                    <View>
+                        <View style={[MainStyle.column, styles.detailsContainer]}>
+                            <View style={{width: '100%', minHeight: 80}}>
+                                <View style={MainStyle.spaceRowAlign}>
+                                    <View style={MainStyle.spaceColAlign}>
+                                        <View><Text style={MainStyle.primary}>{client.getName()}</Text></View>
+                                        <View><Text style={MainStyle.secondary}>{client.birthday}</Text></View>
+                                    </View>
+                                    <View style={MainStyle.spaceColAlign}>
+                                        <View><Text style={styles.infoText}>{client.country}</Text></View>
+                                        <View><Text style={styles.infoText}>{client.city}</Text></View>
+                                        <View><Text style={styles.infoText}>{client.postalCode}</Text></View>
+                                    </View>
 
-
-                <ContentFlex scrollable={false}>
+                                </View>
+                            </View>
+                            <Dash style={styles.dash} dashColor={GRAY_LIGHT}/>
+                            <SubmitButton text={'NEW ENERGY CODE'}/>
+                        </View>
+                    </View>
                     <FlatList
-                        keyExtractor={item => item.getID()}
-                        data={userClients}
+                        keyExtractor={item => item.id}
+                        data={client.getFormulas()}
                         style={styles.listClients}
-                        ItemSeparatorComponent={(sectionId, rowId) => <View key={rowId.toString()}
-                                                                            style={styles.separator}/>}
                         renderItem={(rowData) =>
                             <ClientItemView
-                                key={rowData.item.getID()}
+                                key={rowData.item.id}
                                 selectPageCallback={pos => this.selectPage(pos)}
-                                name={rowData.item.getName()}
-                                formula={rowData.item.getFormula()}
-                            />}
+                                date={rowData.item.date}
+                                formula={rowData.item.formula}
+                                type={rowData.item.type}/>
+                        }
                     />
 
 
-                </ContentFlex>)
+                </ContentFlex>
 
             </ContainerFlex>
         );
@@ -65,32 +78,28 @@ export default class ClientDetailsView extends Component {
 }
 
 const styles = StyleSheet.create({
-    headerContainer: {
-        backgroundColor: 'transparent'
-    },
-    searchView: {
-        borderWidth: 2,
-        borderColor: GRAY_LIGHT,
-        borderRadius: 8,
-        paddingHorizontal: 16,
-        marginTop: 26,
-        marginHorizontal: 16
-    },
-    searchBar: {
-        backgroundColor: LIGHT_COLOR,
-        borderBottomWidth: 0
-    },
-    separator: {
-        backgroundColor: GRAY_LIGHT,
-        width: '100%',
-        height: 1
+    detailsContainer: {
+        paddingHorizontal: 32,
+        paddingTop: 32,
+        paddingBottom: 8
     },
     listClients: {
         marginTop: 8,
         marginHorizontal: 24
+    },
+    infoText: {
+        fontSize: 16,
+        textAlign: 'right'
+    },
+    dash: {
+        flex: 1,
+        width: 'auto',
+        height: 1
     }
 });
 
 ClientDetailsView.propTypes = {
-    client: PropTypes.object
+    client: PropTypes.object,
+    actionEditClick: PropTypes.func,
+    actionDeleteClick: PropTypes.func
 };

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import InfoView  from './infoView';
+import InfoView  from 'src/screens/help/info/infoView';
 import {Actions} from 'react-native-router-flux';
 
 class InfoScreen extends Component {
@@ -14,8 +14,6 @@ class InfoScreen extends Component {
 
     async componentDidMount() {}
 
-    componentWillReceiveProps(nextProps) {
-    }
 
     closeView = () => {
         Actions.pop();

@@ -1,6 +1,6 @@
-import blowPages from "../../../../assets/mocks/diagnoses/blow/success.json";
-import energyPages from "../../../../assets/mocks/diagnoses/energy/success.json";
-import DiagnosisQuizResponse from "../response/DiagnosisQuizResponse";
+import blowPages from 'Sytem_Pro/assets/mocks/diagnoses/blow/success.json';
+import energyPages from 'Sytem_Pro/assets/mocks/diagnoses/energy/success.json';
+import DiagnosisQuizResponse from 'src/data/api/response/DiagnosisQuizResponse';
 
 export default class DiagnosisMock {
     getBlowDryQuiz() {

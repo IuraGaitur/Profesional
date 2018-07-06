@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loginRequest, register, forgotPass, getInfo } from './loginAction';
-import LoginView from "./loginView";
-import {Toast} from 'native-base';
+import LoginView from 'src/screens/authentication/login/loginView';
+import { loginRequest, register, forgotPass, getInfo } from 'src/screens/authentication/login/loginAction';
 
 class LoginScreen extends Component {
 
@@ -48,7 +47,7 @@ class LoginScreen extends Component {
 
     render() {
         const { passError, showLoading, networkError } = this.props;
-        return <LoginView ref="viewContainer"
+        return <LoginView ref='viewContainer'
                           passError={passError}
                           showLoading={showLoading}
                           registerCallback={this.register.bind(this)}

@@ -1,9 +1,8 @@
+import {View} from 'native-base';
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {Text, StyleSheet} from "react-native";
-import {View, Button} from "native-base";
-import {GRAY_COLOR, SELECTED} from "../../../../utils/Colors";
-import CheckboxItem from "./CheckboxItem";
-import BigCheckboxItem from "./BigCheckboxItem";
+import {Text, StyleSheet} from 'react-native';
+import BigCheckboxItem from 'src/views/form/pool/checkGroup/BigCheckboxItem';
 
 export default class BigCheckboxGroup extends Component {
 
@@ -24,15 +23,14 @@ export default class BigCheckboxGroup extends Component {
     };
 
     render() {
+        const {items} = this.props;
         return (
             <View style={styles.container}>
                 <Text>{this.props.title}</Text>
-                {this.props.items && this.props.items.map(item =>
+                {items && items.map(item =>
                     <BigCheckboxItem key={item.title} title={item.title}
                                      isSelected={item.active}
-                                     onSelect={() => {
-                                         this.changeItemState(this.props.items, item, !item.active)
-                                     }}/>)}
+                                     onSelect={() => {this.changeItemState(items, item, !item.active)}}/>)}
             </View>);
     }
 }
@@ -45,4 +43,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     }
-})
+});
+
+BigCheckboxGroup.propTypes = {
+    items: PropTypes.array
+};

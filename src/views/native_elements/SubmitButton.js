@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
-import {Button} from "native-base";
-import {PRIMARY} from "../../utils/Colors";
+import {Button} from 'native-base';
+import {PRIMARY} from 'src/utils/Colors';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 
 export default class SubmitButton extends Component {
 
@@ -12,7 +12,7 @@ export default class SubmitButton extends Component {
                     {!this.props.showLoading && <Text style={{color: 'white'}}>{this.props.text}</Text>}
                     {this.props.showLoading && <ActivityIndicator style={styles.indicator}
                                                                   color={'white'} animating={true}
-                                                                  size="small"/>}
+                                                                  size='small'/>}
                 </Button>
     }
 }

@@ -1,6 +1,6 @@
-import Constants from './../../utils/Constants';
-import ProductsMock from "./mock/ProductsMock";
-import ProductsNetwork from "./network/ProductsNetwork";
+import Constants from 'src/utils/Constants';
+import ProductsMock from 'src/data/api/mock/ProductsMock';
+import ProductsNetwork from 'src/data/api/network/ProductsNetwork';
 
 export default class ProductsApi {
     instance() {

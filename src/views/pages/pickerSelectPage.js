@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {ScrollView} from 'react-native';
-import {View, Text} from "native-base";
-import SlideGroup from "../form/pool/slideGroup/SlideGroup";
-import styles from './pageStyle';
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import {View, Text} from 'native-base';
+import styles from 'src/views/pages/pageStyle';
+import {ScrollView, StyleSheet} from 'react-native';
+import SlideGroup from 'src/views/form/pool/slideGroup/SlideGroup';
 
 export default class PickerSelectPage extends Component {
 
@@ -13,10 +13,10 @@ export default class PickerSelectPage extends Component {
 
     render() {
         return (
-            <View style={{flex: 1, flexDirection: 'column', marginBottom: 35}}>
+            <View style={style.container}>
                 <Text style={styles.titlePicker}>{this.props.data.title}</Text>
                 <ScrollView contentContainerStyle={[styles.container]}>
-                    <SlideGroup items={this.props.data} style={{flex: 1}}
+                    <SlideGroup items={this.props.data} style={style.flex}
                                 actionInfoCallback={this.props.actionInfoCallback}
                                 onSlide={state => this.props.onSlideCallback(state)}/>
                 </ScrollView>
@@ -24,6 +24,17 @@ export default class PickerSelectPage extends Component {
     }
 
 }
+
+const style = StyleSheet.create({
+    flex: {
+        flex: 1
+    },
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        marginBottom: 35
+    }
+});
 
 PickerSelectPage.propTypes = {
     data: PropTypes.object,

@@ -1,12 +1,12 @@
-import {UserApi} from "../UserApi";
-import loginDataSuccess from "../../../../assets/mocks/user/login/success.json";
-import loginDataFail from "../../../../assets/mocks/user/login/fail.json";
-import registerDataSuccess from "../../../../assets/mocks/user/register/success.json";
-import registerDataFail from '../../../../assets/mocks/user/register/fail.json';
-import resetSuccess from "../../../../assets/mocks/user/register/success.json";
-import resetFail from '../../../../assets/mocks/user/register/fail.json';
-import updateSuccess from "../../../../assets/mocks/user/update/success.json";
-import updateFail from '../../../../assets/mocks/user/update/fail.json';
+import {UserApi} from 'src/data/api/UserApi';
+import loginDataSuccess from 'Sytem_Pro/assets/mocks/user/login/success.json';
+import loginDataFail from 'Sytem_Pro/assets/mocks/user/login/fail.json';
+import registerDataSuccess from 'Sytem_Pro/assets/mocks/user/register/success.json';
+import registerDataFail from 'Sytem_Pro/assets/mocks/user/register/fail.json';
+import resetSuccess from 'Sytem_Pro/assets/mocks/user/register/success.json';
+import resetFail from 'Sytem_Pro/assets/mocks/user/register/fail.json';
+import updateSuccess from 'Sytem_Pro/assets/mocks/user/update/success.json';
+import updateFail from 'Sytem_Pro/assets/mocks/user/update/fail.json';
 
 
 export default class UserMock implements UserApi {

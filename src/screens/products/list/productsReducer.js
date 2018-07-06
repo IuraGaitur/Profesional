@@ -1,4 +1,4 @@
-import {GET_CATEGORIES, GET_ITEMS} from './productsAction';
+import {GET_ITEMS, GET_CATEGORIES} from 'src/app/actions';
 
 const defaultState = {};
 

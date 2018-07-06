@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, StyleSheet, Platform} from 'react-native';
-import {PRIMARY} from "../utils/Colors";
+import {View, StyleSheet, Platform} from 'react-native';
+import {PRIMARY} from 'src/utils/Colors';
 
 class StatusBarBackground extends Component {
     render() {
         return (
             <View style={[styles.statusBarBackground,
-                        {backgroundColor: this.props.transparent ? 'transparent': PRIMARY,},
+                        {backgroundColor: this.props.transparent ? 'transparent': PRIMARY},
                         this.props.style || {}]} />
         );
     }

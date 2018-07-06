@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {goBack, init, createTreatment} from './blowDryDiagnosisAction';
-import BlowDryDiagnosisView  from './blowDryDiagnosisView';
+import {goBack, init, createTreatment} from 'src/screens/home/blowDryDiagnosis/blowDryDiagnosisAction';
+import BlowDryDiagnosisView  from 'src/screens/home/blowDryDiagnosis/blowDryDiagnosisView';
 
 class BlowDryDiagnosisScreen extends Component {
 

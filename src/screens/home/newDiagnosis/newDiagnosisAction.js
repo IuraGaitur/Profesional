@@ -1,12 +1,17 @@
 import {Actions} from 'react-native-router-flux';
-import Constants from './../../../utils/Constants';
+import {NO_ACTION} from 'src/app/actions';
 
-export function showUsingEnergyCode(client) {
+export const showUsingEnergyCode = (client) => {
     Actions.energyDiagnosis({newClient: client});
-    return {type: Constants.NO_ACTION};
-}
+    return {type: NO_ACTION};
+};
 
-export function showUsingBlowDryCode(client) {
+export const showUsingBlowDryCode = (client) => {
     Actions.blowDiagnosis({newClient: client});
-    return {type: Constants.NO_ACTION};
-}
+    return {type: NO_ACTION};
+};
+
+export const goBack = () => {
+    Actions.replace('main');
+    return {type: NO_ACTION};
+};

@@ -1,18 +1,12 @@
-import React, {Component} from 'react';
-import {FlatList, Text, View, StyleSheet, Dimensions, TouchableWithoutFeedback} from "react-native";
 import PropTypes from 'prop-types';
-import {
-    BACKGROUND_GRAY_COLOR,
-    GRAY_COLOR, GRAY_LIGHT, LIGHT_BACKGROUND_COLOR,
-    LIGHT_COLOR,
-    PRIMARY,
-    TEXT_COLOR,
-    TEXT_GRAY_COLOR
-} from '../../../../utils/Colors';
-import {Button, Icon, Item, Input} from "native-base";
-import DrawerMenu from "../../../../views/menu/DrawerMenu";
-import ContentFlex from "../../../../views/native_elements/ContentFlex";
-import ClientItemView from "./views/ClientItemView";
+import React, {Component} from 'react';
+import {FlatList, Text, View, StyleSheet} from 'react-native';
+import {Button, Icon, Item, Input} from 'native-base';
+import DrawerMenu from 'src/views/menu/DrawerMenu';
+import ContentFlex from 'src/views/native_elements/ContentFlex';
+import {GRAY_COLOR, GRAY_LIGHT, LIGHT_COLOR} from 'src/utils/Colors';
+import ClientItemView from 'src/screens/home/client/clients/views/ClientItemView';
+import TouchOpacityDebounce from "../../../../utils/touchable_debounce/TouchOpacityDebounce";
 
 export default class ClientsView extends Component {
 
@@ -21,12 +15,22 @@ export default class ClientsView extends Component {
         this.state = {searchKey: ''};
     }
 
+    actionChangeSearchInput = (value, callback) => {
+        this.setState({searchKey: value});
+        if (callback) {
+            callback(value);
+        }
+    };
+
     render() {
         const {searchKey} = this.state;
-        const {title, primaryUser, createClient, showClientsList, userClients} = this.props;
+        const {title, primaryUser, createClient, showClientsList, userClients,
+            actionRefreshClients, actionClientClick, isFetching, actionSearchCallback
+        } = this.props;
+
         let searchIcon = searchKey ? (
-            <Icon name="ios-close" style={{color: GRAY_COLOR, fontSize: 32}}
-                  onPress={() => this.setState({searchKey: ''})}/>
+            <Icon name='ios-close' style={styles.iconClear}
+                  onPress={() => this.actionChangeSearchInput('', actionSearchCallback)}/>
         ) : null;
 
         return (
@@ -35,18 +39,22 @@ export default class ClientsView extends Component {
                     <Icon name='person-add' style={{color: GRAY_COLOR}}/>
                 </Button>)}>
 
-                {!showClientsList && <View style={{flex: 1, justifyContent: 'center', alignContent: 'center'}}>
-                    <Text style={{textAlign: 'center'}}>Welcome {primaryUser && primaryUser.email}</Text>
-                    <Text style={{textAlign: 'center'}}>Please add a new client</Text>
-                </View>}
+                {!showClientsList && (
+                    <View style={styles.welcomeContainer}>
+                        <Text style={{textAlign: 'center'}}>Welcome {primaryUser && primaryUser.email}</Text>
+                        <Text style={{textAlign: 'center'}}>Please add a new client</Text>
+                    </View>)
+                }
 
                 {showClientsList && (
                     <ContentFlex scrollable={false}>
                         <View style={styles.searchView}>
                             <Item style={styles.searchBar}>
-                                <Icon name="ios-search" style={{color: GRAY_COLOR}}/>
-                                <Input placeholder="Search" returnKeyType="search"
-                                       value={searchKey} onChangeText={(searchKey) => this.setState({searchKey})}/>
+                                <Icon name='ios-search' style={{color: GRAY_COLOR}}/>
+                                <Input placeholder='Search' returnKeyType='search'
+                                       autoCapitalize='none' value={searchKey} onChangeText={(searchKey) => {
+                                    this.actionChangeSearchInput(searchKey, actionSearchCallback)
+                                }}/>
                                 {searchIcon}
                             </Item>
                         </View>
@@ -54,14 +62,20 @@ export default class ClientsView extends Component {
                             keyExtractor={item => item.getID()}
                             data={userClients}
                             style={styles.listClients}
-                            ItemSeparatorComponent={(sectionId, rowId) => <View key={rowId.toString()} style={styles.separator}/>}
+                            onRefresh={() => actionRefreshClients(searchKey)}
+                            refreshing={isFetching}
+                            ItemSeparatorComponent={(sectionId, rowId) => <View key={rowId.toString()}
+                                                                                style={styles.separator}/>}
                             renderItem={(rowData) =>
-                                <ClientItemView
-                                    key={rowData.item.getID()}
-                                    selectPageCallback={pos => this.selectPage(pos)}
-                                    name={rowData.item.getName()}
-                                    formula={rowData.item.getFormula()}
-                                />}
+                                <TouchOpacityDebounce onPress={() => actionClientClick(rowData.item)}>
+                                    <ClientItemView
+                                        key={rowData.item.getID()}
+                                        selectPageCallback={pos => this.selectPage(pos)}
+                                        name={rowData.item.getName()}
+                                        formula={rowData.item.getFormula()}
+                                    />
+                                </TouchOpacityDebounce>
+                            }
                         />
 
 
@@ -96,6 +110,15 @@ const styles = StyleSheet.create({
     listClients: {
         marginTop: 8,
         marginHorizontal: 24
+    },
+    iconClear: {
+        color: GRAY_COLOR,
+        fontSize: 32
+    },
+    welcomeContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center'
     }
 });
 
@@ -104,5 +127,9 @@ ClientsView.propTypes = {
     primaryUser: PropTypes.object,
     createClient: PropTypes.func,
     showClientsList: PropTypes.bool,
-    clients: PropTypes.array
+    userClients: PropTypes.array,
+    actionClientClick: PropTypes.func,
+    actionRefreshClients: PropTypes.func,
+    isFetching: PropTypes.bool,
+    actionSearchCallback: PropTypes.func
 };

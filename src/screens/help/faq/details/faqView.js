@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Drawer from 'react-native-drawer'
-import {FlatList, Text, View, StyleSheet, Dimensions} from "react-native";
+import {FlatList, Text, View, StyleSheet, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
 import {
     BACKGROUND_GRAY_COLOR,
@@ -9,12 +9,12 @@ import {
     PRIMARY,
     TEXT_COLOR,
     TEXT_GRAY_COLOR
-} from '../../../../utils/Colors';
-import MenuItem from "../../../../views/menu/MenuItem";
-import {Body, Button, Container, Icon, Input, Item, Left, List, ListItem, Right, Title, Header} from "native-base";
-import ContainerFlex from "../../../../views/native_elements/ContainerFlex";
-import ContentFlex from "../../../../views/native_elements/ContentFlex";
-import BackMenu from "../../../../views/menu/BackMenu";
+} from 'src/utils/Colors';
+import MenuItem from '../../../../views/menu/MenuItem';
+import {Body, Button, Container, Icon, Input, Item, Left, List, ListItem, Right, Title, Header} from 'native-base';
+import ContainerFlex from '../../../../views/native_elements/ContainerFlex';
+import ContentFlex from '../../../../views/native_elements/ContentFlex';
+import BackMenu from '../../../../views/menu/BackMenu';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -38,8 +38,8 @@ export default class FaqView extends Component {
                     </Button>}/>
                 <Header searchBar rounded style={[styles.headerContainer]}>
                     <Item style={styles.searchBar}>
-                        <Icon name="ios-search"/>
-                        <Input placeholder="Search" returnKeyType="search"/>
+                        <Icon name='ios-search'/>
+                        <Input placeholder='Search' returnKeyType='search'/>
                     </Item>
                 </Header>
 
@@ -51,7 +51,7 @@ export default class FaqView extends Component {
                                       <Text style={styles.textItem}>{item.title}</Text>
                                   </Left>
                                   <Right>
-                                      <Icon name="ios-arrow-forward"/>
+                                      <Icon name='ios-arrow-forward'/>
                                   </Right>
                               </ListItem>
                           }>
