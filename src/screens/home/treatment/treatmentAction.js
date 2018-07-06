@@ -1,7 +1,7 @@
 import { Actions } from 'react-native-router-flux';
-import Constants from './../../../utils/Constants';
-import ClientDao from "../../../data/database/ClientDao";
-export const INIT = 'INIT';
+import Constants from 'src/utils/Constants';
+import ClientDao from 'src/data/database/ClientDao';
+import {INIT, NO_ACTION} from 'src/app/actions';
 
 export function init() {
     return {
@@ -13,13 +13,13 @@ export function init() {
 
 export function showInfoScreen() {
     Actions.info();
-    dispatch({type: Constants.NO_ACTION});
+    dispatch({type: NO_ACTION});
 }
 
 export function saveClient(client) {
     return async (dispatch) => {
-        await new ClientDao().save(client);
+        await new ClientDao().saveClientTreatment(client);
         Actions.main();
-        dispatch({type: Constants.NO_ACTION});
+        dispatch({type: NO_ACTION});
     }
 }

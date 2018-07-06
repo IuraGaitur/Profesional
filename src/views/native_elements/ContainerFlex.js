@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {View} from "react-native";
 import PropTypes from 'prop-types';
-import {Content} from "native-base";
-import StatusBarBackground from "../StatusBarBackground";
-import NetworkErrorDialog from "../NetworkErrorDialog";
-import {LIGHT_COLOR} from "../../utils/Colors";
-import InfoDialog from "../InfoDialog";
+import {Content} from 'native-base';
+import {LIGHT_COLOR} from 'src/utils/Colors';
+import InfoDialog from 'src/views/InfoDialog';
+import NetworkErrorDialog from 'src/views/NetworkErrorDialog';
+import StatusBarBackground from 'src/views/StatusBarBackground';
 
 export default class ContainerFlex extends Component {
 
@@ -29,7 +28,11 @@ export default class ContainerFlex extends Component {
     render() {
         return (
             <Content bounces={this.props.scrollable ? true : false} contentContainerStyle={{flex: 1}}
-                     style={{flex: 1, padding: this.props.padding ? this.props.padding : 0, backgroundColor: LIGHT_COLOR}}>
+                     style={{
+                         flex: 1,
+                         padding: this.props.padding ? this.props.padding : 0,
+                         backgroundColor: LIGHT_COLOR
+                     }}>
                 <StatusBarBackground/>
                 {this.props.children}
                 <NetworkErrorDialog

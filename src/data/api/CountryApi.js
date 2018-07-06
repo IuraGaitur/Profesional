@@ -1,6 +1,6 @@
-import Constants from './../../utils/Constants';
-import CountryMock from "./mock/CountryMock";
-import CountryNetwork from "./network/CountryNetwork";
+import Constants from 'src/utils/Constants';
+import CountryMock from 'src/data/api/mock/CountryMock';
+import CountryNetwork from 'src/data/api/network/CountryNetwork';
 
 export default class CountryApi {
     instance() {

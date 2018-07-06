@@ -1,9 +1,9 @@
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Input} from "react-native-elements";
-import {CheckBox} from "native-base";
-import PropTypes from 'prop-types';
-import {PRIMARY} from "../../../../utils/Colors";
+import {Input} from 'react-native-elements';
+import {CheckBox} from 'native-base';
+
 export const REQUIRED = 'required';
 
 export default class CheckboxInput extends Component {
@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
     checkValidator: {
         flex: 1,
         alignItems: 'flex-end',
-        //justifyContent: 'flex-end',
         flexDirection: 'column'
     },
     validatorText: {

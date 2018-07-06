@@ -12,6 +12,8 @@ import {ContactScreen} from './src/screens/help/contact';
 import {BlowDryDiagnosisScreen} from './src/screens/home/blowDryDiagnosis';
 import {EnergyCodeDiagnosisScreen} from './src/screens/home/energyCodeDiagnosis';
 import {CreateClientScreen} from './src/screens/home/client/newClient';
+import {EditClientScreen} from './src/screens/home/client/editClient';
+import {ClientDetailsScreen} from './src/screens/home/client/clientDetails';
 import {NewDiagnosisScreen} from './src/screens/home/newDiagnosis';
 import {TreatmentScreen} from './src/screens/home/treatment';
 import {ProductsScreen} from './src/screens/products/list';
@@ -27,6 +29,8 @@ export const LOGIN = 'login';
 export const REGISTER = 'register';
 export const PROFILE = 'profile';
 export const CREATE_CLIENT = 'createClient';
+export const EDIT_CLIENT = 'editClient';
+export const CLIENT_DETAILS = 'clientDetails';
 export const FORGOT_PASS = 'forgotPass';
 export const INFO = 'info';
 export const ABOUT = 'about';
@@ -60,10 +64,11 @@ class App extends Component {
                     <Scene key={CONTACT_US} component={ContactScreen} />
                     <Scene key={INFO} component={InfoScreen}/>
                     <Scene key={ABOUT} component={AboutScreen}/>
-                    {/*MAIN*/}
-                    <Scene key={MAIN} component={ClientsScreen} />
                     {/*HOME SCENES*/}
+                    <Scene key={MAIN} component={ClientsScreen}/>
                     <Scene key={CREATE_CLIENT} component={CreateClientScreen} />
+                    <Scene key={EDIT_CLIENT} component={EditClientScreen} />
+                    <Scene key={CLIENT_DETAILS} component={ClientDetailsScreen} />
                     <Scene key={NEW_DIAGNOSIS} component={NewDiagnosisScreen}/>
                     <Scene key={BLOW_DRY_DIAGNOSIS} component={BlowDryDiagnosisScreen} />
                     <Scene key={ENERGY_CODE_DIAGNOSIS} component={EnergyCodeDiagnosisScreen} />

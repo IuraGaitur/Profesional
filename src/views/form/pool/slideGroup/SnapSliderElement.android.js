@@ -5,8 +5,8 @@ var ReactNative = require('react-native');
 var ReactNativeElements = require('react-native-elements');
 var PropTypes = require('prop-types');
 var createReactClass = require('create-react-class');
-import Slider from "react-native-slider";
-import {GRAY_LIGHT, LIGHT_COLOR, PRIMARY} from "../../../../utils/Colors";
+import Slider from 'react-native-slider';
+import {GRAY_LIGHT, LIGHT_COLOR, PRIMARY} from 'src/utils/Colors';
 
 var {
     StyleSheet,
@@ -127,7 +127,7 @@ var SnapSlider = createReactClass({
     _labelView() {
         if(!this.props.steps) return null;
         var itemStyle = [defaultStyles.item, this.props.itemStyle];
-        let labels = this.props.steps.map((i, j) => <Text key={i.value} ref={"t"+j} style={itemStyle} onLayout={this._getItemWidth}>{i.label}</Text>);
+        let labels = this.props.steps.map((i, j) => <Text key={i.value} ref={'t'+j} style={itemStyle} onLayout={this._getItemWidth}>{i.label}</Text>);
         return (
             <View style={[defaultStyles.itemWrapper, this.props.itemWrapperStyle]}>
                 { labels }

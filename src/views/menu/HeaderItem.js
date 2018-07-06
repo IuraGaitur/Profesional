@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, Platform} from 'react-native';
-import {GRAY_COLOR, LIGHT_COLOR, PRIMARY} from "../../utils/Colors";
-import TouchOpacityDebounce from "../../utils/touchable_debounce/TouchOpacityDebounce";
+import {StyleSheet, Text, View, Image} from 'react-native';
+import {GRAY_COLOR, LIGHT_COLOR, PRIMARY} from 'src/utils/Colors';
+import TouchOpacityDebounce from 'src/utils/touchable_debounce/TouchOpacityDebounce';
 import PropTypes from 'prop-types';
 
 export default class HeaderItem extends Component {
@@ -17,7 +17,7 @@ export default class HeaderItem extends Component {
             <View style={styles.inline}>
                 <TouchOpacityDebounce onPress={() => selectPageCallback(0)}>
                     <View style={styles.switchContainer}>
-                        <Image style={styles.imageItem} source={require('./../../../assets/images/logo.png')}/>
+                        <Image style={styles.imageItem} source={require('Sytem_Pro/assets/images/logo.png')}/>
                     </View>
                 </TouchOpacityDebounce>
                 <View style={styles.line}/>

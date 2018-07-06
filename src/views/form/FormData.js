@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {View} from "react-native";
-import {Form} from "native-base";
+import {View} from 'react-native';
+import {Form} from 'native-base';
 
 export default class FormData extends Component {
 

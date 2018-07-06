@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { TouchableWithoutFeedback } from "react-native";
-import { debounce } from "./Debounce";
-import {throttle} from "./Throttle";
+import React, { Component } from 'react';
+import { TouchableWithoutFeedback } from 'react-native';
+import { debounce } from 'src/utils/touchable_debounce/Debounce';
+import {throttle} from 'src/utils/touchable_debounce/Throttle';
 
 class TouchDebounce extends Component {
 

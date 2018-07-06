@@ -1,4 +1,4 @@
-import {BIG, SMALL} from "./CheckType";
+import {BIG, SMALL} from 'src/data/models/diagnosis/condition/check/CheckType';
 export default class CheckCondition {
 
     constructor(options, title) {

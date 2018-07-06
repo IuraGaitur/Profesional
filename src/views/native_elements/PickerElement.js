@@ -1,17 +1,7 @@
-import React, { PureComponent } from 'react';
-import {
-    Modal,
-    Picker,
-    Platform,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View,
-} from 'react-native';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash.isequal';
+import React, { PureComponent } from 'react';
+import {Modal, Picker, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View,} from 'react-native';
 
 function handlePlaceholder({ placeholder }) {
     if (isEqual(placeholder, {})) {
@@ -190,10 +180,10 @@ export default class RNPickerSelect extends PureComponent {
 
     renderTextInputOrChildren() {
         if (this.props.children) {
-            return <View pointerEvents="box-only">{this.props.children}</View>;
+            return <View pointerEvents='box-only'>{this.props.children}</View>;
         }
         return (
-            <View pointerEvents="box-only">
+            <View pointerEvents='box-only'>
                 <TextInput
                     style={[this.props.style.inputIOS, this.renderPlaceholderStyle()]}
                     value={this.state.selectedItem.label}
@@ -232,7 +222,7 @@ export default class RNPickerSelect extends PureComponent {
                         <Picker
                             onValueChange={this.onValueChange}
                             selectedValue={this.state.selectedItem.value}
-                            testId="RNPickerSelectIOS"
+                            testId='RNPickerSelectIOS'
                         >
                             {this.renderPickerItems()}
                         </Picker>
@@ -250,7 +240,7 @@ export default class RNPickerSelect extends PureComponent {
                     style={{ position: 'absolute', top: 0, width: 1000, height: 1000 }}
                     onValueChange={this.onValueChange}
                     selectedValue={this.state.selectedItem.value}
-                    testId="RNPickerSelectAndroid"
+                    testId='RNPickerSelectAndroid'
                     mode={this.props.mode}
                     enabled={!this.props.disabled}
                 >
@@ -271,7 +261,7 @@ export default class RNPickerSelect extends PureComponent {
                     style={[this.props.style.inputAndroid, this.renderPlaceholderStyle()]}
                     onValueChange={this.onValueChange}
                     selectedValue={this.state.selectedItem.value}
-                    testId="RNPickerSelectAndroid"
+                    testId='RNPickerSelectAndroid'
                     mode={this.props.mode}
                     enabled={!this.props.disabled}
                 >

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {GRAY_COLOR, TEXT_COLOR} from "../utils/Colors";
+import {GRAY_COLOR, TEXT_COLOR} from 'src/utils/Colors';
 
 export default StyleSheet.create({
 
@@ -45,11 +45,11 @@ export default StyleSheet.create({
     },
 
     caption: {
-
+        fontSize: 12
     },
 
     overline: {
-
+        fontSize: 10
     },
 
     column: {
@@ -77,13 +77,21 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center'
     },
-
     centerColAlign: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center'
     },
-
+    spaceColAlign: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-around'
+    },
+    spaceRowAlign: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
     rightCenterPosition: {
         position: 'absolute',
         right: 0,

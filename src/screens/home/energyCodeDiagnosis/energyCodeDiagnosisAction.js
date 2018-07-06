@@ -1,7 +1,6 @@
-import DiagnosisQuizApi from "../../../data/api/DiagnosisQuizApi";
+import DiagnosisQuizApi from 'src/data/api/DiagnosisQuizApi';
 import { Actions } from 'react-native-router-flux';
-import Constants from '../../../utils/Constants';
-export const INIT = 'INIT';
+import {INIT, NO_ACTION} from 'src/app/actions';
 
 export function init() {
     return async(dispatch) => {
@@ -19,16 +18,10 @@ function getDiagnosisQuiz(diagnosisQuiz) {
 
 export function showTreatment(client) {
     Actions.treatment({newClient: client});
-    return {type: Constants.NO_ACTION};
-}
-
-function errorNetwork() {
-    return {
-        type: NETWORK_ERROR
-    }
+    return {type: NO_ACTION};
 }
 
 export function goBack() {
     Actions.pop();
-    return {type: Constants.NO_ACTION};
+    return {type: NO_ACTION};
 }

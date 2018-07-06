@@ -1,33 +1,28 @@
-import UserService from '../../../data/api/UserApi';
-import UserDao from "../../../data/database/UserDao";
-import Strings from "../../../utils/Strings";
-import StatusCode from "../../../utils/StatusCode";
-import Constants from '../../../utils/Constants';
+import UserService from 'src/data/api/UserApi';
+import UserDao from 'src/data/database/UserDao';
+import Strings from 'src/utils/Strings';
+import StatusCode from 'src/utils/StatusCode';
+import Constants from 'src/utils/Constants';
 import { Actions } from 'react-native-router-flux';
-export const REQUEST_LOGIN = 'REQUEST_LOGIN';
-export const LOGIN_FAIL = 'LOGIN_FAIL';
-export const EMAIL_FAIL = 'EMAIL_FAIL';
-export const PASS_FAIL = 'PASS_FAIL';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const NETWORK_ERROR = 'NETWORK_ERROR';
+import {LOGIN, FAIL, SUCCESS, EMAIL_FAIL, PASS_FAIL, NETWORK_ERROR, NO_ACTION} from 'src/app/actions';
 
 function requestLogin() {
     return {
-        type: REQUEST_LOGIN
+        type: LOGIN
     }
 }
 
 function successLogin(userResponse) {
     return {
         userResponse: userResponse,
-        type: LOGIN_SUCCESS
+        type: SUCCESS
     }
 }
 
 function errorLogin(errorMessage) {
     return {
         error: errorMessage,
-        type: LOGIN_FAIL
+        type: FAIL
     }
 }
 
@@ -51,7 +46,7 @@ function errorNetwork() {
     }
 }
 
-export function loginRequest(email, pass) {
+export const loginRequest = (email, pass) => {
     return async (dispatch) => {
         if (!email) return dispatch(errorEmail(Strings.ERROR_EMPTY_EMAIL));
         if (!pass) return dispatch(errorPass(Strings.ERROR_EMPTY_PASS));
@@ -72,17 +67,17 @@ export function loginRequest(email, pass) {
 
 export function register() {
     Actions.register();
-    return {type: Constants.NO_ACTION};
+    return {type: NO_ACTION};
 }
 
 export function forgotPass() {
     Actions.forgotPass();
-    return {type: Constants.NO_ACTION};
+    return {type: NO_ACTION};
 }
 
 export function getInfo() {
     Actions.info();
-    return {type: Constants.NO_ACTION};
+    return {type: NO_ACTION};
 }
 
 

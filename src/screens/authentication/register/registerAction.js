@@ -1,15 +1,9 @@
-import UserService from '../../../data/api/UserApi';
-import CountryApi from "../../../data/api/CountryApi";
-import UserDao from "../../../data/database/UserDao";
-import StatusCode from "../../../utils/StatusCode";
-import Constants from '../../../utils/Constants';
+import UserService from 'src/data/api/UserApi';
+import CountryApi from 'src/data/api/CountryApi';
+import UserDao from 'src/data/database/UserDao';
+import StatusCode from 'src/utils/StatusCode';
 import { Actions } from 'react-native-router-flux';
-export const INIT = 'INIT';
-export const ERROR = 'ERROR';
-export const REQUEST_REGISTER = 'REQUEST_REGISTER';
-export const REGISTER_FAIL = 'REGISTER_FAIL';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const NETWORK_ERROR = 'NETWORK_ERROR';
+import {INIT, REGISTER, SUCCESS, FAIL, NETWORK_ERROR, NO_ACTION} from 'src/app/actions';
 
 export function init() {
     return async(dispatch) => {
@@ -27,7 +21,7 @@ function getCountries(countries) {
 
 function requestRegister() {
     return {
-        type: REQUEST_REGISTER
+        type: REGISTER
     }
 }
 
@@ -35,14 +29,14 @@ function successRegister(userResponse) {
     Actions.main();
     return {
         userResponse: userResponse,
-        type: REGISTER_SUCCESS
+        type: SUCCESS
     }
 }
 
 function errorRegister(errorMessage) {
     return {
         error: errorMessage,
-        type: REGISTER_FAIL
+        type: FAIL
     }
 }
 
@@ -71,10 +65,10 @@ export function registerRequest(user) {
 
 export function showInfo() {
     Actions.info();
-    return {type: Constants.NO_ACTION};
+    return {type: NO_ACTION};
 }
 
 export function goBack() {
     Actions.pop();
-    return {type: Constants.NO_ACTION};
+    return {type: NO_ACTION};
 }

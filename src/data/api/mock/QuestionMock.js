@@ -1,4 +1,4 @@
-import allQuestions from "../../../../assets/mocks/questions/success.json";
+import allQuestions from 'Sytem_Pro/assets/mocks/questions/success.json';
 
 export default class QuestionMock {
     getQuestions(string) {

@@ -1,48 +1,44 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {showCreationScreen, getClients, getPrimaryUser} from './clientDetailsAction';
-import ClientDetailsView from "./clientDetailsView";
-import CollectionUtils from "../../../../utils/CollectionUtils";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import ClientDetailsView from 'src/screens/home/client/clientDetails/clientDetailsView';
+import {editClient, removeClient} from 'src/screens/home/client/clientDetails/clientDetailsAction';
 
 class ClientDetailsScreen extends Component {
 
-    static navigationOptions = { header: null};
+    static navigationOptions = {header: null};
 
     constructor(props) {
         super(props);
-        this.props.getPrimaryUser();
-        this.props.getClients();
     }
 
-    createClient = () => {
-        this.props.showCreationScreen();
+    actionEditClient = (client) => {
+        this.props.editClient(client);
     };
 
-    actionSearch = (text) => {
-        this.props.getClients(text);
+    actionDeleteClient = (client) => {
+        this.props.removeClient(client);
     };
 
     render() {
         const {client} = this.props;
         return (
-            <ClientDetailsView client={client}/>
+            <ClientDetailsView
+                client={client}
+                actionEditClick={this.actionEditClient}
+                actionDeleteClick={this.actionDeleteClient}/>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        userClients: state.clients.userClients,
-        primaryUser: state.clients.primaryUser
-    };
+    return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        showCreationScreen: () => dispatch(showCreationScreen()),
-        getClients: (search) => dispatch(getClients(search)),
-        getPrimaryUser: () => dispatch(getPrimaryUser())
+        editClient: (client) => dispatch(editClient(client)),
+        removeClient: (client) => dispatch(removeClient(client))
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (ClientDetailsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(ClientDetailsScreen);

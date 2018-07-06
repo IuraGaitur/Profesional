@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
+import {StyleSheet, Text, View} from 'react-native';
 
 export default class Space extends Component{
 

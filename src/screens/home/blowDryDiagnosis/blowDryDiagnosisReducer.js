@@ -1,4 +1,4 @@
-import {INIT} from './blowDryDiagnosisAction';
+import {INIT} from 'src/app/actions';
 
 const defaultState = {
     diagnosisQuiz: {},

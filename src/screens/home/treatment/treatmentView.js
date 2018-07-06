@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
-import MainStyle from './../../../views/MainStyle';
-import {Text, View, StyleSheet} from "react-native";
+import MainStyle from 'src/views/MainStyle';
+import {Text, View, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import {GRAY_COLOR,} from '../../../utils/Colors';
-import {Button, Icon, Thumbnail} from "native-base";
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
-import BackMenuLogo from "../../../views/menu/BackMenuLogo";
-import ContentFlex from "../../../views/native_elements/ContentFlex";
-import SubmitButton from "../../../views/native_elements/SubmitButton";
-import Divider from "../../../views/Divider";
-import BigButton from "../../../views/native_elements/BigButton";
-import Formula from "../../../views/Formula";
-import Space from "../../../views/native_elements/Space";
-import CardProduct from "../../../views/native_elements/CardProduct";
+import {GRAY_COLOR,} from 'src/utils/Colors';
+import {Button, Icon, Thumbnail} from 'native-base';
+import ContainerFlex from 'src/views/native_elements/ContainerFlex';
+import BackMenuLogo from 'src/views/menu/BackMenuLogo';
+import ContentFlex from 'src/views/native_elements/ContentFlex';
+import SubmitButton from 'src/views/native_elements/SubmitButton';
+import Divider from 'src/views/Divider';
+import BigButton from 'src/views/native_elements/BigButton';
+import Formula from 'src/views/Formula';
+import Space from 'src/views/native_elements/Space';
+import CardProduct from 'src/views/native_elements/CardProduct';
 
 export default class TreatmentView extends Component {
 
@@ -32,7 +32,7 @@ export default class TreatmentView extends Component {
         } = this.props;
 
         return (
-            <ContainerFlex ref="mainContainer">
+            <ContainerFlex ref='mainContainer'>
                 <BackMenuLogo actions={
                     <View style={MainStyle.rightAlign}>
                         <Button transparent onPress={() => actionInfo()}>
@@ -103,7 +103,7 @@ export default class TreatmentView extends Component {
                             <View style={MainStyle.centerAlign}>
                                 <View style={styles.imageBorder}>
                                     <Thumbnail style={styles.image}
-                                               source={require('./../../../../assets/images/img_hair_type.png')}/>
+                                               source={require('Sytem_Pro/assets/images/img_hair_type.png')}/>
                                 </View>
                             </View>
                             <BigButton text={'ESSENTIALS'} color={'#FAD3C8'} onPress={() => actionEssentials()} disabled/>

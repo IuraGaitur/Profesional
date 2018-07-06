@@ -1,28 +1,22 @@
-import UserDao from "../../data/database/UserDao";
-import { Actions } from 'react-native-router-flux';
-export const HAS_USER = 'HAS_USER';
-export const NO_USER = 'NO_USER';
+import UserDao from 'src/data/database/UserDao';
+import {Actions} from 'react-native-router-flux';
+import {IS_LOGGED_IN, NO_USER} from 'src/app/actions';
 
-function noPrimaryUser() {
-    Actions.login();
-    return {
-        type: NO_USER
-    }
-}
-
-function hasPrimaryUser(user) {
-    Actions.main();
-    return {
-        type: HAS_USER,
-        user: user
-    }
-}
-
-export function checkForPrimaryUser() {
+export const checkForPrimaryUser = () => {
     return async (dispatch) => {
         let primaryUser = await new UserDao().getPrimaryUser();
         setTimeout(async function () {
-            return dispatch(primaryUser != null ? hasPrimaryUser(primaryUser) : noPrimaryUser())
+            return dispatch(primaryUser ? hasPrimaryUser(primaryUser) : noPrimaryUser())
         }, 2000);
     }
-}
+};
+
+const noPrimaryUser = () => {
+    Actions.login();
+    return {type: NO_USER}
+};
+
+const hasPrimaryUser = (user) => {
+    Actions.main();
+    return {user: user, type: IS_LOGGED_IN};
+};

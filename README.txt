@@ -28,3 +28,16 @@ Run android: - Build application from android/ directory and run it on device (P
 ### Code Style
  - Callbacks should start with action_ in parent and in child action____Callback
 
+  Smart containers(screens) and dumb components
+  - Use redux saga for dividing BL into sagas and in order to have clean actions
+  - Use redux saga with redux-action
+
+
+## Version 0.4
+ - Added search through clients
+ - Added refresh clients list
+ - Save client after back from treatment screen
+ - Edit client form
+ - Align inputs in diagnosis view
+ - Fix first letter for uppercase in inputs
+ - Changed app storage(from AsyncStorage to PouchDb)

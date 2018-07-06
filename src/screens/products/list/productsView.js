@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {FlatList, Text, View, StyleSheet, Dimensions, TouchableWithoutFeedback} from "react-native";
+import {View, StyleSheet, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
-import DrawerMenu from "../../../views/menu/DrawerMenu";
-import ContentFlex from "../../../views/native_elements/ContentFlex";
-import {IndicatorViewPager, PagerTabIndicator, PagerTitleIndicator} from "rn-viewpager";
-import {GRAY_LIGHT, LIGHT_BACKGROUND_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR} from "../../../utils/Colors";
-import ProductsPage from "./pages/ProductsPage";
+import DrawerMenu from 'src/views/menu/DrawerMenu';
+import {IndicatorViewPager, PagerTitleIndicator} from 'rn-viewpager';
+import {LIGHT_COLOR, PRIMARY, TEXT_COLOR} from 'src/utils/Colors';
+import ProductsPage from './pages/ProductsPage';
 const HALF_SCREEN_WIDTH = Dimensions.get('window').width / 2;
 
 export default class ProductsView extends Component {

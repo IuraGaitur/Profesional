@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
-import {Button} from "native-base";
-import {PRIMARY, TEXT_COLOR} from "../../utils/Colors";
+import {Button} from 'native-base';
+import {StyleSheet, Text, View} from 'react-native';
+import {TEXT_COLOR} from 'src/utils/Colors';
 
 export default class BigButton extends Component {
 
@@ -11,7 +11,7 @@ export default class BigButton extends Component {
             <Button block style={[styles.mainButton, {backgroundColor: this.props.color}]}
                     disabled={this.props.disabled}
                     onPress={(e) => this.props.onPress(e)}>
-                <Text style={{color: TEXT_COLOR, fontSize: 22}}>{this.props.text}</Text>
+                <Text style={styles.text}>{this.props.text}</Text>
             </Button>);
     }
 }
@@ -24,6 +24,10 @@ const styles = StyleSheet.create({
     },
     indicator: {
         padding: 8
+    },
+    text: {
+        color: TEXT_COLOR,
+        fontSize: 22
     }
 });
 

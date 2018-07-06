@@ -1,20 +1,18 @@
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import Drawer from 'react-native-drawer'
-import {FlatList, Text, View, StyleSheet, Dimensions, TouchableWithoutFeedback} from "react-native";
-import PropTypes from 'prop-types';
-import {
-    BACKGROUND_GRAY_COLOR, GRAY_COLOR, LIGHT_BACKGROUND_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR,
-    TEXT_GRAY_COLOR
-} from '../../utils/Colors';
-import MenuItem from "./MenuItem";
-import HeaderItem from "./HeaderItem";
-import {Body, Button, Icon, Left, Title, Header, Right} from "native-base";
-import MenuDao from "../../data/database/MenuDao";
-import ContainerFlex from "../native_elements/ContainerFlex";
-import UserDao from "../../data/database/UserDao";
+import MenuItem from 'src/views/menu/MenuItem';
+import HeaderItem from 'src/views/menu/HeaderItem';
+import MenuDao from 'src/data/database/MenuDao';
+import UserDao from 'src/data/database/UserDao';
+import {Actions} from 'react-native-router-flux';
+import ContainerFlex from 'src/views/native_elements/ContainerFlex';
+import {FlatList, View, StyleSheet, Dimensions} from 'react-native';
+import {Body, Button, Icon, Left, Title, Header, Right} from 'native-base';
+import {GRAY_COLOR, LIGHT_BACKGROUND_COLOR, LIGHT_COLOR} from 'src/utils/Colors';
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
-import {Actions} from 'react-native-router-flux';
 
 export default class DrawerMenu extends Component {
 
@@ -82,7 +80,7 @@ export default class DrawerMenu extends Component {
         return (
             <ContainerFlex>
                 <Drawer
-                    type="overlay"
+                    type='overlay'
                     content={
                         <View style={styles.drawerMenu}>
                             <View style={styles.menu}>
@@ -90,10 +88,10 @@ export default class DrawerMenu extends Component {
                                 keyExtractor={item => item.title}
                                 data={menuItems}
                                 scrollEnabled={false}
-                                renderSeparator={(sectionId, rowId) => <View key={rowId.toString()}
-                                                                             style={styles.separator}/>}
-                                ListHeaderComponent={<HeaderItem
-                                    selectPageCallback={pos => this.selectPage(pos)}/>}
+                                renderSeparator={(sectionId, rowId) =>
+                                    <View key={rowId.toString()} style={styles.separator}/>}
+                                ListHeaderComponent={
+                                    <HeaderItem selectPageCallback={pos => this.selectPage(pos)}/>}
                                 renderItem={(rowData) =>
                                     <MenuItem
                                         key={rowData.item.title}
@@ -116,11 +114,11 @@ export default class DrawerMenu extends Component {
                     tweenHandler={(ratio) => ({
                         main: {opacity: (2 - ratio) / 2}
                     })}>
-                    <View style={{backgroundColor: 'white', flex: 1}}>
+                    <View style={styles.parentContainer}>
                         <Header androidStatusBarColor={GRAY_COLOR} style={styles.headerContainer}>
                             <Left style={{marginLeft: 8}}>
                                 <Button transparent onPress={() => this.clickControlPanel()}>
-                                    <Icon name='menu' style={{color: 'black', fontSize: 24}}/>
+                                    <Icon name='menu' style={styles.icon}/>
                                 </Button>
                             </Left>
                             <Body>
@@ -138,11 +136,25 @@ export default class DrawerMenu extends Component {
 }
 
 const drawerStyles = {
-    drawer: { flex: 1, shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 0, backgroundColor: 'rgba(0,0,0, 0.5)'},
-    main: {paddingLeft: 3},
-}
+    drawer: { flex: 1,
+        shadowColor: '#000000',
+        shadowOpacity: 0.8,
+        shadowRadius: 0,
+        backgroundColor: 'rgba(0,0,0, 0.5)'
+    },
+    main: {
+        paddingLeft: 3
+    },
+};
 
 const styles = StyleSheet.create({
+    parentContainer: {
+        backgroundColor: 'white', flex: 1
+    },
+    icon: {
+        color: 'black',
+        fontSize: 24
+    },
     drawerMenu: {
         backgroundColor: 'transparent'
     },

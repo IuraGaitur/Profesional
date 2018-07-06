@@ -1,4 +1,4 @@
-import countries from "../../../../assets/mocks/country/success.json";
+import countries from 'Sytem_Pro/assets/mocks/country/success.json';
 
 export default class UserMock {
     getAll() {

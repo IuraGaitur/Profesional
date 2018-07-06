@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {registerRequest, goBack, showInfo, init } from './contactAction';
-import ContactView  from './contactView';
-import Toast, {DURATION} from 'react-native-easy-toast'
-import {View} from "react-native";
+import {registerRequest, goBack, showInfo, init } from 'src/screens/help/contact/contactAction';
+import ContactView  from 'src/screens/help/contact/contactView';
 
 class ContactScreen extends Component {
 

@@ -1,13 +1,13 @@
-import Subject from "../../models/diagnosis/subject/Subject";
-import CheckCondition from "../../models/diagnosis/condition/check/CheckCondition";
-import SelectCondition from "../../models/diagnosis/condition/select/SelectCondition";
-import SliderStepCondition from "../../models/diagnosis/condition/slide/SliderStepCondition";
-import SliderCondition from "../../models/diagnosis/condition/slide/SliderCondition";
-import DiagnosisQuiz from "../../models/diagnosis/DiagnosisQuiz";
+import Subject from 'src/data/models/diagnosis/subject/Subject';
+import CheckCondition from 'src/data/models/diagnosis/condition/check/CheckCondition';
+import SelectCondition from 'src/data/models/diagnosis/condition/select/SelectCondition';
+import SliderStepCondition from 'src/data/models/diagnosis/condition/slide/SliderStepCondition';
+import SliderCondition from 'src/data/models/diagnosis/condition/slide/SliderCondition';
+import DiagnosisQuiz from 'src/data/models/diagnosis/DiagnosisQuiz';
+
 const TYPE_PROGRESS = 'PROGRESS';
 const TYPE_CHECK = 'PICK';
 const TYPE_SELECT = 'RADIO_CHOOSE';
-
 const TYPE_PROGRESS_BACKGROUND = 'BACKGROUND';
 const TYPE_PROGRESS_CATEGORY = 'STEP';
 

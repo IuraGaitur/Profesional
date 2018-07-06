@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, WebView} from "react-native";
+import {View, StyleSheet, WebView} from 'react-native';
 import PropTypes from 'prop-types';
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
-import ContentFlex from "../../../views/native_elements/ContentFlex";
-import BackMenu from "../../../views/menu/BackMenu";
+import ContainerFlex from 'src/views/native_elements/ContainerFlex';
+import ContentFlex from 'src/views/native_elements/ContentFlex';
+import BackMenu from 'src/views/menu/BackMenu';
 
 export default class AboutView extends Component {
 
@@ -16,7 +16,6 @@ export default class AboutView extends Component {
         return (
             <ContainerFlex>
                 <BackMenu title={title} />
-
                 <ContentFlex>
                     <WebView
                         source={{uri: url}}

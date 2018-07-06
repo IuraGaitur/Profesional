@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, Platform} from 'react-native';
-import {GRAY_COLOR, LIGHT_COLOR, PRIMARY} from "../../utils/Colors";
-import TouchOpacityDebounce from "../../utils/touchable_debounce/TouchOpacityDebounce";
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {GRAY_COLOR, LIGHT_COLOR} from 'src/utils/Colors';
+import TouchOpacityDebounce from 'src/utils/touchable_debounce/TouchOpacityDebounce';
+
 
 export default class MenuItem extends Component {
 
@@ -12,13 +13,11 @@ export default class MenuItem extends Component {
 
     render() {
         const { selectPageCallback, title, position } = this.props;
-
         return (
             <View style={styles.inline}>
                 <TouchOpacityDebounce onPress={() => selectPageCallback(position)}>
                     <View style={styles.switchContainer}>
-
-                        <Text style={styles.drawerItem}> {title} </Text>
+                        <Text style={styles.drawerItem}>{title} </Text>
                     </View>
                 </TouchOpacityDebounce>
                 <View style={styles.line}/>

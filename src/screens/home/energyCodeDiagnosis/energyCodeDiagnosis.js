@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {goBack, init, showTreatment } from './energyCodeDiagnosisAction';
-import EnergyCodeDiagnosisView  from './energyCodeDiagnosisView';
+import {goBack, init, showTreatment } from 'src/screens/home/energyCodeDiagnosis/energyCodeDiagnosisAction';
+import EnergyCodeDiagnosisView  from 'src/screens/home/energyCodeDiagnosis/energyCodeDiagnosisView';
 
 class EnergyCodeDiagnosisScreen extends Component {
 

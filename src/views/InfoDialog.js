@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {DARK_OVERLAY_COLOR, GRAY_COLOR} from "../utils/Colors";
-import {Text, View, StyleSheet, TouchableWithoutFeedback, Button, WebView, Dimensions} from "react-native";
-import Overlay from "react-native-modal-overlay";
-import HtmlText from "./native_elements/HtmlText";
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
+import {GRAY_COLOR} from 'src/utils/Colors';
+import Overlay from 'react-native-modal-overlay';
+import HtmlText from 'src/views/native_elements/HtmlText';
+import {View, StyleSheet, TouchableWithoutFeedback, Button} from 'react-native';
 
 export default class NetworkErrorDialog extends Component {
 
@@ -22,20 +20,17 @@ export default class NetworkErrorDialog extends Component {
         const {showInfo, dismissCallback} = this.state;
         return (<Overlay
             visible={showInfo}
-            closeOnTouchOutside={false} animationType="zoomIn"
-            childrenWrapperStyle={{
-                backgroundColor: 'rgb(255, 255, 255)',
-                borderWidth: 1, borderColor: GRAY_COLOR, borderRadius: 10
-            }}
-            containerStyle={{backgroundColor: 'rgba(255,255,255, 0.3)'}}
+            closeOnTouchOutside={false} animationType='zoomIn'
+            childrenWrapperStyle={styles.backgroundContainer}
+            containerStyle={styles.container}
             animationDuration={500}>
             <View>
                 <HtmlText html={this.props.html}
-                          styles={styles.formulaTitle} textStyle={{fontSize: 16}}/>
+                          styles={styles.formulaTitle} textStyle={styles.text}/>
             </View>
             <View style={styles.buttonDialog}>
-                <Button clear title="OK" TouchableComponent={TouchableWithoutFeedback}
-                        onPress={(e) => dismissCallback(e)} titleStyle={{fontSize: 18, color: GRAY_COLOR}}/>
+                <Button clear title='OK' TouchableComponent={TouchableWithoutFeedback}
+                        onPress={(e) => dismissCallback(e)} titleStyle={styles.button}/>
             </View>
         </Overlay>);
     }
@@ -48,27 +43,26 @@ NetworkErrorDialog.propTypes = {
 };
 
 const styles = StyleSheet.create({
+    backgroundContainer: {
+        backgroundColor: 'rgb(255, 255, 255)',
+        borderWidth: 1,
+        borderColor: GRAY_COLOR,
+        borderRadius: 10
+    },
+    container: {
+        backgroundColor: 'rgba(255,255,255, 0.3)'
+    },
     buttonDialog: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-end',
         paddingBottom: 40
     },
-    titleDialog: {
-        fontSize: 22,
-        marginBottom: 20
-
-    },
-    messageDialog: {
+    button: {
         fontSize: 18,
-        marginBottom: 20
+        color: GRAY_COLOR
     },
-    overlayContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        width: 300,
-        backgroundColor: 'white',
-        height: 150,
-        padding: 16
+    text: {
+        fontSize: 16
     }
 });

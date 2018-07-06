@@ -1,19 +1,16 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import NetworkErrorDialog from "../../../views/NetworkErrorDialog";
-import {GRAY_COLOR, LIGHT_COLOR, SELECTED,} from '../../../utils/Colors';
-import {View, StyleSheet, Dimensions, ScrollView, Platform, WebView} from "react-native";
-import {Body, Left, Button, Header, Label, Text, Title, Right, Thumbnail} from "native-base";
-import Message from "../../../data/models/Message";
-import {IndicatorViewPager, PagerDotIndicator} from "rn-viewpager";
-import SelectPage from "../../../views/pages/selectPage";
-import PickerSelectPage from "../../../views/pages/pickerSelectPage";
-import BackMenuLogo from "../../../views/menu/BackMenuLogo";
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
-import ContentFlex from "../../../views/native_elements/ContentFlex";
-import ConfirmationPage from "./pages/ConfirmationPage";
-import MainStyle from "../../../views/MainStyle";
-import PoolPage from "../../../views/pages/PoolPage";
+import {GRAY_COLOR, LIGHT_COLOR, SELECTED,} from 'src/utils/Colors';
+import {View, StyleSheet, Dimensions, ScrollView, Platform, WebView} from 'react-native';
+import {Body, Left, Button, Header, Label, Text, Title, Right, Thumbnail} from 'native-base';
+import Message from 'src/data/models/Message';
+import {IndicatorViewPager, PagerDotIndicator} from 'rn-viewpager';
+import BackMenuLogo from 'src/views/menu/BackMenuLogo';
+import ContainerFlex from 'src/views/native_elements/ContainerFlex';
+import ContentFlex from 'src/views/native_elements/ContentFlex';
+import ConfirmationPage from './pages/ConfirmationPage';
+import MainStyle from 'src/views/MainStyle';
+import PoolPage from 'src/views/pages/PoolPage';
 
 export default class BlowDryDiagnosisView extends Component {
 
@@ -62,7 +59,7 @@ export default class BlowDryDiagnosisView extends Component {
         const {diagnosisQuiz, actionCreate, actionPageSelectedCallback, showEditAction, actionEdit} = this.props;
 
         return (
-            <ContainerFlex ref="mainContainer">
+            <ContainerFlex ref='mainContainer'>
                 <BackMenuLogo actions={
                     showEditAction && <Button transparent onPress={() => actionEdit()}>
                         <Text style={MainStyle.secondary}>Edit</Text>
@@ -70,7 +67,7 @@ export default class BlowDryDiagnosisView extends Component {
                 <ContentFlex>
                     {diagnosisQuiz.subjects && diagnosisQuiz.subjects.length > 0 &&
                     <IndicatorViewPager style={{height: '100%'}}
-                                        ref="pager"
+                                        ref='pager'
                                         onPageSelected={(data) => actionPageSelectedCallback(data.position, 7)}
                                         scrollEnabled={scrollable}
                                         indicator={this._renderDotIndicator()}>
@@ -126,7 +123,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         paddingHorizontal: 16,
-        paddingBottom: Platform.OS === "ios" ? 104 : 96,
+        paddingBottom: Platform.OS === 'ios' ? 104 : 96,
         backgroundColor: 'white'
     },
     input: {

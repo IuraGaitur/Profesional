@@ -1,8 +1,7 @@
-import ProductsApi from '../../../data/api/ProductsApi';
+import ProductsApi from 'src/data/api/ProductsApi';
 import {Actions} from 'react-native-router-flux';
-import Constants from './../../../utils/Constants';
-export const GET_ITEMS = 'GET_ITEMS';
-export const GET_CATEGORIES = 'GET_CATEGORIES';
+import {GET_ITEMS, GET_CATEGORIES, NO_ACTION} from 'src/app/actions';
+
 
 export function getProducts() {
     let items = new ProductsApi().instance().getAll();
@@ -16,5 +15,5 @@ export function getProductsCategories() {
 
 export function showDetails(id) {
     Actions.productDetails({id: id});
-    return {type: Constants.NO_ACTION};
+    return {type: NO_ACTION};
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {showCreationScreen, getClients, getPrimaryUser} from './clientsAction';
-import ClientsView from "./clientsView";
-import CollectionUtils from "../../../../utils/CollectionUtils";
+import {Actions} from 'react-native-router-flux';
+import ClientsView from 'src/screens/home/client/clients/clientsView';
+import CollectionUtils from 'src/utils/CollectionUtils';
+import {showCreationScreen, getClients, getPrimaryUser, showClientDetails, getAllClients} from 'src/screens/home/client/clients/clientsAction';
 
 class ClientsScreen extends Component {
 
@@ -11,7 +12,14 @@ class ClientsScreen extends Component {
     constructor(props) {
         super(props);
         this.props.getPrimaryUser();
-        this.props.getClients();
+        this.props.getAllClients();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.needRefresh) {
+            console.log("Need refresh");
+            //this.props.getAllClients();
+        }
     }
 
     createClient = () => {
@@ -22,13 +30,30 @@ class ClientsScreen extends Component {
         this.props.getClients(text);
     };
 
+    actionClientClick = (client) => {
+        this.props.showClientDetails(client);
+    };
+
+    actionRefreshClients = (text) => {
+        this.props.getClients(text);
+    };
+
+    // static onEnter() {
+    //     console.log("Enter");
+    //     Actions.refresh({needRefresh: true})
+    // }
+
+
     render() {
-        const {userClients} = this.props;
+        const {allClients, userClients, isFetching} = this.props;
         return (
             <ClientsView userClients={userClients}
-                         showClientsList={!CollectionUtils.isNullOrEmpty(userClients)}
+                         showClientsList={!CollectionUtils.isNullOrEmpty(allClients)}
                          createClient={this.createClient}
                          actionSearchCallback={this.actionSearch}
+                         actionClientClick={this.actionClientClick}
+                         actionRefreshClients={this.actionRefreshClients}
+                         isFetching={isFetching}
                          title={'HOME'}/>
         );
     }
@@ -37,15 +62,19 @@ class ClientsScreen extends Component {
 const mapStateToProps = (state) => {
     return {
         userClients: state.clients.userClients,
-        primaryUser: state.clients.primaryUser
+        allClients: state.clients.allClients,
+        primaryUser: state.clients.primaryUser,
+        isFetching: state.clients.isFetching
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        showCreationScreen: () => dispatch(showCreationScreen()),
+        getPrimaryUser: () => dispatch(getPrimaryUser()),
         getClients: (search) => dispatch(getClients(search)),
-        getPrimaryUser: () => dispatch(getPrimaryUser())
+        getAllClients: () => dispatch(getAllClients()),
+        showCreationScreen: () => dispatch(showCreationScreen()),
+        showClientDetails: (client) => dispatch(showClientDetails(client))
     }
 };
 

@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, Dimensions, Image} from "react-native";
-import {View, Button, Icon} from "native-base";
-import {TEXT_COLOR} from "../../../../utils/Colors";
-import SnapSlider from './SnapSliderElement';
-import MainStyle from "../../../MainStyle";
 import PropTypes from 'prop-types';
-import ButtonPickerInput from "../../ButtonPickerInput";
+import React, {Component} from 'react';
+import MainStyle from 'src/views/MainStyle';
+import {TEXT_COLOR} from 'src/utils/Colors';
+import {View, Button, Icon} from 'native-base';
+import ButtonPickerInput from 'src/views/form/ButtonPickerInput';
+import {Text, StyleSheet, Dimensions, Image} from 'react-native';
+import SnapSlider from 'src/views/form/pool/slideGroup/SnapSliderElement';
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default class SlideGroup extends Component {
@@ -21,7 +22,7 @@ export default class SlideGroup extends Component {
     _renderBackground(background) {
         return (
             <Image style={styles.background} borderRadius={15}
-                   source={require('../../../../../assets/images/pick_back_1.png')}/>
+                   source={require('Sytem_Pro/assets/images/pick_back_1.png')}/>
         );
     }
 

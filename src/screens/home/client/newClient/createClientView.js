@@ -1,33 +1,36 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import Form from "../../../../views/form/FormData";
-import User from "../../../../data/models/User";
-import CollectionUtils from '../../../../utils/CollectionUtils';
+import Form from 'src/views/form/FormData';
+import CollectionUtils from 'src/utils/CollectionUtils';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import {DARK_OVERLAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR, UN_SELECTED} from '../../../../utils/Colors';
-import TextInput, {CONFIRMATION, EMAIL, REQUIRED} from "../../../../views/form/TextInput";
-import {View, StyleSheet, Dimensions, ScrollView, Platform} from "react-native";
-import TouchOpacityDebounce from "../../../../utils/touchable_debounce/TouchOpacityDebounce";
-import PickerInput from "../../../../views/form/PickerInput";
-import {Body, Left, Right, Button, Header, Label, CheckBox, Text, Grid} from "native-base";
-import FormItem from '../../../../views/native_elements/FormItem';
-import Space from "../../../../views/native_elements/Space";
-import SubHeader from "../../../../views/form/SubHeader";
-import ContainerFlex from "../../../../views/native_elements/ContainerFlex";
-import ContentFlex from "../../../../views/native_elements/ContentFlex";
-import BackMenu from "../../../../views/menu/BackMenu";
-import Client from "../../../../data/models/Client";
-const SCREEN_WIDTH = Dimensions.get('window').width;
+import {GRAY_COLOR, PRIMARY, TEXT_COLOR, UN_SELECTED} from 'src/utils/Colors';
+import {REQUIRED} from 'src/views/form/TextInput';
+import {View, StyleSheet} from 'react-native';
+import TouchOpacityDebounce from 'src/utils/touchable_debounce/TouchOpacityDebounce';
+import PickerInput from 'src/views/form/PickerInput';
+import {Button, Label, CheckBox, Text} from 'native-base';
+import FormItem from 'src/views/native_elements/FormItem';
+import Space from 'src/views/native_elements/Space';
+import SubHeader from 'src/views/form/SubHeader';
+import ContainerFlex from 'src/views/native_elements/ContainerFlex';
+import ContentFlex from 'src/views/native_elements/ContentFlex';
+import BackMenu from 'src/views/menu/BackMenu';
+import Client from 'src/data/models/Client';
 
 export default class CreateClientView extends Component {
 
     formInputs = [];
     client = new Client();
+    genders = [{label: 'Male', value: 'M'}, {label: 'Female', value: 'F'}, {label: 'Other', value: 'O'}];
 
     constructor(props) {
         super(props);
         this.state = {...this.state, ...props};
+    }
+
+    componentDidMount() {
+        this.updateForm('gender', this.genders[0].label);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -36,12 +39,21 @@ export default class CreateClientView extends Component {
         }
     }
 
+    handleDatePicked(time) {
+        this.updateForm('birthday', moment(time).format('YYYY-MM-DD'));
+        this.setState({showDatePicker: false});
+    };
+
+    changeGenderCallback = (selectedGender) => {
+        this.updateForm('gender', selectedGender);
+    };
+
     changeCountryCallback = (selectedCountry) => {
-        this.setState({country: selectedCountry});
+        this.updateForm('country', selectedCountry);
     };
 
     changeLanguageCallback = (selectedLanguage) => {
-        this.setState({language: selectedLanguage});
+        this.updateForm('language', selectedLanguage);
     };
 
     updateForm = (item, value) => {
@@ -52,11 +64,6 @@ export default class CreateClientView extends Component {
     showDateTimerPicker() {
         this.setState({showDatePicker: true});
     }
-
-    handleDatePicked(time) {
-        this.updateForm('birthDate', moment(time).format('YYYY-MM-DD'));
-        this.setState({showDatePicker: false});
-    };
 
     hideDateTimePicker() {
         this.setState({showDatePicker: false});
@@ -70,18 +77,22 @@ export default class CreateClientView extends Component {
     }
 
     checkSaveEnergy() {
-        this.setState({energySave: !this.state.energySave});
+        let energyState = this.state.saveEnergyCode;
+        this.setState({saveEnergyCode: !energyState});
+        this.updateForm('saveEnergyCode', !energyState);
     }
 
     checkReceiveEmails() {
-        this.setState({receiveEmails: !this.state.receiveEmails});
+        let receiveEmails = this.state.receiveEmails;
+        this.setState({receiveEmails: !receiveEmails});
+        this.updateForm('receiveEmails', !receiveEmails);
     }
 
 
     render() {
         const {
-            firstName, lastName, email, birthDate, city, country, phone,
-            energySave, receiveEmails, showDatePicker, language} = this.state;
+            firstName, lastName, email, birthday, city, country, postalCode,
+            saveEnergyCode, receiveEmails, showDatePicker, language, gender} = this.state;
         const {countries, languages, startDiagnosisCallback,
                 actionFindAboutCookieCallback, actionFindAboutPrivacyCallback} = this.props;
 
@@ -94,7 +105,7 @@ export default class CreateClientView extends Component {
 
                 />
                 <ContentFlex scrollable>
-                    <Form shouldValidate ref="formData">
+                    <Form shouldValidate ref='formData'>
                         <SubHeader title='Basic' color={UN_SELECTED}/>
                         <View style={{padding: 8}}>
                             <FormItem
@@ -114,10 +125,10 @@ export default class CreateClientView extends Component {
                                 <Label>LAST NAME*</Label>
                             </FormItem>
                             <PickerInput
-                                items={[{label: 'Female', value: '2'}, {label: 'Other', value: '3'}]}
-                                valueChangeCallBack={this.changeCountryCallback}
-                                defaultItem={{label: 'Male', value: 'M'}}
-                                needValidation value={country}
+                                items={this.genders.slice(1)}
+                                valueChangeCallBack={this.changeGenderCallback}
+                                defaultItem={this.genders[0]}
+                                needValidation value={gender}
                                 mode={'dropdown'}
                                 ref={item => this.formInputs[2] = item}
                                 onSubmitEditing={() => this.formInputs[3].focus()}
@@ -137,7 +148,7 @@ export default class CreateClientView extends Component {
                                     this.showDateTimerPicker()
                                 }}
                                 onSubmitEditing={() => this.formInputs[5].focus()}
-                                value={birthDate}>
+                                value={birthday}>
                                 <Label>DATE OF BIRTH</Label>
                             </FormItem>
                         </View>
@@ -146,7 +157,7 @@ export default class CreateClientView extends Component {
                             <PickerInput
                                 items={languages}
                                 valueChangeCallBack={this.changeLanguageCallback}
-                                defaultItem={{label: "LANGUAGE", value: ""}}
+                                defaultItem={{label: 'LANGUAGE', value: ''}}
                                 needValidation value={language}
                                 ref={item => this.formInputs[5] = item}
                                 onSubmitEditing={() => this.formInputs[6].focus()}
@@ -160,19 +171,18 @@ export default class CreateClientView extends Component {
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[7] = item}
-                                value={phone} isLast
+                                value={postalCode} isLast
                                 onSubmitEditing={() => this.formInputs[8].focus()}
-                                onChangeText={item => this.updateForm('phone', item)}>
+                                onChangeText={item => this.updateForm('postalCode', item)}>
                                 <Label>POSTAL CODE</Label>
                             </FormItem>
                             <PickerInput
                                 items={countries}
                                 valueChangeCallBack={this.changeCountryCallback}
-                                defaultItem={{label: "COUNTRY", value: ""}}
+                                defaultItem={{label: 'COUNTRY', value: ''}}
                                 needValidation value={country}
                                 ref={item => this.formInputs[8] = item}
                                 onSubmitEditing={() => this.formInputs[9].focus()}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
                             />
                         </View>
                         <SubHeader title='Privacy' color={UN_SELECTED}/>
@@ -182,7 +192,7 @@ export default class CreateClientView extends Component {
                                 <CheckBox
                                     color={PRIMARY}
                                     style={{marginRight: 8}}
-                                    checked={energySave}
+                                    checked={saveEnergyCode}
                                     onPress={() => this.checkSaveEnergy()}/>
                             </View>
                             <View style={styles.divider}/>

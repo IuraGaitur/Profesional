@@ -1,7 +1,7 @@
-import {GRAY_LIGHT} from "../utils/Colors";
+import {GRAY_LIGHT} from 'src/utils/Colors';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {View} from "native-base";
+import {View} from 'native-base';
 
 export default class Divider extends Component{
 

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {View, StyleSheet} from "react-native";
+import {View, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import CardProduct from "../../../../views/native_elements/CardProduct";
-import PickerInput from "../../../../views/form/PickerInput";
-import ContentFlex from "../../../../views/native_elements/ContentFlex";
-import {Text} from "native-base";
+import CardProduct from 'src/views/native_elements/CardProduct';
+import PickerInput from 'src/views/form/PickerInput';
+import ContentFlex from 'src/views/native_elements/ContentFlex';
+import {Text} from 'native-base';
 
 export default class ProductsPage extends Component {
 
@@ -38,7 +38,6 @@ export default class ProductsPage extends Component {
                                 />)}
                         </View>
                     </ContentFlex>
-                    <Text>Wai</Text>
                 </View>
             </ContentFlex>
         );

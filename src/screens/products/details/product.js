@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ProductView  from './productView';
+import ProductView  from 'src/screens/products/details/productView';
 import {Actions} from 'react-native-router-flux';
 
 class ProductScreen extends Component {
