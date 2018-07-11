@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {FlatList, Text, View, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import {GRAY_COLOR, LIGHT_BACKGROUND_COLOR, LIGHT_COLOR, TEXT_COLOR} from 'src/utils/Colors';
+import {GRAY_COLOR, LIGHT_BACKGROUND_COLOR, LIGHT_COLOR, TEXT_COLOR} from 'src/utils/colors';
 import {Button, Icon, Input, Item, Left, List, ListItem, Right, Header} from 'native-base';
-import ContainerFlex from 'src/views/native_elements/ContainerFlex';
-import ContentFlex from 'src/views/native_elements/ContentFlex';
-import BackMenu from 'src/views/menu/BackMenu';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import ContentFlex from 'src/views/native_elements/contentFlex';
+import BackMenu from 'src/views/menu/backMenu';
 
 export default class FaqView extends Component {
 

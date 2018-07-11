@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {PRIMARY} from 'src/utils/Colors';
+import {PRIMARY} from 'src/utils/colors';
 import {Text, View, StyleSheet, Dimensions, ActivityIndicator} from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;

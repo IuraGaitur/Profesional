@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
 import {Grid, Row, View, Text} from 'native-base';
-import MainStyle from 'src/views/MainStyle';
-import {BACKGROUND_GRAY_COLOR, GRAY_LIGHT, LIGHT_BACKGROUND_COLOR} from 'src/utils/Colors';
-import SubmitButton from 'src/views/native_elements/SubmitButton';
+import MainStyle from 'src/utils/mainStyle';
+import {BACKGROUND_GRAY_COLOR, GRAY_LIGHT, LIGHT_BACKGROUND_COLOR} from 'src/utils/colors';
+import SubmitButton from 'src/views/native_elements/submitButton';
 
 export default class ConfirmationPage extends Component {
 

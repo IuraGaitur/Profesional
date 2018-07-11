@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import CardProduct from 'src/views/native_elements/CardProduct';
-import PickerInput from 'src/views/form/PickerInput';
-import ContentFlex from 'src/views/native_elements/ContentFlex';
+import CardProduct from 'src/views/native_elements/cardProduct';
+import PickerInput from 'src/views/form/pickerInput';
+import ContentFlex from 'src/views/native_elements/contentFlex';
 import {Text} from 'native-base';
 
 export default class ProductsPage extends Component {

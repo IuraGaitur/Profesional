@@ -11,6 +11,9 @@ import blowDryReducer from 'src/screens/home/blowDryDiagnosis/blowDryDiagnosisRe
 import energyCodeReducer from 'src/screens/home/energyCodeDiagnosis/energyCodeDiagnosisReducer';
 import clientsReducer from 'src/screens/home/client/clients/clientsReducer';
 import createClientReducer from 'src/screens/home/client/newClient/createClientReducer';
+import clientDetailsReducer from 'src/screens/home/client/clientDetails/clientDetailsReducer';
+import editClientReducer from 'src/screens/home/client/editClient/editClientReducer';
+
 import treatmentReducer from 'src/screens/home/treatment/treatmentReducer';
 import profileReducer from 'src/screens/profile/profileReducer';
 
@@ -25,8 +28,10 @@ export default combineReducers({
     energyCode: energyCodeReducer,
     blowDry: blowDryReducer,
     products: productReducer,
-    clients: clientsReducer,
     profile: profileReducer,
+    clients: clientsReducer,
     createClient: createClientReducer,
+    clientDetails: clientDetailsReducer,
+    editClient: editClientReducer,
     treatment: treatmentReducer
 });

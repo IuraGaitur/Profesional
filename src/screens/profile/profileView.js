@@ -1,50 +1,25 @@
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import Form from 'src/views/form/FormData';
-import User from 'src/data/models/User';
-import CollectionUtils from 'src/utils/CollectionUtils';
+import Form from 'src/views/form/formData';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import {LIGHT_COLOR, PRIMARY, TEXT_COLOR} from 'src/utils/Colors';
-import {REQUIRED} from 'src/views/form/TextInput';
+import {LIGHT_COLOR, PRIMARY, TEXT_COLOR} from 'src/utils/colors';
 import {View, StyleSheet, Dimensions} from 'react-native';
-import PickerInput from 'src/views/form/PickerInput';
+import PickerInput from 'src/views/form/pickerInput';
 import {Button, Label, CheckBox, Text} from 'native-base';
-import FormItem from 'src/views/native_elements/FormItem';
-import Space from 'src/views/native_elements/Space';
-import DrawerMenu from 'src/views/menu/DrawerMenu';
-import ContentFlex from 'src/views/native_elements/ContentFlex';
+import FormItem from 'src/views/native_elements/formItem';
+import Space from 'src/views/native_elements/space';
+import DrawerMenu from 'src/views/menu/drawerMenu';
+import ContentFlex from 'src/views/native_elements/contentFlex';
+import {validationRequired} from 'src/utils/validation';
 const SCREEN_WIDTH = Dimensions.get('window').width;
+
 
 export default class ProfileView extends Component {
 
     formInputs = [];
-    user = new User();
 
     constructor(props) {
         super(props);
-        this.state = {...this.state, ...props};
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (!CollectionUtils.isNullOrEmpty(nextProps.countries)) {
-            this.setState({countries: nextProps.countries})
-        }
-        if (nextProps.primaryUser != null) {
-            this.setState({
-                firstName: nextProps.primaryUser.firstName,
-                lastName: nextProps.primaryUser.lastName,
-                birthday: nextProps.primaryUser.birthday,
-                salonName: nextProps.primaryUser.salonName,
-                city: nextProps.primaryUser.city,
-                country: nextProps.primaryUser.country,
-                phone: nextProps.primaryUser.phone,
-                wellaNumber: nextProps.primaryUser.wellaNumber,
-                postalCode: nextProps.primaryUser.postalCode,
-                newsLetterCheck: nextProps.primaryUser.newsLetterCheck,
-
-            })
-        }
     }
 
     updateUser = (e) => {
@@ -54,44 +29,11 @@ export default class ProfileView extends Component {
         }
     };
 
-    changeCountryCallback = (selectedCountry) => {
-        this.setState({country: selectedCountry});
-    };
-
-    checkTermsCallback = () => {
-        this.user.termsCheck = !this.state.termsCheck;
-        this.setState({termsCheck: !this.state.termsCheck})
-    };
-
-    checkNewsLetterCallback = () => {
-        this.user.newsLetterCheck = !this.state.newsLetterCheck;
-        this.setState({newsLetterCheck: !this.state.newsLetterCheck})
-    };
-
-    updateForm = (item, value) => {
-        this.setState({[item]: value});
-        this.user[item] = value;
-    };
-
-    showDateTimerPicker() {
-        this.setState({showDatePicker: true});
-    }
-
-    handleDatePicked(time) {
-        this.updateForm('birthday', moment(time).format('YYYY-MM-DD'));
-        this.setState({showDatePicker: false});
-    };
-
-    hideDateTimePicker() {
-        this.setState({showDatePicker: false});
-    };
 
     render() {
-        const {
-            firstName, lastName, birthday, salonName,
-            city, country, phone, postalCode, wellaNumber, newsLetterCheck, showDatePicker
-        } = this.state;
-        const {showLoading, countries, title} = this.props;
+        const {user, showDatePicker, countries, actionShowDatePicker,
+            actionHandleDatePicked, actionHideDateTimePicker, actionChangeUser,
+            actionSaveUser, showNetworkError, showLoading, title} = this.props;
 
         return (
             <DrawerMenu title={title} actions={
@@ -101,80 +43,79 @@ export default class ProfileView extends Component {
                 <ContentFlex scrollable>
                     <View style={styles.inputsContainer}>
                         <Form shouldValidate ref='formData'>
-
                             <FormItem
                                 ref={item => this.formInputs[0] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
-                                value={firstName}
+                                validation={[validationRequired]}
+                                value={user.firstName}
                                 onSubmitEditing={() => this.formInputs[1].focus()}
-                                onChangeText={item => this.updateForm('firstName', item)}>
+                                onChangeText={item => actionChangeUser('firstName', item)}>
                                 <Label>FIRST NAME*</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[1] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
-                                value={lastName}
+                                validation={[validationRequired]}
+                                value={user.lastName}
                                 onSubmitEditing={() => this.formInputs[2].focus()}
-                                onChangeText={item => this.updateForm('lastName', item)}>
+                                onChangeText={item => actionChangeUser('lastName', item)}>
                                 <Label>LAST NAME*</Label>
                             </FormItem>
+                            <Space height={15}/>
                             <FormItem
                                 ref={item => this.formInputs[2] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
-                                onFocus={() => {
-                                    this.showDateTimerPicker()
-                                }}
+                                validation={[validationRequired]}
+                                onFocus={() => actionShowDatePicker()}
                                 onSubmitEditing={() => this.formInputs[3].focus()}
-                                value={birthday}>
+                                value={user.birthday}>
                                 <Label>DATE OF BIRTH*</Label>
                             </FormItem>
                             <Space height={15}/>
                             <FormItem
                                 ref={item => this.formInputs[3] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                validation={[validationRequired]}
                                 onSubmitEditing={() => this.formInputs[4].focus()}
-                                value={salonName}
-                                onChangeText={item => this.updateForm('salonName', item)}>
+                                value={user.salonName}
+                                onChangeText={item => actionChangeUser('salonName', item)}>
                                 <Label>SALON NAME*</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[4] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                validation={[validationRequired]}
                                 onSubmitEditing={() => this.formInputs[5].focus()}
-                                value={phone}
-                                onChangeText={item => this.updateForm('phone', item)}>
+                                value={user.phone}
+                                onChangeText={item => actionChangeUser('phone', item)}>
                                 <Label>PHONE NUMBER*</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[5] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                validation={[validationRequired]}
                                 onSubmitEditing={() => this.formInputs[6].focus()}
-                                value={postalCode}
-                                onChangeText={item => this.updateForm('postalCode', item)}>
+                                value={user.postalCode}
+                                onChangeText={item => actionChangeUser('postalCode', item)}>
                                 <Label>POSTAL CODE*</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[6] = item}
-                                value={city}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                value={user.city}
+                                validation={[validationRequired]}
                                 onSubmitEditing={() => this.formInputs[7].focus()}
-                                onChangeText={item => this.updateForm('city', item)}>
+                                onChangeText={item => actionChangeUser('city', item)}>
                                 <Label>CITY*</Label>
                             </FormItem>
                             <PickerInput
+                                label="COUNTRY*"
                                 items={countries}
-                                valueChangeCallBack={this.changeCountryCallback}
+                                valueChangeCallBack={item => actionChangeUser('country', item)}
                                 defaultItem={{label: 'COUNTRY*', value: ''}}
-                                needValidation value={country}
+                                needValidation value={user.country}
                                 ref={item => this.formInputs[7] = item}
                                 onSubmitEditing={() => this.formInputs[8].focus()}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                validation={[validationRequired]}
                             />
                             <FormItem
                                 ref={item => this.formInputs[8] = item}
-                                value={wellaNumber} isLast
-                                validation={[{name: REQUIRED, error: 'Required'}]}
-                                onChangeText={item => this.updateForm('wellaNumber', item)}>
+                                value={user.wellaNumber} isLast
+                                validation={[validationRequired]}
+                                onChangeText={item => actionChangeUser('wellaNumber', item)}>
                                 <Label>WELLA CUSTOMER NUMBER*</Label>
                             </FormItem>
                             <Space height={16}/>
@@ -183,16 +124,17 @@ export default class ProfileView extends Component {
                                 <CheckBox
                                     color={PRIMARY}
                                     style={{marginRight: 8}}
-                                    checked={newsLetterCheck}
-                                    onPress={() => this.checkNewsLetterCallback()}/>
+                                    checked={user.newsLetterCheck}
+                                    onPress={item => actionChangeUser('firstName', !user.newsLetterCheck)}/>
                             </View>
                         </Form>
                     </View>
                 </ContentFlex>
                 <DateTimePicker
                     isVisible={showDatePicker}
-                    onConfirm={(e) => this.handleDatePicked(e)}
-                    onCancel={(e) => this.hideDateTimePicker(e)}
+                    date={new Date(user.birthday)}
+                    onConfirm={(e) => actionHandleDatePicked(e)}
+                    onCancel={(e) => actionHideDateTimePicker(e)}
                 />
             </DrawerMenu>
         );
@@ -294,4 +236,10 @@ ProfileView.propTypes = {
     showLoading: PropTypes.bool,
     showNetworkError: PropTypes.bool,
     countries: PropTypes.array,
+    actionShowDatePicker: PropTypes.func,
+    showDatePicker: PropTypes.bool,
+    actionHandleDatePicked: PropTypes.func,
+    actionHideDateTimePicker: PropTypes.func,
+    user: PropTypes.object,
+    actionSaveUser: PropTypes.func
 };

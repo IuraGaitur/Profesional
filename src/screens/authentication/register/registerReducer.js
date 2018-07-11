@@ -1,4 +1,4 @@
-import {INIT, REGISTER, SUCCESS, FAIL, NETWORK_ERROR} from 'src/app/actions';
+import {REGISTER, SUCCESS, FAIL, NETWORK_ERROR} from 'src/app/actions';
 
 const defaultState = {
     countries: [],
@@ -9,8 +9,6 @@ const defaultState = {
 
 export default function reducer(state = defaultState, action) {
     switch (action.type) {
-        case INIT:
-            return {...state, countries: action.countries, networkError: false};
         case REGISTER:
             return {...state, showLoading: true, networkError: false};
         case SUCCESS:

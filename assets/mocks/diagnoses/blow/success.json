@@ -191,7 +191,9 @@
                   "label": "GHD",
                   "value": 7
                 }
-              ]
+              ],
+              "value": 0,
+              "activeCategory": 1
             }
         },
         {
@@ -252,7 +254,9 @@
                   "label": "GHD",
                   "value": 7
                 }
-              ]
+              ],
+              "value": 0,
+              "activeCategory": 1
             }
         },
         {
@@ -313,7 +317,9 @@
                   "label": "GHD",
                   "value": 7
                 }
-              ]
+              ],
+              "value": 0,
+              "activeCategory": 1
             }
         },
         {
@@ -374,7 +380,9 @@
                   "label": "GHD",
                   "value": 7
                 }
-              ]
+              ],
+              "value": 0,
+              "activeCategory": 1
             }
         },
         {
@@ -450,7 +458,8 @@
                   "label": "VERY DRY",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
 
         },
@@ -472,7 +481,8 @@
                   "label": "SENSITIVE",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
 
         },
@@ -494,7 +504,8 @@
                   "label": "NOTICEABLE",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
 
         },
@@ -516,7 +527,8 @@
                   "label": "VERY DRY",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
         }
       ]
@@ -544,7 +556,8 @@
                   "label": "PERMED/STRENGTH",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
         },
         {
@@ -565,7 +578,8 @@
                   "label": "DAMAGED",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
         },
         {
@@ -586,7 +600,8 @@
                   "label": "MANY",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
         },
         {
@@ -607,7 +622,8 @@
                   "label": "INTENSE SUN",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
         }
       ]
@@ -635,7 +651,8 @@
                   "label": "LONG",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
         },
         {
@@ -644,7 +661,7 @@
               "id": 1,
               "title": "FINE HAIR",
               "type": "BACKGROUND",
-            "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
+              "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "background": "assets/images/pick_back_4",
               "options": [
                 {
@@ -655,7 +672,8 @@
                   "label": "VERY FINE",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
         },
         {"type": "PROGRESS",
@@ -673,7 +691,8 @@
                   "label": "CURLY",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
         },
         {"type": "PROGRESS",
@@ -681,7 +700,7 @@
               "id": 3,
               "title": "FRIZZ",
               "type": "BACKGROUND",
-            "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
+              "info": "<b>QUESTION STARTERS</b><br/><p>Before we start I would like to know:</p><br/><p>Can you describe your hair for me?</p><br/><p>What do you like about it?</p>",
               "background": "assets/images/pick_back_4",
               "options": [
                 {
@@ -692,7 +711,8 @@
                   "label": "VERY FRIZZY",
                   "value": 100
                 }
-              ]
+              ],
+              "value": 0
             }
           }
       ]

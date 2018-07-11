@@ -1,4 +1,4 @@
-import CountryApi from 'src/data/api/CountryApi';
+import CountryApi from 'src/data/api/countryApi';
 import { Actions } from 'react-native-router-flux';
 import {INIT, NO_ACTION} from 'src/app/actions';
 

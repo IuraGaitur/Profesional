@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {FlatList, Text, View, StyleSheet, Dimensions, Platform} from 'react-native';
 import PropTypes from 'prop-types';
-import {GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR} from 'src/utils/Colors';
-import {EMAIL, REQUIRED, STRONG_PASS} from 'src/views/form/TextInput';
-import Form from 'src/views/form/FormData';
-import SubmitButton from 'src/views/native_elements/SubmitButton';
+import {GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR} from 'src/utils/colors';
+import {EMAIL, REQUIRED, STRONG_PASS} from 'src/views/form/textInput';
+import Form from 'src/views/form/formData';
+import SubmitButton from 'src/views/native_elements/submitButton';
 import {Button, Label, Icon, Toast} from 'native-base';
-import FormItem from 'src/views/native_elements/FormItem';
-import BackMenu from 'src/views/menu/BackMenu';
-import ContainerFlex from 'src/views/native_elements/ContainerFlex';
-import ContentFlex from 'src/views/native_elements/ContentFlex';
+import FormItem from 'src/views/native_elements/formItem';
+import BackMenu from 'src/views/menu/backMenu';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import ContentFlex from 'src/views/native_elements/contentFlex';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default class RecoveryView extends Component {

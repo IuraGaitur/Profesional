@@ -1,22 +1,22 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import Form from 'src/views/form/FormData';
-import CollectionUtils from 'src/utils/CollectionUtils';
+import Form from 'src/views/form/formData';
+import CollectionUtils from 'src/utils/collectionUtils';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import {GRAY_COLOR, PRIMARY, TEXT_COLOR, UN_SELECTED} from 'src/utils/Colors';
-import {REQUIRED} from 'src/views/form/TextInput';
+import {GRAY_COLOR, PRIMARY, TEXT_COLOR, UN_SELECTED} from 'src/utils/colors';
+import {REQUIRED} from 'src/views/form/textInput';
 import {View, StyleSheet} from 'react-native';
-import TouchOpacityDebounce from 'src/utils/touchable_debounce/TouchOpacityDebounce';
-import PickerInput from 'src/views/form/PickerInput';
+import TouchOpacityDebounce from 'src/utils/touchable_debounce/touchOpacityDebounce';
+import PickerInput from 'src/views/form/pickerInput';
 import {Button, Label, CheckBox, Text} from 'native-base';
-import FormItem from 'src/views/native_elements/FormItem';
-import Space from 'src/views/native_elements/Space';
-import SubHeader from 'src/views/form/SubHeader';
-import ContainerFlex from 'src/views/native_elements/ContainerFlex';
-import ContentFlex from 'src/views/native_elements/ContentFlex';
-import BackMenu from 'src/views/menu/BackMenu';
-import Client from 'src/data/models/Client';
+import FormItem from 'src/views/native_elements/formItem';
+import Space from 'src/views/native_elements/space';
+import SubHeader from 'src/views/form/subHeader';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import ContentFlex from 'src/views/native_elements/contentFlex';
+import BackMenu from 'src/views/menu/backMenu';
+import Client from 'src/data/models/client';
 
 export default class CreateClientView extends Component {
 
@@ -125,6 +125,7 @@ export default class CreateClientView extends Component {
                                 <Label>LAST NAME*</Label>
                             </FormItem>
                             <PickerInput
+                                label="GENDER"
                                 items={this.genders.slice(1)}
                                 valueChangeCallBack={this.changeGenderCallback}
                                 defaultItem={this.genders[0]}
@@ -155,6 +156,7 @@ export default class CreateClientView extends Component {
                         <SubHeader title='Contact Details' color={UN_SELECTED}/>
                         <View style={{padding: 8}}>
                             <PickerInput
+                                label="LANGUAGE"
                                 items={languages}
                                 valueChangeCallBack={this.changeLanguageCallback}
                                 defaultItem={{label: 'LANGUAGE', value: ''}}
@@ -177,6 +179,7 @@ export default class CreateClientView extends Component {
                                 <Label>POSTAL CODE</Label>
                             </FormItem>
                             <PickerInput
+                                label="COUNTRY"
                                 items={countries}
                                 valueChangeCallBack={this.changeCountryCallback}
                                 defaultItem={{label: 'COUNTRY', value: ''}}

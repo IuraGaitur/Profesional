@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
-import DrawerMenu from 'src/views/menu/DrawerMenu';
+import DrawerMenu from 'src/views/menu/drawerMenu';
 import {IndicatorViewPager, PagerTitleIndicator} from 'rn-viewpager';
-import {LIGHT_COLOR, PRIMARY, TEXT_COLOR} from 'src/utils/Colors';
+import {LIGHT_COLOR, PRIMARY, TEXT_COLOR} from 'src/utils/colors';
 import ProductsPage from './pages/ProductsPage';
 const HALF_SCREEN_WIDTH = Dimensions.get('window').width / 2;
 

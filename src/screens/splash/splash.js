@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SplashView  from 'src/screens/splash/splashView';
-import ScreenUtils from 'src/utils/ScreenUtils';
-import { checkForPrimaryUser } from 'src/screens/splash/splashAction';
+import ScreenUtils from 'src/utils/screenUtils';
+import { checkForPrimaryUser, getResources } from 'src/screens/splash/splashAction';
 
 class SplashScreen extends Component {
 
@@ -11,6 +11,7 @@ class SplashScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.props.getResources();
     }
 
     async componentDidMount() {
@@ -34,7 +35,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        checkLoggedInUser: () => {dispatch(checkForPrimaryUser())}
+        checkLoggedInUser: () => {dispatch(checkForPrimaryUser())},
+        getResources: () => {dispatch(getResources())}
     }
 };
 

@@ -1,6 +1,6 @@
-import ClientDao from 'src/data/database/ClientDao';
+import ClientDao from 'src/data/database/clientDao';
 import {Actions} from 'react-native-router-flux';
-import UserDao from 'src/data/database/UserDao';
+import UserDao from 'src/data/database/userDao';
 import {GET_PRIMARY_USER, GET_CLIENTS, NO_ACTION, SHOW_LOADING, GET_ALL_CLIENTS} from 'src/app/actions';
 
 export const showClientDetails = (client) => {

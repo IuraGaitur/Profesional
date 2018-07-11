@@ -1,8 +1,8 @@
-import UserService from 'src/data/api/UserApi';
-import UserDao from 'src/data/database/UserDao';
-import Strings from 'src/utils/Strings';
-import StatusCode from 'src/utils/StatusCode';
-import Constants from 'src/utils/Constants';
+import UserService from 'src/data/api/userApi';
+import UserDao from 'src/data/database/userDao';
+import Strings from 'src/utils/strings';
+import StatusCode from 'src/utils/statusCode';
+import Constants from 'src/utils/constants';
 import { Actions } from 'react-native-router-flux';
 import {LOGIN, FAIL, SUCCESS, EMAIL_FAIL, PASS_FAIL, NETWORK_ERROR, NO_ACTION} from 'src/app/actions';
 

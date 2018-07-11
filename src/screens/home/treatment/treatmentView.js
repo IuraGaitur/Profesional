@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
-import MainStyle from 'src/views/MainStyle';
+import MainStyle from 'src/utils/mainStyle';
 import {Text, View, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import {GRAY_COLOR,} from 'src/utils/Colors';
+import {GRAY_COLOR,} from 'src/utils/colors';
 import {Button, Icon, Thumbnail} from 'native-base';
-import ContainerFlex from 'src/views/native_elements/ContainerFlex';
-import BackMenuLogo from 'src/views/menu/BackMenuLogo';
-import ContentFlex from 'src/views/native_elements/ContentFlex';
-import SubmitButton from 'src/views/native_elements/SubmitButton';
-import Divider from 'src/views/Divider';
-import BigButton from 'src/views/native_elements/BigButton';
-import Formula from 'src/views/Formula';
-import Space from 'src/views/native_elements/Space';
-import CardProduct from 'src/views/native_elements/CardProduct';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import BackMenuLogo from 'src/views/menu/backMenuLogo';
+import ContentFlex from 'src/views/native_elements/contentFlex';
+import SubmitButton from 'src/views/native_elements/submitButton';
+import Divider from 'src/views/native_elements/divider';
+import BigButton from 'src/views/native_elements/bigButton';
+import Formula from 'src/views/native_elements/formula';
+import Space from 'src/views/native_elements/space';
+import CardProduct from 'src/views/native_elements/cardProduct';
 
 export default class TreatmentView extends Component {
 

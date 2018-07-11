@@ -1,5 +1,5 @@
 import {LOGIN, FAIL, SUCCESS, EMAIL_FAIL, PASS_FAIL, NETWORK_ERROR} from 'src/app/actions';
-import User from 'src/data/models/User';
+import User from 'src/data/models/user';
 
 const defaultState = {
     isLoggedIn: false,

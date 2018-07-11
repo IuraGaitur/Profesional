@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {View} from 'native-base';
 import {Text} from 'react-native';
-import Formula from 'src/views/Formula';
-import MainStyle from 'src/views/MainStyle';
+import Formula from 'src/views/native_elements/formula';
+import MainStyle from 'src/utils/mainStyle';
 
 export default class ClientItemView extends Component {
 

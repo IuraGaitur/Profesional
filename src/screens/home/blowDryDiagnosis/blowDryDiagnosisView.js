@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {GRAY_COLOR, LIGHT_COLOR, SELECTED,} from 'src/utils/Colors';
+import {GRAY_COLOR, LIGHT_COLOR, SELECTED,} from 'src/utils/colors';
 import {View, StyleSheet, Dimensions, ScrollView, Platform, WebView} from 'react-native';
 import {Body, Left, Button, Header, Label, Text, Title, Right, Thumbnail} from 'native-base';
-import Message from 'src/data/models/Message';
+import Message from 'src/data/models/message';
 import {IndicatorViewPager, PagerDotIndicator} from 'rn-viewpager';
-import BackMenuLogo from 'src/views/menu/BackMenuLogo';
-import ContainerFlex from 'src/views/native_elements/ContainerFlex';
-import ContentFlex from 'src/views/native_elements/ContentFlex';
+import BackMenuLogo from 'src/views/menu/backMenuLogo';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import ContentFlex from 'src/views/native_elements/contentFlex';
 import ConfirmationPage from './pages/ConfirmationPage';
-import MainStyle from 'src/views/MainStyle';
-import PoolPage from 'src/views/pages/PoolPage';
+import MainStyle from 'src/utils/mainStyle';
+import PoolPage from 'src/views/pages/poolPage';
 
 export default class BlowDryDiagnosisView extends Component {
 
@@ -44,6 +44,7 @@ export default class BlowDryDiagnosisView extends Component {
     }
 
     setScrollEnabled = (state, page) => {
+        console.log(state);
         if(!state) {
             this.refs.pager.setPageWithoutAnimation(page);
         }
@@ -165,5 +166,6 @@ BlowDryDiagnosisView.propTypes = {
     actionInfo: PropTypes.func,
     actionCreate: PropTypes.func,
     actionPageSelectedCallback: PropTypes.func,
-    diagnosisQuiz: PropTypes.object
+    diagnosisQuiz: PropTypes.object,
+    diagnosis: PropTypes.object
 };

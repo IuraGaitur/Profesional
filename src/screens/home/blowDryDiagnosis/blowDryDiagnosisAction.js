@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import {INIT, NO_ACTION} from 'src/app/actions';
-import DiagnosisQuizApi from 'src/data/api/DiagnosisQuizApi';
+import DiagnosisQuizApi from 'src/data/api/diagnosisQuizApi';
 
 export function init() {
     return async(dispatch) => {
@@ -16,8 +16,8 @@ function getDiagnosisQuiz(diagnosisQuiz) {
     }
 }
 
-export function createTreatment(client) {
-    Actions.treatment({newClient: client});
+export function createTreatment(client, diagnosis) {
+    Actions.treatment({newClient: client, diagnosis: diagnosis});
     return {type: NO_ACTION};
 }
 
