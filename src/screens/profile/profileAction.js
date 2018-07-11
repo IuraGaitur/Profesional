@@ -1,18 +1,8 @@
-import UserApi from 'src/data/api/UserApi';
-import CountryApi from 'src/data/api/CountryApi';
-import UserDao from 'src/data/database/UserDao';
-import StatusCode from 'src/utils/StatusCode';
+import UserApi from 'src/data/api/userApi';
+import UserDao from 'src/data/database/userDao';
+import StatusCode from 'src/utils/statusCode';
 import {Actions} from 'react-native-router-flux';
-import {INIT, SHOW_LOADING, NETWORK_ERROR, SUCCESS, FAIL, GET_PRIMARY_USER} from 'src/app/actions';
-
-
-export const init = () => {
-    return async (dispatch) => {
-        let countries = await new CountryApi().instance().getAll();
-        return dispatch(getCountries(countries));
-    }
-};
-
+import {SHOW_LOADING, NETWORK_ERROR, SUCCESS, FAIL} from 'src/app/actions';
 
 function showLoading() {
     return {type: SHOW_LOADING}
@@ -33,21 +23,6 @@ export const saveRequest = (user) => {
         }
     }
 };
-
-export const getPrimaryUser = () => {
-    return async (dispatch) => {
-        let user = await new UserDao().getPrimaryUser();
-        return dispatch(sendUser(user));
-    }
-};
-
-function sendUser(user) {
-    return {user: user, type: GET_PRIMARY_USER};
-}
-
-function getCountries(countries) {
-    return {type: INIT, countries: countries}
-}
 
 function successUpdate(userResponse) {
     Actions.main();

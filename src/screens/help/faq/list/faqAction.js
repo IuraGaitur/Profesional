@@ -1,4 +1,4 @@
-import QuestionApi from 'src/data/api/QuestionApi';
+import QuestionApi from 'src/data/api/questionApi';
 import {Actions} from 'react-native-router-flux';
 import {NO_ACTION, SUCCESS, FAIL, GET_QUESTIONS} from 'src/app/actions';
 

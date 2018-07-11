@@ -37,3 +37,4 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 //Clients Actions
 export const GET_ALL_CLIENTS = 'GET_ALL_CLIENTS';
 export const GET_CLIENTS = 'GET_CLIENTS';
+export const GET_CLIENT = 'GET_CLIENT';

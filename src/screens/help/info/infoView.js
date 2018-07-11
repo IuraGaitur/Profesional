@@ -3,7 +3,7 @@ import Drawer from 'react-native-drawer'
 import {Header, Input, ListItem} from 'react-native-elements';
 import {FlatList, Text, View, StyleSheet, Dimensions, Image, TouchableWithoutFeedback} from 'react-native';
 import PropTypes from 'prop-types';
-import ScreenUtils from 'src/utils/ScreenUtils';
+import ScreenUtils from 'src/utils/screenUtils';
 import {
     BACKGROUND_GRAY_COLOR,
     GRAY_COLOR,
@@ -11,11 +11,11 @@ import {
     TEXT_COLOR,
     TEXT_GRAY_COLOR,
     TRANSPARENT
-} from 'src/utils/Colors';
-import SubmitButton from 'src/views/native_elements/SubmitButton';
-import FormItem from 'src/views/native_elements/FormItem';
+} from 'src/utils/colors';
+import SubmitButton from 'src/views/native_elements/submitButton';
+import FormItem from 'src/views/native_elements/formItem';
 import {Form, Label, Button, Icon, Thumbnail} from 'native-base';
-import ContainerFlex from 'src/views/native_elements/ContainerFlex';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = ScreenUtils.HEIGHT;
 const BG_IMAGE = require('Sytem_Pro/assets/images/img_back_hair_2.jpg');

@@ -1,5 +1,5 @@
 import {INIT, SHOW_LOADING, GET_MENU_ITEMS, NETWORK_ERROR, SUCCESS, FAIL, GET_PRIMARY_USER} from 'src/app/actions';
-import User from 'src/data/models/User';
+import User from 'src/data/models/user';
 
 const defaultState = {
     countries: [],

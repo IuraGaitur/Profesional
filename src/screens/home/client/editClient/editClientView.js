@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import Form from 'src/views/form/FormData';
+import Form from 'src/views/form/formData';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import {GRAY_COLOR, PRIMARY, TEXT_COLOR, UN_SELECTED} from 'src/utils/Colors';
-import TextInput, {REQUIRED} from 'src/views/form/TextInput';
+import {GRAY_COLOR, PRIMARY, TEXT_COLOR, UN_SELECTED} from 'src/utils/colors';
+import TextInput, {REQUIRED} from 'src/views/form/textInput';
 import {View, StyleSheet} from 'react-native';
-import TouchOpacityDebounce from 'src/utils/touchable_debounce/TouchOpacityDebounce';
-import PickerInput from 'src/views/form/PickerInput';
+import TouchOpacityDebounce from 'src/utils/touchable_debounce/touchOpacityDebounce';
+import PickerInput from 'src/views/form/pickerInput';
 import {Button, Icon, Label, CheckBox, Text} from 'native-base';
-import FormItem from 'src/views/native_elements/FormItem';
-import Space from 'src/views/native_elements/Space';
-import SubHeader from 'src/views/form/SubHeader';
-import ContainerFlex from 'src/views/native_elements/ContainerFlex';
-import ContentFlex from 'src/views/native_elements/ContentFlex';
-import BackMenu from 'src/views/menu/BackMenu';
-import MainStyle from 'src/views/MainStyle';
+import FormItem from 'src/views/native_elements/formItem';
+import Space from 'src/views/native_elements/space';
+import SubHeader from 'src/views/form/subHeader';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import ContentFlex from 'src/views/native_elements/contentFlex';
+import BackMenu from 'src/views/menu/backMenu';
+import MainStyle from 'src/utils/mainStyle';
 
 export default class EditClientView extends Component {
 
@@ -29,15 +29,16 @@ export default class EditClientView extends Component {
 
     render() {
         const {
-            client, showDatePicker, countries, languages, startDiagnosisCallback,
+            client, showDatePicker, countries, languages, genders,
             actionFindAboutCookieCallback, actionFindAboutPrivacyCallback, actionShowDatePicker,
-            actionHandleDatePicked, actionHideDateTimePicker, actionChangeClientCallback
+            actionHandleDatePicked, actionHideDateTimePicker, actionChangeClientCallback,
+            actionSaveChanges
         } = this.props;
 
         return (
             <ContainerFlex>
                 <BackMenu title={'<p>EDIT <b>CLIENT</b></p>'} actions={
-                    <Button transparent onPress={() => this.startDiagnosis(startDiagnosisCallback)}>
+                    <Button transparent onPress={() => actionSaveChanges()}>
                         <Icon name='checkmark' style={MainStyle.saveButton}/>
                     </Button>}
 
@@ -63,10 +64,10 @@ export default class EditClientView extends Component {
                                 <Label>LAST NAME*</Label>
                             </FormItem>
                             <PickerInput
-                                items={[{label: 'Female', value: '2'}, {label: 'Other', value: '3'}]}
-                                valueChangeCallBack={this.changeCountryCallback}
-                                defaultItem={{label: 'Male', value: 'M'}}
-                                needValidation value={client.country}
+                                label="GENDER"
+                                items={genders}
+                                valueChangeCallBack={item => actionChangeClientCallback('gender', item)}
+                                needValidation value={client.gender}
                                 mode={'dropdown'}
                                 ref={item => this.formInputs[2] = item}
                                 onSubmitEditing={() => this.formInputs[3].focus()}
@@ -91,8 +92,9 @@ export default class EditClientView extends Component {
                         <SubHeader title='Contact Details' color={UN_SELECTED}/>
                         <View style={{padding: 8}}>
                             <PickerInput
+                                label="LANGUAGE"
                                 items={languages}
-                                valueChangeCallBack={this.changeLanguageCallback}
+                                valueChangeCallBack={item => actionChangeClientCallback('language', item)}
                                 defaultItem={{label: 'LANGUAGE', value: ''}}
                                 needValidation value={client.language}
                                 ref={item => this.formInputs[5] = item}
@@ -107,15 +109,15 @@ export default class EditClientView extends Component {
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[7] = item}
-                                value={client.phone} isLast
+                                value={client.postalCode} isLast
                                 onSubmitEditing={() => this.formInputs[8].focus()}
-                                onChangeText={item => actionChangeClientCallback('phone', item)}>
+                                onChangeText={item => actionChangeClientCallback('postalCode', item)}>
                                 <Label>POSTAL CODE</Label>
                             </FormItem>
                             <PickerInput
-                                items={null}
-                                valueChangeCallBack={this.changeCountryCallback}
-                                defaultItem={{label: 'COUNTRY', value: ''}}
+                                label="COUNTRY"
+                                items={countries}
+                                valueChangeCallBack={item => actionChangeClientCallback('country', item)}
                                 needValidation value={client.country}
                                 ref={item => this.formInputs[8] = item}
                                 onSubmitEditing={() => this.formInputs[9].focus()}
@@ -129,8 +131,8 @@ export default class EditClientView extends Component {
                                 <CheckBox
                                     color={PRIMARY}
                                     style={{marginRight: 8}}
-                                    checked={client.energySave}
-                                    onPress={() => actionChangeClientCallback('energySave', !client.energySave)}/>
+                                    checked={client.saveEnergyCode}
+                                    onPress={() => actionChangeClientCallback('saveEnergyCode', !client.energySave)}/>
                             </View>
                             <View style={styles.divider}/>
                             <View style={styles.checkboxItem}>
@@ -159,6 +161,7 @@ export default class EditClientView extends Component {
                     </Form>
                 </ContentFlex>
                 <DateTimePicker
+                    date={new Date(client.birthday)}
                     isVisible={showDatePicker}
                     onConfirm={(e) => actionHandleDatePicked(e)}
                     onCancel={(e) => actionHideDateTimePicker(e)}
@@ -212,6 +215,7 @@ EditClientView.propTypes = {
     client: PropTypes.object,
     countries: PropTypes.array,
     languages: PropTypes.array,
+    genders: PropTypes.array,
     startDiagnosisCallback: PropTypes.func,
     actionFindAboutCookieCallback: PropTypes.func,
     actionFindAboutPrivacyCallback: PropTypes.func,

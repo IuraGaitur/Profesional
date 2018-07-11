@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, Dimensions, Image} from 'react-native';
 import PropTypes from 'prop-types';
-import ScreenUtils from 'src/utils/ScreenUtils';
-import {PRIMARY} from 'src/utils/Colors';
-import ContainerFlex from 'src/views/native_elements/ContainerFlex';
-import TransparentBackMenu from 'src/views/menu/TransparentBackMenu';
-import Space from 'src/views/native_elements/Space';
+import ScreenUtils from 'src/utils/screenUtils';
+import {PRIMARY} from 'src/utils/colors';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import TransparentBackMenu from 'src/views/menu/transparentBackMenu';
+import Space from 'src/views/native_elements/space';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const PRODUCT_IMAGE = require('Sytem_Pro/assets/images/img_product_full.png');
 import ParallaxScrollView from 'react-native-parallax-scroll-view';

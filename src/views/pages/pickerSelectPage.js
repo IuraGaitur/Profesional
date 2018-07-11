@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {View, Text} from 'native-base';
 import styles from 'src/views/pages/pageStyle';
 import {ScrollView, StyleSheet} from 'react-native';
-import SlideGroup from 'src/views/form/pool/slideGroup/SlideGroup';
+import SlideGroup from 'src/views/form/pool/slideGroup/slideGroup';
 
 export default class PickerSelectPage extends Component {
 

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import TreatmentView from 'src/screens/home/treatment/treatmentView';
-import {init, saveClient, showInfoScreen} from 'src/screens/home/treatment/treatmentAction';
+import {init, saveClientTreatment, showInfoScreen} from 'src/screens/home/treatment/treatmentAction';
+import Treatment from 'src/data/models/treatment/treatment';
 
 class TreatmentScreen extends Component {
 
@@ -36,6 +37,7 @@ class TreatmentScreen extends Component {
 
     constructor(props) {
         super(props);
+        this.state = props;
         this.props.init();
     }
 
@@ -44,8 +46,10 @@ class TreatmentScreen extends Component {
     };
 
     actionSave = () => {
-        let newClient = this.props.newClient;
-        this.props.saveClient(newClient);
+        let diagnosisCode = this.state.diagnosisCode;
+        let newClient = this.state.newClient;
+
+        this.props.saveClientTreatment(newClient, diagnosisCode);
 
     };
     actionCodeInfo = () => {
@@ -71,6 +75,7 @@ class TreatmentScreen extends Component {
     };
 
     render() {
+        const {diagnosisCode} = this.state;
         return (
             <TreatmentView ref='treatmentView'
                            products={this.products}
@@ -99,7 +104,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         init: () => dispatch(init()),
-        saveClient: (client) => dispatch(saveClient(client)),
+        saveClientTreatment: (client) => dispatch(saveClientTreatment(client)),
         showInfoScreen: () => dispatch(showInfoScreen())
     }
 };

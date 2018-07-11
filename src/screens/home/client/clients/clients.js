@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import ClientsView from 'src/screens/home/client/clients/clientsView';
-import CollectionUtils from 'src/utils/CollectionUtils';
+import CollectionUtils from 'src/utils/collectionUtils';
 import {showCreationScreen, getClients, getPrimaryUser, showClientDetails, getAllClients} from 'src/screens/home/client/clients/clientsAction';
 
 class ClientsScreen extends Component {
@@ -13,13 +13,6 @@ class ClientsScreen extends Component {
         super(props);
         this.props.getPrimaryUser();
         this.props.getAllClients();
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.needRefresh) {
-            console.log("Need refresh");
-            //this.props.getAllClients();
-        }
     }
 
     createClient = () => {
@@ -37,12 +30,6 @@ class ClientsScreen extends Component {
     actionRefreshClients = (text) => {
         this.props.getClients(text);
     };
-
-    // static onEnter() {
-    //     console.log("Enter");
-    //     Actions.refresh({needRefresh: true})
-    // }
-
 
     render() {
         const {allClients, userClients, isFetching} = this.props;

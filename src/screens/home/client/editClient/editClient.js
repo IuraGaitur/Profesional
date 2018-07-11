@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-    init,
-    startDiagnosis,
-    showCookieInfo,
-    showPrivacyInfo
-} from 'src/screens/home/client/editClient/editClientAction';
+import {init, updateClient} from 'src/screens/home/client/editClient/editClientAction';
 import EditClientView  from 'src/screens/home/client/editClient/editClientView';
 import moment from "moment";
 
@@ -15,16 +10,8 @@ class EditClientScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = this.props;
+        this.state = props;
     }
-
-    async componentDidMount() {
-        this.getInitData();
-    }
-
-    getInitData = () => {
-        this.props.getInitData();
-    };
 
     startDiagnosis = (newClient) => {
         this.props.startDiagnosis(newClient);
@@ -49,7 +36,7 @@ class EditClientScreen extends Component {
     };
 
     handleDatePicked = (time) => {
-        this.changeClient('birthDate', moment(time).format('YYYY-MM-DD'));
+        this.changeClient('birthday', moment(time).format('YYYY-MM-DD'));
         this.setState({showDatePicker: false});
     };
 
@@ -58,17 +45,20 @@ class EditClientScreen extends Component {
     };
 
     saveChanges = () => {
-
+        let client = this.state.currentClient;
+        this.props.updateClient(client);
     };
 
     render() {
-        const {countries, languages, currentClient, showDatePicker} = this.state;
+        const {countries, languages, genders} = this.props;
+        const {currentClient, showDatePicker} = this.state;
 
         return (
             <EditClientView client={currentClient}
                             actionChangeClientCallback={this.changeClient}
                             countries={countries}
                             languages={languages}
+                            genders={genders}
                             startDiagnosisCallback={this.startDiagnosis}
                             actionFindAboutCookieCallback={this.actionFindAboutCookie}
                             actionFindAboutPrivacyCallback={this.actionFindAboutPrivacy}
@@ -85,24 +75,15 @@ class EditClientScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-
+        countries: state.splash.countries,
+        languages: state.splash.languages,
+        genders: state.splash.genders
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getInitData: () => {
-            dispatch(init())
-        },
-        startDiagnosis: (newClient) => {
-            dispatch(startDiagnosis(newClient))
-        },
-        showCookieInfo: () => {
-            dispatch(showCookieInfo())
-        },
-        showPrivacyInfo: () => {
-            dispatch(showPrivacyInfo())
-        }
+        updateClient: (client) => {dispatch(updateClient(client))}
     }
 };
 

@@ -1,8 +1,8 @@
-import CountryApi from 'src/data/api/CountryApi';
+import CountryApi from 'src/data/api/countryApi';
 import { Actions } from 'react-native-router-flux';
-import Constants from 'src/utils/Constants';
-import LanguageDao from 'src/data/database/LanguageDao';
-import ClientDao from 'src/data/database/ClientDao';
+import Constants from 'src/utils/constants';
+import LanguageDao from 'src/data/database/languageDao';
+import ClientDao from 'src/data/database/clientDao';
 import {INIT, NO_ACTION} from 'src/app/actions';
 
 export const init = () => {

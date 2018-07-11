@@ -1,4 +1,4 @@
-import ProductsApi from 'src/data/api/ProductsApi';
+import ProductsApi from 'src/data/api/productsApi';
 import {Actions} from 'react-native-router-flux';
 import {GET_ITEMS, GET_CATEGORIES, NO_ACTION} from 'src/app/actions';
 

@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import {FlatList, Text, View, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import {GRAY_COLOR, GRAY_LIGHT} from 'src/utils/Colors';
-import {Button, Icon} from 'native-base';
-import ContentFlex from 'src/views/native_elements/ContentFlex';
-import BackMenu from 'src/views/menu/BackMenu';
-import ContainerFlex from 'src/views/native_elements/ContainerFlex';
+import {GRAY_COLOR, GRAY_LIGHT} from 'src/utils/colors';
+import {Button, Icon, Toast} from 'native-base';
+import ContentFlex from 'src/views/native_elements/contentFlex';
+import BackMenu from 'src/views/menu/backMenu';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
 import ClientItemView from './views/ClientItemView';
-import SubmitButton from 'src/views/native_elements/SubmitButton';
-import MainStyle from 'src/views/MainStyle';
+import SubmitButton from 'src/views/native_elements/submitButton';
+import MainStyle from 'src/utils/mainStyle';
 import Dash from 'react-native-dash';
+import DeleteDialog from 'src/views/dialogs/deleteDialog';
+import MessageDialog from 'src/views/dialogs/messageDialog';
 
 export default class ClientDetailsView extends Component {
 
@@ -18,8 +20,21 @@ export default class ClientDetailsView extends Component {
         this.state = {searchKey: ''};
     }
 
+    showMessageSendWithSuccess(message) {
+        Toast.show({
+            text: message,
+            buttonText: 'OK'
+        });
+    }
+
     render() {
-        const {client, actionEditClick, actionDeleteClick} = this.props;
+        const {
+            client, actionEditClick, actionDeleteClick, actionNewCode,
+            actionMessage, actionDeleteCode, actionEditCode, showMessageDialog,
+            showDeleteDialog,  actionHideDeleteDialog,
+            actionDeleteCodeConfirm, actionHideMessageDialog, actionMessageConfirm
+        } = this.props;
+
         let title = '<p>' + client.firstName + ' <b>' + client.lastName + '</b></p>';
 
         return (
@@ -52,12 +67,12 @@ export default class ClientDetailsView extends Component {
                                 </View>
                             </View>
                             <Dash style={styles.dash} dashColor={GRAY_LIGHT}/>
-                            <SubmitButton text={'NEW ENERGY CODE'}/>
+                            <SubmitButton text={'NEW ENERGY CODE'} onPress={actionNewCode}/>
                         </View>
                     </View>
                     <FlatList
                         keyExtractor={item => item.id}
-                        data={client.getFormulas()}
+                        data={client.treatments}
                         style={styles.listClients}
                         renderItem={(rowData) =>
                             <ClientItemView
@@ -65,13 +80,15 @@ export default class ClientDetailsView extends Component {
                                 selectPageCallback={pos => this.selectPage(pos)}
                                 date={rowData.item.date}
                                 formula={rowData.item.formula}
+                                actionMessage={actionMessage}
+                                actionEdit={actionEditCode}
+                                actionDelete={actionDeleteCode}
                                 type={rowData.item.type}/>
                         }
                     />
-
-
                 </ContentFlex>
-
+                <DeleteDialog visible={showDeleteDialog} dismissCallback={actionHideDeleteDialog} deleteCallback={actionDeleteCodeConfirm}/>
+                <MessageDialog visible={showMessageDialog} dismissCallback={actionHideMessageDialog} actionMessage={actionMessageConfirm}/>
             </ContainerFlex>
         );
     }
@@ -101,5 +118,15 @@ const styles = StyleSheet.create({
 ClientDetailsView.propTypes = {
     client: PropTypes.object,
     actionEditClick: PropTypes.func,
-    actionDeleteClick: PropTypes.func
+    actionDeleteClick: PropTypes.func,
+    actionNewCode: PropTypes.func,
+    actionEditCode: PropTypes.func,
+    actionMessage: PropTypes.func,
+    actionDeleteCode: PropTypes.func,
+    showDeleteDialog: PropTypes.bool,
+    showMessageDialog: PropTypes.bool,
+    actionHideDeleteDialog: PropTypes.func,
+    actionDeleteCodeConfirm: PropTypes.func,
+    actionHideMessageDialog: PropTypes.func,
+    actionMessageConfirm: PropTypes.func,
 };

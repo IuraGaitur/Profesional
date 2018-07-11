@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {FlatList, Text, View, StyleSheet} from 'react-native';
 import {Button, Icon, Item, Input} from 'native-base';
-import DrawerMenu from 'src/views/menu/DrawerMenu';
-import ContentFlex from 'src/views/native_elements/ContentFlex';
-import {GRAY_COLOR, GRAY_LIGHT, LIGHT_COLOR} from 'src/utils/Colors';
+import DrawerMenu from 'src/views/menu/drawerMenu';
+import ContentFlex from 'src/views/native_elements/contentFlex';
+import {GRAY_COLOR, GRAY_LIGHT, LIGHT_COLOR} from 'src/utils/colors';
 import ClientItemView from 'src/screens/home/client/clients/views/ClientItemView';
-import TouchOpacityDebounce from "../../../../utils/touchable_debounce/TouchOpacityDebounce";
+import TouchOpacityDebounce from "../../../../utils/touchable_debounce/touchOpacityDebounce";
 
 export default class ClientsView extends Component {
 
@@ -72,7 +72,7 @@ export default class ClientsView extends Component {
                                         key={rowData.item.getID()}
                                         selectPageCallback={pos => this.selectPage(pos)}
                                         name={rowData.item.getName()}
-                                        formula={rowData.item.getFormula()}
+                                        formula={rowData.item.formula}
                                     />
                                 </TouchOpacityDebounce>
                             }

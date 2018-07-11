@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {goBack, init, createTreatment} from 'src/screens/home/blowDryDiagnosis/blowDryDiagnosisAction';
 import BlowDryDiagnosisView  from 'src/screens/home/blowDryDiagnosis/blowDryDiagnosisView';
+import Diagnosis from 'src/data/models/diagnosis/diagnosis';
 
 class BlowDryDiagnosisScreen extends Component {
 
@@ -9,7 +10,7 @@ class BlowDryDiagnosisScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {showEditAction: false};
+        this.state = {showEditAction: false, diagnosis: new Diagnosis()};
     }
 
     componentDidMount() {
@@ -32,9 +33,10 @@ class BlowDryDiagnosisScreen extends Component {
 
     render() {
         const {diagnosisQuiz} = this.props;
-        const {showEditAction} = this.state;
+        const {showEditAction, diagnosis} = this.state;
 
-        return <BlowDryDiagnosisView diagnosisQuiz={diagnosisQuiz}
+        return <BlowDryDiagnosisView diagnosis={diagnosis}
+                                     diagnosisQuiz={diagnosisQuiz}
                                      showEditAction={showEditAction}
                                      actionCreate={this.createTreatment}
                                      actionPageSelectedCallback={this.actionPageSelected}

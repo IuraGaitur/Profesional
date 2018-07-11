@@ -1,4 +1,4 @@
-import DiagnosisQuizApi from 'src/data/api/DiagnosisQuizApi';
+import DiagnosisQuizApi from 'src/data/api/diagnosisQuizApi';
 import { Actions } from 'react-native-router-flux';
 import {INIT, NO_ACTION} from 'src/app/actions';
 
@@ -16,8 +16,8 @@ function getDiagnosisQuiz(diagnosisQuiz) {
     }
 }
 
-export function showTreatment(client) {
-    Actions.treatment({newClient: client});
+export function showTreatment(client, diagnosis) {
+    Actions.treatment({newClient: client, diagnosis: diagnosis});
     return {type: NO_ACTION};
 }
 

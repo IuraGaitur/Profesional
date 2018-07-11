@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR,} from 'src/utils/Colors';
+import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR,} from 'src/utils/colors';
 import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
-import ScreenUtils from 'src/utils/ScreenUtils';
+import ScreenUtils from 'src/utils/screenUtils';
 import {Form, Item, Label, Input, Container, Content, Button, Toast, Icon, Grid, Col} from 'native-base';
-import FormItem, {EMAIL, REQUIRED} from 'src/views/native_elements/FormItem';
-import SubmitButton from 'src/views/native_elements/SubmitButton';
-import FormData from 'src/views/form/FormData';
-import ContainerFlex from 'src/views/native_elements/ContainerFlex';
-import ContentFlex from 'src/views/native_elements/ContentFlex';
+import FormItem, {EMAIL, REQUIRED} from 'src/views/native_elements/formItem';
+import SubmitButton from 'src/views/native_elements/submitButton';
+import FormData from 'src/views/form/formData';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import ContentFlex from 'src/views/native_elements/contentFlex';
 
 const BG_IMAGE = require('Sytem_Pro/assets/images/bg_image_1.png');
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
         //fontFamily: 'WorkSansBold'
     },
     title: {
-        fontSize: 28,
+        fontSize: 24,
         color: TEXT_COLOR,
         //fontFamily: 'WorkSansRegular'
     },

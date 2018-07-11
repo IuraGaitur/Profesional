@@ -19,7 +19,7 @@ import {TreatmentScreen} from './src/screens/home/treatment';
 import {ProductsScreen} from './src/screens/products/list';
 import {ProductScreen} from './src/screens/products/details';
 import {Router, Scene} from "react-native-router-flux";
-import ScreenUtils from "./src/utils/ScreenUtils";
+import ScreenUtils from "./src/utils/screenUtils";
 import {Provider} from 'react-redux';
 import store from './src/app/store';
 import {Root} from 'native-base'
@@ -65,7 +65,7 @@ class App extends Component {
                     <Scene key={INFO} component={InfoScreen}/>
                     <Scene key={ABOUT} component={AboutScreen}/>
                     {/*HOME SCENES*/}
-                    <Scene key={MAIN} component={ClientsScreen}/>
+                    <Scene key={MAIN} component={ClientsScreen} />
                     <Scene key={CREATE_CLIENT} component={CreateClientScreen} />
                     <Scene key={EDIT_CLIENT} component={EditClientScreen} />
                     <Scene key={CLIENT_DETAILS} component={ClientDetailsScreen} />

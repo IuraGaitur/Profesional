@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {goBack, init, showTreatment } from 'src/screens/home/energyCodeDiagnosis/energyCodeDiagnosisAction';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {goBack, init, showTreatment} from 'src/screens/home/energyCodeDiagnosis/energyCodeDiagnosisAction';
 import EnergyCodeDiagnosisView  from 'src/screens/home/energyCodeDiagnosis/energyCodeDiagnosisView';
+import Diagnosis from 'src/data/models/diagnosis/diagnosis';
 
 class EnergyCodeDiagnosisScreen extends Component {
 
-    static navigationOptions = { header: null};
+    static navigationOptions = {header: null};
 
     constructor(props) {
         super(props);
-        this.state = {showSaveAction: false};
+        this.state = {showSaveAction: false, diagnosis: new Diagnosis()};
     }
 
     componentDidMount() {
@@ -32,17 +33,17 @@ class EnergyCodeDiagnosisScreen extends Component {
 
     render() {
         const {networkError, showLoading, diagnosisQuiz} = this.props;
-        const {showSaveAction} = this.state;
+        const {showSaveAction, diagnosis} = this.state;
 
-        return <EnergyCodeDiagnosisView
-                                 actionBack={() => this.goBack()}
-                                 actionSave={this.actionSave}
-                                 actionPageSelectedCallback={this.actionPageSelected}
-                                 dismissDialogCallback={this.dismissDialogCallback}
-                                 showSaveAction={showSaveAction}
-                                 showNetworkError={networkError}
-                                 showLoading={showLoading}
-                                 quiz={diagnosisQuiz}/>
+        return <EnergyCodeDiagnosisView diagnosis={diagnosis}
+                                        actionBack={() => this.goBack()}
+                                        actionSave={this.actionSave}
+                                        actionPageSelectedCallback={this.actionPageSelected}
+                                        dismissDialogCallback={this.dismissDialogCallback}
+                                        showSaveAction={showSaveAction}
+                                        showNetworkError={networkError}
+                                        showLoading={showLoading}
+                                        quiz={diagnosisQuiz}/>
     }
 }
 
@@ -54,10 +55,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDiagnosis: () => {dispatch(init())},
         goBack: () => {dispatch(goBack)},
+        getDiagnosis: () => {dispatch(init())},
         showTreatment: (newClient) => {dispatch(showTreatment(newClient))}
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (EnergyCodeDiagnosisScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(EnergyCodeDiagnosisScreen);

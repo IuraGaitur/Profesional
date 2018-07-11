@@ -1,5 +1,5 @@
-import UserService from 'src/data/api/UserApi';
-import StatusCode from 'src/utils/StatusCode';
+import UserService from 'src/data/api/userApi';
+import StatusCode from 'src/utils/statusCode';
 import {RESET, FAIL, SUCCESS, NETWORK_ERROR} from 'src/app/actions';
 
 function requestReset() {
