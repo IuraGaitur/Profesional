@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import {FlatList, Text, View, StyleSheet, Dimensions, Platform} from "react-native";
+import {FlatList, Text, View, StyleSheet, Dimensions, Platform} from 'react-native';
 import PropTypes from 'prop-types';
-import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../../utils/Colors';
-import TextInput, {EMAIL, REQUIRED, STRONG_PASS} from "../../../views/form/TextInput";
-import Form from "../../../views/form/FormData";
-import SubmitButton from "../../../views/native_elements/SubmitButton";
-import {Body, Grid, Left, Row, Header, Right, Button, Label, Icon, Toast} from "native-base";
-import FormItem from "../../../views/native_elements/FormItem";
-import BackMenu from "../../../views/menu/BackMenu";
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
-import ContentFlex from "../../../views/native_elements/ContentFlex";
+import {GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR} from 'src/utils/colors';
+import {EMAIL, REQUIRED, STRONG_PASS} from 'src/views/form/textInput';
+import Form from 'src/views/form/formData';
+import SubmitButton from 'src/views/native_elements/submitButton';
+import {Button, Label, Icon, Toast} from 'native-base';
+import FormItem from 'src/views/native_elements/formItem';
+import BackMenu from 'src/views/menu/backMenu';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import ContentFlex from 'src/views/native_elements/contentFlex';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default class RecoveryView extends Component {
@@ -57,16 +57,16 @@ export default class RecoveryView extends Component {
         const {email, newPass, actionResetCallback, actionInfoCallback, showLoading, showPass} = this.state;
         return (
             <ContainerFlex>
-                <BackMenu title={"RECOVER PASSWORD"} actions={
+                <BackMenu title={'<p><b>FORGOT</b> YOUR PASSWORD</p>'} actions={
                     <Button transparent onPress={() => actionInfoCallback()}>
                         <Icon name='information-circle-outline' style={{color: GRAY_COLOR}}/>
                     </Button>
                 }/>
                 <ContentFlex padding={16}>
-                    <Form shouldValidate={true} ref="formData">
+                    <Form shouldValidate={true} ref='formData'>
                         <Text style={{paddingTop: 20}}>Enter your email and choose a new password.</Text>
                         <Text style={{paddingBottom: 20}}>You will receive a PIN via email. Enter the pin to reset the password.</Text>
-                        <FormItem ref="emailEdit"
+                        <FormItem ref='emailEdit'
                                   value={email}
                                   onChangeText={(text) => {this.updateForm('email', text)}}
                                   onSubmitEditing={() => this.refs.passEdit.focus()}
@@ -74,7 +74,7 @@ export default class RecoveryView extends Component {
                                                 {name: EMAIL, error: 'Not valid email'}]}>
                             <Label>Email Address</Label>
                         </FormItem>
-                        <FormItem ref="passEdit" password={true}
+                        <FormItem ref='passEdit' password={true}
                                   value={newPass}
                                   onChangeText={(text) => {this.updateForm('newPass', text)}}
                                   isLast validation={[{name: REQUIRED, error: 'Required'}, {name: STRONG_PASS, error: 'Not a strong pass'}]}>

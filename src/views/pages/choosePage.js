@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {ScrollView, Text} from "react-native";
-import {View} from "native-base";
-import RadioBoxGroup from "../form/radioGroup/RadioGroup";
-import styles from './pageStyle';
+import {ScrollView, Text} from 'react-native';
+import {View} from 'native-base';
+import RadioBoxGroup from 'src/views/form/pool/radioGroup/radioGroup';
+import styles from 'src/views/pages/pageStyle';
 
 export default class ChoosePage extends Component {
 

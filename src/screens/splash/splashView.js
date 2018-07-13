@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {FlatList, Text, View, StyleSheet, Dimensions, ActivityIndicator} from "react-native";
 import PropTypes from 'prop-types';
-import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, PRIMARY, TEXT_COLOR, TEXT_GRAY_COLOR} from '../../utils/Colors';
+import {PRIMARY} from 'src/utils/colors';
+import {Text, View, StyleSheet, Dimensions, ActivityIndicator} from 'react-native';
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -15,9 +16,9 @@ export default class SplashView extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{fontSize: 28, fontWeight: 'bold'}}>System Professional</Text>
-                <Text style={{fontSize: 20}}>Loading...</Text>
-                <ActivityIndicator style={styles.indicator} color={PRIMARY} animating={true} size="small"/>
+                <Text style={styles.logo}>System Professional</Text>
+                <Text style={styles.text}>Loading...</Text>
+                <ActivityIndicator style={styles.indicator} color={PRIMARY} animating={true} size='small'/>
             </View>
         );
     }
@@ -41,6 +42,13 @@ const styles = StyleSheet.create({
     },
     indicator: {
         margin: 20
+    },
+    logo: {
+        fontSize: 28,
+        fontWeight: 'bold'
+    },
+    text: {
+        fontSize: 20
     }
 });
 

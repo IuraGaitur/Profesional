@@ -1,9 +1,9 @@
+import moment from "moment";
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {init, registerRequest, goBack, showInfo} from './registerAction';
-import RegisterView  from './registerView';
-import Toast, {DURATION} from 'react-native-easy-toast'
-import {View} from "react-native";
+import User from 'src/data/models/user';
+import {init, registerRequest, showInfo, showPrivacyInfo, showCookieInfo} from 'src/screens/authentication/register/registerAction';
+import RegisterView  from 'src/screens/authentication/register/registerView';
 
 class RegisterScreen extends Component {
 
@@ -11,16 +11,8 @@ class RegisterScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = this.props;
+        this.state = {...this.props, currentUser: new User()};
     }
-
-    async componentDidMount() {
-        this.getCountries();
-    }
-
-    getCountries = () => {
-        this.props.getCountries();
-    };
 
     componentWillReceiveProps(nextProps) {
         this.setState({...this.state, ...nextProps});
@@ -29,12 +21,14 @@ class RegisterScreen extends Component {
         }
     }
 
-    registerUser = (user) => {
-        this.props.register(user);
+    changeUser = (item, value) => {
+        let user = this.state.currentUser;
+        user[item] = value;
+        this.setState({currentUser: user});
     };
 
-    goBack = () => {
-        this.props.goBack();
+    registerUser = (user) => {
+        this.props.register(user);
     };
 
     showInfo = () => {
@@ -49,25 +43,54 @@ class RegisterScreen extends Component {
         this.setState({...this.state, networkError: false});
     };
 
+    actionFindAboutCookie = () => {
+        this.props.showCookieInfo();
+    };
+
+    actionFindAboutPrivacy = () => {
+        this.props.showPrivacyInfo();
+    };
+
+    showDatePicker = () => {
+        this.setState({showDatePicker: true});
+    };
+
+    handleDatePicked = (time) => {
+        this.changeUser('birthday', moment(time).format('YYYY-MM-DD'));
+        this.setState({showDatePicker: false});
+    };
+
+    hideDatePicker = () => {
+        this.setState({showDatePicker: false});
+    };
+
     render() {
+        const {currentUser, showDatePicker} = this.state;
         const {countries, networkError, showLoading} = this.props;
 
         return (
-            <RegisterView registerCallback={user => this.registerUser(user)}
+            <RegisterView user={currentUser}
+                          actionRegisterUser={this.registerUser}
                           countries={countries}
-                          actionBack={() => this.goBack()}
                           actionInfo={() => this.showInfo()}
                           showNetworkError={networkError}
                           showLoading={showLoading}
+                          actionChangeUser={this.changeUser}
+                          showDatePicker={showDatePicker}
+                          actionHideDateTimePicker={this.hideDatePicker}
+                          actionHandleDatePicked={this.handleDatePicked}
+                          actionShowDatePicker={this.showDatePicker}
+                          actionFindAboutPrivacy={this.actionFindAboutPrivacy}
+                          actionFindAboutCookie={this.actionFindAboutCookie}
                           dismissDialogCallback={this.dismissDialogCallback}/>
-
         );
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        countries: state.register.countries,
+        countries: state.splash.countries,
+
         showLoading: state.register.showLoading,
         errorMessage: state.register.errorMessage,
         networkError: state.register.networkError,
@@ -78,18 +101,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCountries: () => {
-            dispatch(init())
-        },
-        register: (user) => {
-            dispatch(registerRequest(user))
-        },
-        goBack: () => {
-            dispatch(goBack)
-        },
-        showInfo: () => {
-            dispatch(showInfo)
-        },
+        register: (user) => {dispatch(registerRequest(user))},
+        showInfo: () => {dispatch(showInfo)},
+        showPrivacyInfo: () => {dispatch(showPrivacyInfo())},
+        showCookieInfo: () => {dispatch(showCookieInfo())}
     }
 };
 

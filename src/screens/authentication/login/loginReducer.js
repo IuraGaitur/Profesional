@@ -1,5 +1,5 @@
-import {REQUEST_LOGIN, EMAIL_FAIL, PASS_FAIL, LOGIN_FAIL, LOGIN_SUCCESS, NETWORK_ERROR} from './loginAction';
-import User from "../../../data/models/User";
+import {LOGIN, FAIL, SUCCESS, EMAIL_FAIL, PASS_FAIL, NETWORK_ERROR} from 'src/app/actions';
+import User from 'src/data/models/user';
 
 const defaultState = {
     isLoggedIn: false,
@@ -12,7 +12,7 @@ const defaultState = {
 
 export default function reducer(state = defaultState, action) {
     switch (action.type) {
-        case REQUEST_LOGIN:
+        case LOGIN:
             return {
                 ...state,
                 emailError: null,
@@ -30,7 +30,7 @@ export default function reducer(state = defaultState, action) {
                 isLoggedIn: false
             };
         case PASS_FAIL:
-        case LOGIN_FAIL:
+        case FAIL:
             return {...state,
                 emailError: null,
                 passError: action.error,
@@ -38,7 +38,7 @@ export default function reducer(state = defaultState, action) {
                 networkError: false,
                 isLoggedIn: false
             };
-        case LOGIN_SUCCESS:
+        case SUCCESS:
             return {
                 ...state,
                 user: action.userResponse,

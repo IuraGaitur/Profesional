@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {registerRequest, goBack, showInfo, init} from './blowDryDiagnosisAction';
-import BlowDryDiagnosisView  from './blowDryDiagnosisView';
+import {goBack, init, createTreatment} from 'src/screens/home/blowDryDiagnosis/blowDryDiagnosisAction';
+import BlowDryDiagnosisView  from 'src/screens/home/blowDryDiagnosis/blowDryDiagnosisView';
+import Diagnosis from 'src/data/models/diagnosis/diagnosis';
 
 class BlowDryDiagnosisScreen extends Component {
 
@@ -9,45 +10,55 @@ class BlowDryDiagnosisScreen extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {showEditAction: false, diagnosis: new Diagnosis()};
     }
 
     componentDidMount() {
-        this.props.getQuestions();
+        this.props.getDiagnosisQuiz();
     }
 
     goBack = () => {
         this.props.goBack();
     };
 
-    render() {
-        const {networkError, showLoading, questions} = this.props;
+    createTreatment = () => {
+        let newClient = this.props.newClient;
+        this.props.createTreatment(newClient);
+    };
 
-        return <BlowDryDiagnosisView questions={questions}
-                                  actionBack={() => this.goBack()}
-                                  showNetworkError={networkError}
-                                  showLoading={showLoading}
-                                  pagesData={questions}
-                                  dismissDialogCallback={this.dismissDialogCallback}/>
+    actionPageSelected = (position, totalPages) => {
+        let showEditAction = position == totalPages - 1;
+        this.setState({showEditAction: showEditAction});
+    };
+
+    changeDiagnosisQuestionary = (diagnosis) => {
+        this.setState({diagnosis: diagnosis});
+    };
+
+    render() {
+        const {diagnosisQuiz} = this.props;
+        const {showEditAction, diagnosis} = this.state;
+
+        return <BlowDryDiagnosisView diagnosis={diagnosis}
+                                     diagnosisQuiz={diagnosisQuiz}
+                                     showEditAction={showEditAction}
+                                     actionCreate={this.createTreatment}
+                                     actionPageSelectedCallback={this.actionPageSelected}
+                                     actionChangeDiagnosis={this.changeDiagnosisQuestionary}
+                                     dismissDialogCallback={this.dismissDialogCallback}/>
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        questions: state.blowDry.blowQuestions,
-        showLoading: state.blowDry.showLoading,
-        errorMessage: state.blowDry.errorMessage,
-        networkError: state.blowDry.networkError,
+        diagnosisQuiz: state.blowDry.diagnosisQuiz
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getQuestions: () => {
-            dispatch(init())
-        },
-        goBack: () => {
-            dispatch(goBack)
-        },
+        getDiagnosisQuiz: () => {dispatch(init())},
+        createTreatment: (newClient) => {dispatch(createTreatment(newClient));}
     }
 };
 

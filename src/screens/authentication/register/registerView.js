@@ -1,32 +1,28 @@
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import Form from "../../../views/form/FormData";
-import User from "../../../data/models/User";
-import CheckboxInput from "../../../views/form/checkGroup/CheckboxInput";
-import CollectionUtils from '../../../utils/CollectionUtils';
-import NetworkErrorDialog from "../../../views/NetworkErrorDialog";
+import Form from 'src/views/form/formData';
+import CheckboxInput from 'src/views/form/pool/checkGroup/checkboxInput';
+import CollectionUtils from 'src/utils/collectionUtils';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import {DARK_OVERLAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY} from '../../../utils/Colors';
-import TextInput, {CONFIRMATION, EMAIL, REQUIRED} from "../../../views/form/TextInput";
-import {View, StyleSheet, Dimensions, ScrollView, Platform} from "react-native";
-import TouchOpacityDebounce from "../../../utils/touchable_debounce/TouchOpacityDebounce";
-import PickerInput from "../../../views/form/PickerInput";
-import {Body, Left, Right, Button, Header, Label, CheckBox, Text, Grid, Icon} from "native-base";
-import FormItem from '../../../views/native_elements/FormItem';
-import { Col, Row } from 'react-native-easy-grid';
-import Space from "../../../views/native_elements/Space";
-import SubmitButton from "../../../views/native_elements/SubmitButton";
-import {STRONG_PASS} from "../../../views/native_elements/FormItem";
-import ContentFlex from "../../../views/native_elements/ContentFlex";
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
-import BackMenu from "../../../views/menu/BackMenu";
+import {LIGHT_COLOR, PRIMARY} from 'src/utils/colors';
+import {View, StyleSheet, Dimensions} from 'react-native';
+import TouchOpacityDebounce from 'src/utils/touchable_debounce/touchOpacityDebounce';
+import PickerInput from 'src/views/form/pickerInput';
+import {Button, Label, CheckBox, Text, Icon} from 'native-base';
+import FormItem from 'src/views/native_elements/formItem';
+import Space from 'src/views/native_elements/space';
+import SubmitButton from 'src/views/native_elements/submitButton';
+import ContentFlex from 'src/views/native_elements/contentFlex';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import BackMenu from 'src/views/menu/backMenu';
+import MainStyle from 'src/utils/mainStyle';
 const SCREEN_WIDTH = Dimensions.get('window').width;
+import {validationRequired, validationEmail, validationEmailConfirm, validationPassConfirm, validationStrongPass} from 'src/utils/validation';
 
 export default class RegisterView extends Component {
 
     formInputs = [];
-    user = new User();
+
 
     constructor(props) {
         super(props);
@@ -39,186 +35,149 @@ export default class RegisterView extends Component {
         }
     }
 
-    register = (e) => {
+    register = (user, registerCallback) => {
         let areFieldsValid = this.refs.formData.validate(this.formInputs);
         if (areFieldsValid) {
-            this.props.registerCallback(this.user);
+            registerCallback(user);
         }
     };
 
-    changeCountryCallback = (selectedCountry) => {
-        this.setState({country: selectedCountry});
-    };
-
-    checkTermsCallback = () => {
-        this.user.termsCheck = !this.state.termsCheck;
-        this.setState({termsCheck: !this.state.termsCheck})
-    };
-
-    checkNewsLetterCallback = () => {
-        this.user.newsLetterCheck = !this.state.newsLetterCheck;
-        this.setState({newsLetterCheck: !this.state.newsLetterCheck})
-    };
-
-    updateForm = (item, value) => {
-        this.setState({[item]: value});
-        this.user[item] = value;
-    };
-
-    showDateTimerPicker() {
-        this.setState({showDatePicker: true});
-    }
-
-    handleDatePicked(time) {
-        this.updateForm('birthday', moment(time).format('YYYY-MM-DD'));
-        this.setState({showDatePicker: false});
-    };
-
-    hideDateTimePicker() {
-        this.setState({showDatePicker: false});
-    };
-
     render() {
-        const { firstName, lastName, email, emailConfirm,
-                birthday, pass, passConfirm, salonName,
-                city, country, phone, wellaNumber, postalCode, termsCheck, newsLetterCheck,
-                showDatePicker} = this.state;
-        const {showLoading, showNetworkError, countries, actionBack, actionInfo, dismissDialogCallback} = this.props;
+        const {user, showDatePicker, countries, actionFindAboutCookie,
+            actionFindAboutPrivacy, actionShowDatePicker,
+            actionHandleDatePicked, actionHideDateTimePicker, actionChangeUser,
+            actionRegisterUser, showNetworkError, showLoading, actionInfo
+        } = this.props;
+
 
         return (
             <ContainerFlex>
-                <BackMenu title={"TELL ABOUT YOURSELF"} actions={
+                <BackMenu title={'<p><b>TELL US </b>ABOUT YOURSELF</p>'} actions={
                     <Button transparent onPress={() => actionInfo()}>
-                        <Icon name='information-circle-outline' style={{color: GRAY_COLOR}}/>
+                        <Icon name='ios-help' style={MainStyle.saveButton}/>
                     </Button>
                 }/>
                 <ContentFlex scrollable>
                     <View style={styles.inputsContainer}>
-                        <Form shouldValidate ref="formData">
-
+                        <Form shouldValidate ref='formData'>
                             <FormItem
                                 ref={item => this.formInputs[0] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
-                                value={firstName}
+                                validation={[validationRequired]}
+                                value={user.firstName}
                                 onSubmitEditing={() => this.formInputs[1].focus()}
-                                onChangeText={item => this.updateForm('firstName', item)}>
+                                onChangeText={item => actionChangeUser('firstName', item)}>
                                 <Label>FIRST NAME*</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[1] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
-                                value={lastName}
+                                validation={[validationRequired]}
+                                value={user.lastName}
                                 onSubmitEditing={() => this.formInputs[2].focus()}
-                                onChangeText={item => this.updateForm('lastName', item)}>
+                                onChangeText={item => actionChangeUser('lastName', item)}>
                                 <Label>LAST NAME*</Label>
                             </FormItem>
                             <Space height={15}/>
                             <FormItem
                                 ref={item => this.formInputs[2] = item}
-                                validation={[{name: REQUIRED, error: 'Required'},
-                                             {name: EMAIL, error: 'Not valid email'}]}
-                                value={email}
+                                validation={[validationRequired, validationEmail]}
+                                value={user.email}
                                 onSubmitEditing={() => this.formInputs[3].focus()}
-                                onChangeText={item => {this.updateForm('email', item);}}>
+                                onChangeText={item => {actionChangeUser('email', item);}}>
                                 <Label>EMAIL ADDRESS*</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[3] = item}
-                                validation={[{name: REQUIRED, error: 'Required'},
-                                    {name: EMAIL, error: 'Not valid email'},
-                                    {name: CONFIRMATION, error: 'Emails are not the same'}]}
-                                confirmationValue={this.state.email}
-                                value={emailConfirm}
+                                validation={[validationRequired, validationEmailConfirm]}
+                                confirmationValue={user.email}
+                                value={user.emailConfirm}
                                 onSubmitEditing={() => this.formInputs[4].focus()}
-                                onChangeText={item => {this.updateForm('emailConfirm', item);}}>
+                                onChangeText={item => {actionChangeUser('emailConfirm', item);}}>
                                 <Label>EMAIL CONFIRMATION*</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[4] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
-                                onFocus={() => {this.showDateTimerPicker()}}
+                                validation={[validationRequired]}
+                                onFocus={() => actionShowDatePicker()}
                                 onSubmitEditing={() => this.formInputs[5].focus()}
-                                value={birthday}>
+                                value={user.birthday}>
                                 <Label>DATE OF BIRTH*</Label>
                             </FormItem>
                             <Space height={15}/>
                             <FormItem
                                 ref={item => this.formInputs[5] = item}
-                                validation={[{name: REQUIRED, error: 'Required'},
-                                             {name: STRONG_PASS, error: 'Not valid password'}]}
-                                value={pass} password
+                                validation={[validationRequired, validationStrongPass]}
+                                value={user.pass} password
                                 onSubmitEditing={() => this.formInputs[6].focus()}
-                                onChangeText={item => {this.updateForm('pass', item);}}>
+                                onChangeText={item => {actionChangeUser('pass', item);}}>
                                 <Label>PASSWORD*</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[6] = item}
-                                confirmationValue={this.state.pass}
-                                value={passConfirm} password
+                                confirmationValue={user.pass}
+                                value={user.passConfirm} password
                                 onSubmitEditing={() => this.formInputs[7].focus()}
-                                validation={[{name: REQUIRED, error: 'Required'},
-                                             {name: STRONG_PASS, error: 'Not valid password'},
-                                             {name: CONFIRMATION, error: 'Passwords are not the same'}]}
-                                onChangeText={item => this.updateForm('passConfirm', item)}>
+                                validation={[validationRequired, validationStrongPass, validationPassConfirm]}
+                                onChangeText={item => actionChangeUser('passConfirm', item)}>
                                 <Label>PASSWORD CONFIRMATION*</Label>
                             </FormItem>
                             <Space height={15}/>
                             <FormItem
                                 ref={item => this.formInputs[7] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                validation={[validationRequired]}
                                 onSubmitEditing={() => this.formInputs[8].focus()}
-                                value={salonName}
-                                onChangeText={item => this.updateForm('salonName', item)}>
+                                value={user.salonName}
+                                onChangeText={item => actionChangeUser('salonName', item)}>
                                 <Label>SALON NAME*</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[8] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                validation={[validationRequired]}
                                 onSubmitEditing={() => this.formInputs[9].focus()}
-                                value={phone}
-                                onChangeText={item => this.updateForm('phone', item)}>
+                                value={user.phone}
+                                onChangeText={item => actionChangeUser('phone', item)}>
                                 <Label>PHONE NUMBER*</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[9] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                validation={[validationRequired]}
                                 onSubmitEditing={() => this.formInputs[10].focus()}
-                                value={postalCode}
-                                onChangeText={item => this.updateForm('postalCode', item)}>
+                                value={user.postalCode}
+                                onChangeText={item => actionChangeUser('postalCode', item)}>
                                 <Label>POSTAL CODE*</Label>
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[10] = item}
-                                value={city}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                value={user.city}
+                                validation={[validationRequired]}
                                 onSubmitEditing={() => this.formInputs[11].focus()}
-                                onChangeText={item => this.updateForm('city', item)}>
+                                onChangeText={item => actionChangeUser('city', item)}>
                                 <Label>CITY*</Label>
                             </FormItem>
                             <PickerInput
+                                label="COUNTRY*"
                                 items={countries}
-                                valueChangeCallBack={this.changeCountryCallback}
-                                defaultItem={{label: "COUNTRY*", value: ""}}
-                                needValidation value={country}
+                                valueChangeCallBack={item => actionChangeUser('country', item)}
+                                defaultItem={{label: 'COUNTRY*', value: ''}}
+                                needValidation value={user.country}
                                 ref={item => this.formInputs[11] = item}
                                 onSubmitEditing={() => this.formInputs[12].focus()}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                validation={[validationRequired]}
                             />
                             <FormItem
                                 ref={item => this.formInputs[12] = item}
-                                value={wellaNumber} isLast
-                                validation={[{name: REQUIRED, error: 'Required'}]}
-                                onChangeText={item => this.updateForm('wellaNumber', item)}>
+                                value={user.wellaNumber} isLast
+                                validation={[validationRequired]}
+                                onChangeText={item => actionChangeUser('wellaNumber', item)}>
                                 <Label>WELLA CUSTOMER NUMBER*</Label>
                             </FormItem>
                             <Space height={25}/>
                             <View style={styles.checkboxItem}>
                                 <Text style={styles.textValidator}>Accept terms *</Text>
                                 <CheckboxInput checkedColor={PRIMARY}
-                                               checked={termsCheck} needValidation
+                                               checked={user.acceptTerms} needValidation
                                                ref={item => this.formInputs[13] = item}
-                                               validation={[{name: REQUIRED, error: 'Required'}]}
-                                               onPress={() => this.checkTermsCallback()}/>
+                                               validation={[validationRequired]}
+                                               onPress={() => actionChangeUser('acceptTerms', !user.acceptTerms)}/>
                             </View>
                             <Space height={16}/>
                             <View style={styles.checkboxItem}>
@@ -226,20 +185,20 @@ export default class RegisterView extends Component {
                                 <CheckBox
                                     color={PRIMARY}
                                     style={{marginRight: 8}}
-                                    checked={newsLetterCheck}
-                                    onPress={() => this.checkNewsLetterCallback()}/>
+                                    checked={user.newsLetter}
+                                    onPress={() => actionChangeUser('newsLetter', !user.newsLetter)}/>
                             </View>
                             <Space height={25}/>
 
-                            <SubmitButton text='SIGN UP' showLoading={showLoading} onPress={this.register}/>
+                            <SubmitButton text='SIGN UP' showLoading={showLoading} onPress={() => this.register(user, actionRegisterUser)}/>
                             <Text style={styles.terms}>
                                 Please note, we use approved digital cookies, in these terms emails let us know you've
                                 received cookies to make sure we're giving you news and information that interests you.
                             </Text>
-                            <TouchOpacityDebounce>
+                            <TouchOpacityDebounce onPress={() => actionFindAboutCookie()}>
                                 <Text style={styles.link}>Find out more about cookies.</Text>
                             </TouchOpacityDebounce>
-                            <TouchOpacityDebounce>
+                            <TouchOpacityDebounce onPress={() => actionFindAboutPrivacy()}>
                                 <Text style={styles.link}>By clicking above you accept T&C.</Text>
                             </TouchOpacityDebounce>
                         </Form>
@@ -247,8 +206,8 @@ export default class RegisterView extends Component {
                 </ContentFlex>
                 <DateTimePicker
                     isVisible={showDatePicker}
-                    onConfirm={(e) => this.handleDatePicked(e)}
-                    onCancel={(e) => this.hideDateTimePicker(e)}
+                    onConfirm={(e) => actionHandleDatePicked(e)}
+                    onCancel={(e) => actionHideDateTimePicker(e)}
                 />
             </ContainerFlex>
         );
@@ -349,6 +308,14 @@ RegisterView.propTypes = {
     showLoading: PropTypes.bool,
     showNetworkError: PropTypes.bool,
     countries: PropTypes.array,
-    actionBack: PropTypes.func,
-    actionInfo: PropTypes.func
+    actionChangeUser: PropTypes.func,
+    actionInfo: PropTypes.func,
+    actionShowDatePicker: PropTypes.func,
+    actionFindAboutPrivacy: PropTypes.func,
+    actionFindAboutCookie: PropTypes.func,
+    showDatePicker: PropTypes.bool,
+    actionHandleDatePicked: PropTypes.func,
+    actionHideDateTimePicker: PropTypes.func,
+    user: PropTypes.object,
+    actionRegisterUser: PropTypes.func
 };

@@ -1,20 +1,18 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import Form from "../../../views/form/FormData";
-import NetworkErrorDialog from "../../../views/NetworkErrorDialog";
-import {Icon} from "react-native-elements";
-import {GRAY_COLOR, LIGHT_COLOR,} from '../../../utils/Colors';
-import TextInput, {EMAIL, REQUIRED} from "../../../views/form/TextInput";
-import {View, StyleSheet, Dimensions, ScrollView, Platform} from "react-native";
-import {Body, Left, Button, Header, Label, Text, Title, Right, Textarea} from "native-base";
-import FormItem from '../../../views/native_elements/FormItem';
-import Space from "../../../views/native_elements/Space";
-import SubmitButton from "../../../views/native_elements/SubmitButton";
-import Message from "../../../data/models/Message";
-import PickerInput from "../../../views/form/PickerInput";
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
-import ContentFlex from "../../../views/native_elements/ContentFlex";
-import BackMenu from "../../../views/menu/BackMenu";
+import Form from 'src/views/form/formData';
+import {LIGHT_COLOR,} from 'src/utils/colors';
+import {EMAIL, REQUIRED} from 'src/views/form/textInput';
+import {StyleSheet, Platform} from 'react-native';
+import {Label, Textarea} from 'native-base';
+import FormItem from 'src/views/native_elements/formItem';
+import Space from 'src/views/native_elements/space';
+import SubmitButton from 'src/views/native_elements/submitButton';
+import Message from 'src/data/models/message';
+import PickerInput from 'src/views/form/pickerInput';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import ContentFlex from 'src/views/native_elements/contentFlex';
+import BackMenu from 'src/views/menu/backMenu';
 
 export default class ContactView extends Component {
 
@@ -45,9 +43,9 @@ export default class ContactView extends Component {
 
         return (
             <ContainerFlex>
-                <BackMenu title={'CONTACT US'}/>
+                <BackMenu title={'<p>CONTACT <b>US</b></p>'}/>
                 <ContentFlex scrollable padding={8}>
-                    <Form shouldValidate ref="formData">
+                    <Form shouldValidate ref='formData'>
 
                         <FormItem
                             ref={item => this.formInputs[0] = item}
@@ -87,25 +85,17 @@ export default class ContactView extends Component {
                             <Label>ISSUE TYPE*</Label>
                         </FormItem>
                         <PickerInput
+                            label="SALON COUNTRY*"
                             items={countries}
                             valueChangeCallBack={this.changeCountryCallback}
-                            defaultItem={{label: "SALON COUNTRY*", value: ""}}
+                            defaultItem={{label: 'SALON COUNTRY*', value: ''}}
                             needValidation value={country}
                             ref={item => this.formInputs[9] = item}
                             onSubmitEditing={() => this.formInputs[10].focus()}
                             validation={[{name: REQUIRED, error: 'Required'}]}
                         />
                         <Space height={15}/>
-                        {/*<FormItem*/}
-                        {/*ref={item => this.formInputs[5] = item}*/}
-                        {/*value={message}*/}
-                        {/*validation={[{name: REQUIRED, error: 'Required'}]}*/}
-                        {/*onSubmitEditing={() => this.formInputs[5].focus()}*/}
-                        {/*onChangeText={item => this.updateForm('message', item)}*/}
-                        {/*numberOfLines={8}>*/}
-                        {/*<Label>MESSAGE*</Label>*/}
-                        {/*</FormItem>*/}
-                        <Textarea rowSpan={8} bordered placeholder="MESSAGE*"/>
+                        <Textarea rowSpan={8} bordered placeholder='MESSAGE*'/>
                         <SubmitButton text='Add Attachments' showLoading={showLoading} onPress={this.register}/>
                         <Space height={15}/>
                         <SubmitButton text='Send Message' showLoading={showLoading} onPress={this.sendMessage}/>
@@ -132,7 +122,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         paddingHorizontal: 16,
-        paddingBottom: Platform.OS === "ios" ? 104 : 96,
+        paddingBottom: Platform.OS === 'ios' ? 104 : 96,
         backgroundColor: 'white'
     },
     input: {

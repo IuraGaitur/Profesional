@@ -1,3 +1,3 @@
-import RecoveryScreen from './recovery';
+import RecoveryScreen from 'src/screens/authentication/recovery/recovery';
 
 export {RecoveryScreen};

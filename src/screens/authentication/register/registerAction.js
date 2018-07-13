@@ -1,33 +1,15 @@
-import UserService from '../../../data/api/UserApi';
-import CountryApi from "../../../data/api/CountryApi";
-import UserDao from "../../../data/database/UserDao";
-import StatusCode from "../../../utils/StatusCode";
-import Constants from '../../../utils/Constants';
+import UserService from 'src/data/api/userApi';
+import UserDao from 'src/data/database/userDao';
+import StatusCode from 'src/utils/statusCode';
+import Constants from 'src/utils/constants';
 import { Actions } from 'react-native-router-flux';
-export const INIT = 'INIT';
-export const ERROR = 'ERROR';
-export const REQUEST_REGISTER = 'REQUEST_REGISTER';
-export const REGISTER_FAIL = 'REGISTER_FAIL';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const NETWORK_ERROR = 'NETWORK_ERROR';
+import {REGISTER, SUCCESS, FAIL, NETWORK_ERROR, NO_ACTION} from 'src/app/actions';
 
-export function init() {
-    return async(dispatch) => {
-        let countries = await new CountryApi().instance().getAll();
-        return dispatch(getCountries(countries));
-    }
-}
 
-function getCountries(countries) {
-    return {
-        type: INIT,
-        countries: countries
-    }
-}
 
 function requestRegister() {
     return {
-        type: REQUEST_REGISTER
+        type: REGISTER
     }
 }
 
@@ -35,14 +17,14 @@ function successRegister(userResponse) {
     Actions.main();
     return {
         userResponse: userResponse,
-        type: REGISTER_SUCCESS
+        type: SUCCESS
     }
 }
 
 function errorRegister(errorMessage) {
     return {
         error: errorMessage,
-        type: REGISTER_FAIL
+        type: FAIL
     }
 }
 
@@ -52,10 +34,9 @@ function errorNetwork() {
     }
 }
 
-export function registerRequest(user) {
+export const registerRequest = (user) => {
     return async (dispatch) => {
         dispatch(requestRegister());
-
         let response = await new UserService().instance().register(user);
         if (response && response.status == StatusCode.OK) {
             await new UserDao().savePrimaryUser(response.user);
@@ -67,14 +48,24 @@ export function registerRequest(user) {
             return dispatch(errorNetwork())
         }
     }
-}
+};
 
-export function showInfo() {
+export const showInfo = () => {
     Actions.info();
-    return {type: Constants.NO_ACTION};
-}
+    return {type: NO_ACTION};
+};
 
-export function goBack() {
+export const goBack = () => {
     Actions.pop();
-    return {type: Constants.NO_ACTION};
-}
+    return {type: NO_ACTION};
+};
+
+export const showCookieInfo = () => {
+    Actions.about({url: Constants.urlCookie, title: '<b>Cookie Policy</b>'});
+    return {type: NO_ACTION};
+};
+
+export const showPrivacyInfo = () => {
+    Actions.about({url: Constants.urlPrivacy, title: '<b>Privacy Info</b>'});
+    return {type: NO_ACTION};
+};

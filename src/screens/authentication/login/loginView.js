@@ -1,26 +1,16 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {
-    BACKGROUND_GRAY_COLOR,
-    GRAY_COLOR, LIGHT_COLOR,
-    PRIMARY,
-    TEXT_COLOR,
-} from '../../../utils/Colors';
-import {
-    StyleSheet, Text, View, ImageBackground, Dimensions, Image, TouchableHighlight, TouchableWithoutFeedback,
-    TouchableNativeFeedback, TouchableOpacity, ScrollView
-} from 'react-native';
-import NetworkErrorDialog from "../../../views/NetworkErrorDialog";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import ScreenUtils from "../../../utils/ScreenUtils";
-import {Form, Item, Label, Input, Container, Content, Button, Toast, Icon, Grid, Col} from "native-base";
-import FormItem, {EMAIL, REQUIRED, STRONG_PASS} from "../../../views/native_elements/FormItem";
-import SubmitButton from "../../../views/native_elements/SubmitButton";
-import FormData from "../../../views/form/FormData";
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
-import ContentFlex from "../../../views/native_elements/ContentFlex";
+import {BACKGROUND_GRAY_COLOR, GRAY_COLOR, LIGHT_COLOR, PRIMARY, TEXT_COLOR,} from 'src/utils/colors';
+import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
+import ScreenUtils from 'src/utils/screenUtils';
+import {Form, Item, Label, Input, Container, Content, Button, Toast, Icon, Grid, Col} from 'native-base';
+import FormItem, {EMAIL, REQUIRED} from 'src/views/native_elements/formItem';
+import SubmitButton from 'src/views/native_elements/submitButton';
+import FormData from 'src/views/form/formData';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
+import ContentFlex from 'src/views/native_elements/contentFlex';
 
-const BG_IMAGE = require('../../../../assets/images/bg_image_1.png');
+const BG_IMAGE = require('Sytem_Pro/assets/images/bg_image_1.png');
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = ScreenUtils.HEIGHT;
 
@@ -47,7 +37,7 @@ export default class LoginView extends Component {
         if (passValidation) {
             callback(user.email, user.pass);
         } else {
-            console.log("Error");
+            console.log('Error');
         }
     }
 
@@ -68,7 +58,7 @@ export default class LoginView extends Component {
             forgotPassCallback, showInfoCallback} = this.state;
 
         return (
-            <ContainerFlex ref="loginContainer">
+            <ContainerFlex ref='loginContainer'>
                 <ContentFlex>
                     <Grid>
                         <Col>
@@ -85,14 +75,14 @@ export default class LoginView extends Component {
                                     <Text style={styles.title}>LOGIN</Text>
                                 </View>
 
-                                <FormData shouldValidate={true} ref="formData">
-                                    <FormItem ref="emailEdit" value={email}
+                                <FormData shouldValidate={true} ref='formData'>
+                                    <FormItem ref='emailEdit' value={email}
                                         onChangeText={(text) => {this.updateForm('email', text)}}
                                         onSubmitEditing={() => this.refs.passEdit.focus()}
                                         validation={[{name: REQUIRED, error: 'Required'}, {name: EMAIL, error: 'Not valid email'}]}>
                                         <Label>Username</Label>
                                     </FormItem>
-                                    <FormItem ref="passEdit"
+                                    <FormItem ref='passEdit'
                                         value={pass} password={true} isLast
                                         onChangeText={(text) => { this.updateForm('pass', text)}}
                                          validation={[{name: REQUIRED, error: 'Required'}]}>
@@ -158,7 +148,7 @@ const styles = StyleSheet.create({
         //fontFamily: 'WorkSansBold'
     },
     title: {
-        fontSize: 28,
+        fontSize: 24,
         color: TEXT_COLOR,
         //fontFamily: 'WorkSansRegular'
     },

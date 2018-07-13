@@ -1,18 +1,21 @@
 import { combineReducers } from 'redux';
-import splashReducer from './../../screens/splash/splashReducer';
-import loginReducer from '../../screens/authentication/login/loginReducer';
-import registerReducer from '../../screens/authentication/register/registerReducer';
-import recoverReducer from '../../screens/authentication/recovery/recoveryReducer';
-import infoReducer from '../../screens/help/info/infoReducer';
-import mainReducer from '../../screens/main/mainReducer';
-import faqReducer from '../../screens/help/faq/faqReducer';
-import contactReducer from '../../screens/help/contact/contactReducer';
-import productReducer from './../../screens/products/productsReducer';
-import blowDryReducer from "../../screens/home/blowDryDiagnosis/blowDryDiagnosisReducer";
-import energyCodeReducer from "../../screens/home/energyCodeDiagnosis/energyCodeDiagnosisReducer";
-import clientsReducer from '../../screens/home/clients/clientsReducer';
-import createClientReducer from '../../screens/home/newClient/createClientReducer';
-import profileReducer from './../../screens/profile/profileReducer';
+import splashReducer from 'src/screens/splash/splashReducer';
+import loginReducer from 'src/screens/authentication/login/loginReducer';
+import registerReducer from 'src/screens/authentication/register/registerReducer';
+import recoverReducer from 'src/screens/authentication/recovery/recoveryReducer';
+import infoReducer from 'src/screens/help/info/infoReducer';
+import faqReducer from 'src/screens/help/faq/list/faqReducer';
+import contactReducer from 'src/screens/help/contact/contactReducer';
+import productReducer from 'src/screens/products/list/productsReducer';
+import blowDryReducer from 'src/screens/home/blowDryDiagnosis/blowDryDiagnosisReducer';
+import energyCodeReducer from 'src/screens/home/energyCodeDiagnosis/energyCodeDiagnosisReducer';
+import clientsReducer from 'src/screens/home/client/clients/clientsReducer';
+import createClientReducer from 'src/screens/home/client/newClient/createClientReducer';
+import clientDetailsReducer from 'src/screens/home/client/clientDetails/clientDetailsReducer';
+import editClientReducer from 'src/screens/home/client/editClient/editClientReducer';
+
+import treatmentReducer from 'src/screens/home/treatment/treatmentReducer';
+import profileReducer from 'src/screens/profile/profileReducer';
 
 export default combineReducers({
     splash: splashReducer,
@@ -22,11 +25,13 @@ export default combineReducers({
     info: infoReducer,
     faq: faqReducer,
     contact: contactReducer,
-    main: mainReducer,
     energyCode: energyCodeReducer,
     blowDry: blowDryReducer,
     products: productReducer,
-    clients: clientsReducer,
     profile: profileReducer,
-    createClient: createClientReducer
+    clients: clientsReducer,
+    createClient: createClientReducer,
+    clientDetails: clientDetailsReducer,
+    editClient: editClientReducer,
+    treatment: treatmentReducer
 });

@@ -1,9 +1,8 @@
+import moment from "moment";
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {init, getPrimaryUser, goBack, saveRequest} from './profileAction';
-import ProfileView  from './profileView';
-import Toast, {DURATION} from 'react-native-easy-toast'
-import {View} from "react-native";
+import {saveRequest} from './profileAction';
+import ProfileView  from 'src/screens/profile/profileView';
 
 class ProfileScreen extends Component {
 
@@ -12,8 +11,6 @@ class ProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = this.props;
-        this.props.getCountries();
-        this.props.getPrimaryUser();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -23,6 +20,12 @@ class ProfileScreen extends Component {
         }
     }
 
+    changeUser = (item, value) => {
+        let user = this.state.primaryUser;
+        user[item] = value;
+        this.setState({primaryUser: user});
+    };
+
     updatePrimaryUser = (user) => {
         this.props.save(user);
     };
@@ -31,16 +34,34 @@ class ProfileScreen extends Component {
         this.setState({...this.state, networkError: false});
     };
 
+    showDatePicker = () => {
+        this.setState({showDatePicker: true});
+    };
+
+    handleDatePicked = (time) => {
+        this.changeUser('birthday', moment(time).format('YYYY-MM-DD'));
+        this.setState({showDatePicker: false});
+    };
+
+    hideDatePicker = () => {
+        this.setState({showDatePicker: false});
+    };
+
     render() {
-        const {countries, networkError, showLoading, primaryUser} = this.props;
+        const {primaryUser, showDatePicker} = this.state;
+        const {countries, networkError, showLoading} = this.props;
 
         return (
-            <ProfileView updatePrimaryUserCallback={user => this.updatePrimaryUser(user)}
+            <ProfileView user={primaryUser}
+                         updatePrimaryUserCallback={user => this.updatePrimaryUser(user)}
                          countries={countries}
                          showNetworkError={networkError}
                          showLoading={showLoading}
-                         primaryUser={primaryUser}
                          title={'Profile'}
+                         showDatePicker={showDatePicker}
+                         actionHideDateTimePicker={this.hideDatePicker}
+                         actionHandleDatePicked={this.handleDatePicked}
+                         actionShowDatePicker={this.showDatePicker}
                          dismissDialogCallback={this.dismissDialogCallback}/>
         );
     }
@@ -48,27 +69,20 @@ class ProfileScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        countries: state.profile.countries,
+
         showLoading: state.profile.showLoading,
         errorMessage: state.profile.errorMessage,
         networkError: state.profile.networkError,
-        primaryUser: state.profile.user,
-        isLoggedIn: state.profile.isLoggedIn
+
+        countries: state.splash.countries,
+        primaryUser: state.splash.user,
+        isLoggedIn: state.splash.loggedIn
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCountries: () => {
-            dispatch(init())
-        },
-        save: (user) => {
-            dispatch(saveRequest(user))
-        },
-        goBack: () => {
-            dispatch(goBack)
-        },
-        getPrimaryUser: () => dispatch(getPrimaryUser())
+        save: (user) => {dispatch(saveRequest(user))},
     }
 };
 

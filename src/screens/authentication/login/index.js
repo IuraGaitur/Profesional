@@ -1,3 +1,3 @@
-import LoginScreen from './login';
+import LoginScreen from 'src/screens/authentication/login/login';
 
 export {LoginScreen};

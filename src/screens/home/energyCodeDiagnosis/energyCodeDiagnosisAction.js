@@ -1,34 +1,28 @@
-import DetailsQuestionsApi from "../../../data/api/DetailsQuestionsApi";
+import DiagnosisQuizApi from 'src/data/api/diagnosisQuizApi';
 import { Actions } from 'react-native-router-flux';
-import Constants from '../../../utils/Constants';
-export const INIT = 'INIT';
-export const ERROR = 'ERROR';
-export const REQUEST_REGISTER = 'REQUEST_REGISTER';
-export const REGISTER_FAIL = 'REGISTER_FAIL';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const NETWORK_ERROR = 'NETWORK_ERROR';
+import {INIT, NO_ACTION} from 'src/app/actions';
 
 export function init() {
     return async(dispatch) => {
-        let questions = new DetailsQuestionsApi().instance().getEnergyCode();
-        return dispatch(getQuestions(questions));
+        let diagnosisQuiz = new DiagnosisQuizApi().instance().getEnergyCodeQuiz();
+        return dispatch(getDiagnosisQuiz(diagnosisQuiz));
     }
 }
 
-function getQuestions(questions) {
+function getDiagnosisQuiz(diagnosisQuiz) {
     return {
         type: INIT,
-        questions: questions
+        diagnosisQuiz: diagnosisQuiz
     }
 }
 
-function errorNetwork() {
-    return {
-        type: NETWORK_ERROR
-    }
+export function showTreatment(client, diagnosis) {
+    console.log(client);
+    Actions.treatment({newClient: client, diagnosis: diagnosis});
+    return {type: NO_ACTION};
 }
 
 export function goBack() {
     Actions.pop();
-    return {type: Constants.NO_ACTION};
+    return {type: NO_ACTION};
 }

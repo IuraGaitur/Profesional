@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import RecoveryView  from './recoveryView';
-import {INFO} from "../../../../App";
-import {resetPassword} from "./recoveryAction";
+import RecoveryView  from 'src/screens/authentication/recovery/recoveryView';
+import {resetPassword} from 'src/screens/authentication/recovery/recoveryAction';
 import {Actions} from 'react-native-router-flux';
 
 class RecoveryScreen extends Component {
@@ -46,7 +45,7 @@ class RecoveryScreen extends Component {
         const {showLoading} = this.state;
 
         return (
-            <RecoveryView ref="recoverView"
+            <RecoveryView ref='recoverView'
                           actionInfoCallback={this.actionInfo}
                           showLoading={showLoading}
                           actionBackCallback={this.actionBack}

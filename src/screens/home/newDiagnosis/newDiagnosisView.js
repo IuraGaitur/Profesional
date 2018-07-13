@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {StyleSheet} from "react-native";
-import {Text, Container, Grid, Row} from "native-base";
-import SubmitButton from "../../../views/native_elements/SubmitButton";
-import BackMenu from "../../../views/menu/BackMenu";
-import ContentFlex from "../../../views/native_elements/ContentFlex";
-import RowFlex from "../../../views/native_elements/RowFlex";
-import ContainerFlex from "../../../views/native_elements/ContainerFlex";
+import {StyleSheet} from 'react-native';
+import {Text, Container, Grid, Row} from 'native-base';
+import SubmitButton from 'src/views/native_elements/submitButton';
+import BackMenu from 'src/views/menu/backMenu';
+import ContentFlex from 'src/views/native_elements/contentFlex';
+import RowFlex from 'src/views/native_elements/rowFlex';
+import ContainerFlex from 'src/views/native_elements/containerFlex';
 
 export default class NewDiagnosisView extends Component {
 
@@ -17,7 +17,7 @@ export default class NewDiagnosisView extends Component {
     render() {
         return (
             <ContainerFlex>
-                <BackMenu title={'NEW DIAGNOSIS'}/>
+                <BackMenu title={'NEW DIAGNOSIS'} actionBack={() => this.props.actionBack()}/>
                 <ContentFlex padding={16}>
                     <Grid>
                         <Row size={2} style={styles.contentCenter}>
@@ -49,4 +49,5 @@ const styles = StyleSheet.create({
 NewDiagnosisView.propTypes = {
     actionEnergyCode: PropTypes.func,
     actionBlowDry: PropTypes.func,
+    actionBack: PropTypes.func
 };

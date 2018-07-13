@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import NewDiagnosisView from "./newDiagnosisView";
-import {showUsingBlowDryCode, showUsingEnergyCode} from "./newDiagnosisAction";
+import NewDiagnosisView from 'src/screens/home/newDiagnosis/newDiagnosisView';
+import {showUsingBlowDryCode, showUsingEnergyCode, goBack} from 'src/screens/home/newDiagnosis/newDiagnosisAction';
 
 class NewDiagnosis extends Component {
 
@@ -11,19 +11,37 @@ class NewDiagnosis extends Component {
         super(props);
     }
 
+    energyCodeDiagnosis = () => {
+        let newClient = this.props.newClient;
+        this.props.showUsingEnergyCode(newClient);
+    };
+
+    blowDryDiagnosis = () => {
+        let newClient = this.props.newClient;
+        this.props.showUsingBlowDry(newClient);
+    };
+
+    actionBack = () => {
+        this.props.goBack();
+    };
+
     render() {
         return <NewDiagnosisView
-                    actionEnergyCode={this.props.showUsingEnergyCode}
-                    actionBlowDry={this.props.showUsingBlowDry} />
+            actionEnergyCode={this.energyCodeDiagnosis}
+            actionBack={this.actionBack}
+            actionBlowDry={this.blowDryDiagnosis}/>
     }
 }
 
-const mapStateToProps = (state) => { return {};};
+const mapStateToProps = (state) => {
+    return {};
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        showUsingEnergyCode: () => dispatch(showUsingEnergyCode()),
-        showUsingBlowDry: () => dispatch(showUsingBlowDryCode()),
+        showUsingEnergyCode: (newClient) => dispatch(showUsingEnergyCode(newClient)),
+        showUsingBlowDry: (newClient) => dispatch(showUsingBlowDryCode(newClient)),
+        goBack: () => dispatch(goBack())
     }
 };
 

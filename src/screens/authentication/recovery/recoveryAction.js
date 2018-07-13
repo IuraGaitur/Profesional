@@ -1,28 +1,24 @@
-import UserService from '../../../data/api/UserApi';
-import StatusCode from "../../../utils/StatusCode";
-import Constants from '../../../utils/Constants';
-export const REQUEST_RESET = 'REQUEST_RESET';
-export const RESET_FAIL = 'RESET_FAIL';
-export const RESET_SUCCESS = 'RESET_SUCCESS';
-export const NETWORK_ERROR = 'NETWORK_ERROR';
+import UserService from 'src/data/api/userApi';
+import StatusCode from 'src/utils/statusCode';
+import {RESET, FAIL, SUCCESS, NETWORK_ERROR} from 'src/app/actions';
 
 function requestReset() {
     return {
-        type: REQUEST_RESET
+        type: RESET
     }
 }
 
 function successReset(message) {
     return {
         message: message,
-        type: RESET_SUCCESS
+        type: SUCCESS
     }
 }
 
 function errorReset(errorMessage) {
     return {
         error: errorMessage,
-        type: RESET_FAIL
+        type: FAIL
     }
 }
 
@@ -38,9 +34,9 @@ export function resetPassword(email, newPass) {
 
         let response = await new UserService().instance().resetPass(email, newPass);
         if (response && response.status == StatusCode.OK) {
-            return dispatch(successReset("Reset with success"));
+            return dispatch(successReset('Reset with success'));
         }else if (response && response.status == StatusCode.INVALID_USER) {
-            return dispatch(errorReset("Cannot reset user with this email"))
+            return dispatch(errorReset('Cannot reset user with this email'))
         } else {
             return dispatch(errorNetwork());
         }
