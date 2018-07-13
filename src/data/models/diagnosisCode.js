@@ -2,8 +2,8 @@ export default class DiagnosisCode {
     treatment = null;
     diagnosis = null;
 
-    constructor(treatment, diagnosis) {
-        this.treatment = treatment;
+    constructor(diagnosis, treatment) {
         this.diagnosis = diagnosis;
+        this.treatment = treatment;
     }
 }

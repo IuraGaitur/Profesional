@@ -22,9 +22,11 @@ function getInitData(countries, languages) {
 }
 
 export const startDiagnosis = (client) => {
-    new ClientDao().add(client);
-    Actions.newDiagnosis({newClient: client});
-    return {type: NO_ACTION};
+    return async(dispatch) => {
+        let newClient = await new ClientDao().add(client);
+        Actions.newDiagnosis({newClient: newClient});
+        return dispatch({type: NO_ACTION});
+    }
 };
 
 export const goBack = () => {

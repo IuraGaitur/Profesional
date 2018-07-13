@@ -31,6 +31,10 @@ class BlowDryDiagnosisScreen extends Component {
         this.setState({showEditAction: showEditAction});
     };
 
+    changeDiagnosisQuestionary = (diagnosis) => {
+        this.setState({diagnosis: diagnosis});
+    };
+
     render() {
         const {diagnosisQuiz} = this.props;
         const {showEditAction, diagnosis} = this.state;
@@ -40,6 +44,7 @@ class BlowDryDiagnosisScreen extends Component {
                                      showEditAction={showEditAction}
                                      actionCreate={this.createTreatment}
                                      actionPageSelectedCallback={this.actionPageSelected}
+                                     actionChangeDiagnosis={this.changeDiagnosisQuestionary}
                                      dismissDialogCallback={this.dismissDialogCallback}/>
     }
 }

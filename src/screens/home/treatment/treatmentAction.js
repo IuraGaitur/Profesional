@@ -1,7 +1,7 @@
 import { Actions } from 'react-native-router-flux';
-import Constants from 'src/utils/constants';
 import ClientDao from 'src/data/database/clientDao';
 import {INIT, NO_ACTION} from 'src/app/actions';
+import DiagnosisCode from 'src/data/models/diagnosisCode';
 
 export function init() {
     return {
@@ -16,9 +16,10 @@ export function showInfoScreen() {
     dispatch({type: NO_ACTION});
 }
 
-export function saveClientTreatment(client) {
+export function saveClientTreatment(client, diagnosis, treatment) {
     return async (dispatch) => {
-        //await new ClientDao().saveClientTreatment(client);
+        let diagnosisCode = new DiagnosisCode(diagnosis, treatment);
+        await new ClientDao().saveClientTreatment(client, diagnosisCode);
         Actions.main();
         dispatch({type: NO_ACTION});
     }

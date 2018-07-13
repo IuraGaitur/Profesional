@@ -5,13 +5,15 @@ export default class SliderQuestion {
     steps = [];
     info = '';
     selectedItem = null;
+    value = 0;
 
-    constructor(id, title, background, info, steps) {
+    constructor(id, title, background, info, steps, value) {
         this.id = id;
         this.title = title;
         this.background = background;
         this.info = info;
         this.steps = steps;
+        this.value = value;
     }
 
     hasInfo() {

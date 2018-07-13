@@ -23,6 +23,7 @@ export const removeClient = (client) => {
 };
 
 export const showNewDiagnosScreen = (client) => {
+    console.log(client);
     Actions.newDiagnosis({newClient: client});
     return {type: NO_ACTION};
 };

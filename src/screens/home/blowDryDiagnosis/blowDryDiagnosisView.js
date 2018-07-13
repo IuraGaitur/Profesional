@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {GRAY_COLOR, LIGHT_COLOR, SELECTED,} from 'src/utils/colors';
-import {View, StyleSheet, Dimensions, ScrollView, Platform, WebView} from 'react-native';
-import {Body, Left, Button, Header, Label, Text, Title, Right, Thumbnail} from 'native-base';
-import Message from 'src/data/models/message';
+import {GRAY_COLOR, LIGHT_COLOR, SELECTED} from 'src/utils/colors';
+import {View, StyleSheet, Platform} from 'react-native';
+import {Button, Text} from 'native-base';
 import {IndicatorViewPager, PagerDotIndicator} from 'rn-viewpager';
 import BackMenuLogo from 'src/views/menu/backMenuLogo';
 import ContainerFlex from 'src/views/native_elements/containerFlex';
@@ -14,34 +13,20 @@ import PoolPage from 'src/views/pages/poolPage';
 
 export default class BlowDryDiagnosisView extends Component {
 
-    formInputs = [];
-    message = new Message();
-
     constructor(props) {
         super(props);
-        this.state = {fullName: '', email: '', subject: '', salonName: '', city: '', message: '', scrollable: true}
     }
-
-    componentWillReceiveProps(newProps) {
-        console.log(newProps);
-    }
-
-    sendMessage = (e) => {
-        let areFieldsValid = this.refs.formData.validate(this.formInputs);
-        if (areFieldsValid) {
-            this.props.registerCallback(this.user);
-        }
-    };
-
-    updateForm = (item, value) => {
-        this.setState({[item]: value});
-        this.user[item] = value;
-    };
 
     _renderDotIndicator() {
         return <PagerDotIndicator pageCount={7} dotStyle={styles.dot}
                                   selectedDotStyle={styles.selectedDot}/>;
     }
+
+    actionChangeSubject = (pos, subject) => {
+        let quiz = this.props.diagnosisQuiz;
+        quiz.subjects[pos] = subject;
+        this.props.actionChangeDiagnosis(quiz);
+    };
 
     setScrollEnabled = (state, page) => {
         console.log(state);
@@ -66,7 +51,7 @@ export default class BlowDryDiagnosisView extends Component {
                         <Text style={MainStyle.secondary}>Edit</Text>
                     </Button>}/>
                 <ContentFlex>
-                    {diagnosisQuiz.subjects && diagnosisQuiz.subjects.length > 0 &&
+                    {diagnosisQuiz &&
                     <IndicatorViewPager style={{height: '100%'}}
                                         ref='pager'
                                         onPageSelected={(data) => actionPageSelectedCallback(data.position, 7)}
@@ -74,31 +59,40 @@ export default class BlowDryDiagnosisView extends Component {
                                         indicator={this._renderDotIndicator()}>
 
                         <View style={{backgroundColor: LIGHT_COLOR}}>
-                            <PoolPage pageInfo={diagnosisQuiz.subjects[0]} actionInfoCallback={this.showDialogInfo}/>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[0]}
+                                      actionInfoCallback={this.showDialogInfo}
+                                      actionChangeSubject={(pageInfo) => this.actionChangeSubject(0, pageInfo)}/>
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
-                            <PoolPage pageInfo={diagnosisQuiz.subjects[1]} actionInfoCallback={this.showDialogInfo}/>
+                            <PoolPage pageInfo={diagnosisQuiz.subjects[1]}
+                                      actionInfoCallback={this.showDialogInfo}
+                                      actionChangeSubject={(pageInfo) => this.actionChangeSubject(1, pageInfo)} />
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
                             <PoolPage pageInfo={diagnosisQuiz.subjects[2]}
                                       actionInfoCallback={this.showDialogInfo}
-                                      onSlideCallback={(state) => this.setScrollEnabled(state, 2)}/>
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 2)}
+                                      actionChangeSubject={(pageInfo) => this.actionChangeSubject(2, pageInfo)}/>
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
                             <PoolPage pageInfo={diagnosisQuiz.subjects[3]}
                                       actionInfoCallback={this.showDialogInfo}
-                                      onSlideCallback={(state) => this.setScrollEnabled(state, 3)}/>
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 3)}
+                                      actionChangeSubject={(pageInfo) => this.actionChangeSubject(3, pageInfo)}/>
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
                             <PoolPage pageInfo={diagnosisQuiz.subjects[4]}
                                       actionInfoCallback={this.showDialogInfo}
-                                      onSlideCallback={(state) => this.setScrollEnabled(state, 4)}/>
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 4)}
+                                      actionChangeSubject={(pageInfo) => this.actionChangeSubject(4, pageInfo)}/>
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
                             <PoolPage pageInfo={diagnosisQuiz.subjects[5]}
                                       actionInfoCallback={this.showDialogInfo}
-                                      onSlideCallback={(state) => this.setScrollEnabled(state, 5)}/>
+                                      onSlideCallback={(state) => this.setScrollEnabled(state, 5)}
+                                      actionChangeSubject={(pageInfo) => this.actionChangeSubject(5, pageInfo)}/>
                         </View>
+
                         <View style={{backgroundColor: LIGHT_COLOR}}>
                             <ConfirmationPage actionCreateCallback={actionCreate}/>
                         </View>
@@ -167,5 +161,6 @@ BlowDryDiagnosisView.propTypes = {
     actionCreate: PropTypes.func,
     actionPageSelectedCallback: PropTypes.func,
     diagnosisQuiz: PropTypes.object,
-    diagnosis: PropTypes.object
+    diagnosis: PropTypes.object,
+    actionChangeDiagnosis: PropTypes.func
 };

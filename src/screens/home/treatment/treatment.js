@@ -46,10 +46,10 @@ class TreatmentScreen extends Component {
     };
 
     actionSave = () => {
-        let diagnosisCode = this.state.diagnosisCode;
+        let diagnosis = this.state.diagnosis;
         let newClient = this.state.newClient;
-
-        this.props.saveClientTreatment(newClient, diagnosisCode);
+        let treatment = new Treatment();
+        this.props.saveClientTreatment(newClient, diagnosis, treatment);
 
     };
     actionCodeInfo = () => {
@@ -75,7 +75,7 @@ class TreatmentScreen extends Component {
     };
 
     render() {
-        const {diagnosisCode} = this.state;
+        const {diagnosis} = this.state;
         return (
             <TreatmentView ref='treatmentView'
                            products={this.products}
@@ -104,7 +104,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         init: () => dispatch(init()),
-        saveClientTreatment: (client) => dispatch(saveClientTreatment(client)),
+        saveClientTreatment: (client, diagnosis, treatment) => dispatch(saveClientTreatment(client, diagnosis, treatment)),
         showInfoScreen: () => dispatch(showInfoScreen())
     }
 };

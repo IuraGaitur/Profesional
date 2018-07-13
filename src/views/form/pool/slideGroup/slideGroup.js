@@ -13,10 +13,12 @@ export default class SlideGroup extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {...props.question};
     }
 
-    getValue() {
-
+    changeSliderValue = (value) => {
+        this.setState({value: value});
+        this.props.actionChange(value);
     }
 
     componentDidMount() {
@@ -59,6 +61,8 @@ export default class SlideGroup extends Component {
                                 steps={item.steps}
                                 itemStyle={styles.itemSlider}
                                 onSlide={this.props.onSlide}
+                                value={this.state.value}
+                                actionChange={value => this.changeSliderValue(value)}
                                 step={item.steps && item.steps.length > 2 ? (100 / (item.steps.length - 1)) : 1 }/>
                 </View>
             </View>);
@@ -78,6 +82,7 @@ SlideGroup.propTypes = {
     onSlide: PropTypes.func,
     question: PropTypes.object,
     actionInfoCallback: PropTypes.func,
+    actionChange: PropTypes.func
 };
 
 const styles = StyleSheet.create({

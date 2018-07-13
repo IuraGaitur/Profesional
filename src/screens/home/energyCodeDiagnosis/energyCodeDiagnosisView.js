@@ -12,7 +12,6 @@ import {GRAY_COLOR, LIGHT_COLOR, SELECTED,} from 'src/utils/colors';
 
 export default class EnergyCodeDiagnosisView extends Component {
 
-    formInputs = [];
     message = new Message();
 
     constructor(props) {
@@ -24,6 +23,12 @@ export default class EnergyCodeDiagnosisView extends Component {
                                   selectedDotStyle={styles.selectedDot}/>;
     }
 
+    actionChangeSubject = (pos, subject) => {
+        let quiz = this.props.quiz;
+        quiz.subjects[pos] = subject;
+        this.props.actionChangeDiagnosis(quiz);
+    };
+
     render() {
         const {actionSave, showSaveAction, actionPageSelectedCallback, quiz} = this.props;
 
@@ -33,20 +38,18 @@ export default class EnergyCodeDiagnosisView extends Component {
                     showSaveAction && <Button transparent onPress={() => actionSave()}>
                         <Icon name='checkmark' style={MainStyle.saveButton}/>
                     </Button>}/>
+
                 <View style={{flexGrow: 1}}>
-                    {quiz && quiz.subjects && quiz.subjects.length > 0 &&
+                    {quiz &&
                     <IndicatorViewPager style={{height: '94%'}}
                                         onPageSelected={(data) => actionPageSelectedCallback(data.position, 3)}
                                         indicator={this._renderDotIndicator()}>
-                        <View style={{backgroundColor: LIGHT_COLOR}}>
-                            <PoolPage pageInfo={quiz.subjects[0]}/>
-                        </View>
-                        <View style={{backgroundColor: LIGHT_COLOR}}>
-                            <PoolPage pageInfo={quiz.subjects[1]} onSlideCallback={(value) => {console.log(value)}}/>
-                        </View>
-                        <View style={{backgroundColor: LIGHT_COLOR}}>
-                            <PoolPage pageInfo={quiz.subjects[2]}/>
-                        </View>
+                        {quiz.subjects.map((item, pos) => (
+                            <View style={{backgroundColor: LIGHT_COLOR}}>
+                                <PoolPage pageInfo={quiz.subjects[pos]}
+                                          actionChangeSubject={(pageInfo) => this.actionChangeSubject(pos, pageInfo)}/>
+                            </View>
+                        ))}
                     </IndicatorViewPager>}
                 </View>
             </ContainerFlex>
@@ -115,5 +118,6 @@ EnergyCodeDiagnosisView.propTypes = {
     actionSave: PropTypes.func,
     showSaveAction: PropTypes.bool,
     quiz: PropTypes.object,
-    diagnosis: PropTypes.object
+    diagnosis: PropTypes.object,
+    actionChangeDiagnosis: PropTypes.func
 };

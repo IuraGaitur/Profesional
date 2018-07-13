@@ -1,13 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import ClientDetailsView from 'src/screens/home/client/clientDetails/clientDetailsView';
-import {
-    getClientInfo,
-    editClient,
-    removeClient,
-    showNewDiagnosScreen,
-    showEditCodeScreen
-} from 'src/screens/home/client/clientDetails/clientDetailsAction';
+import {getClientInfo, editClient, removeClient, showNewDiagnosScreen, showEditCodeScreen} from 'src/screens/home/client/clientDetails/clientDetailsAction';
 
 class ClientDetailsScreen extends Component {
 

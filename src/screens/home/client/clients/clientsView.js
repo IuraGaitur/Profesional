@@ -72,7 +72,7 @@ export default class ClientsView extends Component {
                                         key={rowData.item.getID()}
                                         selectPageCallback={pos => this.selectPage(pos)}
                                         name={rowData.item.getName()}
-                                        formula={rowData.item.formula}
+                                        formula={rowData.item.getFormula()}
                                     />
                                 </TouchOpacityDebounce>
                             }
@@ -86,22 +86,22 @@ export default class ClientsView extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    headerContainer: {
-        backgroundColor: 'transparent'
-    },
-    searchView: {
-        borderWidth: 2,
-        borderColor: GRAY_LIGHT,
-        borderRadius: 8,
-        paddingHorizontal: 16,
-        marginTop: 26,
-        marginHorizontal: 16
-    },
+const styles = StyleSheet.create({searchView: {
+    borderWidth: 2,
+    borderColor: GRAY_LIGHT,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    marginTop: 26,
+    marginHorizontal: 16
+},
     searchBar: {
         backgroundColor: LIGHT_COLOR,
         borderBottomWidth: 0
     },
+    headerContainer: {
+        backgroundColor: 'transparent'
+    },
+
     separator: {
         backgroundColor: GRAY_LIGHT,
         width: '100%',

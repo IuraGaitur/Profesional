@@ -28,7 +28,12 @@ class EnergyCodeDiagnosisScreen extends Component {
 
     actionSave = () => {
         let newClient = this.props.newClient;
-        this.props.showTreatment(newClient);
+        let diagnosis = this.state;
+        this.props.showTreatment(newClient, diagnosis);
+    };
+
+    changeDiagnosisQuestionary = (diagnosis) => {
+        this.setState({diagnosis: diagnosis});
     };
 
     render() {
@@ -36,6 +41,7 @@ class EnergyCodeDiagnosisScreen extends Component {
         const {showSaveAction, diagnosis} = this.state;
 
         return <EnergyCodeDiagnosisView diagnosis={diagnosis}
+                                        actionChangeDiagnosis={this.changeDiagnosisQuestionary}
                                         actionBack={() => this.goBack()}
                                         actionSave={this.actionSave}
                                         actionPageSelectedCallback={this.actionPageSelected}
@@ -57,7 +63,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         goBack: () => {dispatch(goBack)},
         getDiagnosis: () => {dispatch(init())},
-        showTreatment: (newClient) => {dispatch(showTreatment(newClient))}
+        showTreatment: (newClient, diagnosis) => {dispatch(showTreatment(newClient, diagnosis))}
     }
 };
 

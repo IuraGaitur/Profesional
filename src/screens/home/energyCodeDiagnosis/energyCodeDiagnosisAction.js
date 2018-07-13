@@ -17,6 +17,7 @@ function getDiagnosisQuiz(diagnosisQuiz) {
 }
 
 export function showTreatment(client, diagnosis) {
+    console.log(client);
     Actions.treatment({newClient: client, diagnosis: diagnosis});
     return {type: NO_ACTION};
 }

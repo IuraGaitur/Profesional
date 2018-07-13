@@ -6,4 +6,8 @@ export default class Treatment {
     date = new Date();
     data = [];
 
+    constructor() {
+        this.formula = 'A1 + B2 + C3';
+    }
+
 }
