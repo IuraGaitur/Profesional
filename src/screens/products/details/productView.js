@@ -6,32 +6,36 @@ import {PRIMARY} from 'src/utils/colors';
 import ContainerFlex from 'src/views/native_elements/containerFlex';
 import TransparentBackMenu from 'src/views/menu/transparentBackMenu';
 import Space from 'src/views/native_elements/space';
+import {Button} from "native-base";
+import {GRAY_COLOR} from 'src/utils/colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const PRODUCT_IMAGE = require('Sytem_Pro/assets/images/img_product_full.png');
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 export default class ProductView extends Component {
 
-    texts = {title: 'INTENSIVE COLOR PROTECTION',
-             header1: 'RESULT',
-             subTitle1: 'Longer lasting color, smoothness and manageability.',
-             header2: 'TARGET GROUP',
-             subTitle2: 'For clients with colored hair and increased care need. Suitable for all hair colors,' +
-                        'highlited and bleached hair. The mask is the ideal weekly intense treatment for clients who'+
-                        'take their time',
-             header3: 'PRODUCT',
-             subTitle3: 'For clients with colored hair and increased care need. Suitable for all hair colors,' +
-             'highlited and bleached hair. The mask is the ideal weekly intense treatment for clients who'+
-             'take their time',
-             header4: 'IN SALON APP',
-             subTitle4: 'For clients with colored hair and increased care need. Suitable for all hair colors,' +
-             'highlited and bleached hair. The mask is the ideal weekly intense treatment for clients who'+
-             'take their time'
+    texts = {
+        title: 'INTENSIVE COLOR PROTECTION',
+        header1: 'RESULT',
+        subTitle1: 'Longer lasting color, smoothness and manageability.',
+        header2: 'TARGET GROUP',
+        subTitle2: 'For clients with colored hair and increased care need. Suitable for all hair colors,' +
+        'highlited and bleached hair. The mask is the ideal weekly intense treatment for clients who' +
+        'take their time',
+        header3: 'PRODUCT',
+        subTitle3: 'For clients with colored hair and increased care need. Suitable for all hair colors,' +
+        'highlited and bleached hair. The mask is the ideal weekly intense treatment for clients who' +
+        'take their time',
+        header4: 'IN SALON APP',
+        subTitle4: 'For clients with colored hair and increased care need. Suitable for all hair colors,' +
+        'highlited and bleached hair. The mask is the ideal weekly intense treatment for clients who' +
+        'take their time'
     };
+    paralaxVisible = true;
 
     constructor(props) {
         super(props);
-        this.state = {...props, searchInput: null};
+        this.state = {...props, searchInput: null, headerTransparent: true};
     }
 
     renderFixedHeader() {
@@ -43,16 +47,8 @@ export default class ProductView extends Component {
             </View>);
     }
 
-    renderStickyHeader() {
-        return (
-            <View style={{position: 'absolute', width: SCREEN_WIDTH, backgroundColor: 'transparent'}}>
-                <TransparentBackMenu closeIcon={'ios-close'} title={'H1 HYDRATE SHAMPOO'}/>
-            </View>
-        );
-    }
-
     render() {
-        const {searchCallback, showLoading, searchInput, closeCallback, contactCallback, faqCallback} = this.props;
+        const {canRemoveProduct, canAddProduct, closeCallback, actionRemoveProduct, actionAddProduct} = this.props;
 
         return (
             <ContainerFlex>
@@ -62,16 +58,27 @@ export default class ProductView extends Component {
                         return this.renderFixedHeader(closeCallback)
                     }}
                     renderFixedHeader={() => {
-                        return this.renderStickyHeader('BB65 INSTANT RESET')
+                        return (
+                            <View style={{position: 'absolute', width: SCREEN_WIDTH, backgroundColor: 'transparent'}}>
+                                <TransparentBackMenu closeIcon={'ios-close'} title={'H1 HYDRATE SHAMPOO'}
+                                                     isHeaderTransparent={this.state.headerTransparent}/>
+                            </View>)
                     }}
                     renderBackground={() => {
                         return <View style={{height: 60, width: 400, backgroundColor: 'white'}}></View>
                     }}
                     contentBackgroundColor={'#fff'}
-                    backgroundColor={'transparent'}
+                    backgroundColor={'#fff'}
                     fadeOutForeground={true}
                     fadeOutParallaxForeground={true}
                     stickyHeaderHeight={90}
+                    onChangeHeaderVisibility={(isVisible) => {
+                        if (this.paralaxVisible != isVisible) {
+                            this.paralaxVisible = !this.paralaxVisible;
+                            this.setState({headerTransparent: this.paralaxVisible});
+                            console.log('setting transparency', isVisible);
+                        }
+                    }}
                     parallaxHeaderHeight={ ScreenUtils.HEIGHT / 3 }>
 
                     <View style={styles.paralaxContainer}>
@@ -97,6 +104,22 @@ export default class ProductView extends Component {
                     </View>
 
                 </ParallaxScrollView>
+
+                {canAddProduct &&
+                <View style={styles.actionContainer}>
+                    <Button block success rounded onPress={() => actionAddProduct()}>
+                        <Text style={styles.actionButton}>ADD</Text>
+                    </Button>
+                </View>
+                }
+
+                {canRemoveProduct &&
+                <View style={styles.actionContainer}>
+                    <Button block danger rounded onPress={() => actionRemoveProduct()}>
+                        <Text style={styles.actionButton}>REMOVE</Text>
+                    </Button>
+                </View>
+                }
 
             </ContainerFlex>
         );
@@ -153,6 +176,15 @@ const styles = StyleSheet.create({
     },
     contentText: {
         fontSize: 18
+    },
+    actionContainer: {
+        padding: 16,
+        borderTopWidth: 1,
+        borderTopColor: GRAY_COLOR
+    },
+    actionButton: {
+        color: 'white',
+        fontSize: 18
     }
 });
 
@@ -160,4 +192,8 @@ ProductView.propTypes = {
     searchCallback: PropTypes.func,
     closeCallback: PropTypes.func,
     showLoading: PropTypes.bool,
+    canRemoveProduct: PropTypes.bool,
+    canAddProduct: PropTypes.bool,
+    actionRemoveProduct: PropTypes.func,
+    actionAddProduct: PropTypes.func
 };

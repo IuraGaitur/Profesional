@@ -22,6 +22,14 @@ export const removeClient = (client) => {
     };
 };
 
+export const deleteEnergyCode = (client, energyCode) => {
+    return async (dispatch) => {
+        client.removeDiagnosisCode(energyCode);
+        let updatedClient = await new ClientDao().update(client);
+        dispatch({type: GET_CLIENT, client: updatedClient});
+    };
+};
+
 export const showNewDiagnosScreen = (client) => {
     console.log(client);
     Actions.newDiagnosis({newClient: client});

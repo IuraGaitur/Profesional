@@ -47,7 +47,7 @@ export default class UserMock implements UserApi {
         return new Promise((resolve, reject) => {
             setTimeout(function () {
                 if (!user) {
-                    resolve(updateFail)
+                    resolve(updateFail);
                 }
                 resolve(updateSuccess);
             }, 1500);

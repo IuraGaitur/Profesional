@@ -71,18 +71,18 @@ export default class ClientDetailsView extends Component {
                         </View>
                     </View>
                     <FlatList
-                        keyExtractor={item => item.id}
+                        keyExtractor={(item, index) => index}
                         data={client.diagnosisCodes}
                         style={styles.listClients}
                         renderItem={(rowData) =>
                             <ClientItemView
                                 key={rowData.item.id}
                                 selectPageCallback={pos => this.selectPage(pos)}
-                                date={rowData.item.date}
+                                date={rowData.item.treatment.getCreationDate()}
                                 formula={rowData.item.treatment.formula}
                                 actionMessage={actionMessage}
                                 actionEdit={actionEditCode}
-                                actionDelete={actionDeleteCode}
+                                actionDelete={() => actionDeleteCode(rowData.item)}
                                 type={rowData.item.type}/>
                         }
                     />

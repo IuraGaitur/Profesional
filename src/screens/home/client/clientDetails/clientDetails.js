@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import ClientDetailsView from 'src/screens/home/client/clientDetails/clientDetailsView';
-import {getClientInfo, editClient, removeClient, showNewDiagnosScreen, showEditCodeScreen} from 'src/screens/home/client/clientDetails/clientDetailsAction';
+import {getClientInfo, editClient, removeClient, showNewDiagnosScreen, showEditCodeScreen, deleteEnergyCode} from 'src/screens/home/client/clientDetails/clientDetailsAction';
 
 class ClientDetailsScreen extends Component {
 
@@ -29,16 +29,20 @@ class ClientDetailsScreen extends Component {
         this.props.showEditCodeScreen(client);
     };
 
-    actionDeleteCode = (client) => {
-        this.setState({showDeleteDialog: true});
+    actionDeleteCode = (diagnosisCode) => {
+        this.setState({showDeleteDialog: true, deleteDiagnosisCode: diagnosisCode});
     };
 
     actionHideDeleteDialog = () => {
-        this.setState({showDeleteDialog: false});
+        this.setState({showDeleteDialog: false, deleteDiagnosisCode: null});
     };
 
     actionDeleteCodeConfirm = () => {
-        this.setState({showDeleteDialog: false});
+        let client = this.props.currentClient;
+        let diagnosis = this.state.deleteDiagnosisCode;
+        console.log(client, diagnosis);
+        this.props.deleteEnergyCode(client, diagnosis);
+        this.setState({showDeleteDialog: false, deleteDiagnosisCode: null});
     };
 
     showNoNetworkError = () => {
@@ -93,7 +97,8 @@ const mapDispatchToProps = (dispatch) => {
         editClient: (client) => dispatch(editClient(client)),
         removeClient: (client) => dispatch(removeClient(client)),
         showNewDiagnosisScreen: (client) => dispatch(showNewDiagnosScreen(client)),
-        showEditCodeScreen: (client) => dispatch(showEditCodeScreen(client))
+        showEditCodeScreen: (client) => dispatch(showEditCodeScreen(client)),
+        deleteEnergyCode: (client, energyCode) => dispatch(deleteEnergyCode(client, energyCode))
     }
 };
 

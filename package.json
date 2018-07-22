@@ -5,6 +5,7 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "enzyme": "^3.3.0",
+    "eslint": "^5.1.0",
     "jest-expo": "^27.0.1",
     "mocha": "^5.2.0",
     "react-addons-test-utils": "^15.6.2",
@@ -33,6 +34,7 @@
   "dependencies": {
     "@expo/vector-icons": "^6.2.2",
     "axios": "^0.18.0",
+    "eslint-config-airbnb": "^17.0.0",
     "moment": "^2.20.1",
     "native-base": "^2.4.5",
     "parse5": "^5.0.0",
@@ -45,6 +47,7 @@
     "react-native-dash": "0.0.8",
     "react-native-detect-navbar-android": "^0.2.0",
     "react-native-drawer": "^2.5.0",
+    "react-native-drawer-menu": "^0.2.5",
     "react-native-easy-toast": "^1.1.0",
     "react-native-elements": "^0.19.1",
     "react-native-form-validation": "^1.0.5",

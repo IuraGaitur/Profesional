@@ -125,7 +125,7 @@ export default class ProfileView extends Component {
                                     color={PRIMARY}
                                     style={{marginRight: 8}}
                                     checked={user.newsLetterCheck}
-                                    onPress={item => actionChangeUser('firstName', !user.newsLetterCheck)}/>
+                                    onPress={item => actionChangeUser('newsLetterCheck', !user.newsLetterCheck)}/>
                             </View>
                         </Form>
                     </View>
@@ -240,6 +240,7 @@ ProfileView.propTypes = {
     showDatePicker: PropTypes.bool,
     actionHandleDatePicked: PropTypes.func,
     actionHideDateTimePicker: PropTypes.func,
+    actionChangeUser: PropTypes.func,
     user: PropTypes.object,
     actionSaveUser: PropTypes.func
 };

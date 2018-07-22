@@ -59,17 +59,16 @@ export default class ClientsView extends Component {
                             </Item>
                         </View>
                         <FlatList
-                            keyExtractor={item => item.getID()}
+                            keyExtractor={(item, index) => item.getName() + '_' + index}
                             data={userClients}
                             style={styles.listClients}
                             onRefresh={() => actionRefreshClients(searchKey)}
                             refreshing={isFetching}
                             ItemSeparatorComponent={(sectionId, rowId) => <View key={rowId.toString()}
                                                                                 style={styles.separator}/>}
-                            renderItem={(rowData) =>
+                            renderItem={(rowData, index) =>
                                 <TouchOpacityDebounce onPress={() => actionClientClick(rowData.item)}>
                                     <ClientItemView
-                                        key={rowData.item.getID()}
                                         selectPageCallback={pos => this.selectPage(pos)}
                                         name={rowData.item.getName()}
                                         formula={rowData.item.getFormula()}

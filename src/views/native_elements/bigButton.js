@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     mainButton: {
         marginTop: 15,
         width: '100%',
-        height: 100,
+        height: 80,
     },
     indicator: {
         padding: 8

@@ -31,7 +31,6 @@ export default class ClientDao {
         let result = await DbConnection.find({
             selector: {$and: [{category: this.CLIENT_KEY, _id: id}]}
         });
-        console.log(result);
         let clients = result.docs.map(item => new Client().fromJSON(item));
         if (clients) { return clients[0];}
 

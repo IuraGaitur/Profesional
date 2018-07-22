@@ -45,7 +45,7 @@ export default class EnergyCodeDiagnosisView extends Component {
                                         onPageSelected={(data) => actionPageSelectedCallback(data.position, 3)}
                                         indicator={this._renderDotIndicator()}>
                         {quiz.subjects.map((item, pos) => (
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <View style={{backgroundColor: LIGHT_COLOR}} key={pos}>
                                 <PoolPage pageInfo={quiz.subjects[pos]}
                                           actionChangeSubject={(pageInfo) => this.actionChangeSubject(pos, pageInfo)}/>
                             </View>

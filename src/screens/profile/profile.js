@@ -53,7 +53,7 @@ class ProfileScreen extends Component {
 
         return (
             <ProfileView user={primaryUser}
-                         updatePrimaryUserCallback={user => this.updatePrimaryUser(user)}
+                         updatePrimaryUserCallback={() => this.updatePrimaryUser(primaryUser)}
                          countries={countries}
                          showNetworkError={networkError}
                          showLoading={showLoading}
@@ -62,6 +62,7 @@ class ProfileScreen extends Component {
                          actionHideDateTimePicker={this.hideDatePicker}
                          actionHandleDatePicked={this.handleDatePicked}
                          actionShowDatePicker={this.showDatePicker}
+                         actionChangeUser={this.changeUser}
                          dismissDialogCallback={this.dismissDialogCallback}/>
         );
     }

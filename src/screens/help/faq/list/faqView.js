@@ -20,7 +20,7 @@ export default class FaqView extends Component {
 
     render() {
         const {searchKey} = this.state;
-        const {questions, backCallback, contactCallback} = this.props;
+        const {questions, contactCallback, actionItemClick} = this.props;
         let searchIcon = searchKey ? (
             <Icon name='ios-close' style={styles.iconClear}
                   onPress={() => this.actionChangeSearchInput('', actionSearchCallback)}/>
@@ -44,7 +44,7 @@ export default class FaqView extends Component {
                 <ContentFlex>
                     <List dataArray={questions}
                           renderRow={(item) =>
-                              <ListItem style={styles.listItem}>
+                              <ListItem style={styles.listItem} onPress={() => actionItemClick(item)}>
                                   <Left>
                                       <Text style={styles.textItem}>{item.title}</Text>
                                   </Left>
@@ -105,5 +105,6 @@ FaqView.propTypes = {
     searchCallback: PropTypes.func,
     backCallback: PropTypes.func,
     contactCallback: PropTypes.func,
-    questions: PropTypes.array
+    questions: PropTypes.array,
+    actionItemClick: PropTypes.func
 };

@@ -5,19 +5,21 @@ import {GRAY_COLOR, TEXT_COLOR} from 'src/utils/colors';
 import {Actions} from 'react-native-router-flux';
 import {Button, Header, Icon, Right, Title, View} from 'native-base';
 
-export default class BackMenu extends Component {
+export default class TransparentBackMenu extends Component {
     render() {
+        let {isHeaderTransparent, actionBack, closeIcon, title, actions} = this.props;
         return (
-            <Header androidStatusBarColor={GRAY_COLOR} style={styles.headerContainer}>
+            <Header androidStatusBarColor={GRAY_COLOR}
+                    style={[styles.headerContainer, {backgroundColor: isHeaderTransparent ? 'transparent': 'white'}]}>
                 <Button transparent
-                        onPress={() => this.props.actionBack != null ? this.props.actionBack() : Actions.pop()}>
-                    <Icon name={this.props.closeIcon ? this.props.closeIcon : 'arrow-back'}
+                        onPress={() => actionBack != null ? actionBack() : Actions.pop()}>
+                    <Icon name={closeIcon ? closeIcon : 'arrow-back'}
                           style={styles.icon}/>
                 </Button>
                 <View style={styles.titleContainer}>
-                    <Title style={styles.title}>{this.props.title}</Title>
+                    <Title style={styles.title}>{title}</Title>
                 </View>
-                <Right>{this.props.actions}</Right>
+                <Right>{actions}</Right>
             </Header>);
     }
 }
@@ -39,14 +41,13 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         padding: 0,
-        backgroundColor: 'transparent'
     }
 });
 
-BackMenu.propTypes = {
+TransparentBackMenu.propTypes = {
     actionBack: PropTypes.func,
     title: PropTypes.string,
     actions: PropTypes.object,
-    closeIcon: PropTypes.string
-
+    closeIcon: PropTypes.string,
+    isHeaderTransparent: PropTypes.bool
 };
