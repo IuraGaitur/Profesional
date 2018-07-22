@@ -1,3 +1,3 @@
-import FaqScreen from 'src/screens/help/faq/details/faq';
+import FaqDetailsScreen from 'src/screens/help/faq/details/faqDetails';
 
-export {FaqScreen};
+export {FaqDetailsScreen};

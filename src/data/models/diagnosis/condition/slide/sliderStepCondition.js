@@ -4,11 +4,13 @@ export default class SliderStepCondition {
     steps = [];
     categories = [];
     selectedItem = null;
+    value = 0;
 
-    constructor(id, title, categories, steps,) {
+    constructor(id, title, categories, steps, value) {
         this.id = id;
         this.title = title;
         this.steps = steps;
         this.categories = categories;
+        this.value = value;
     }
 }

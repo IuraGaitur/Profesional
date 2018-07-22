@@ -21,7 +21,6 @@ class CreateClientScreen extends Component {
     };
 
     startDiagnosis = (newClient) => {
-        console.log(newClient);
         this.props.startDiagnosis(newClient);
     };
 

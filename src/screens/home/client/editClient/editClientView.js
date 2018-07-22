@@ -109,7 +109,7 @@ export default class EditClientView extends Component {
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[7] = item}
-                                value={client.postalCode} isLast
+                                value={client.postalCode}
                                 onSubmitEditing={() => this.formInputs[8].focus()}
                                 onChangeText={item => actionChangeClientCallback('postalCode', item)}>
                                 <Label>POSTAL CODE</Label>
@@ -120,6 +120,7 @@ export default class EditClientView extends Component {
                                 valueChangeCallBack={item => actionChangeClientCallback('country', item)}
                                 needValidation value={client.country}
                                 ref={item => this.formInputs[8] = item}
+                                isLast
                                 onSubmitEditing={() => this.formInputs[9].focus()}
                                 validation={[{name: REQUIRED, error: 'Required'}]}
                             />

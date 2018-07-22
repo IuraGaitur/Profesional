@@ -22,17 +22,22 @@ function requestItems() {
     }
 }
 
-export function goBack() {
+export const goBack = () => {
     Actions.pop();
     return {type: NO_ACTION};
-}
+};
 
-export function goContacts() {
+export const goContacts = () => {
     Actions.contact();
     return {type: NO_ACTION};
-}
+};
 
-export function getQuestions(name = '') {
+export const goFaqDetails = (question) => {
+    Actions.faqDetails({question: question});
+    return {type: NO_ACTION};
+};
+
+export const getQuestions = (name = '') => {
     return async (dispatch) => {
         dispatch(requestItems());
         let response = await new QuestionApi().instance().getQuestions(name);
@@ -41,4 +46,4 @@ export function getQuestions(name = '') {
         }
         return dispatch(errorRequest(response.error))
     }
-}
+};

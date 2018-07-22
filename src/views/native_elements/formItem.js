@@ -140,7 +140,7 @@ export default class FormItem extends Component {
                                onSubmitEditing={onSubmitEditing}
                                numberOfLines={numberOfLines}
                                autoCapitalize='none'
-                               style={[{paddingLeft: 0}, editStyle ]}
+                               style={[{paddingLeft: 0, marginTop: 8}, editStyle ]}
                                multiline={numberOfLines ? true : false}
 
                         />
@@ -170,7 +170,7 @@ FormItem.propTypes = {
     password: PropTypes.bool,
     isLast: PropTypes.bool,
     numberOfLines: PropTypes.number,
-    containerStyle: PropTypes.object,
-    editStyle: PropTypes.object
+    containerStyle: PropTypes.oneOfType(PropTypes.object, PropTypes.number),
+    editStyle: PropTypes.oneOfType(PropTypes.object, PropTypes.number)
 };
 

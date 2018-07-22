@@ -1,81 +1,48 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getProducts, getProductsCategories, showDetails} from 'src/screens/products/list/productsAction';
+import {getCareProducts, getStylingProducts, showDetails} from 'src/screens/products/list/productsAction';
 import ProductsView from 'src/screens/products/list/productsView';
-import ProductManager from 'src/data/models/product/productManager';
 
 class ProductsScreen extends Component {
 
     static navigationOptions = {header: null};
-    productManager = new ProductManager();
 
     constructor(props) {
         super(props);
-        this.state = {
-            careProducts: [], stylingProducts: [],
-            careCategories: [], stylingCategories: []
-        };
+        this.state = {selectedCareCategory: '', selectedStylingCategory: ''};
     }
 
     componentWillMount() {
-        this.props.getProducts();
-        this.props.getProductsCategories();
+        this.props.getCareProducts();
+        this.props.getStylingProducts();
     }
 
     showProductDetails = (id) => {
         this.props.showProductDetails(id);
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.categories) {
-            this.setState({
-                careCategories: nextProps.categories.care,
-                stylingCategories: nextProps.categories.styling,
-            });
-        }
-        if (nextProps.categories && nextProps.products) {
-            this.productManager.setProducts(nextProps.products);
-            let careValue = nextProps.categories.care[0].value;
-            let stylingValue = nextProps.categories.styling[0].value;
-
-            this.setState({
-                careProducts: this.productManager.getCareProductsOnCategory(careValue),
-                stylingProducts: this.productManager.getStylingProductsOnCategory(stylingValue)
-            });
-        }
-    }
-
-    actionChangeCareType = (value) => {
-        this.setState({
-            careSelectedCategory: value,
-            careProducts: this.productManager.getCareProductsOnCategory(value)
-        });
+    actionChangeCareCategory = (categoryID) => {
+        this.props.getCareProducts(categoryID);
     };
 
-    actionChangeStylingType = (value) => {
-        this.setState({
-            stylingSelectedCategory: value,
-            stylingProducts: this.productManager.getStylingProductsOnCategory(value)
-        });
+    actionChangeStylingCategory = (categoryID) => {
+        this.props.getStylingProducts(categoryID);
     };
 
     render() {
-        const {
-            careProducts, stylingProducts,
-            careCategories, stylingCategories,
-            careSelectedCategory, stylingSelectedCategory
-        } = this.state;
+        const {careProducts, stylingProducts, categories} = this.props;
+        const {selectedCareCategory, selectedStylingCategory} = this.state;
 
         return (
             <ProductsView title={'Products'}
                           careProducts={careProducts}
-                          careProductsType={careCategories}
-                          careSelectedProductType={careSelectedCategory}
-                          careActionChangeProductsCallback={this.actionChangeCareType}
+                          selectedCareCategory={selectedCareCategory}
+                          careCategories={categories.care}
+                          careActionChangeProductsCallback={this.actionChangeCareCategory}
                           stylingProducts={stylingProducts}
-                          stylingProductsType={stylingCategories}
-                          stylingSelectedProductType={stylingSelectedCategory}
-                          stylingActionChangeProductsCallback={this.actionChangeStylingType}
+                          stylingCategories={categories.styling}
+                          selectedStylingCategory={selectedStylingCategory}
+                          stylingActionChangeProductsCallback={this.actionChangeStylingCategory}
                           showProductDetails={this.showProductDetails}
             />
         );
@@ -84,15 +51,16 @@ class ProductsScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        products: state.products.data,
-        categories: state.products.categories,
+        careProducts: state.products.careProducts,
+        stylingProducts: state.products.stylingProducts,
+        categories: state.splash.productsCategories,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getProducts: () => dispatch(getProducts()),
-        getProductsCategories: () => dispatch(getProductsCategories()),
+        getCareProducts: (categoryID) => dispatch(getCareProducts(categoryID)),
+        getStylingProducts: (categoryID) => dispatch(getStylingProducts(categoryID)),
         showProductDetails: (id) => dispatch(showDetails(id))
     }
 };

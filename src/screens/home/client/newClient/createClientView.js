@@ -5,7 +5,6 @@ import Form from 'src/views/form/formData';
 import CollectionUtils from 'src/utils/collectionUtils';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {GRAY_COLOR, PRIMARY, TEXT_COLOR, UN_SELECTED} from 'src/utils/colors';
-import {REQUIRED} from 'src/views/form/textInput';
 import {View, StyleSheet} from 'react-native';
 import TouchOpacityDebounce from 'src/utils/touchable_debounce/touchOpacityDebounce';
 import PickerInput from 'src/views/form/pickerInput';
@@ -17,6 +16,7 @@ import ContainerFlex from 'src/views/native_elements/containerFlex';
 import ContentFlex from 'src/views/native_elements/contentFlex';
 import BackMenu from 'src/views/menu/backMenu';
 import Client from 'src/data/models/client';
+import {validationRequired} from 'src/utils/validation';
 
 export default class CreateClientView extends Component {
 
@@ -110,7 +110,7 @@ export default class CreateClientView extends Component {
                         <View style={{padding: 8}}>
                             <FormItem
                                 ref={item => this.formInputs[0] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                validation={[validationRequired]}
                                 value={firstName}
                                 onSubmitEditing={() => this.formInputs[1].focus()}
                                 onChangeText={item => this.updateForm('firstName', item)}>
@@ -118,7 +118,7 @@ export default class CreateClientView extends Component {
                             </FormItem>
                             <FormItem
                                 ref={item => this.formInputs[1] = item}
-                                validation={[{name: REQUIRED, error: 'Required'}]}
+                                validation={[validationRequired]}
                                 value={lastName}
                                 onSubmitEditing={() => this.formInputs[2].focus()}
                                 onChangeText={item => this.updateForm('lastName', item)}>

@@ -1,5 +1,3 @@
-import {AsyncStorage} from 'react-native';
-import CollectionUtils from 'src/utils/collectionUtils';
 import Client from 'src/data/models/client';
 import DbConnection from 'src/data/database/dbAccess';
 
@@ -9,7 +7,9 @@ export default class ClientDao {
 
     async add(client) {
         if (!client) return;
-        await DbConnection.post({'category': this.CLIENT_KEY, ...client});
+        let result = await DbConnection.post({'category': this.CLIENT_KEY, ...client});
+        let newClient = await this.getByID(result.id);
+        return newClient;
     }
 
     async update(client) {
@@ -19,8 +19,8 @@ export default class ClientDao {
         return updatedClient;
     }
 
-    async saveClientTreatment(client, treatment) {
-        client.addTreatment(treatment);
+    async saveClientTreatment(client, diagnosisCode) {
+        client.addDiagnosisCode(diagnosisCode);
         await this.update(client);
     }
 
@@ -56,7 +56,6 @@ export default class ClientDao {
 
     async remove(client) {
         let dbClient = await DbConnection.find({selector: {category: this.CLIENT_KEY, _id: client._id}});
-        console.log(dbClient);
         await DbConnection.remove(dbClient.docs[0]);
     }
 }

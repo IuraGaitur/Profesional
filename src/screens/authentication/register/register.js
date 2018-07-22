@@ -36,7 +36,7 @@ class RegisterScreen extends Component {
     };
 
     showError = (errorMessage) => {
-        this.refs.errorToast.show(errorMessage);
+        this.refs.mainView.showError(errorMessage);
     };
 
     dismissDialogCallback = () => {
@@ -69,7 +69,8 @@ class RegisterScreen extends Component {
         const {countries, networkError, showLoading} = this.props;
 
         return (
-            <RegisterView user={currentUser}
+            <RegisterView ref="mainView"
+                          user={currentUser}
                           actionRegisterUser={this.registerUser}
                           countries={countries}
                           actionInfo={() => this.showInfo()}

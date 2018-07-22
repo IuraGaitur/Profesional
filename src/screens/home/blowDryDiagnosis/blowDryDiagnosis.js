@@ -23,12 +23,22 @@ class BlowDryDiagnosisScreen extends Component {
 
     createTreatment = () => {
         let newClient = this.props.newClient;
-        this.props.createTreatment(newClient);
+        let diagnosis = this.state;
+        this.props.createTreatment(newClient, diagnosis);
     };
 
     actionPageSelected = (position, totalPages) => {
-        let showEditAction = position == totalPages - 1;
+        //let showEditAction = position == totalPages - 1;
+        let showEditAction = false;
         this.setState({showEditAction: showEditAction});
+    };
+
+    changeDiagnosisQuestionary = (diagnosis) => {
+        this.setState({diagnosis: diagnosis});
+    };
+
+    editDiagnosis = () => {
+        //Todo edit diagnosis of slider inputs, as a feature is mostly useless
     };
 
     render() {
@@ -40,6 +50,8 @@ class BlowDryDiagnosisScreen extends Component {
                                      showEditAction={showEditAction}
                                      actionCreate={this.createTreatment}
                                      actionPageSelectedCallback={this.actionPageSelected}
+                                     actionChangeDiagnosis={this.changeDiagnosisQuestionary}
+                                     actionEdit={this.editDiagnosis}
                                      dismissDialogCallback={this.dismissDialogCallback}/>
     }
 }
@@ -53,7 +65,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getDiagnosisQuiz: () => {dispatch(init())},
-        createTreatment: (newClient) => {dispatch(createTreatment(newClient));}
+        createTreatment: (newClient, diagnosis) => {dispatch(createTreatment(newClient, diagnosis));}
     }
 };
 

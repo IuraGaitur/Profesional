@@ -7,7 +7,7 @@ export default class ContentFlex extends Component {
 
     render() {
 
-        const {margin, padding, scrollable} = this.props;
+        const {margin, padding, scrollable, bouncing} = this.props;
 
         if (!scrollable) {
             return (
@@ -16,7 +16,7 @@ export default class ContentFlex extends Component {
                 </View>);
         } else {
             return (
-                <Content style={{flex: 1, padding: padding ? padding : 0, margin: margin ? margin : 0}}>
+                <Content style={{flex: 1, padding: padding ? padding : 0, margin: margin ? margin : 0}} bounces={bouncing}>
                     {this.props.children}
                 </Content>);
         }
@@ -24,8 +24,13 @@ export default class ContentFlex extends Component {
 
 };
 
+ContentFlex.defaultProps = {
+    bouncing: true
+};
+
 ContentFlex.propTypes = {
     margin: PropTypes.number,
     padding: PropTypes.number,
-    scrollable: PropTypes.bool
+    scrollable: PropTypes.bool,
+    bouncing: PropTypes.bool
 };

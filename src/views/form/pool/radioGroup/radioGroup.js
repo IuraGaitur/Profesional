@@ -22,6 +22,8 @@ export default class RadioBoxGroup extends Component {
         }
         items[pos].active = true;
         this.setState({items: items});
+
+        this.props.actionChange(items);
     };
 
     render() {
@@ -79,3 +81,10 @@ const styles = StyleSheet.create({
         height: 60
     }
 });
+
+RadioBoxGroup.propTypes = {
+    title: PropTypes.string,
+    type: PropTypes.string,
+    items: PropTypes.array,
+    actionChange: PropTypes.func
+};

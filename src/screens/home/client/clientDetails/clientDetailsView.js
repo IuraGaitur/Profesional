@@ -67,23 +67,23 @@ export default class ClientDetailsView extends Component {
                                 </View>
                             </View>
                             <Dash style={styles.dash} dashColor={GRAY_LIGHT}/>
-                            <SubmitButton text={'NEW ENERGY CODE'} onPress={actionNewCode}/>
+                            <SubmitButton text={'NEW ENERGY CODE'} onPress={() => actionNewCode(client)}/>
                         </View>
                     </View>
                     <FlatList
-                        keyExtractor={item => item.id}
-                        data={client.treatments}
+                        keyExtractor={(item, index) => index}
+                        data={client.diagnosisCodes}
                         style={styles.listClients}
                         renderItem={(rowData) =>
                             <ClientItemView
                                 key={rowData.item.id}
                                 selectPageCallback={pos => this.selectPage(pos)}
-                                date={rowData.item.date}
-                                formula={rowData.item.formula}
+                                date={rowData.item.treatment.getCreationDate()}
+                                formula={rowData.item.treatment.formula}
                                 actionMessage={actionMessage}
-                                actionEdit={actionEditCode}
-                                actionDelete={actionDeleteCode}
-                                type={rowData.item.type}/>
+                                actionEdit={() => actionEditCode(rowData.item)}
+                                actionDelete={() => actionDeleteCode(rowData.item)}
+                                type={rowData.item.getType()}/>
                         }
                     />
                 </ContentFlex>

@@ -1,5 +1,6 @@
 import UserDao from 'src/data/database/userDao';
 import GenderDao from 'src/data/database/genderDao';
+import ProductsApi from 'src/data/api/productsApi';
 import CountryApi from 'src/data/api/countryApi';
 import LanguageDao from 'src/data/database/languageDao';
 import {Actions} from 'react-native-router-flux';
@@ -10,16 +11,18 @@ export const getResources = () => {
         let countries = await new CountryApi().instance().getAll();
         let languages = await new LanguageDao().getAll();
         let genders = await new GenderDao().getAll();
-        return dispatch(getResourcesInfo(countries, languages, genders));
+        let productsCategories = new ProductsApi().instance().getCategories();
+        return dispatch(getResourcesInfo(countries, languages, genders, productsCategories));
     }
 };
 
-function getResourcesInfo(countries, languages, genders) {
+function getResourcesInfo(countries, languages, genders, productsCategories) {
     return {
         type: INIT,
         countries: countries,
         languages: languages,
-        genders: genders
+        genders: genders,
+        productsCategories: productsCategories
     }
 }
 

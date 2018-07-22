@@ -15,6 +15,7 @@ export default class DiagnosisQuizResponse {
     diagnosisQuiz = null;
 
     constructor(data) {
+        console.log(data);
         this.diagnosisQuiz = new DiagnosisQuiz(getSubjects(data));
     }
 }
@@ -29,7 +30,6 @@ function getSubjects(data) {
         subjects.push(page);
     }
 
-    console.log(subjects);
     return subjects;
 }
 
@@ -74,9 +74,10 @@ function parseProgressCondition(condition) {
     let background = condition.background;
     let info = condition.info;
     let options = condition.options;
+    let value = condition.value;
 
     if (condition.type == TYPE_PROGRESS_BACKGROUND) {
-        return new SliderCondition(id, title, background, info, options);
+        return new SliderCondition(id, title, background, info, options, value);
     }
-    return new SliderStepCondition(id, title, categories, options);
+    return new SliderStepCondition(id, title, categories, options, value);
 }

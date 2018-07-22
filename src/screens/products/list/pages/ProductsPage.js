@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import CardProduct from 'src/views/native_elements/cardProduct';
 import PickerInput from 'src/views/form/pickerInput';
 import ContentFlex from 'src/views/native_elements/contentFlex';
-import {Text} from 'native-base';
 
 export default class ProductsPage extends Component {
 
@@ -15,23 +14,23 @@ export default class ProductsPage extends Component {
     }
 
     render() {
-        const {products, showProductDetails, productsType, selectedProductsType, actionChangeProductsCallback} = this.props;
+        const {products, showProductDetails, categories, selectedCategory, actionChangeProductsCallback} = this.props;
 
         return (
             <ContentFlex scrollable={false}>
                 <View style={styles.mainContainer}>
-                    <View style={{width: '100%', height: 46}}>
+                    <View style={{width: '100%', height: 41}}>
                         <PickerInput
-                            items={productsType}
+                            items={categories}
                             valueChangeCallBack={(type) => actionChangeProductsCallback(type)}
-                            needValidation value={selectedProductsType}
+                            needValidation value={selectedCategory}
                             mode={'dropdown'}
                         />
                     </View>
                     <ContentFlex scrollable>
                         <View style={styles.container}>
-                            {products && products.map(item =>
-                                <CardProduct key={item.name}
+                            {products && products.map((item, index) =>
+                                <CardProduct key={item.name + '_' + index}
                                              title={item.name}
                                              picture={item.image}
                                              onPress={showProductDetails}
@@ -63,7 +62,7 @@ ProductsPage.defaultProps = {};
 ProductsPage.propTypes = {
     showProductDetails: PropTypes.func,
     actionChangeProductsCallback: PropTypes.func,
-    selectedProductsType: PropTypes.string,
-    productsType: PropTypes.array,
+    selectedCategory: PropTypes.string,
+    categories: PropTypes.array,
     products: PropTypes.array
 };

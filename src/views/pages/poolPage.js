@@ -15,58 +15,85 @@ import SliderStepCondition from 'src/data/models/diagnosis/condition/slide/slide
 
 export default class PoolPage extends Component {
 
-    getPoolAnswers() {
-
-    }
-
     onSlideCallback = (state, callback) => {
         callback(state);
     };
 
-    _renderElement(question, slideCallback) {
+    _renderElement = (pos, question, slideCallback, actionChangeCallback) => {
         if (question instanceof CheckCondition) {
-            return this._renderCheckQuestionary(question);
+            return this._renderCheckQuestionary(pos, question, actionChangeCallback);
         } else if (question instanceof SliderCondition) {
-            return this._renderSliderQuestionary(question, slideCallback);
+            return this._renderSliderQuestionary(pos, question, slideCallback, actionChangeCallback);
         } else if (question instanceof SliderStepCondition) {
-            return this._renderSliderStepQuestionary(question, slideCallback);
+            return this._renderSliderStepQuestionary(pos, question, slideCallback, actionChangeCallback);
         } else if (question instanceof SelectCondition) {
-            return this._renderSelectQuestionary(question);
+            return this._renderSelectQuestionary(pos, question, actionChangeCallback);
         } else {
             return null;
         }
-    }
+    };
 
-    _renderCheckQuestionary(question) {
+    _renderCheckQuestionary = (pos, question, changeCallback) => {
         return (
-            <CheckboxGroup items={question.options} title={question.title} type={question.type}/>
+            <CheckboxGroup key={pos}
+                           items={question.options}
+                           title={question.title}
+                           type={question.type}
+                           actionChange={options => {
+                               question.options = options;
+                               changeCallback(pos, question);
+                           }}/>
         );
-    }
+    };
 
-    _renderSelectQuestionary(question) {
+    _renderSelectQuestionary = (pos, question, changeCallback) => {
         return (
-            <RadioBoxGroup key={question.title} items={question.options} title={question.title}/>
+            <RadioBoxGroup
+                key={pos}
+                items={question.options}
+                title={question.title}
+                actionChange={options => {
+                    question.options = options;
+                    changeCallback(pos, question);
+                }}/>
         );
-    }
+    };
 
-    _renderSliderStepQuestionary(question, sliderCallback) {
+    _renderSliderStepQuestionary = (pos, question, sliderCallback, changeCallback) => {
         return (
-            <SlideGroup question={question} style={{flex: 1}}
+            <SlideGroup key={pos}
+                        question={question} style={{flex: 1}}
                         actionInfoCallback={this.props.actionInfoCallback}
-                        onSlide={state => this.onSlideCallback(state, sliderCallback)}/>
+                        onSlide={state => this.onSlideCallback(state, sliderCallback)}
+                        actionChange={value => {
+                            question.value = value;
+                            changeCallback(pos, question);
+                        }}/>
         );
-    }
+    };
 
-    _renderSliderQuestionary(question, sliderCallback) {
+    _renderSliderQuestionary = (pos, question, sliderCallback, changeCallback) => {
         return (
-            <SlideGroup question={question} style={{flex: 1}}
+            <SlideGroup key={pos}
+                        question={question} style={{flex: 1}}
                         actionInfoCallback={this.props.actionInfoCallback}
-                        onSlide={state => this.onSlideCallback(state, sliderCallback)}/>
+                        onSlide={state => this.onSlideCallback(state, sliderCallback)}
+                        actionChange={value => {
+                            question.value = value;
+                            changeCallback(pos, question);
+                        }}/>
         );
-    }
+    };
+
+    actionChangeQuestion = (pos, question) => {
+        let pageInfo = this.props.pageInfo;
+        pageInfo.questions[pos] = question;
+        this.props.actionChangeSubject(pageInfo);
+
+    };
 
     render() {
-        const {pageInfo, onSlideCallback, actionInfoCallback} = this.props;
+        const {pageInfo, onSlideCallback, actionInfoCallback, actionChangeSubject} = this.props;
 
         return (
             <View style={styles.container}>
@@ -79,8 +106,8 @@ export default class PoolPage extends Component {
                     </View>}
                 </View>
                 <ContentFlex scrollable={pageInfo.questions && pageInfo.questions.length > 3} padding={8}>
-                    {pageInfo.questions && pageInfo.questions.map(question => {
-                        return this._renderElement(question, onSlideCallback);
+                    {pageInfo.questions && pageInfo.questions.map((question, pos)=> {
+                        return this._renderElement(pos, question, onSlideCallback, this.actionChangeQuestion);
                     })}
                 </ContentFlex>
             </View>);
@@ -92,4 +119,5 @@ PoolPage.propTypes = {
     pageInfo: PropTypes.object,
     onSlideCallback: PropTypes.func,
     actionInfoCallback: PropTypes.func,
+    actionChangeSubject: PropTypes.func,
 };

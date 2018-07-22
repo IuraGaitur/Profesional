@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FaqView  from 'src/screens/help/faq/list/faqView';
-import {getQuestions, goContacts, goBack} from 'src/screens/help/faq/list/faqAction';
+import {getQuestions, goContacts, goBack, goFaqDetails} from 'src/screens/help/faq/list/faqAction';
 
 class FaqScreen extends Component {
 
@@ -27,12 +27,18 @@ class FaqScreen extends Component {
         this.props.goContacts();
     };
 
+    showQuestionDetails = (question) => {
+        this.props.showDetails(question)
+    };
+
     render() {
         const {questions} = this.props;
         return (
             <FaqView searchCallback={this.searchCallback} backCallback={this.backCallback}
                      contactCallback={this.contactCallback}
-                     questions={questions}/>
+                     questions={questions}
+                     actionItemClick={this.showQuestionDetails}
+            />
         );
     }
 }
@@ -47,7 +53,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getQuestions: (string) => dispatch(getQuestions(string)),
         goContacts: () => dispatch(goContacts()),
-        goBack: () => dispatch(goBack())
+        goBack: () => dispatch(goBack()),
+        showDetails: (question) => dispatch(goFaqDetails(question))
     }
 };
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import Drawer from 'react-native-drawer'
+import Drawer from 'react-native-drawer-menu';
 import MenuItem from 'src/views/menu/menuItem';
 import HeaderItem from 'src/views/menu/headerItem';
 import MenuDao from 'src/data/database/menuDao';
@@ -10,12 +10,10 @@ import ContainerFlex from 'src/views/native_elements/containerFlex';
 import {FlatList, View, StyleSheet, Dimensions} from 'react-native';
 import {Body, Button, Icon, Left, Title, Header, Right} from 'native-base';
 import {GRAY_COLOR, LIGHT_BACKGROUND_COLOR, LIGHT_COLOR} from 'src/utils/colors';
-
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 export default class DrawerMenu extends Component {
-
 
     constructor(props) {
         super(props);
@@ -35,21 +33,21 @@ export default class DrawerMenu extends Component {
 
     clickControlPanel = () => {
         if (this.isDrawerOpen) {
-            this._drawer.close()
+            this._drawer.closeDrawer()
         } else {
-            this._drawer.open()
+            this._drawer.openDrawer()
         }
         this.isDrawerOpen = !this.isDrawerOpen;
     };
 
     async signOut() {
-        await new UserDao().removePrimaryUser();
+        //await new UserDao().removePrimaryUser();
         Actions.login();
     }
 
 
     selectPage = (position) => {
-        this._drawer.close();
+        this._drawer.closeDrawer();
         this.isDrawerOpen = false;
         switch (position) {
             case 0:
@@ -80,41 +78,35 @@ export default class DrawerMenu extends Component {
         return (
             <ContainerFlex>
                 <Drawer
-                    type='overlay'
-                    content={
+                    onDrawerClose={() => this.isDrawerOpen = false}
+                    drawerContent={
                         <View style={styles.drawerMenu}>
                             <View style={styles.menu}>
-                            {menuItems && <FlatList
-                                keyExtractor={item => item.title}
-                                data={menuItems}
-                                scrollEnabled={false}
-                                renderSeparator={(sectionId, rowId) =>
-                                    <View key={rowId.toString()} style={styles.separator}/>}
-                                ListHeaderComponent={
-                                    <HeaderItem selectPageCallback={pos => this.selectPage(pos)}/>}
-                                renderItem={(rowData) =>
-                                    <MenuItem
-                                        key={rowData.item.title}
-                                        selectPageCallback={pos => this.selectPage(pos)}
-                                        title={rowData.item.title}
-                                        position={rowData.index + 1}
-                                    />}
-                            />}
+                                {menuItems && <FlatList
+                                    keyExtractor={item => item.title}
+                                    data={menuItems}
+                                    scrollEnabled={false}
+                                    renderSeparator={(sectionId, rowId) =>
+                                        <View key={rowId.toString()} style={styles.separator}/>}
+                                    ListHeaderComponent={
+                                        <HeaderItem selectPageCallback={pos => this.selectPage(pos)}/>}
+                                    renderItem={(rowData) =>
+                                        <MenuItem
+                                            key={rowData.item.title}
+                                            selectPageCallback={pos => this.selectPage(pos)}
+                                            title={rowData.item.title}
+                                            position={rowData.index + 1}
+                                        />}
+                                />}
                             </View>
                         </View>
                     }
-                    tapToClose={true}
-                    openDrawerOffset={0}
-                    panCloseMask={0.4}
-                    closedDrawerOffset={0}
-                    styles={drawerStyles}
-                    open={false}
-                    onCloseStart={() => {this.isDrawerOpen = false}}
+                    drawerWidth={SCREEN_WIDTH / 3 * 2}
                     ref={(ref) => this._drawer = ref}
-                    tweenDuration={200}
-                    tweenHandler={(ratio) => ({
-                        main: {opacity: (2 - ratio) / 2}
-                    })}>
+                    duration={200}
+                    type={Drawer.types.Overlay}
+                    drawerPosition={Drawer.positions.Left}
+                >
                     <View style={styles.parentContainer}>
                         <Header androidStatusBarColor={GRAY_COLOR} style={styles.headerContainer}>
                             <Left style={{marginLeft: 8}}>
@@ -137,7 +129,8 @@ export default class DrawerMenu extends Component {
 }
 
 const drawerStyles = {
-    drawer: { flex: 1,
+    drawer: {
+        flex: 1,
         shadowColor: '#000000',
         shadowOpacity: 0.8,
         shadowRadius: 0,
@@ -180,6 +173,19 @@ const styles = StyleSheet.create({
         paddingTop: 8,
         paddingLeft: 0,
         paddingRight: 0,
+
+        borderColor: '#ddd',
+        borderBottomWidth: 0,
+        shadowColor: '#ccc',
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1,
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        alignContent: 'center',
+        justifyContent: 'center',
+        marginBottom: 4
     }
 });
 

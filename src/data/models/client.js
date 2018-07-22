@@ -1,3 +1,7 @@
+import DiagnosisCode from 'src/data/models/diagnosisCode';
+import Treatment from 'src/data/models/treatment/treatment';
+import Diagnosis from 'src/data/models/diagnosis/diagnosis';
+
 export default class Client {
 
     _id = 0;
@@ -11,8 +15,7 @@ export default class Client {
     postalCode = '';
     saveEnergyCode = false;
     receiveEmails = false;
-    treatments = [];
-    formula = '';
+    diagnosisCodes = [];
     _rev = '';
 
     fromJSON(data) {
@@ -27,9 +30,20 @@ export default class Client {
         this.saveEnergyCode = data.saveEnergyCode;
         this.receiveEmails = data.receiveEmails;
         this.postalCode = data.postalCode;
-        this.formula = data.formula;
         this._rev = data._rev;
+        this.diagnosisCodes = this.parseDiagnosisCodes(data.diagnosisCodes);
         return this;
+    }
+
+    parseDiagnosisCodes(data) {
+        let diagnosisCodes = [];
+        for (let i = 0; i < data.length; i++) {
+            let diagnosis = data[i].diagnosis;
+            let treatment = data[i].treatment;
+            let type = data[i].type;
+            diagnosisCodes.push(new DiagnosisCode(new Diagnosis(diagnosis), new Treatment().fromJSON(treatment), type));
+        }
+        return diagnosisCodes;
     }
 
     getID() {
@@ -40,22 +54,23 @@ export default class Client {
         return this.firstName + ' ' + this.lastName;
     }
 
-    addTreatment(treatment) {
-        this.treatments.push(treatment);
+    addDiagnosisCode(diagnosisCode) {
+        if (!this.diagnosisCodes) {
+            this.diagnosisCodes = [];
+        }
+        this.diagnosisCodes.push(diagnosisCode);
     }
 
-    removeTreatment(treatment) {
-        let index = this.treatments.indexOf(treatment);
-        this.treatments.splice(index, 1);
+    removeDiagnosisCode(treatment) {
+        let index = this.diagnosisCodes.indexOf(treatment);
+        this.diagnosisCodes.splice(index, 1);
     }
 
-    // getFormulas() {
-    //     return [{
-    //         id: 0,
-    //         formula: this.getFormula(),
-    //         date: 'May 7, 2018',
-    //         type: 'Intense'
-    //     }];
-    // }
-
+    getFormula() {
+        let formula = '';
+        if (this.diagnosisCodes && this.diagnosisCodes.length > 0) {
+            formula = this.diagnosisCodes[0].treatment.formula;
+        }
+        return formula;
+    }
 }

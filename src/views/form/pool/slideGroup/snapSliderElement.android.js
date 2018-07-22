@@ -17,6 +17,7 @@ var {
 
 var SnapSlider = createReactClass({
     propTypes: {
+        actionChange: PropTypes.func,
         onSlidingComplete: PropTypes.func,
         style: ViewPropTypes.style,
         containerStyle: ViewPropTypes.style,
@@ -53,7 +54,7 @@ var SnapSlider = createReactClass({
     _sliderStyle() {
         return [defaultStyles.slider, {width: this.state.sliderWidth, left: this.state.sliderLeft}, this.props.style];
     },
-    _onSlidingCompleteCallback: function (v, callback) {
+    _onSlidingCompleteCallback: function (v, callbackSlideComplete, callbackSettingValue) {
         //pad the value to the snap position
         var halfRatio = this.state.sliderRatio / 2;
         var i = 0;
@@ -81,6 +82,7 @@ var SnapSlider = createReactClass({
             this.setState({value: value, item: i});
         }
         callback(true);
+        callbackSettingValue(value);
 
     },
     /*
@@ -158,8 +160,8 @@ var SnapSlider = createReactClass({
                             borderRadius: 19,
                         }}
                         step={this.props.step}
-                        value={this.state.value}
-                        onSlidingComplete={(value) => this._onSlidingCompleteCallback(value, this.props.onSlide)}
+                        value={this.props.value}
+                        onSlidingComplete={(value) => this._onSlidingCompleteCallback(value, this.props.onSlide, this.props.actionChange)}
 
                 />
                 {this.props.labelPosition === undefined || this.props.labelPosition == 'bottom' ? this._labelView() : null}

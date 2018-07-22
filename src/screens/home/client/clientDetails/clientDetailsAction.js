@@ -22,13 +22,21 @@ export const removeClient = (client) => {
     };
 };
 
+export const deleteEnergyCode = (client, energyCode) => {
+    return async (dispatch) => {
+        client.removeDiagnosisCode(energyCode);
+        let updatedClient = await new ClientDao().update(client);
+        dispatch({type: GET_CLIENT, client: updatedClient});
+    };
+};
+
 export const showNewDiagnosScreen = (client) => {
     Actions.newDiagnosis({newClient: client});
     return {type: NO_ACTION};
 };
 
-export const showEditCodeScreen = (client) => {
-    Actions.treatment({newClient: client});
+export const showEditCodeScreen = (client, diagnosis) => {
+    Actions.treatment({newClient: client, diagnosis: diagnosis});
     return {type: NO_ACTION};
 };
 

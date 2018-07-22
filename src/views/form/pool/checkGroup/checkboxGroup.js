@@ -23,6 +23,8 @@ export default class CheckboxGroup extends Component {
         let view = items.filter(item => element.id == item.id)[0];
         items[items.indexOf(view)].active = active;
         this.setState({items: items});
+
+        this.props.actionChange(items)
     };
 
     _renderSmallCheckbox() {
@@ -90,5 +92,6 @@ const styles = StyleSheet.create({
 CheckboxGroup.propTypes = {
     title: PropTypes.string,
     type: PropTypes.string,
-    items: PropTypes.array
+    items: PropTypes.array,
+    actionChange: PropTypes.func
 };
