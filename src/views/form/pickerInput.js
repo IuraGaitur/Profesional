@@ -13,6 +13,7 @@ export default class PickerInput extends Component{
     constructor(props) {
         super(props);
         this.state = props;
+        this.currentItemValue = props.value;
     }
 
     componentWillReceiveProps(nextProps) {

@@ -38,7 +38,7 @@ class BlowDryDiagnosisScreen extends Component {
     };
 
     editDiagnosis = () => {
-
+        //Todo edit diagnosis of slider inputs, as a feature is mostly useless
     };
 
     render() {

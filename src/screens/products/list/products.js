@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getCareProducts, getStylingProducts, showDetails} from 'src/screens/products/list/productsAction';
 import ProductsView from 'src/screens/products/list/productsView';
-import ProductManager from 'src/data/models/product/productManager';
 
 class ProductsScreen extends Component {
 

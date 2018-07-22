@@ -31,13 +31,12 @@ export const deleteEnergyCode = (client, energyCode) => {
 };
 
 export const showNewDiagnosScreen = (client) => {
-    console.log(client);
     Actions.newDiagnosis({newClient: client});
     return {type: NO_ACTION};
 };
 
-export const showEditCodeScreen = (client) => {
-    Actions.treatment({newClient: client});
+export const showEditCodeScreen = (client, diagnosis) => {
+    Actions.treatment({newClient: client, diagnosis: diagnosis});
     return {type: NO_ACTION};
 };
 

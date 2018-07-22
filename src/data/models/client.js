@@ -40,7 +40,8 @@ export default class Client {
         for (let i = 0; i < data.length; i++) {
             let diagnosis = data[i].diagnosis;
             let treatment = data[i].treatment;
-            diagnosisCodes.push(new DiagnosisCode(new Diagnosis(diagnosis), new Treatment().fromJSON(treatment)));
+            let type = data[i].type;
+            diagnosisCodes.push(new DiagnosisCode(new Diagnosis(diagnosis), new Treatment().fromJSON(treatment), type));
         }
         return diagnosisCodes;
     }
@@ -62,7 +63,6 @@ export default class Client {
 
     removeDiagnosisCode(treatment) {
         let index = this.diagnosisCodes.indexOf(treatment);
-        console.log(index, ' : index');
         this.diagnosisCodes.splice(index, 1);
     }
 

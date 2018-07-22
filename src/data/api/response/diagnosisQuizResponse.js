@@ -15,6 +15,7 @@ export default class DiagnosisQuizResponse {
     diagnosisQuiz = null;
 
     constructor(data) {
+        console.log(data);
         this.diagnosisQuiz = new DiagnosisQuiz(getSubjects(data));
     }
 }
@@ -29,7 +30,6 @@ function getSubjects(data) {
         subjects.push(page);
     }
 
-    console.log(subjects);
     return subjects;
 }
 

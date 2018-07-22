@@ -38,10 +38,10 @@ export const registerRequest = (user) => {
     return async (dispatch) => {
         dispatch(requestRegister());
         let response = await new UserService().instance().register(user);
-        if (response && response.status == StatusCode.OK) {
-            await new UserDao().savePrimaryUser(response.user);
+        if (response) { //&& response.status == StatusCode.OK
+            await new UserDao().savePrimaryUser(response);//response.user
             Actions.main();
-            return dispatch(successRegister(response.user));
+            return dispatch(successRegister(user));
         } else if (response && response.status == StatusCode.INVALID_USER) {
             return dispatch(errorRegister(response.errorMsg))
         } else {

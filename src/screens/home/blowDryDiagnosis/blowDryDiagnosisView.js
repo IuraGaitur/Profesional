@@ -164,5 +164,5 @@ BlowDryDiagnosisView.propTypes = {
     diagnosisQuiz: PropTypes.object,
     diagnosis: PropTypes.object,
     actionChangeDiagnosis: PropTypes.func,
-    actionEdit: PropTypes
+    actionEdit: PropTypes.func
 };

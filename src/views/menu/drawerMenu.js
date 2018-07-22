@@ -41,7 +41,7 @@ export default class DrawerMenu extends Component {
     };
 
     async signOut() {
-        await new UserDao().removePrimaryUser();
+        //await new UserDao().removePrimaryUser();
         Actions.login();
     }
 

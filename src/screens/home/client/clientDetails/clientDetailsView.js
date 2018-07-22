@@ -81,9 +81,9 @@ export default class ClientDetailsView extends Component {
                                 date={rowData.item.treatment.getCreationDate()}
                                 formula={rowData.item.treatment.formula}
                                 actionMessage={actionMessage}
-                                actionEdit={actionEditCode}
+                                actionEdit={() => actionEditCode(rowData.item)}
                                 actionDelete={() => actionDeleteCode(rowData.item)}
-                                type={rowData.item.type}/>
+                                type={rowData.item.getType()}/>
                         }
                     />
                 </ContentFlex>

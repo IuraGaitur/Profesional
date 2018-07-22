@@ -18,7 +18,7 @@ export const showInfoScreen = () => {
 
 export const saveClientTreatment = (client, diagnosis, treatment) => {
     return async (dispatch) => {
-        let diagnosisCode = new DiagnosisCode(diagnosis, treatment);
+        let diagnosisCode = new DiagnosisCode(diagnosis, treatment, diagnosis.type);
         await new ClientDao().saveClientTreatment(client, diagnosisCode);
         Actions.main();
         dispatch({type: NO_ACTION});

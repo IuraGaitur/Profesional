@@ -83,7 +83,7 @@ class TreatmentScreen extends Component {
 
     actionMessageConfirm = () => {
         this.setState({showMessageDialog: false});
-        this.refs.view.showMessageSendWithSuccess('Message send with success');
+        this.refs.treatmentView.showMessageSendWithSuccess('Message send with success');
     };
 
     render() {
@@ -103,7 +103,6 @@ class TreatmentScreen extends Component {
                            diagnosis={diagnosis}
                            actionShowProducts={this.actionShowProducts}
                            actionProductClick={this.showProductDetails}
-
                            showMessageDialog={showMessageDialog}
                            actionHideMessageDialog={this.actionHideMessageDialog}
                            actionMessageConfirm={this.actionMessageConfirm}

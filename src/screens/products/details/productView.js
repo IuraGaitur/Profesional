@@ -76,7 +76,6 @@ export default class ProductView extends Component {
                         if (this.paralaxVisible != isVisible) {
                             this.paralaxVisible = !this.paralaxVisible;
                             this.setState({headerTransparent: this.paralaxVisible});
-                            console.log('setting transparency', isVisible);
                         }
                     }}
                     parallaxHeaderHeight={ ScreenUtils.HEIGHT / 3 }>

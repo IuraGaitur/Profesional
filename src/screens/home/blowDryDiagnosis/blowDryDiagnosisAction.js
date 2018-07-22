@@ -19,6 +19,7 @@ function getDiagnosisQuiz(diagnosisQuiz) {
 
 export const createTreatment = (client, diagnosis) => {
     diagnosis.type = BLOW_DRY;
+    console.log(diagnosis);
     Actions.treatment({newClient: client, diagnosis: diagnosis});
     return {type: NO_ACTION};
 };

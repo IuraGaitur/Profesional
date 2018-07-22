@@ -3,7 +3,7 @@ import MainStyle from 'src/utils/mainStyle';
 import {Text, View, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {GRAY_COLOR,} from 'src/utils/colors';
-import {Button, Icon, Thumbnail} from 'native-base';
+import {Button, Icon, Thumbnail, Toast} from 'native-base';
 import ContainerFlex from 'src/views/native_elements/containerFlex';
 import BackMenuLogo from 'src/views/menu/backMenuLogo';
 import ContentFlex from 'src/views/native_elements/contentFlex';
@@ -25,6 +25,13 @@ export default class TreatmentView extends Component {
     showInfoDialog(html) {
         this.refs.mainContainer.showInfoDialog(html);
     }
+
+    showMessageSendWithSuccess = (message) => {
+        Toast.show({
+            text: message,
+            buttonText: 'OK'
+        });
+    };
 
     render() {
         const {

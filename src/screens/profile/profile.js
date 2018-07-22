@@ -76,7 +76,7 @@ const mapStateToProps = (state) => {
         networkError: state.profile.networkError,
 
         countries: state.splash.countries,
-        primaryUser: state.splash.user,
+        primaryUser: state.clients.primaryUser,
         isLoggedIn: state.splash.loggedIn
     };
 };

@@ -9,7 +9,6 @@ export default class ClientDao {
         if (!client) return;
         let result = await DbConnection.post({'category': this.CLIENT_KEY, ...client});
         let newClient = await this.getByID(result.id);
-        console.log(newClient);
         return newClient;
     }
 
@@ -17,7 +16,6 @@ export default class ClientDao {
         if (!client) return;
         await DbConnection.put({'category': this.CLIENT_KEY, ...client});
         let updatedClient = await this.getByID(client._id);
-        console.log(updatedClient);
         return updatedClient;
     }
 
@@ -58,7 +56,6 @@ export default class ClientDao {
 
     async remove(client) {
         let dbClient = await DbConnection.find({selector: {category: this.CLIENT_KEY, _id: client._id}});
-        console.log(dbClient);
         await DbConnection.remove(dbClient.docs[0]);
     }
 }
