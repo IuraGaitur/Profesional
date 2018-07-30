@@ -32,6 +32,11 @@ Run android: - Build application from android/ directory and run it on device (P
   - Use redux saga for dividing BL into sagas and in order to have clean actions
   - Use redux saga with redux-action
 
+## Version 0.5
+ - Fixed inputs spacing animation
+ - Added screen for choosing products
+ - Added screen for modify treatment
+ - Added screeen for choosing treatment
 
 ## Version 0.4
  - Added search through clients
