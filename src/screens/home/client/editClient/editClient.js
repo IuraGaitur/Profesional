@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {init, updateClient} from 'src/screens/home/client/editClient/editClientAction';
+import {init, updateClient, showPrivacyInfo, showCookieInfo} from 'src/screens/home/client/editClient/editClientAction';
 import EditClientView  from 'src/screens/home/client/editClient/editClientView';
 import moment from "moment";
 
@@ -83,7 +83,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateClient: (client) => {dispatch(updateClient(client))}
+        updateClient: (client) => {dispatch(updateClient(client))},
+        showPrivacyInfo: () => {dispatch(showPrivacyInfo())},
+        showCookieInfo: () => {dispatch(showCookieInfo())}
     }
 };
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import FaqView  from 'src/screens/help/faq/details/faqView';
-import {getQuestions, goContacts, goBack} from 'src/screens/help/faq/details/faqAction';
+import FaqDetailsView  from 'src/screens/help/faq/details/faqDetailsView';
+import {getQuestions, goContacts, goBack} from 'src/screens/help/faq/details/faqDetailsAction';
 
-class FaqScreen extends Component {
+class FaqDetailsScreen extends Component {
 
     static navigationOptions = { header: null};
 
@@ -28,11 +28,11 @@ class FaqScreen extends Component {
     };
 
     render() {
-        const {questions} = this.props;
+        const {question} = this.props;
         return (
-            <FaqView searchCallback={this.searchCallback} backCallback={this.backCallback}
+            <FaqDetailsView searchCallback={this.searchCallback} backCallback={this.backCallback}
                      contactCallback={this.contactCallback}
-                     questions={questions}/>
+                     question={question}/>
         );
     }
 }
@@ -51,4 +51,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (FaqScreen);
+export default connect(mapStateToProps, mapDispatchToProps) (FaqDetailsScreen);

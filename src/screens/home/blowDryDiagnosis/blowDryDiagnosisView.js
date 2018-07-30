@@ -15,6 +15,7 @@ export default class BlowDryDiagnosisView extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {scrollable: true};
     }
 
     _renderDotIndicator() {
@@ -30,10 +31,10 @@ export default class BlowDryDiagnosisView extends Component {
 
     setScrollEnabled = (state, page) => {
         console.log(state);
-        if(!state) {
+        if (!state) {
             this.refs.pager.setPageWithoutAnimation(page);
         }
-        this.setState({scrollable: state})
+        this.setState({scrollable: state});
     };
 
     showDialogInfo = (info) => {
@@ -41,7 +42,7 @@ export default class BlowDryDiagnosisView extends Component {
     };
 
     render() {
-        const { scrollable } = this.state;
+        const {scrollable} = this.state;
         const {diagnosisQuiz, actionCreate, actionPageSelectedCallback, showEditAction, actionEdit} = this.props;
 
         return (
@@ -66,7 +67,7 @@ export default class BlowDryDiagnosisView extends Component {
                         <View style={{backgroundColor: LIGHT_COLOR}}>
                             <PoolPage pageInfo={diagnosisQuiz.subjects[1]}
                                       actionInfoCallback={this.showDialogInfo}
-                                      actionChangeSubject={(pageInfo) => this.actionChangeSubject(1, pageInfo)} />
+                                      actionChangeSubject={(pageInfo) => this.actionChangeSubject(1, pageInfo)}/>
                         </View>
                         <View style={{backgroundColor: LIGHT_COLOR}}>
                             <PoolPage pageInfo={diagnosisQuiz.subjects[2]}
@@ -162,5 +163,6 @@ BlowDryDiagnosisView.propTypes = {
     actionPageSelectedCallback: PropTypes.func,
     diagnosisQuiz: PropTypes.object,
     diagnosis: PropTypes.object,
-    actionChangeDiagnosis: PropTypes.func
+    actionChangeDiagnosis: PropTypes.func,
+    actionEdit: PropTypes.func
 };

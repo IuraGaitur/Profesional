@@ -33,6 +33,8 @@ export const GET_MENU_ITEMS = 'GET_MENU_ITEMS';
 
 //Products Actions
 export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const GET_CARE_ITEMS = 'GET_CARE_ITEMS';
+export const GET_STYLING_ITEMS = 'GET_STYLING_ITEMS';
 
 //Clients Actions
 export const GET_ALL_CLIENTS = 'GET_ALL_CLIENTS';

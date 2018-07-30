@@ -50,7 +50,21 @@ const styles = StyleSheet.create({
         paddingTop: 8,
         paddingLeft: 0,
         paddingRight: 0,
-        backgroundColor: LIGHT_COLOR
+        backgroundColor: LIGHT_COLOR,
+
+        borderColor: '#ddd',
+        borderBottomWidth: 0,
+        shadowColor: '#ccc',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1,
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        alignContent: 'center',
+        justifyContent: 'center',
+        marginBottom: 4
+
     }
 });
 

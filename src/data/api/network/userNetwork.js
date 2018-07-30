@@ -1,5 +1,5 @@
 export default class UserNetwork  {
-    login(email, pass) {
+    async login(email, pass) {
         throw new Error("Method not implemented.");
     }
 

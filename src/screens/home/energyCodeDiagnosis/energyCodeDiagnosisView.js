@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import {View, StyleSheet, Platform} from 'react-native';
 import {Button, Icon} from 'native-base';
 import {IndicatorViewPager, PagerDotIndicator} from 'rn-viewpager';
-import Message from 'src/data/models/message';
 import BackMenuLogo from 'src/views/menu/backMenuLogo';
 import ContainerFlex from 'src/views/native_elements/containerFlex';
 import MainStyle from 'src/utils/mainStyle';
@@ -11,8 +10,6 @@ import PoolPage from 'src/views/pages/poolPage';
 import {GRAY_COLOR, LIGHT_COLOR, SELECTED,} from 'src/utils/colors';
 
 export default class EnergyCodeDiagnosisView extends Component {
-
-    message = new Message();
 
     constructor(props) {
         super(props);
@@ -45,7 +42,7 @@ export default class EnergyCodeDiagnosisView extends Component {
                                         onPageSelected={(data) => actionPageSelectedCallback(data.position, 3)}
                                         indicator={this._renderDotIndicator()}>
                         {quiz.subjects.map((item, pos) => (
-                            <View style={{backgroundColor: LIGHT_COLOR}}>
+                            <View style={{backgroundColor: LIGHT_COLOR}} key={pos}>
                                 <PoolPage pageInfo={quiz.subjects[pos]}
                                           actionChangeSubject={(pageInfo) => this.actionChangeSubject(pos, pageInfo)}/>
                             </View>

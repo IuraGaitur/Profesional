@@ -25,11 +25,9 @@ export default class ProductsView extends Component {
     }
 
     render() {
-        const {
-            title, showProductDetails,
-            careProducts, careProductsType, careSelectedProductType, careActionChangeProductsCallback,
-            stylingProducts, stylingProductsType, stylingSelectedProductType, stylingActionChangeProductsCallback,
-        } = this.props;
+        const {title, showProductDetails, careProducts, stylingProducts, careCategories, stylingCategories,
+            selectedCareCategory, selectedStylingCategory,
+            careActionChangeProductsCallback, stylingActionChangeProductsCallback} = this.props;
 
         return (
             <DrawerMenu title={title}>
@@ -37,16 +35,16 @@ export default class ProductsView extends Component {
                                     indicator={this._renderTabIndicator()}>
                     <View style={{backgroundColor: LIGHT_COLOR}}>
                         <ProductsPage products={careProducts}
-                                      productsType={careProductsType}
+                                      categories={careCategories}
                                       showProductDetails={showProductDetails}
-                                      selectedProductsType={careSelectedProductType}
+                                      selectedCategory={selectedCareCategory}
                                       actionChangeProductsCallback={careActionChangeProductsCallback}/>
                     </View>
                     <View style={{backgroundColor: LIGHT_COLOR}}>
                         <ProductsPage products={stylingProducts}
-                                      productsType={stylingProductsType}
+                                      categories={stylingCategories}
                                       showProductDetails={showProductDetails}
-                                      selectedProductsType={stylingSelectedProductType}
+                                      selectedCategory={selectedStylingCategory}
                                       actionChangeProductsCallback={stylingActionChangeProductsCallback}/>
                     </View>
                 </IndicatorViewPager>
@@ -85,12 +83,14 @@ ProductsView.defaultProps = {
 ProductsView.propTypes = {
     title: PropTypes.string,
     careProducts: PropTypes.array,
-    careProductsType: PropTypes.array,
-    careSelectedProductType: PropTypes.string,
+    careCategories: PropTypes.array,
+    selectedCareCategory: PropTypes.string,
     careActionChangeProductsCallback: PropTypes.func,
+
     stylingProducts: PropTypes.array,
-    stylingProductsType: PropTypes.array,
-    stylingSelectedProductType: PropTypes.string,
+    stylingCategories: PropTypes.array,
+    selectedStylingCategory: PropTypes.string,
     stylingActionChangeProductsCallback: PropTypes.func,
+
     showProductDetails: PropTypes.func,
 };

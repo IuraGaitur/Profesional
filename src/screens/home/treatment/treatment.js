@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import TreatmentView from 'src/screens/home/treatment/treatmentView';
-import {init, saveClientTreatment, showInfoScreen} from 'src/screens/home/treatment/treatmentAction';
+import {init, saveClientTreatment, showInfoScreen, showProductInfo, modifyTreatment, treatmentProducts, selectTreatmentProducts} from 'src/screens/home/treatment/treatmentAction';
 import Treatment from 'src/data/models/treatment/treatment';
 
 class TreatmentScreen extends Component {
@@ -27,17 +27,12 @@ class TreatmentScreen extends Component {
             'name': 'BALANCE LOTION',
             'type': 'B1',
             'image': 'assets/images/prod_4.png'
-        },
-        {
-            'name': 'BALANCE SHAMPOO',
-            'type': 'B1',
-            'image': 'assets/images/prod_5.png'
         }
     ];
 
     constructor(props) {
         super(props);
-        this.state = props;
+        this.state = {...props, showMessageDialog: false};
         this.props.init();
     }
 
@@ -62,20 +57,37 @@ class TreatmentScreen extends Component {
 
     };
     actionEdit = () => {
-
+        this.props.selectTreatmentProducts();
     };
     actionEssentials = () => {
 
     };
     actionShowProducts = () => {
-
+        this.props.treatmentProducts();
     };
     actionModifyTreatment = () => {
+        this.props.modifyTreatment();
+    };
 
+    showProductDetails = (id) => {
+        this.props.showProductDetails(id);
+    };
+
+    showMessageDialog = () => {
+        this.setState({showMessageDialog: true});
+    };
+
+    actionHideMessageDialog = () => {
+        this.setState({showMessageDialog: false});
+    };
+
+    actionMessageConfirm = () => {
+        this.setState({showMessageDialog: false});
+        this.refs.treatmentView.showMessageSendWithSuccess('Message send with success');
     };
 
     render() {
-        const {diagnosis} = this.state;
+        const {diagnosis, showMessageDialog} = this.state;
         return (
             <TreatmentView ref='treatmentView'
                            products={this.products}
@@ -85,9 +97,15 @@ class TreatmentScreen extends Component {
                            actionCareInfo={this.actionCareInfo}
                            actionCodeInfo={this.actionCodeInfo}
                            actionInfoTreatment={this.actionInfoTreatment}
+                           actionInfoEmailSend={this.showMessageDialog}
                            actionModifyTreatment={this.actionModifyTreatment}
                            actionSave={this.actionSave}
+                           diagnosis={diagnosis}
                            actionShowProducts={this.actionShowProducts}
+                           actionProductClick={this.showProductDetails}
+                           showMessageDialog={showMessageDialog}
+                           actionHideMessageDialog={this.actionHideMessageDialog}
+                           actionMessageConfirm={this.actionMessageConfirm}
             />
         );
     }
@@ -105,7 +123,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         init: () => dispatch(init()),
         saveClientTreatment: (client, diagnosis, treatment) => dispatch(saveClientTreatment(client, diagnosis, treatment)),
-        showInfoScreen: () => dispatch(showInfoScreen())
+        showInfoScreen: () => dispatch(showInfoScreen()),
+        showProductDetails: (id) => dispatch(showProductInfo(id)),
+        modifyTreatment: () => dispatch(modifyTreatment()),
+        treatmentProducts: () => dispatch(treatmentProducts()),
+        selectTreatmentProducts: () => dispatch(selectTreatmentProducts())
     }
 };
 

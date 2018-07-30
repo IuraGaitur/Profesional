@@ -17,7 +17,7 @@ export default class NewDiagnosisView extends Component {
     render() {
         return (
             <ContainerFlex>
-                <BackMenu title={'NEW DIAGNOSIS'} actionBack={() => this.props.actionBack()}/>
+                <BackMenu title={'NEW DIAGNOSIS'}/>
                 <ContentFlex padding={16}>
                     <Grid>
                         <Row size={2} style={styles.contentCenter}>

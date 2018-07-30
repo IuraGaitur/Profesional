@@ -1,19 +1,19 @@
 import ProductsApi from 'src/data/api/productsApi';
 import {Actions} from 'react-native-router-flux';
-import {GET_ITEMS, GET_CATEGORIES, NO_ACTION} from 'src/app/actions';
+import {GET_CARE_ITEMS, GET_STYLING_ITEMS, NO_ACTION} from 'src/app/actions';
 
 
-export function getProducts() {
-    let items = new ProductsApi().instance().getAll();
-    return {items, type: GET_ITEMS}
-}
+export const getCareProducts = (categoryID) => {
+    let items = new ProductsApi().instance().getByCategory("care", categoryID);
+    return {careProducts: items, type: GET_CARE_ITEMS}
+};
 
-export function getProductsCategories() {
-    let categories = new ProductsApi().instance().getCategories();
-    return {categories, type: GET_CATEGORIES};
-}
+export const getStylingProducts = (categoryID) => {
+    let items = new ProductsApi().instance().getByCategory("styling", categoryID);
+    return {stylingProducts: items, type: GET_STYLING_ITEMS}
+};
 
-export function showDetails(id) {
+export const showDetails = (id) => {
     Actions.productDetails({id: id});
     return {type: NO_ACTION};
-}
+};

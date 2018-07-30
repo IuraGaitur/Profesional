@@ -41,6 +41,7 @@ ClientItemView.propTypes = {
     name: PropTypes.string,
     formula: PropTypes.string,
     type: PropTypes.string,
+    date: PropTypes.string,
     actionEdit: PropTypes.func,
     actionMessage: PropTypes.func,
     actionDelete: PropTypes.func,

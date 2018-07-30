@@ -5,14 +5,16 @@ const defaultState = {
     user: null,
     languages: [],
     countries: [],
-    genders: []
+    genders: [],
+    productsCategories: {care: [], styling: []}
 };
 
 export default function reducer(state = defaultState, action) {
 
     switch (action.type) {
         case INIT:
-            return {...state, countries: action.countries, languages: action.languages, genders: action.genders};
+            return {...state, countries: action.countries, languages: action.languages,
+                genders: action.genders, productsCategories: action.productsCategories};
         case IS_LOGGED_IN:
             return {...state, checkedForUser: true, user: action.user, loggedIn: true};
         case NO_USER:

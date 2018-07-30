@@ -34,7 +34,20 @@ const styles = StyleSheet.create({
         paddingLeft: 0,
         marginTop: 0,
         backgroundColor: LIGHT_COLOR,
-        height: 'auto'
+        height: 'auto',
+
+        borderColor: '#ddd',
+        borderBottomWidth: 0,
+        shadowColor: '#ccc',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1,
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        alignContent: 'center',
+        justifyContent: 'center',
+        marginBottom: 4
     },
     centerItem: {
         width: '65%',

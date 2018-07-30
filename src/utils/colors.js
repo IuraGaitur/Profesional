@@ -1,4 +1,5 @@
 export const PRIMARY = '#7EA9A4';
+export const PRIMARY_ACCENT = '#B6EFD8';
 export const PRIMARY_2 = 'rgba(212, 48, 126, 0.08)';
 export const RED_LIGHT_COLOR = 'rgba(212, 48, 126, 0.3)';
 export const SECONDARY_COLOR = '#ffbe00';
@@ -13,4 +14,6 @@ export const LIGHT_BACKGROUND_COLOR = '#f7f7f5';
 export const DARK_BACKGROUND_COLOR = '#25283e';
 export const DARK_OVERLAY_COLOR = 'rgba(45, 48, 71, 0.38)';
 export const SELECTED = '#7AA49E';
-export const UN_SELECTED = '#DAE1E5'
+export const UN_SELECTED = '#DAE1E5';
+export const PRIMARY_LIGHT = '#EDF4F3';
+export const PINK = '#FCE7E0';

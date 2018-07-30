@@ -59,7 +59,7 @@ export default class LoginView extends Component {
 
         return (
             <ContainerFlex ref='loginContainer'>
-                <ContentFlex>
+                <ContentFlex scrollable bouncing={false}>
                     <Grid>
                         <Col>
                             <View style={styles.headerContainer}>

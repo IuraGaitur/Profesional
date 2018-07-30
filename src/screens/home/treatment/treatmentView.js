@@ -3,7 +3,7 @@ import MainStyle from 'src/utils/mainStyle';
 import {Text, View, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {GRAY_COLOR,} from 'src/utils/colors';
-import {Button, Icon, Thumbnail} from 'native-base';
+import {Button, Icon, Thumbnail, Toast} from 'native-base';
 import ContainerFlex from 'src/views/native_elements/containerFlex';
 import BackMenuLogo from 'src/views/menu/backMenuLogo';
 import ContentFlex from 'src/views/native_elements/contentFlex';
@@ -13,6 +13,8 @@ import BigButton from 'src/views/native_elements/bigButton';
 import Formula from 'src/views/native_elements/formula';
 import Space from 'src/views/native_elements/space';
 import CardProduct from 'src/views/native_elements/cardProduct';
+import {BLOW_DRY} from 'src/data/models/treatment/treatmentType';
+import MessageDialog from 'src/views/dialogs/messageDialog';
 
 export default class TreatmentView extends Component {
 
@@ -24,11 +26,19 @@ export default class TreatmentView extends Component {
         this.refs.mainContainer.showInfoDialog(html);
     }
 
+    showMessageSendWithSuccess = (message) => {
+        Toast.show({
+            text: message,
+            buttonText: 'OK'
+        });
+    };
+
     render() {
         const {
             products, actionInfo, actionSave, actionInfoEmailSend,
-            actionCodeInfo, actionCareInfo, actionEdit,
-            actionEssentials, actionShowProducts, actionModifyTreatment
+            actionCodeInfo, actionCareInfo, actionEdit, diagnosis,
+            actionEssentials, actionShowProducts, actionModifyTreatment,
+            actionProductClick, showMessageDialog, actionHideMessageDialog, actionMessageConfirm
         } = this.props;
 
         return (
@@ -53,7 +63,7 @@ export default class TreatmentView extends Component {
                         </Button>
                     </View>
                     <View style={MainStyle.defaultHorizontalMargin}>
-                        <SubmitButton text={'SEND BY EMAIL'} onPress={() => actionInfoEmailSend}/>
+                        <SubmitButton text={'SEND BY EMAIL'} onPress={() => actionInfoEmailSend()}/>
                     </View>
 
                     <Space height={20}/>
@@ -70,7 +80,7 @@ export default class TreatmentView extends Component {
                     <Space height={30}/>
 
                     <View style={MainStyle.centerAlign}>
-                        <Text style={[MainStyle.primary, {paddingTop: 12}]}>BASE PRODUCTS</Text>
+                        <Text style={[MainStyle.primary, {paddingTop: 12}]}>CARE PRODUCTS</Text>
                         <View style={MainStyle.rightPosition}>
                             <Button transparent onPress={() => actionEdit()}>
                                 <Text style={MainStyle.secondary}>Edit</Text>
@@ -83,38 +93,63 @@ export default class TreatmentView extends Component {
 
                     <View style={styles.productsContainer}>
                         {products && products.map(item =>
-                            <CardProduct key={item.name} title={item.name} picture={item.image} onPress={() => {}}/>)}
+                            <CardProduct key={item.name} title={item.name} picture={item.image} onPress={() => {
+                                actionProductClick(item.id)
+                            }}/>)}
                     </View>
 
-                    <Divider height={1}/>
-
                     <View style={MainStyle.centerAlign}>
-                        <Text style={[MainStyle.h3, {paddingTop: 8}]}>SYSTEM TREATMENT:</Text>
+                        <Text style={[MainStyle.primary, {paddingTop: 12}]}>STYLING PRODUCTS</Text>
                         <View style={MainStyle.rightPosition}>
-                            <Button transparent onPress={() => actionCareInfo()}>
-                                <Icon name='information-circle' style={MainStyle.infoButton}/>
+                            <Button transparent onPress={() => actionEdit()}>
+                                <Text style={MainStyle.secondary}>Edit</Text>
                             </Button>
                         </View>
                     </View>
+                    <Space height={10}/>
+                    <Divider height={1}/>
+                    <Space height={10}/>
 
-                    <Space height={15}/>
-                    <View style={MainStyle.centerAlign}>
-                        <View style={styles.imageContainer}>
-                            <View style={MainStyle.centerAlign}>
-                                <View style={styles.imageBorder}>
-                                    <Thumbnail style={styles.image}
-                                               source={require('Sytem_Pro/assets/images/img_hair_type.png')}/>
-                                </View>
-                            </View>
-                            <BigButton text={'ESSENTIALS'} color={'#FAD3C8'} onPress={() => actionEssentials()} disabled/>
-                            <BigButton text={'SHOW PRODUCTS'} color={'#E0EDEA'} onPress={() => actionShowProducts()}/>
-                        </View>
+                    <View style={styles.productsContainer}>
+                        {products && products.map(item =>
+                            <CardProduct key={item.name} title={item.name} picture={item.image} onPress={() => {
+                                actionProductClick(item.id)
+                            }}/>)}
                     </View>
 
-                    <SubmitButton text={'MODIFY SYSTEM TREATMENT'} onPress={() => actionModifyTreatment()}/>
+                    {diagnosis.type == BLOW_DRY &&
+                        <View>
+                            <Divider height={1}/>
+                            <View style={MainStyle.centerAlign}>
+                                <Text style={[MainStyle.h3, {paddingTop: 8}]}>SYSTEM TREATMENT:</Text>
+                                <View style={MainStyle.rightPosition}>
+                                    <Button transparent onPress={() => actionCareInfo()}>
+                                        <Icon name='information-circle' style={MainStyle.infoButton}/>
+                                    </Button>
+                                </View>
+                            </View>
 
+                            <Space height={15}/>
+                            <View style={MainStyle.centerAlign}>
+                                <View style={styles.imageContainer}>
+                                    <View style={MainStyle.centerAlign}>
+                                        <View style={styles.imageBorder}>
+                                            <Thumbnail style={styles.image}
+                                                       source={require('Sytem_Pro/assets/images/img_hair_type.png')}/>
+                                        </View>
+                                    </View>
+                                    <BigButton text={'ESSENTIALS'} color={'#FAD3C8'} onPress={() => actionEssentials()}
+                                               disabled/>
+                                    <BigButton text={'SHOW PRODUCTS'} color={'#E0EDEA'}
+                                               onPress={() => actionShowProducts()}/>
+                                </View>
+                            </View>
+
+                            <SubmitButton text={'MODIFY SYSTEM TREATMENT'} onPress={() => actionModifyTreatment()}/>
+                        </View>}
 
                 </ContentFlex>
+                <MessageDialog visible={showMessageDialog} dismissCallback={actionHideMessageDialog} actionMessage={actionMessageConfirm}/>
             </ContainerFlex>
         );
     }
@@ -148,6 +183,7 @@ const styles = StyleSheet.create({
 });
 
 TreatmentView.propTypes = {
+    diagnosis: PropTypes.object,
     products: PropTypes.array,
     actionInfo: PropTypes.func,
     actionSave: PropTypes.func,
@@ -157,5 +193,10 @@ TreatmentView.propTypes = {
     actionEdit: PropTypes.func,
     actionEssentials: PropTypes.func,
     actionShowProducts: PropTypes.func,
-    actionModifyTreatment: PropTypes.func
+    actionModifyTreatment: PropTypes.func,
+    actionProductClick: PropTypes.func,
+
+    showMessageDialog: PropTypes.bool,
+    actionHideMessageDialog: PropTypes.func,
+    actionMessageConfirm: PropTypes.func
 };

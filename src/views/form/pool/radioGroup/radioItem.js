@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 });
 
 RadioItem.propTypes = {
-    style: PropTypes.object,
+    style: PropTypes.oneOfType(PropTypes.number, PropTypes.object),
     title: PropTypes.string,
     isSelected: PropTypes.bool,
     onSelect: PropTypes.func

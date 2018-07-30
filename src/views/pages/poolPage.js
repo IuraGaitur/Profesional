@@ -35,7 +35,8 @@ export default class PoolPage extends Component {
 
     _renderCheckQuestionary = (pos, question, changeCallback) => {
         return (
-            <CheckboxGroup items={question.options}
+            <CheckboxGroup key={pos}
+                           items={question.options}
                            title={question.title}
                            type={question.type}
                            actionChange={options => {
@@ -48,7 +49,7 @@ export default class PoolPage extends Component {
     _renderSelectQuestionary = (pos, question, changeCallback) => {
         return (
             <RadioBoxGroup
-                key={question.title}
+                key={pos}
                 items={question.options}
                 title={question.title}
                 actionChange={options => {
@@ -60,7 +61,8 @@ export default class PoolPage extends Component {
 
     _renderSliderStepQuestionary = (pos, question, sliderCallback, changeCallback) => {
         return (
-            <SlideGroup question={question} style={{flex: 1}}
+            <SlideGroup key={pos}
+                        question={question} style={{flex: 1}}
                         actionInfoCallback={this.props.actionInfoCallback}
                         onSlide={state => this.onSlideCallback(state, sliderCallback)}
                         actionChange={value => {
@@ -72,7 +74,8 @@ export default class PoolPage extends Component {
 
     _renderSliderQuestionary = (pos, question, sliderCallback, changeCallback) => {
         return (
-            <SlideGroup question={question} style={{flex: 1}}
+            <SlideGroup key={pos}
+                        question={question} style={{flex: 1}}
                         actionInfoCallback={this.props.actionInfoCallback}
                         onSlide={state => this.onSlideCallback(state, sliderCallback)}
                         actionChange={value => {

@@ -8,7 +8,7 @@ import {LIGHT_COLOR, PRIMARY} from 'src/utils/colors';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import TouchOpacityDebounce from 'src/utils/touchable_debounce/touchOpacityDebounce';
 import PickerInput from 'src/views/form/pickerInput';
-import {Button, Label, CheckBox, Text, Icon} from 'native-base';
+import {Button, Label, CheckBox, Text, Icon, Toast} from 'native-base';
 import FormItem from 'src/views/native_elements/formItem';
 import Space from 'src/views/native_elements/space';
 import SubmitButton from 'src/views/native_elements/submitButton';
@@ -40,6 +40,13 @@ export default class RegisterView extends Component {
         if (areFieldsValid) {
             registerCallback(user);
         }
+    };
+
+    showError = (message) => {
+        Toast.show({
+            text: message,
+            buttonText: 'OK'
+        });
     };
 
     render() {
