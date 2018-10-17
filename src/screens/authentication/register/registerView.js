@@ -7,7 +7,6 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import {LIGHT_COLOR, PRIMARY} from 'src/utils/colors';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import TouchOpacityDebounce from 'src/utils/touchable_debounce/touchOpacityDebounce';
-import PickerInput from 'src/views/form/pickerInput';
 import {Button, Label, CheckBox, Text, Icon, Toast} from 'native-base';
 import FormItem from 'src/views/native_elements/formItem';
 import Space from 'src/views/native_elements/space';

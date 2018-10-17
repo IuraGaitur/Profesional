@@ -10,7 +10,7 @@ import FormData from 'src/views/form/formData';
 import ContainerFlex from 'src/views/native_elements/containerFlex';
 import ContentFlex from 'src/views/native_elements/contentFlex';
 
-const BG_IMAGE = require('Sytem_Pro/assets/images/bg_image_1.png');
+// const BG_IMAGE = require('Sytem_Pro/assets/images/bg_image_1.png');
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = ScreenUtils.HEIGHT;
 
@@ -63,7 +63,7 @@ export default class LoginView extends Component {
                     <Grid>
                         <Col>
                             <View style={styles.headerContainer}>
-                                <Image source={BG_IMAGE} style={styles.bgImage}/>
+                                {/*<Image source={BG_IMAGE} style={styles.bgImage}/>*/}
                                 <View style={styles.iconView}>
                                     <Icon onPress={(e) => showInfoCallback()}
                                           name='ios-help' style={styles.iconHelp}/>

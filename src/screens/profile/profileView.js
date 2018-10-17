@@ -4,7 +4,6 @@ import Form from 'src/views/form/formData';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {LIGHT_COLOR, PRIMARY, TEXT_COLOR} from 'src/utils/colors';
 import {View, StyleSheet, Dimensions} from 'react-native';
-import PickerInput from 'src/views/form/pickerInput';
 import {Button, Label, CheckBox, Text} from 'native-base';
 import FormItem from 'src/views/native_elements/formItem';
 import Space from 'src/views/native_elements/space';
@@ -101,16 +100,6 @@ export default class ProfileView extends Component {
                                 onChangeText={item => actionChangeUser('city', item)}>
                                 <Label>CITY*</Label>
                             </FormItem>
-                            <PickerInput
-                                label="COUNTRY*"
-                                items={countries}
-                                valueChangeCallBack={item => actionChangeUser('country', item)}
-                                defaultItem={{label: 'COUNTRY*', value: ''}}
-                                needValidation value={user.country}
-                                ref={item => this.formInputs[7] = item}
-                                onSubmitEditing={() => this.formInputs[8].focus()}
-                                validation={[validationRequired]}
-                            />
                             <FormItem
                                 ref={item => this.formInputs[8] = item}
                                 value={user.wellaNumber} isLast

@@ -6,7 +6,6 @@ import {Content} from 'native-base';
 export default class ContentFlex extends Component {
 
     render() {
-
         const {margin, padding, scrollable, bouncing} = this.props;
 
         if (!scrollable) {

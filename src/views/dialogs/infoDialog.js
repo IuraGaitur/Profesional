@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {GRAY_COLOR} from 'src/utils/colors';
 import Overlay from 'react-native-modal-overlay';
-import HtmlText from 'src/views/native_elements/htmlText';
 import {View, StyleSheet, TouchableWithoutFeedback, Button} from 'react-native';
 
 export default class InfoDialog extends Component {
@@ -25,8 +24,7 @@ export default class InfoDialog extends Component {
             containerStyle={styles.container}
             animationDuration={500}>
             <View>
-                <HtmlText html={this.props.html}
-                          styles={styles.formulaTitle} textStyle={styles.text}/>
+
             </View>
             <View style={styles.buttonDialog}>
                 <Button clear title='OK' TouchableComponent={TouchableWithoutFeedback}

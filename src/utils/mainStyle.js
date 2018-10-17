@@ -114,5 +114,4 @@ export default StyleSheet.create({
         color: GRAY_COLOR,
         fontSize: 42
     }
-
 });

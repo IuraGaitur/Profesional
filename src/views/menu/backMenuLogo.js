@@ -15,8 +15,8 @@ export default class BackMenuLogo extends Component {
                     </Button>
                 </Left>
                 <View style={styles.logo}>
-                    <Thumbnail square style={styles.thumb}
-                               source={require('Sytem_Pro/assets/images/logo.png')}/>
+                    {/*<Thumbnail square style={styles.thumb}*/}
+                               {/*source={require('Sytem_Pro/assets/images/logo.png')}/>*/}
                 </View>
                 <Right>{this.props.actions}</Right>
             </Header>);

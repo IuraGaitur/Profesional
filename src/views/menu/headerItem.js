@@ -17,7 +17,7 @@ export default class HeaderItem extends Component {
             <View style={styles.inline}>
                 <TouchOpacityDebounce onPress={() => selectPageCallback(0)}>
                     <View style={styles.switchContainer}>
-                        <Image style={styles.imageItem} source={require('Sytem_Pro/assets/images/logo.png')}/>
+                        {/*<Image style={styles.imageItem} source={require('Sytem_Pro/assets/images/logo.png')}/>*/}
                     </View>
                 </TouchOpacityDebounce>
                 <View style={styles.line}/>

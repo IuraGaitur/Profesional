@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import Drawer from 'react-native-drawer-menu';
 import MenuItem from 'src/views/menu/menuItem';
 import HeaderItem from 'src/views/menu/headerItem';
-import MenuDao from 'src/data/database/menuDao';
 import UserDao from 'src/data/database/userDao';
 import {Actions} from 'react-native-router-flux';
 import ContainerFlex from 'src/views/native_elements/containerFlex';
@@ -21,12 +20,6 @@ export default class DrawerMenu extends Component {
     }
 
     async componentDidMount() {
-        await this.loadMenuItems();
-    }
-
-    async loadMenuItems() {
-        let menuItems = await new MenuDao().getItems();
-        this.setState({menuItems: menuItems});
     }
 
     isDrawerOpen = false;

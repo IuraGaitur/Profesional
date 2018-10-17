@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import HtmlText from 'src/views/native_elements/htmlText';
 import {Button, Header, Icon, Right, View} from 'native-base';
 import {GRAY_COLOR, LIGHT_COLOR, TEXT_COLOR} from 'src/utils/colors';
 
@@ -16,7 +15,6 @@ export default class BackMenu extends Component {
                           style={{color: GRAY_COLOR}}/>
                 </Button>
                 <View style={styles.centerItem}>
-                    <HtmlText html={this.props.title}/>
                 </View>
                 <Right>{this.props.actions}</Right>
             </Header>);
