@@ -1,23 +1,23 @@
 {
   "expo": {
     "sdkVersion": "22.0.0",
-    "name": "System Pro",
+    "name": "Cuba ECSP",
     "icon": "./img/ic_launcher.png",
     "version": "1.0.0",
-    "slug": "system_pro_app",
+    "slug": "cuba_ecsp",
     "ios": {
-      "bundleIdentifier": "com.assist.pro"
+      "bundleIdentifier": "com.sensmedia.cuba"
     },
     "android": {
-      "package": "com.assist.pro"
+      "package": "com.sensmedia.cuba"
     }
   },
   "ios": {
-    "bundleIdentifier": "com.assist.pro"
+    "bundleIdentifier": "com.sensmedia.cuba"
   },
   "android": {
-    "package": "com.assist.pro"
+    "package": "com.sensmedia.cuba"
   },
-  "name": "Sytem_Pro",
-  "displayName": "SystemPro"
+  "name": "Cuba ECSP",
+  "displayName": "Cuba ECSP"
 }

@@ -52,9 +52,7 @@ export const TREATMENT_PRODUCTS = 'treatmentProducts';
 export const SELECT_TREATMENT_PRODUCTS = 'selectTreatmentProducts';
 
 class App extends Component {
-    async componentWillMount() {
-        //await ScreenUtils.calcHeight();
-    }
+    async componentWillMount() {}
 
     render() {
         return (
